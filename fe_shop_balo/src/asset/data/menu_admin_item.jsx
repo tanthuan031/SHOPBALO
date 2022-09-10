@@ -1,0 +1,85 @@
+import React from 'react';
+import {
+  FaBullhorn,
+  FaComments,
+  FaFirstOrderAlt,
+  FaHome,
+  FaTasks,
+  FaThLarge,
+  FaUsers,
+  FaUsersCog,
+  FaUserTie,
+} from 'react-icons/fa';
+
+export const menu_admin_item = [
+  {
+    id: 1,
+    name: 'DashBoard',
+    active: true,
+    link: '/admin/',
+    icon: <FaHome />,
+  },
+  {
+    id: 2,
+    name: 'Category Product',
+    active: false,
+    link: '/admin/category',
+    icon: <FaThLarge />,
+  },
+  {
+    id: 3,
+    name: 'Product',
+    active: false,
+    link: '/admin/product',
+    icon: <FaTasks />,
+  },
+  {
+    id: 4,
+    name: 'Promotion',
+    active: false,
+    link: '/admin/promotion',
+    icon: <FaBullhorn />,
+  },
+  {
+    id: 5,
+    name: 'Order',
+    active: false,
+    link: '/admin/order',
+    icon: <FaFirstOrderAlt />,
+  },
+  {
+    id: 6,
+    name: 'Staff',
+    active: false,
+    link: '/admin/staff',
+    icon: <FaUserTie />,
+  },
+  {
+    id: 7,
+    name: 'Customer',
+    active: false,
+    link: '/admin/customer',
+    icon: <FaUsers />,
+  },
+  {
+    id: 8,
+    name: 'Review',
+    active: false,
+    link: '/admin/review',
+    icon: <FaComments />,
+  },
+  {
+    id: 9,
+    name: 'Decentralization',
+    active: false,
+    link: '/admin/decentralization',
+    icon: <FaUsersCog />,
+  },
+  // {
+  //   id: 10,
+  //   name: "Report",
+  //   active: false,
+  //   link: "/report",
+  //   icon: <FaChartBar />,
+  // },
+];
