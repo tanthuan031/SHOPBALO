@@ -20,12 +20,12 @@ Install introduction
 B1: Create folder on my PC
 B2: git clone https://github.com/tanthuan031/SHOPBALO.git
 B3:
-******\*\*\*******Setup FrontEnd******\*\*\*******
+**\*\***\*\*\***\*\***Setup FrontEnd**\*\***\*\*\***\*\***
 cd fe_shop_balo
-npm install 
+npm install
 npm start
 
-******\*\*\*\*******Setup BackEnd******\*\*\*\*******
+**\*\***\*\*\*\***\*\***Setup BackEnd**\*\***\*\*\*\***\*\***
 cd be_shop_balo
 composer install
 rename file .env.example to .env
@@ -42,3 +42,6 @@ php artisan server
         Customer
         Review
         Decentralization
+
+create Resource
+php artisan make:resource User --collection
