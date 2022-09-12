@@ -14,6 +14,8 @@ return new class extends Migration
     public function up()
     {
         Schema::create('image_products', function (Blueprint $table) {
+         //   $table->unsignedBigInteger('image_id');
+         //   $table->unsignedBigInteger('product_id');
             $table->foreignId('image_id')->constrained('images');
             $table->foreignId('product_id')->constrained('products');
             $table->timestamps();
