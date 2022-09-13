@@ -1,11 +1,17 @@
 <?php
 
-namespace App\Repository;
+namespace App\Repositories;
 
-class ProductRepository
+use App\Models\Product;
+
+use App\Repositories\BaseRepository;
+
+class ProductRepository extends BaseRepository
 {
-    protected $query;
-    public function __construct()
+    protected $product;
+    public function __construct(Product $product)
     {
+        $this->product = $product;
+        parent::__construct($product);
     }
 }
