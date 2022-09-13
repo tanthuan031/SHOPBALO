@@ -2,10 +2,19 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Http\Requests\Category\CreateRequest;
+use App\Http\Requests\Category\UpdateRequest;
+use App\Services\CategoryServices;
+
 
 class CategoryController extends Controller
 {
+
+    protected $categoryService;
+    public function __construct(CategoryServices $categoryService)
+    {
+        $this->categoryService = $categoryService;
+    }
     /**
      * Display a listing of the resource.
      *
@@ -13,7 +22,7 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        //
+        return $this->categoryService->getAll();
     }
 
     /**
@@ -32,9 +41,10 @@ class CategoryController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CreateRequest $request)
     {
-        //
+
+        return $this->categoryService->create($request);
     }
 
     /**
@@ -45,7 +55,7 @@ class CategoryController extends Controller
      */
     public function show($id)
     {
-        //
+        return $this->categoryService->show($id);
     }
 
     /**
@@ -56,7 +66,7 @@ class CategoryController extends Controller
      */
     public function edit($id)
     {
-        //
+        return $this->categoryService->show($id);
     }
 
     /**
@@ -66,9 +76,10 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UpdateRequest $request, $id)
     {
-        //
+
+        return $this->categoryService->update($request, $id);
     }
 
     /**
@@ -79,6 +90,6 @@ class CategoryController extends Controller
      */
     public function destroy($id)
     {
-        //
+        return $this->categoryService->delete($id);
     }
 }

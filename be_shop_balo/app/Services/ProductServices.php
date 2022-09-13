@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Services\Product;
+namespace App\Services;
 
 
 use App\Http\Traits\ApiResponse;
@@ -11,12 +11,7 @@ class AssignmentService
 {
     use apiResponse;
 
-    protected ProductRepository $productRepository;
 
-    public function __construct(ProductRepository $productRepository)
-    {
-        $this->productRepository = $productRepository;
-    }
 
     public function index($request)
     {
