@@ -26,7 +26,7 @@ class BaseRepository implements RepositoryInterface
      * find
      *
      * @param  mixed $id
-     * @return void
+     * @return object|array
      */
     public function find($id)
     {
@@ -36,13 +36,13 @@ class BaseRepository implements RepositoryInterface
     /**
      * create
      *
-     * @param  mixed $datas
-     * @return void
+     * @param  mixed $data
+     * @return void array|object
      */
-    public function create(array $datas)
+    public function create(array $data)
     {
         try {
-            $model = $this->model->create($datas);
+            $model = $this->model->create($data);
         } catch (\Exception $e) {
             return [];
         }
@@ -52,16 +52,16 @@ class BaseRepository implements RepositoryInterface
      * update
      *
      * @param  mixed $id
-     * @param  mixed $datas
-     * @return void
+     * @param  mixed $data
+     * @return object|array
      */
-    public function update($id, array $datas)
+    public function update($id, array $data)
     {
         try {
+
             $model = $this->find($id);
             if ($model) {
-
-                $model = $model->update($datas);
+                $model->update($data);
             }
         } catch (\Exception $e) {
             return [];
@@ -72,7 +72,7 @@ class BaseRepository implements RepositoryInterface
      * delete
      *
      * @param  mixed $id
-     * @return void
+     * @return bool
      */
     public function delete($id)
     {
@@ -80,7 +80,7 @@ class BaseRepository implements RepositoryInterface
             $model = $this->find($id);
             if ($model) {
 
-                return $model->delete();
+                $model->delete();
             }
         } catch (\Exception $e) {
 
