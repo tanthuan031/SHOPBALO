@@ -17,7 +17,10 @@ class CategoryFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'name' =>
+                $this->faker->domainWord,
+            'parent_id'=>1,
+            'image'=>'aa'
         ];
     }
 }
