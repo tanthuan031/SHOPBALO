@@ -6,13 +6,14 @@ use App\Http\Resources\Category\GetAllResource;
 use App\Http\Resources\category\ShowResource;
 use App\Repositories\CategoryRepository;
 use App\Helpers\Helper;
+// use App\Http\Traits\ApiResponse;
 use Exception;
 use Illuminate\Http\JsonResponse;
 
 class CategoryServices
 {
 
-
+    // use ApiResponse;
     protected $categoryRepo;
     public function __construct(CategoryRepository $categoryRepo)
     {
@@ -98,7 +99,7 @@ class CategoryServices
         if ($request->image) {
             $data['image'] = Helper::saveImgBase64($request->image, 'Category');
         }
-        $category = $this->categoryRepo->update($id, $data);
+        $category = $this->categoryRepo->update(intval($id), $data);
 
         $isCheckCreate = (is_null($category)) ? false : true;
 
@@ -109,7 +110,7 @@ class CategoryServices
     public function delete(int $id)
     {
         if (is_null($id)) throw new Exception();
-        $result = $this->categoryRepo->delete($id);
+        $result = $this->categoryRepo->delete(intval($id));
 
         return $result ? $this->apiResponse([], 200, 'Delete category successfully') : $this->apiResponse([], 412, 'Delete category failed,try againt');
     }
