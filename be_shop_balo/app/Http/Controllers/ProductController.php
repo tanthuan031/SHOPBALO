@@ -2,19 +2,30 @@
 
 namespace App\Http\Controllers;
 
+
+use App\Http\Requests\Product\CreateProductRequest;
+use App\Http\Requests\Product\EditProductRequest;
+use App\Services\ProductService;
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
 {
+
+
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    protected  ProductService $productService;
+    public function __construct(ProductService $productService)
     {
-        //
+        $this->productService=$productService;
     }
+    public function index(Request $request){
+        return $this->productService->getAllProduct($request);
+    }
+
 
     /**
      * Show the form for creating a new resource.
@@ -34,7 +45,10 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        //
+//        $validated=$request->validated();
+        return $this->productService->store($request);
+
+
     }
 
     /**
@@ -46,6 +60,7 @@ class ProductController extends Controller
     public function show($id)
     {
         //
+        return $this->productService->showProduct($id);
     }
 
     /**
@@ -66,9 +81,10 @@ class ProductController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, int $id)
     {
-        //
+        return $this->productService->updateProduct($request,$id);
+
     }
 
     /**
