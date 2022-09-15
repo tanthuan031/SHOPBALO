@@ -23,6 +23,7 @@ class ProductRepository extends BaseRepository
         $data = Product::query()
             ->with('categories')
             ->paginate($this->paginate);
+
         return ProductResource::collection($data)->response()->getData();
 
     }

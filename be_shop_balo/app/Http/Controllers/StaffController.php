@@ -2,31 +2,26 @@
 
 namespace App\Http\Controllers;
 
-
-use App\Http\Requests\Product\CreateProductRequest;
-use App\Http\Requests\Product\EditProductRequest;
-use App\Services\ProductService;
+use App\Models\Staff;
+use App\Services\StaffService;
 use Illuminate\Http\Request;
 
-class ProductController extends Controller
+class StaffController extends Controller
 {
-
-
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    protected  ProductService $productService;
-    public function __construct(ProductService $productService)
+    protected  StaffService $staffService;
+    public function __construct(StaffService $staffService)
     {
-        $this->productService=$productService;
+       $this->staffService=$staffService;
     }
-    public function index(Request $request){
-
-        return $this->productService->getAllProduct($request);
+    public function index()
+    {
+        return   $this->staffService->getAllStaff();
     }
-
 
     /**
      * Show the form for creating a new resource.
@@ -46,31 +41,27 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-//        $validated=$request->validated();
-        return $this->productService->store($request);
-
-
+        //
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\Models\Staff  $staff
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Staff $staff)
     {
         //
-        return $this->productService->showProduct($id);
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\Models\Staff  $staff
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Staff $staff)
     {
         //
     }
@@ -79,22 +70,21 @@ class ProductController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \App\Models\Staff  $staff
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, int $id)
+    public function update(Request $request, Staff $staff)
     {
-        return $this->productService->updateProduct($request,$id);
-
+        //
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  \App\Models\Staff  $staff
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Staff $staff)
     {
         //
     }

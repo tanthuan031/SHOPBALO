@@ -26,7 +26,7 @@ class Staff extends Model
         'updated_at',
 
     ];
-    public function role():BelongsTo
+    public function roles():BelongsTo
     {
         return $this->belongsTo(Role::class,'role_id');
 
