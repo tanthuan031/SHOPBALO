@@ -27,34 +27,36 @@ class StaffService
         }
     }
 
-    public function store($request)
+    public function storeStaff($request)
     {
-      /*  $result=$this->productRepository->storeProduct($request);
-        if( $result){
-            return $this->apiResponse($result,'success','Create product successfully');
+       $result=$this->staffRepository->storeStaff($request);
+
+       if( $result){
+            return $this->apiResponse($result,'success','Create staff successfully');
         }else{
-            return $this->apiResponse([],'fail','Create product unsuccessful');
-        }*/
+            return $this->apiResponse($result,'fail','Create staff unsuccessful');
+        }
     }
 
-    public function showProduct($id)
-    {
-       /* $result = $this->productRepository->showProduct($id);
+    public function updateStaff($request,$id){
+        $result=$this->staffRepository->updateStaff($request,$id);
+       // return $this->apiResponse([],$id);
         if($result){
-            return $this->apiResponse($result,'success','Show product detail successfully');
+            return $this->apiResponse($result,'Success','Update staff successfully');
         }else{
-            return $this->apiResponse([],'fail','Show product detail unsuccessful');
-        }*/
+            return $this->apiResponse([],'Fail','Update staff unsuccessful');
+        }
+
     }
 
-    public function updateProduct($request,$id){
-       /* $result=$this->productRepository->updateProduct($request,$id);
-        $this->productRepository->updateProductDetail($request,$id);
+    public function deleteStaff($id){
+        $result=$this->staffRepository->deleteStaff($id);
+        // return $this->apiResponse([],$id);
         if($result){
-            return $this->apiResponse($result,'Success','Update product successfully');
+            return $this->apiResponse($result,'Success','Delete staff successfully');
         }else{
-            return $this->apiResponse([],'fail','Update product unsuccessful');
-        }*/
+            return $this->apiResponse([],'Fail','Delete staff unsuccessful');
+        }
 
     }
 

@@ -26,4 +26,5 @@ Route::group([
 ], function () {
     Route::resource('product', ProductController::class);
     Route::resource('staff', StaffController::class);
+
 });

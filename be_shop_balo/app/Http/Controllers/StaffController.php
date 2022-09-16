@@ -28,20 +28,20 @@ class StaffController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
-        //
+
     }
 
     /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
-    public function store(Request $request)
+    public function store(Request $request): \Illuminate\Http\JsonResponse
     {
-        //
+        return $this->staffService->storeStaff($request);
     }
 
     /**
@@ -73,19 +73,19 @@ class StaffController extends Controller
      * @param  \App\Models\Staff  $staff
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Staff $staff)
+    public function update(Request $request, int $id)
     {
-        //
+        return $this->staffService->updateStaff($request,$id );
     }
 
     /**
      * Remove the specified resource from storage.
      *
      * @param  \App\Models\Staff  $staff
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
-    public function destroy(Staff $staff)
+    public function destroy(int $id)
     {
-        //
+        return $this->staffService->deleteStaff($id);
     }
 }

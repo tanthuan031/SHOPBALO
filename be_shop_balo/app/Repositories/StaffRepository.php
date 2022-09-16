@@ -24,35 +24,49 @@ class StaffRepository extends BaseRepository
         return StaffResource::collection($data)->response()->getData();
 
     }
-    public function showStaff($id){
-        $data=Staff::query()->with('Staff_details')->find($id);
-        return StaffResource::make($data);
-    }
     public function storeStaff($request){
 
         try {
-            $Staff = Staff::query()->create($request->all());
-            StaffDetail::query()->create([
-                'Staff_id'=>$Staff->id,
-                'code_color'=>$request->input('code_color'),
-                'amount'=>$request->input('amount'),
-                'price'=>$request->input('price')
+        // $staff = Staff::query()->create($request->all());
+
+         $staff = Staff::query()->create([
+                'role_id'=>$request->input('role_id'),
+                'first_name'=>$request->input('first_name'),
+                'last_name'=>$request->input('last_name'),
+                'gender'=>$request->input('gender'),
+                'phone'=>$request->input('phone'),
+                'email'=>$request->input('email'),
+                'password'=>bcrypt($request->input('password')),
+                'avatar'=>$request->input('avatar'),
+                'status'=>1,
+                'address'=> $request->input('address'),
+                'created_date'=>$request->input('created_date'),
             ]);
         }catch (\Exception $e){
-            return false;
+            return $e;
         }
-        return Staff::query()->find($Staff['id']);
+        return $staff;
     }
     public function updateStaff($request,$id)
     {
-        $Staff=  Staff::query()->where('id','=',$id)->first();
-        $Staff->update($request->all());
-        return $Staff;
+        try{
+            $staff=  Staff::query()->where('id','=',$id)->first();
+            $staff->update($request->all());
+        }
+        catch (\Exception $e){
+            return false;
+        }
+        return $staff;
 
     }
-    public function updateStaffDetail($request,$id){
-        $StaffDetail = StaffDetail::query()->where('id', '=', $id)->first();
-        $StaffDetail->update($request->all());
-        return $StaffDetail;
+    public function deleteStaff($id){
+        try{
+            $staff=  Staff::query()->where('id','=',$id)->first();
+            $staff->delete();
+        }
+        catch (\Exception $e) {
+            return false;
+        }
+        return $staff;
     }
 }
