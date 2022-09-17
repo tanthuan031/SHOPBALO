@@ -1,8 +1,8 @@
-import React from "react";
-import Pagination from "react-js-pagination";
-import PropTypes from "prop-types";
+import React from 'react';
+import Pagination from 'react-js-pagination';
+import PropTypes from 'prop-types';
 
-import "./style.css";
+import './style.css';
 
 export default function PaginationUI(props) {
   const handlePageChange = (page) => {
@@ -25,7 +25,7 @@ export default function PaginationUI(props) {
 }
 
 PaginationUI.propTypes = {
-  //   handlePageChange: PropTypes.func.isRequired,
+  handlePageChange: PropTypes.func.isRequired,
   currentPage: PropTypes.number,
   totalRecord: PropTypes.number,
   perPage: PropTypes.number,

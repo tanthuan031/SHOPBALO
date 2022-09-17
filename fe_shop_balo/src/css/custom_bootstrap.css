@@ -56,3 +56,6 @@ input::-ms-clear {
 .modal {
   --bs-backdrop-zindex: 1030;
 }
+.border-radius-2px {
+  border-radius: 5px;
+}

@@ -43,19 +43,25 @@ class Helper
      * @param  mixed $folder
      * @return filename
      */
-    public static function saveImage($fileName, $folder, $files)
+    public static function saveImage($files, $folder)
     {
+        // $arrayImage = explode(";", $files);
         $storage = Storage::disk('public');
+        $newFileName = '';
+        foreach ($files as $item) {
+            // $path = explode(".", $item);
+            // preg_match('/.([0-9]+) /', microtime(), $m);
+            // $fileName = sprintf('img%s%s.%s', date('YmdHis'), $m[1], $path[1]);
+            $checkDirectory = $storage->exists($folder);
 
-        $checkDirectory = $storage->exists($folder);
-
-        if (!$checkDirectory) {
-            $storage->makeDirectory($folder);
+            if (!$checkDirectory) {
+                $storage->makeDirectory($folder);
+            }
+            $storage->putFileAs($folder, $item, 'f');
+            // $newFileName .= $fileName . ',';
         }
 
-        $storage->putFileAs($folder, $files, $fileName);
-
-        return $fileName;
+        return substr($newFileName, 0, -1);
     }
 
 
@@ -87,5 +93,79 @@ class Helper
         }
         $storage->put($folder . '/' . $fileName, base64_decode($content), 'public');
         return $fileName;
+    }
+
+
+
+
+    /**
+     * saveImgBase64
+     *
+     * @param  mixed $param
+     * @param  mixed $folder
+     * @return 
+     */
+    public static function saveImgBase64($param, $folder)
+    {
+        $newFileName = '';
+        foreach ($param as $file) {
+            list($extension, $content) = explode(';', $file);
+            // dd($extension, $content);
+            $tmpExtension = explode('/', $extension);
+            preg_match('/.([0-9]+) /', microtime(), $m);
+            $fileName = sprintf('img%s%s.%s', date('YmdHis'), $m[1], $tmpExtension[1]);
+            $content = explode(',', $content)[1];
+            $storage = Storage::disk('public');
+
+            $checkDirectory = $storage->exists($folder);
+            if (!$checkDirectory) {
+                $storage->makeDirectory($folder);
+            }
+            $storage->put($folder . '/' . $fileName, base64_decode($content), 'public');
+            $newFileName .= $fileName . ',';
+        }
+        return substr($newFileName, 0, -1);
+    }
+
+
+
+    /**
+     * saveImg
+     *
+     * @param  mixed $param
+     * @param  mixed $folder
+     * @return 
+     */
+    public static function saveImg($param, $folder)
+    {
+
+        // dd($param);
+        $storage = Storage::disk('public');
+        $newFileName = '';
+        foreach ($param as $item) {
+            $nameOld = $item->getClientOriginalName();
+            $path = explode(".", $nameOld);
+            preg_match('/.([0-9]+) /', microtime(), $m);
+            $fileName = sprintf(
+                'img%s%s.%s',
+                date('YmdHis'),
+                $m[1],
+                $path[1]
+            );
+
+            $checkDirectory = $storage->exists($folder);
+
+            if (!$checkDirectory) {
+                $storage->makeDirectory($folder);
+            }
+            $storage->putFileAs(
+                $folder,
+                $item,
+                $fileName
+            );
+            $newFileName .= $fileName . ',';
+        }
+        // dd($newFileName);
+        return substr($newFileName, 0, -1);
     }
 }

@@ -2,12 +2,8 @@
 // admin
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ProductController;
-
-
-//client
-
-
-//
+use App\Http\Controllers\StorageImageController;
+use App\Models\Role;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -26,3 +22,4 @@ Route::group([
     // api category forgot
     Route::delete('category/{category}/forgot', [CategoryController::class, 'forgot']);
 });
+Route::get('/storage/{filename}', [StorageImageController::class, 'index']);
