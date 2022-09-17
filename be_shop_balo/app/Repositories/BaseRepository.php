@@ -16,7 +16,7 @@ class BaseRepository implements RepositoryInterface
     /**
      * getAll
      *
-     * @return void
+     * @return collection
      */
     public function getAll()
     {
@@ -37,7 +37,7 @@ class BaseRepository implements RepositoryInterface
      * create
      *
      * @param  mixed $data
-     * @return void array|object
+     * @return  array|object
      */
     public function create(array $data)
     {

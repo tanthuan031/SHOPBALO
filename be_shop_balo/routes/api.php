@@ -23,4 +23,6 @@ Route::group([
     Route::resource('product', ProductController::class);
     // api resource category
     Route::resource('category', CategoryController::class);
+    // api category forgot
+    Route::delete('category/{category}/forgot', [CategoryController::class, 'forgot']);
 });

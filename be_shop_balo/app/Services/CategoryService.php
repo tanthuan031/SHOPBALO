@@ -6,14 +6,13 @@ use App\Http\Resources\Category\GetAllResource;
 use App\Http\Resources\category\ShowResource;
 use App\Repositories\CategoryRepository;
 use App\Helpers\Helper;
-// use App\Http\Traits\ApiResponse;
+use App\Http\Traits\ApiResponse;
 use Exception;
-use Illuminate\Http\JsonResponse;
 
-class CategoryServices
+class CategoryService
 {
 
-    // use ApiResponse;
+    use ApiResponse;
     protected $categoryRepo;
     public function __construct(CategoryRepository $categoryRepo)
     {
@@ -26,9 +25,13 @@ class CategoryServices
      *
      * @return collection
      */
-    public function getAll()
+    public function getAll($request)
     {
-        $categories = $this->categoryRepo->getAll();
+        $search = [];
+        (is_null($request->_q) || (empty($request->_q))) ? $search['key'] = null : $search['key'] = $request->_q;
+        (is_null($request->sort_id) || (empty($request->sort_id))) ? $search['sort_id'] = null : $search['sort_id'] = $request->sort_id;
+
+        $categories = $this->categoryRepo->getAll($search);
         $data = [];
         if (!is_null($categories)) {
             $data = getAllResource::collection($categories);
@@ -43,7 +46,7 @@ class CategoryServices
      * show
      *
      * @param  mixed $id
-     * @return collection
+     * @return response
      */
     public function show(int $id)
     {
@@ -69,10 +72,13 @@ class CategoryServices
     public function create($request)
     {
         if (is_null($request)) throw new Exception();
+        $fileName = Helper::saveImgBase64v1($request->image, 'Category');
+
+        if ($fileName == false) return $this->apiResponse([], 422, 'Image is invalid.Try againt');
         $data = [
             'name' => $request->name,
             'parent_id' => ($request->parent_id < 0) || (is_null($request->parent_id)) ? 0 : intval($request->parent_id),
-            'image' => Helper::saveImgBase64($request->image, 'Category'),
+            'image' => $fileName,
         ];
         $category = $this->categoryRepo->create($data);
 
@@ -97,7 +103,10 @@ class CategoryServices
             'parent_id' => ($request->parent_id < 0) || (is_null($request->parent_id)) ? 0 : intval($request->parent_id),
         ];
         if ($request->image) {
-            $data['image'] = Helper::saveImgBase64($request->image, 'Category');
+            $fileName = Helper::saveImgBase64v1($request->image, 'Category');
+            if ($fileName == false) return $this->apiResponse([], 422, 'Image is invalid.Try againt');
+
+            $data['image'] =  $fileName;
         }
         $category = $this->categoryRepo->update(intval($id), $data);
 
@@ -107,6 +116,12 @@ class CategoryServices
     }
 
 
+    /**
+     * delete
+     *
+     * @param  mixed $id
+     * @return response
+     */
     public function delete(int $id)
     {
         if (is_null($id)) throw new Exception();
@@ -115,26 +130,12 @@ class CategoryServices
         return $result ? $this->apiResponse([], 200, 'Delete category successfully') : $this->apiResponse([], 412, 'Delete category failed,try againt');
     }
 
-    /**
-     * apiResponse
-     *
-     * @param  mixed $data
-     * @param  mixed $status
-     * @param  mixed $message
-     * @param  mixed $code
-     * @return JsonResponse
-     */
-    protected function apiResponse($data = [], $status = null, $message = null, $code = 200): JsonResponse
+
+    public function forgot(int $id)
     {
-        $json = [
-            'status' => $status,
-            'message' => $message,
-        ];
+        if (is_null($id)) throw new Exception();
+        $result = $this->categoryRepo->forgot(intval($id));
 
-        if (!empty($data)) {
-            $json['data'] = $data;
-        }
-
-        return response()->json($json, $code);
+        return $result ? $this->apiResponse([], 200, 'Delete category successfully') : $this->apiResponse([], 412, 'Delete category failed,try againt');
     }
 }

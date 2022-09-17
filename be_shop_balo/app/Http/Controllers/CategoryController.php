@@ -4,14 +4,14 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\Category\CreateRequest;
 use App\Http\Requests\Category\UpdateRequest;
-use App\Services\CategoryServices;
-
+use App\Services\CategoryService;
+use Illuminate\Http\Request;
 
 class CategoryController extends Controller
 {
 
     protected $categoryService;
-    public function __construct(CategoryServices $categoryService)
+    public function __construct(CategoryService $categoryService)
     {
         $this->categoryService = $categoryService;
     }
@@ -20,9 +20,9 @@ class CategoryController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request  $request)
     {
-        return $this->categoryService->getAll();
+        return $this->categoryService->getAll($request);
     }
 
     /**
@@ -91,5 +91,18 @@ class CategoryController extends Controller
     public function destroy($id)
     {
         return $this->categoryService->delete($id);
+    }
+
+
+    /**
+     * forgot 
+     *@author tranvannghia021
+     * @param  int $id
+     * @return \Illuminate\Http\Response
+     */
+    public function forgot($id)
+    {
+
+        return $this->categoryService->forgot($id);
     }
 }

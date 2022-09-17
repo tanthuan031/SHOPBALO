@@ -66,11 +66,15 @@ class Helper
      * @param  mixed $folder
      * @return filename
      */
-    public static function saveImgBase64($param, $folder)
+    public static function saveImgBase64v1($param, $folder)
     {
-
+        $fileExtension = ['png', 'jpg', 'jpeg', 'gif'];
         list($extension, $content) = explode(';', $param);
         $tmpExtension = explode('/', $extension);
+        if (!in_array($tmpExtension[1], $fileExtension)) {
+
+            return false;
+        }
         preg_match('/.([0-9]+) /', microtime(), $m);
         $fileName = sprintf('img%s%s.%s', date('YmdHis'), $m[1], $tmpExtension[1]);
         $content = explode(',', $content)[1];
