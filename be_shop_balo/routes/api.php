@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\ProductControler;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\StorageImageController;
+use App\Models\Role;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -25,3 +27,4 @@ Route::group([
 ], function () {
     Route::resource('product', ProductController::class);
 });
+Route::get('/storage/{filename}', [StorageImageController::class, 'index']);

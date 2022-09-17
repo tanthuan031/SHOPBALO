@@ -26,12 +26,12 @@ class CreateProductRequest extends FormRequest
         return [
             "category_id" => "required|max:128",
             "name" => 'required',
-            "description" => 'required',
-            "image"=>'required',
-            "image_slide"=>'required',
-            "code_color"=>'required',
-            "amount"=>'required',
-            "price"=>'required'
+            // "description" => 'required',
+            "image" => 'required',
+            "image_slide" => 'required',
+            "code_color" => 'required',
+            "amount" => 'required',
+            "price" => 'required'
         ];
     }
 

@@ -13,18 +13,19 @@ class ProductResource extends JsonResource
      *
      * @param  Request  $request
      */
-    public function toArray($request):array
+    public function toArray($request): array
     {
-        $arrayData=[
-            'id'=>$this->id,
-            'category_id'=>$this->category_id,
-            'category_name'=>$this->categories->name,
-            'name'=>$this->name,
-            'description'=>$this->description,
-            'image'=>$this->image,
-            'image_slide'=>$this->image_slide
-
-
+        $arrayData = [
+            'id' => $this->id,
+            'category_id' => $this->category_id,
+            'category_name' => $this->categories->name,
+            'name' => $this->name,
+            'description' => $this->description,
+            'image' => $this->image,
+            'image_slide' => $this->image_slide,
+            'code_color' => $this->product_details->code_color,
+            'amount' => $this->product_details->amount,
+            'price' => $this->product_details->price,
 
 
         ];

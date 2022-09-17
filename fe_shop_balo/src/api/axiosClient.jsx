@@ -1,25 +1,28 @@
 import axios from 'axios';
 import queryString from 'query-string';
+import { URL_SERVER } from '../utils/urlPath';
 
 const axiosClient = axios.create({
-  baseUrl: process.env.MIX_API_URL,
+  baseURL: URL_SERVER,
   headers: {
     'content-type': 'application/json',
   },
   paramsSerializer: params => queryString.stringify(params),
 });
+
 axiosClient.interceptors.request.use(async config => {
   return config;
 });
+
 axiosClient.interceptors.response.use(
   response => {
-    if (response?.data) {
+    if (response.data) {
       return response.data;
     }
     return response;
   },
   error => {
-    switch (error?.response?.status) {
+    switch (error.response.status) {
       case 500:
         console.log('Server error');
         break;
@@ -36,4 +39,5 @@ axiosClient.interceptors.response.use(
     return Promise.reject(error);
   }
 );
+
 export default axiosClient;
