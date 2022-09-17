@@ -13,6 +13,7 @@ import { addProduct } from '../../../api/Product/productAPI';
 import { ErrorToast, SuccessToast } from '../../Layouts/Alerts';
 import Notiflix from 'notiflix';
 import { BlockUI } from '../../Layouts/Notiflix';
+import { FaTimesCircle } from 'react-icons/fa';
 function ProductAdd(props) {
   const {
     register,
@@ -265,12 +266,13 @@ function ProductAdd(props) {
                 <td width="70%">
                   <Form.Control id="image-slide" type="file" multiple onChange={uploadImageSlide} />
 
-                  <div>
+                  <div className="image-product-slide">
                     {fileImageSlideShow.file != [] &&
                       fileImageSlideShow.file.map((url, index) => (
-                        <div key={index}>
+                        <div key={index} className="image-product-slide-item">
                           <img className="multi-preview-slide-product " src={url} alt="..." />
-                          <Button onClick={() => onRemoveImage(index)} id={index} value={index} />
+                          {/* <Button onClick={() => onRemoveImage(index)} id={index} value={index} /> */}
+                          <FaTimesCircle onClick={() => onRemoveImage(index)} className="btn-delete-product-slide" />
                         </div>
                       ))}
                   </div>
