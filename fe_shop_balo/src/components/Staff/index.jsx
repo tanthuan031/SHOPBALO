@@ -4,6 +4,7 @@ import { FaPen, FaTimesCircle } from 'react-icons/fa';
 import Modal from '../Layouts/Modal';
 
 import TableLayout from '../Layouts/Table';
+import './style.css';
 
 export function StaffTable(props) {
   const [show, setShowDetail] =  useState(false);
@@ -20,7 +21,7 @@ export function StaffTable(props) {
           <td>{item.role_name}</td>
           <td>{`${item.first_name} ${item.lastname}`}</td>
           <td>{item.email}</td>
-          <td> <img src={item.avatar} /></td>
+          <td> <img  className="img-avatar " src={item.avatar} /></td>
           <td>{item.status ? 'active' : 'disabled'}</td>
           <td>
             <div className="d-flex">
@@ -60,10 +61,8 @@ export function StaffTable(props) {
 
   return (
     <>
-      <div className="container-fluid mt-5">
-        <h5 className="text-danger  mb-3 text-end">
-          <Button className="btn btn-success"> Create new staff</Button>
-        </h5>
+      <div className="container-fluid ">
+
         <div className="row justify-content-center">
           <TableLayout tableHeader={props.tableHeader} tableBody={renderTableBody()} />
         </div>

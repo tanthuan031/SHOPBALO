@@ -1,0 +1,12 @@
+.img-avatar{
+    width: 85px;
+
+    border-radius: 3px;
+    box-shadow:1px 2px 3px rgba(139, 142, 142, 0.2);
+}
+
+@media only screen and (min-width:668px) and (max-width:850px) {
+    .img-avatar{
+        width: 80px;
+    }
+}

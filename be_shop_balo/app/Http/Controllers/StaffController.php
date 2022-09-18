@@ -41,6 +41,7 @@ class StaffController extends Controller
      */
     public function store(Request $request): \Illuminate\Http\JsonResponse
     {
+
         return $this->staffService->storeStaff($request);
     }
 
@@ -48,11 +49,11 @@ class StaffController extends Controller
      * Display the specified resource.
      *
      * @param  \App\Models\Staff  $staff
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
-    public function show(Staff $staff)
+    public function show($id)
     {
-        //
+        return $this->staffService->showStaff($id);
     }
 
     /**
@@ -61,9 +62,9 @@ class StaffController extends Controller
      * @param  \App\Models\Staff  $staff
      * @return \Illuminate\Http\Response
      */
-    public function edit(Staff $staff)
+    public function edit($id)
     {
-        //
+
     }
 
     /**

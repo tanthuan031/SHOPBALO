@@ -14,7 +14,7 @@ import ProductAdd from '../../../components/Product/Add';
 import FilterCategory from '../../../components/Product/FilterCategory';
 import FilterStatus from '../../../components/Product/FilterStatus';
 import { setIsAdd } from '../../../redux/reducer/product/product.reducer';
-import { isAddSelector } from '../../../redux/selectors/product/product.selector';
+import { isAddSelector } from '../../../redux/selectors';
 
 export function ProductPage(props) {
   const data_product_table_header = [...product_table_header];
@@ -92,7 +92,7 @@ export function ProductPage(props) {
     <>
       <section>
         <div className="container-fluid mt-5">
-          {!isAdd && <h5 className="text-danger font-weight-bold mb-3">Produc List</h5>}
+          {!isAdd && <h5 className="text-danger font-weight-bold mb-3">Product List</h5>}
           {isAdd && <h5 className="text-danger font-weight-bold mb-3">Add product</h5>}
           {!isAdd ? (
             <div className="row">

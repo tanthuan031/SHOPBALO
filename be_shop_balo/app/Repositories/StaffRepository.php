@@ -24,12 +24,17 @@ class StaffRepository extends BaseRepository
         return StaffResource::collection($data)->response()->getData();
 
     }
+    public function getStaff(int $id)
+    {
+        $data = Staff::query()->with('roles')->find($id);
+        return StaffResource::make($data)->response()->getData();
+    }
     public function storeStaff($request){
 
         try {
-        // $staff = Staff::query()->create($request->all());
+        $staff = Staff::query()->create($request->all());
 
-         $staff = Staff::query()->create([
+        /* $staff = Staff::query()->create([
                 'role_id'=>$request->input('role_id'),
                 'first_name'=>$request->input('first_name'),
                 'last_name'=>$request->input('last_name'),
@@ -37,13 +42,13 @@ class StaffRepository extends BaseRepository
                 'phone'=>$request->input('phone'),
                 'email'=>$request->input('email'),
                 'password'=>bcrypt($request->input('password')),
-                'avatar'=>$request->input('avatar'),
+                'avatar'=>$request->avatar,
                 'status'=>1,
                 'address'=> $request->input('address'),
                 'created_date'=>$request->input('created_date'),
-            ]);
+            ]);*/
         }catch (\Exception $e){
-            return $e;
+            return false;
         }
         return $staff;
     }
