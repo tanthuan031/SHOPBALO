@@ -3,7 +3,6 @@
 namespace Database\Seeders;
 
 use App\Models\Product;
-use Faker\Factory;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -19,5 +18,6 @@ class ProductSeeder extends Seeder
         Product::factory()
             ->count(10)
             ->create();
+
     }
 }

@@ -1,7 +1,7 @@
 export const product_table_header = [
   {
     id: 1,
-    name: "STT",
+    name: 'STT',
     isSortAsc: false,
     isSortDesc: false,
     isSort: true,
@@ -9,7 +9,7 @@ export const product_table_header = [
   },
   {
     id: 2,
-    name: "Category",
+    name: 'Category',
     isSortAsc: false,
     isSortDesc: false,
     isSort: true,
@@ -17,7 +17,7 @@ export const product_table_header = [
   },
   {
     id: 3,
-    name: "Name",
+    name: 'Name',
     isSortAsc: false,
     isSortDesc: false,
     isSort: false,
@@ -33,7 +33,7 @@ export const product_table_header = [
   // },
   {
     id: 4,
-    name: "Amount",
+    name: 'Amount',
     isSortAsc: false,
     isSortDesc: false,
     isSort: true,
@@ -41,7 +41,7 @@ export const product_table_header = [
   },
   {
     id: 5,
-    name: "Price",
+    name: 'Price',
     isSortAsc: false,
     isSortDesc: false,
     isSort: true,
@@ -57,7 +57,7 @@ export const product_table_header = [
   // },
   {
     id: 6,
-    name: "Active",
+    name: 'Status',
     isSortAsc: false,
     isSortDesc: false,
     isSort: true,
@@ -65,7 +65,7 @@ export const product_table_header = [
   },
   {
     id: 7,
-    name: "Action",
+    name: 'Action',
     isSortAsc: false,
     isSortDesc: false,
     isSort: true,

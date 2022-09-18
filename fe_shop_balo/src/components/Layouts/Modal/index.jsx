@@ -1,7 +1,8 @@
-import { Modal as ModalBootstrap } from "react-bootstrap";
-import PropTypes from "prop-types";
+import React from 'react';
+import { Modal as ModalBootstrap } from 'react-bootstrap';
+import PropTypes from 'prop-types';
 
-import "./style.css";
+import './style.css';
 
 export default function Modal(props) {
   const { elementModalBody, elementModalTitle } = props;
@@ -16,10 +17,8 @@ export default function Modal(props) {
       centered
       backdrop={props.backdrop}
     >
-      <ModalBootstrap.Header closeButton className="w-100">
-        <h5 className="text-success font-weight-bold w-100">
-          {elementModalTitle}
-        </h5>
+      <ModalBootstrap.Header closeButton className="">
+        <h5 className="text-danger font-weight-bold w-100 text-center">{elementModalTitle}</h5>
       </ModalBootstrap.Header>
       <ModalBootstrap.Body>
         <div>{elementModalBody}</div>

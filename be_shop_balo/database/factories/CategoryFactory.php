@@ -18,9 +18,9 @@ class CategoryFactory extends Factory
     {
         return [
             'name' =>
-                $this->faker->domainWord,
-            'parent_id'=>1,
-            'image'=>'aa'
+            $this->faker->domainWord,
+            'parent_id' => 1,
+            'image' => 'Image'
         ];
     }
 }

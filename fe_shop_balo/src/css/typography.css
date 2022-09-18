@@ -86,3 +86,6 @@ a {
 .margin-right-100px {
   margin-right: 10%;
 }
+.pagination {
+  justify-content: center;
+}

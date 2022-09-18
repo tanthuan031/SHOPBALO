@@ -11,7 +11,7 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
 class Product extends Model
 {
     use HasFactory;
-    protected  $table='products';
+    protected  $table = 'products';
     /**
      * The attributes that are mass assignable.
      *
@@ -24,25 +24,40 @@ class Product extends Model
         'image',
         'image_slide'
     ];
-    public function categories():BelongsTo
+    public function categories(): BelongsTo
     {
-        return $this->belongsTo(Category::class,'category_id');
+        return $this->belongsTo(Category::class, 'category_id');
     }
-    public function product_details():HasOne
+    public function product_details(): HasOne
     {
-
-        return $this->hasOne(ProductDetail::class);
+        return $this->hasOne(ProductDetail::class,'product_id');
     }
 
-    public function  ratings():HasMany{
-        return $this->hasMany(Rating::class );
+    public function  ratings(): HasMany
+    {
+        return $this->hasMany(Rating::class);
     }
-    public function import_details():BelongsTo{
+    public function import_details(): BelongsTo
+    {
         return $this->belongsTo(ImportDetail::class);
     }
-    public function order_details():HasMany{
+    public function order_details(): HasMany
+    {
         return $this->hasMany(OrderDetail::class);
     }
+    public function scopeSort($query, $request)
+    {
+        return $query
+            ->when($request->has("sort"), function ($query) use ($request) {
+                $sortBy = '';
+                $sortValue = '';
 
+                foreach ($request->query("sort") as $key => $value) {
+                    $sortBy = $key;
+                    $sortValue = $value;
+                }
 
+                $query->orderBy($sortBy, $sortValue);
+            });
+    }
 }
