@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('code_color');
             $table->integer('amount');
             $table->integer('price');
+            $table->softDeletes();
             $table->timestamps();
         });
     }

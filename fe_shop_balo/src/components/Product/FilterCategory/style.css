@@ -12,7 +12,7 @@ button.filter-button:focus {
 
 .filter-button .fb-icon {
   border-left: 2px solid #ced4da;
-  padding-left: var(--12px);
+  padding-left: var(--6px);
 }
 
 button.filter-button.dropdown-toggle::after {

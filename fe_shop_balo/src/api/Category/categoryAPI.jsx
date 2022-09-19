@@ -13,12 +13,13 @@ export const configHeadersAuthenticate = () => {
     };
 };
 
-export const getAll = async ({ sort_id, search, status } = {}) => {
+export const getAll = async ({ sort_id, search, status, page } = {}) => {
     const url = '/api/admin/category';
     const queryString = [];
     if (sort_id) queryString.push(`_sort_id=${sort_id}`);
     if (search) queryString.push(`_search=${search}`);
     if (status) queryString.push(`_status=${status}`);
+    if (page) queryString.push(`page=${page}`);
 
     const final_url = concatQueryString(queryString, url);
     const reponse = await axiosClient.get(final_url);
@@ -34,7 +35,7 @@ export const addCategory = async (data) => {
     const url = '/api/admin/category';
 
     const reponse = await axiosClient.post(url, data);
-    console.log('call api');
+
     if (reponse.status === 200) {
         return reponse;
     } else {

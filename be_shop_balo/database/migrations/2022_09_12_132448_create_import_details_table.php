@@ -19,6 +19,7 @@ return new class extends Migration
             $table->foreignId('provider_id')->constrained('providers');
             $table->integer('amount');
             $table->integer('price');
+            $table->softDeletes();
             $table->timestamps();
         });
     }

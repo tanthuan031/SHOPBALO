@@ -4,40 +4,64 @@ import { useDispatch, useSelector } from 'react-redux';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Controller, useForm, useWatch } from 'react-hook-form';
 import Select from 'react-select';
-import { addSchema } from '../../../adapter/product';
+import { addSchema, editSchema } from '../../../adapter/product';
 import CustomEditor from '../../Layouts/Edittor';
 import './style.css';
-import { setIsAdd } from '../../../redux/reducer/product/product.reducer';
+import { setIsEdit } from '../../../redux/reducer/product/product.reducer';
+import { useState } from 'react';
+import { addProduct, editProduct } from '../../../api/Product/productAPI';
+import { ErrorToast, SuccessToast } from '../../Layouts/Alerts';
+import Notiflix from 'notiflix';
+import { BlockUI } from '../../Layouts/Notiflix';
+import { FaTimesCircle } from 'react-icons/fa';
+import { productByIdSelector } from '../../../redux/selectors/product/product.selector';
 function ProductEdit(props) {
+  const dispatch = useDispatch();
+  const productDetailById = useSelector(productByIdSelector);
   const {
     register,
     setValue,
     handleSubmit,
     control,
-    formState: { isValid, errors },
+    formState: { isValid, isDirty, dirtyFields, errors },
   } = useForm({
     mode: 'onChange',
-    resolver: yupResolver(addSchema),
+    resolver: yupResolver(editSchema),
     defaultValues: {
-      product_name: '',
-      category_name: '',
-      color: '',
-      amount: '',
-      price: '',
-      description: '',
+      name: productDetailById.name,
+      category_id: productDetailById.category_id,
+      color: productDetailById.code_color,
+      image: productDetailById.image,
+      image_slide: productDetailById.image_slide,
+      amount: productDetailById.amount,
+      price: productDetailById.price,
+      description: productDetailById.description,
     },
   });
-  const dispatch = useDispatch();
+  const [fileImageSlide, setFileImageSlide] = useState({
+    file: [],
+  });
+  const [fileImageSlideShow, setFileImageSlideShow] = useState({
+    file: [],
+  });
+
   useEffect(() => {
     register('description', { required: true });
-  }, [register]);
-  const product_name = useWatch({
+    register('image_slide');
+    register('category_id');
+    register('color');
+    if (fileImageSlide.file.length > 0) {
+      setValue('image_slide', fileImageSlide, { shouldDirty: true });
+    }
+  }, [register, fileImageSlide]);
+
+  const name = useWatch({
     control,
-    name: 'product_name',
+    name: 'name',
   });
-  const category_name = useWatch({
+  const category_id = useWatch({
     control,
-    name: 'category_name',
+    name: 'category_id',
   });
   const color = useWatch({
     control,
@@ -55,54 +79,108 @@ function ProductEdit(props) {
     control,
     name: 'description',
   });
-  console.log('fe', price);
-  console.log('description', description);
-  console.log(errors);
+  const image = useWatch({
+    control,
+    name: 'image',
+  });
+  const image_slide = useWatch({
+    control,
+    name: 'image_slide',
+  });
   const typeOptionsCategory = [
-    { value: '1', label: 'Category1' },
-    { value: '2', label: 'Category 2' },
+    { value: 1, label: 'Category1' },
+    { value: 2, label: 'Category 2' },
   ];
 
   const typeOptionsColor = [
     { value: '1', label: 'Green' },
     { value: '2', label: 'Blue' },
   ];
-  // console.log(product_name.length);
-  // console.log(errors?.product_name?.message);
-  console.log('fe1', isValid);
-
+  const typeOptionsSatus = [
+    { value: '0', label: 'Active' },
+    { value: '1', label: 'Out of stock' },
+  ];
   const editorDescription = (value) => {
-    // console.log(a);
-    setValue('description', value);
+    setValue('description', value, { shouldDirty: true });
   };
+  const toBase64 = (file) =>
+    new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => resolve(reader.result);
+      reader.onerror = (error) => reject(error);
+    });
 
   const onSubmit = async (data) => {
-    // BlockUI('#root', 'fixed');
-    // if (data.date_of_birth) data.date_of_birth = formatDate(data.date_of_birth, 'YYYY-MM-DD');
-    // if (data.joined_date) data.joined_date = formatDate(data.joined_date, 'YYYY-MM-DD');
-    // const result = await addUser(data);
-    // if (result === 200) {
-    //   SuccessToast('Create user successfully', 3000);
-    //   props.backToManageUser('created_at', 'create');
-    // } else if (result === 404) {
-    //   ErrorToast('Create user unsuccessfully', 3000);
-    //   Notiflix.Block.remove('#root');
-    // } else if (result === 401) {
-    //   Notiflix.Block.remove('#root');
-    //   dispatch(setExpiredToken(true));
-    //   localStorage.removeItem('token');
-    // } else {
-    //   Notiflix.Block.remove('#root');
-    //   ErrorToast('Something went wrong. Please try again', 3000);
-    // }
+    BlockUI('#root', 'fixed');
+    const temDirtyFields = { ...dirtyFields };
+    Object.keys(temDirtyFields).map((key) => {
+      temDirtyFields[key] = data[key];
+    });
+    if (temDirtyFields.image != undefined) {
+      const image1 = await toBase64(data.image[0]);
+      temDirtyFields.image = [image1];
+    }
+    if (temDirtyFields.image_slide != undefined) {
+      const image_slide_array = [];
+      for (let i = 0; i < data.image_slide.file.length; i++) {
+        image_slide_array.push(await toBase64(data.image_slide.file[i]));
+      }
+      temDirtyFields.image_slide = image_slide_array;
+    }
+    if (temDirtyFields.image_slide != undefined) {
+      if (temDirtyFields.image_slide.length == 0) {
+        temDirtyFields.image_slide = undefined;
+      }
+    }
+
+    const result = await editProduct(productDetailById.id, temDirtyFields);
+    Notiflix.Block.remove('#root');
+    if (result === 200) {
+      SuccessToast('Create product successfully', 3000);
+      props.backToProductList([
+        {
+          key: 'updated_at',
+          value: 'desc',
+        },
+      ]);
+      backtoProduct();
+    } else if (result === 404) {
+      ErrorToast('Create product unsuccessfully', 3000);
+      Notiflix.Block.remove('#root');
+    } else if (result === 401) {
+      Notiflix.Block.remove('#root');
+    } else {
+      Notiflix.Block.remove('#root');
+      ErrorToast('Something went wrong. Please try again', 3000);
+    }
   };
-  const backtoManagerUser = () => {
-    dispatch(setIsAdd(false));
+  const backtoProduct = () => {
+    dispatch(setIsEdit(false));
   };
+  const uploadImageSlide = async (e) => {
+    console.log('Uploading image slide', fileImageSlide);
+    if (e.target.files.length > 0) {
+      setFileImageSlide({ file: [...fileImageSlide.file, e.target.files[0]] });
+      setFileImageSlideShow({ file: [...fileImageSlideShow.file, URL.createObjectURL(e.target.files[0])] });
+    }
+  };
+  const onRemoveImage = (id) => {
+    image_slide.file.forEach((value, index) => {
+      if (index == id) {
+        image_slide.file.splice(index, 1);
+      }
+    });
+
+    setFileImageSlide({ file: image_slide.file });
+    setValue('image_slide', image_slide);
+    fileImageSlideShow.file.splice(id, 1);
+  };
+
   return (
     <>
       <div className=" edit_form d-flex justify-content-center">
-        <Form className="font_add_edit_prduct" onSubmit={handleSubmit(onSubmit)}>
+        <Form className="font_add_edit_prduct" onSubmit={handleSubmit(onSubmit)} encType="multipart/form-data">
           <table align="center" border="0" className="table table-bordered mb-0">
             <tbody>
               <tr>
@@ -110,9 +188,9 @@ function ProductEdit(props) {
                   <p className="font-weight-bold">Product Name</p>
                 </td>
                 <td width="85%">
-                  <Form.Control id="product_name" type="text" maxLength="128" {...register('product_name')} />
+                  <Form.Control id="name" type="text" maxLength="128" {...register('name')} />
                   <div className="d-flex justify-content-between">
-                    <small className="text-red font-weight-semi">{errors?.product_name?.message}</small>
+                    <small className="text-red font-weight-semi">{errors?.name?.message}</small>
                   </div>
                 </td>
               </tr>
@@ -124,16 +202,16 @@ function ProductEdit(props) {
                 <td width="70%">
                   <Controller
                     control={control}
-                    name="category_name"
-                    {...register('category_name')}
+                    name="category_id"
+                    // {...register('category_name')}
                     render={({ field: { value, onChange } }) => (
                       <Select
                         options={typeOptionsCategory}
                         onChange={(options) => {
                           onChange(options?.value);
-                          // setValue(options.value);
+                          setValue('category_id', options.value);
                         }}
-                        value={typeOptionsCategory.filter((option) => value === option?.value)}
+                        value={typeOptionsCategory.filter((option) => value === option.value)}
                         placeholder=""
                         theme={(theme) => ({
                           ...theme,
@@ -158,13 +236,12 @@ function ProductEdit(props) {
                   <Controller
                     control={control}
                     name="color"
-                    {...register('color')}
                     render={({ field: { value, onChange } }) => (
                       <Select
                         options={typeOptionsColor}
                         onChange={(options) => {
                           onChange(options.value);
-                          // setValue(options.value);
+                          setValue('color', options.value);
                         }}
                         value={typeOptionsColor.filter((option) => value === option.value)}
                         placeholder=""
@@ -182,7 +259,75 @@ function ProductEdit(props) {
                   />
                 </td>
               </tr>
+              <tr>
+                <td width="30%">
+                  <p className="font-weight-bold">Status</p>
+                </td>
+                <td width="70%">
+                  <Controller
+                    control={control}
+                    name="status"
+                    render={({ field: { value, onChange } }) => (
+                      <Select
+                        options={typeOptionsSatus}
+                        onChange={(options) => {
+                          onChange(options?.value);
+                          if (options?.value === 1) {
+                            setValue('status', options.value);
+                          }
+                        }}
+                        value={typeOptionsSatus?.filter((option) => value === option?.value)}
+                        placeholder=""
+                        theme={(theme) => ({
+                          ...theme,
+                          colors: {
+                            ...theme.colors,
+                            primary25: '#f9d2e4',
+                            primary50: '#f9d2e4',
+                            primary: '#d6001c',
+                          },
+                        })}
+                      />
+                    )}
+                  />
+                </td>
+              </tr>
+              <tr>
+                <td with="30%">
+                  <p className="font-weight-bold">Image</p>
+                </td>
+                <td width="70%">
+                  <Form.Control id="image" type="file" {...register('image')} />
+                  <div className="d-flex justify-content-between">
+                    <small className="text-red font-weight-semi">
+                      {/* {errors.image?.message || image.length === 0 ? 'Image can not blank' : ''} */}
+                    </small>
+                  </div>
+                </td>
+              </tr>
 
+              <tr>
+                <td with="30%">
+                  <p className="font-weight-bold">Image Slide</p>
+                </td>
+                <td width="70%">
+                  <Form.Control id="image-slide" type="file" multiple onChange={uploadImageSlide} />
+
+                  <div className="image-product-slide">
+                    {fileImageSlideShow.file != [] &&
+                      fileImageSlideShow.file.map((url, index) => (
+                        <div key={index} className="image-product-slide-item">
+                          <img className="multi-preview-slide-product " src={url} alt="..." />
+                          {/* <Button onClick={() => onRemoveImage(index)} id={index} value={index} /> */}
+                          <FaTimesCircle onClick={() => onRemoveImage(index)} className="btn-delete-product-slide" />
+                        </div>
+                      ))}
+                  </div>
+                  <div className="d-flex justify-content-between">
+                    <small className="text-red font-weight-semi">{errors.image_slide?.message}</small>
+                  </div>
+                </td>
+              </tr>
               <tr>
                 <td with="30%">
                   <p className="font-weight-bold">Amount</p>
@@ -211,11 +356,13 @@ function ProductEdit(props) {
                   <p className="font-weight-bold">Description</p>
                 </td>
                 <td width="70%">
-                  <CustomEditor id="description" editorDescription={editorDescription} />
+                  <CustomEditor id="description" editorDescription={editorDescription} defaultValues={description} />
                   <div className="ckeditor-wrapper" />
 
                   <div className="d-flex justify-content-between">
-                    <small className="text-red font-weight-semi">{errors?.description?.message}</small>
+                    <small className="text-red font-weight-semi">
+                      {errors.description && 'Description can not blank'}
+                    </small>
                   </div>
                 </td>
               </tr>
@@ -227,13 +374,13 @@ function ProductEdit(props) {
               variant="danger"
               type="submit"
               className="font-weight-bold me-3"
-              disabled={!isValid}
+              disabled={fileImageSlide.file.length > 0 ? false : !isDirty}
             >
               Save
             </Button>
             <Button
               id="product-save-cancel"
-              onClick={() => backtoManagerUser()}
+              onClick={() => backtoProduct()}
               variant="outline-secondary"
               className="font-weight-bold"
             >

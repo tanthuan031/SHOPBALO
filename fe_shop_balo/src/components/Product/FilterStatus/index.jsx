@@ -9,7 +9,6 @@ export default function FilterStatus(props) {
   const handleFilter = (value) => {
     props.setCurrentFilter(value);
   };
-
   return (
     <Dropdown>
       <Dropdown.Toggle
@@ -26,31 +25,31 @@ export default function FilterStatus(props) {
           <Dropdown.Item onClick={() => handleFilter('All')}>
             <Form.Check
               type="checkbox"
-              id="checkbox-all"
+              id="All"
               className="mx-4 my-2 font-weight-bold"
               label="All"
-              checked={props.currentFilter === 'All'}
+              checked={props.currentFilter == 'All'}
               onChange={() => handleFilter('All')}
             />
           </Dropdown.Item>
           <Dropdown.Item onClick={() => handleFilter('Active')}>
             <Form.Check
               type="checkbox"
-              id="checkbox-admin"
+              id="Active"
               className="mx-4 my-2 font-weight-bold"
               label="Active"
-              checked={props.currentFilter === 'Admin'}
-              onChange={() => handleFilter('Admin')}
+              checked={props.currentFilter == 'Active'}
+              onChange={() => handleFilter('Active')}
             />
           </Dropdown.Item>
-          <Dropdown.Item onClick={() => handleFilter('Out of stock')}>
+          <Dropdown.Item onClick={() => handleFilter('Out_of_stock')}>
             <Form.Check
               type="checkbox"
-              id="checkbox-admin"
+              id="Out of stock"
               className="mx-4 my-2 font-weight-bold"
               label="Out of stock"
-              checked={props.currentFilter === 'Admin'}
-              onChange={() => handleFilter('Admin')}
+              checked={props.currentFilter == 'Out_of_stock'}
+              onChange={() => handleFilter('Out_of_stock')}
             />
           </Dropdown.Item>
         </Form>

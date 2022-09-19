@@ -19,6 +19,7 @@ return new class extends Migration
             $table->foreignId('product_id')->constrained('products');
             $table->integer('amount');
             $table->float('price');
+            $table->softDeletes();
             $table->timestamps();
         });
     }

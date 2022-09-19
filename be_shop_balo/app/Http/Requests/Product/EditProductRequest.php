@@ -30,9 +30,9 @@ class EditProductRequest extends FormRequest
         return [
             "category_id" => "required|max:128",
             "name" => 'required',
-            "description" => 'required',
-            "image"=>'required',
-            "image_slide"=>'required'
+            // "description" => 'required',
+            "image" => 'required',
+            "image_slide" => 'required'
         ];
     }
     public function failedValidation(Validator $validator)

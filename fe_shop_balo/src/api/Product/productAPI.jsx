@@ -12,7 +12,7 @@ export const configHeadersAuthenticate = () => {
   };
 };
 
-export const getAllProducts = async ({ sort, filter, search, page } = {}) => {
+export const getAllProducts = async ({ sort, filterStatus, search, page } = {}) => {
   const url = '/api/admin/product';
   const queryString = [];
   if (sort && sort.length > 0) {
@@ -25,6 +25,9 @@ export const getAllProducts = async ({ sort, filter, search, page } = {}) => {
   }
   if (page) {
     queryString.push(`page=${page}`);
+  }
+  if (filterStatus) {
+    queryString.push(`filter[status]=${filterStatus}`);
   }
   const final_url = concatQueryString(queryString, url);
   const reponse = await axiosClient.get(final_url);
@@ -54,6 +57,20 @@ export const addProduct = async (body) => {
   if (response.status === 401) {
     return 401;
   } else if (response.status === 'success') {
+    return 200;
+  } else if (response.status === 500) {
+    return 500;
+  } else {
+    return 404;
+  }
+};
+
+export const editProduct = async (id, body) => {
+  const url = `/api/admin/product/${id}`;
+  const response = await axiosClient.put(url, body);
+  if (response.status === 401) {
+    return 401;
+  } else if (response.status === 'Success') {
     return 200;
   } else if (response.status === 500) {
     return 500;

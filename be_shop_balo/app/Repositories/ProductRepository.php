@@ -25,6 +25,8 @@ class ProductRepository extends BaseRepository
             ->with('categories')
             ->with('product_details')
             ->sort($request)
+            ->search($request)
+            ->filter($request)
             ->paginate($this->paginate);
         return ProductResource::collection($data)->response()->getData();
     }
@@ -36,6 +38,7 @@ class ProductRepository extends BaseRepository
     public function storeProduct($request)
     {
 
+        // dd($request);
         try {
             $product = Product::query()->create($request);
             ProductDetail::query()->create([
@@ -62,5 +65,11 @@ class ProductRepository extends BaseRepository
         $productDetail = ProductDetail::query()->where('id', '=', $id)->first();
         $productDetail->update($request->all());
         return $productDetail;
+    }
+    public function delete($id)
+    {
+        $product = Product::query()->find($id);
+        $product->delete();
+        return $product;
     }
 }

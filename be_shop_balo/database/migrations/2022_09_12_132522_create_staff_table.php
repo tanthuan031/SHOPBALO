@@ -26,6 +26,7 @@ return new class extends Migration
             $table->boolean('status');
             $table->string('address');
             $table->date('created_date');
+            $table->softDeletes();
             $table->timestamps();
         });
     }

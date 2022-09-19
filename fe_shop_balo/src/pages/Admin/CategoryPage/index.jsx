@@ -10,6 +10,7 @@ import CreateCategoryForm from '../../../components/Category/Add';
 import FilterStatusCategory from '../../../components/Category/FilterStatusCategory';
 import Sort from '../../../components/Category/Sort';
 import { BlockUI } from '../../../components/Layouts/Notiflix';
+import PaginationUI from '../../../components/Layouts/Pagination';
 import Skeleton from '../../../components/Layouts/Skeleton';
 import { setIsAdd } from '../../../redux/reducer/category/category.reducer';
 import { isAddSelector } from '../../../redux/selectors/category/category.selector';
@@ -20,28 +21,33 @@ import { isAddSelector } from '../../../redux/selectors/category/category.select
 export function CategoryPage(props) {
     const data_category_table_header = [...category_table_header];
     const [data, setData] = useState([]);
-
-
+    const [page, setPage] = useState(1);
+    const [totalRecord, setTotalRecords] = useState(0);
     const [loading, setLoading] = useState(true);
     const isAdd = useSelector(isAddSelector);
     const [search, setSearch] = useState('');
     const dispatch = useDispatch();
+    const handleCallApiCategory = async () => {
+        const result = await getAll({});
+
+
+        if (result === 401) {
+            console.log('error cate');
+            return false;
+        } else {
+            setData(result.data)
+
+            setTotalRecords(result.meta.total)
+
+            setPage(result.meta.current_page)
+
+        }
+        setLoading(false);
+
+    };
     useEffect(() => {
         console.log('useffect');
-        const handleCallApiCategory = async () => {
-            const result = await getAll({});
-            console.log('useffect-callapi');
 
-            if (result === 401) {
-                console.log('error cate');
-                return false;
-            } else {
-                setData(result.data)
-
-
-            }
-            setLoading(false);
-        };
         handleCallApiCategory();
     }, [dispatch]);
 
@@ -59,6 +65,26 @@ export function CategoryPage(props) {
     const handleSearh = (e) => {
         e.preventDefault()
         console.log(search);
+    }
+    const handleChangePage = async (page) => {
+        setPage(page);
+        console.log(page)
+        setLoading(true);
+        const result = await getAll({ page });
+
+
+        if (result === 401) {
+            console.log('error cate');
+            return false;
+        } else {
+            setData(result.data)
+
+            setTotalRecords(result.meta.total)
+
+            setPage(result.meta.current_page)
+
+        }
+        setLoading(false);
     }
 
     return (
@@ -111,7 +137,14 @@ export function CategoryPage(props) {
                             {!loading ? (
                                 <>
                                     <CategoryTable tableHeader={data_category_table_header} tableBody={data} />
-
+                                    {totalRecord > 10 && (
+                                        <PaginationUI
+                                            handlePageChange={handleChangePage}
+                                            perPage={10}
+                                            totalRecord={totalRecord}
+                                            currentPage={page}
+                                        />
+                                    )}
                                 </>
                             ) : (
                                 <Skeleton column={4} />
