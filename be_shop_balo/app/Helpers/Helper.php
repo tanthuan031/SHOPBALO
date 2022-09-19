@@ -64,6 +64,47 @@ class Helper
         return substr($newFileName, 0, -1);
     }
 
+
+    /**
+     * saveImgBase64
+     *
+     * @param  mixed $param
+     * @param  mixed $folder
+     * @return filename
+     */
+    public static function saveImgBase64v1($param, $folder)
+    {
+        $fileExtension = ['png', 'jpg', 'jpeg', 'gif'];
+        list($extension, $content) = explode(';', $param);
+        $tmpExtension = explode('/', $extension);
+        if (!in_array($tmpExtension[1], $fileExtension)) {
+
+            return false;
+        }
+        preg_match('/.([0-9]+) /', microtime(), $m);
+        $fileName = sprintf('img%s%s.%s', date('YmdHis'), $m[1], $tmpExtension[1]);
+        $content = explode(',', $content)[1];
+        $storage = Storage::disk('public');
+
+        $checkDirectory = $storage->exists($folder);
+
+        if (!$checkDirectory) {
+            $storage->makeDirectory($folder);
+        }
+        $storage->put($folder . '/' . $fileName, base64_decode($content), 'public');
+        return $fileName;
+    }
+
+
+
+
+    /**
+     * saveImgBase64
+     *
+     * @param  mixed $param
+     * @param  mixed $folder
+     * @return 
+     */
     public static function saveImgBase64($param, $folder)
     {
         $newFileName = '';
@@ -85,6 +126,16 @@ class Helper
         }
         return substr($newFileName, 0, -1);
     }
+
+
+
+    /**
+     * saveImg
+     *
+     * @param  mixed $param
+     * @param  mixed $folder
+     * @return 
+     */
     public static function saveImg($param, $folder)
     {
 

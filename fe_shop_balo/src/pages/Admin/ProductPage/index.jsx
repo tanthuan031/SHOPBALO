@@ -116,7 +116,7 @@ export function ProductPage(props) {
     }
     Notiflix.Block.remove('#root');
   };
-  const handleCurrentFilterCategory = () => {};
+  const handleCurrentFilterCategory = () => { };
   const handleSearch = async (e) => {
     e.preventDefault();
     let tempSort;
