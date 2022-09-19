@@ -27,6 +27,7 @@ export const getAllProducts = async ({ sort, filterStatus, search, page } = {}) 
     queryString.push(`page=${page}`);
   }
   if (filterStatus) {
+    console.log(`filterStatus:`, filterStatus);
     queryString.push(`filter[status]=${filterStatus}`);
   }
   const final_url = concatQueryString(queryString, url);
