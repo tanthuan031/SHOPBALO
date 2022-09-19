@@ -5,11 +5,12 @@ import 'react-quill/dist/quill.snow.css';
 import { useState } from 'react';
 import PropTypes from 'prop-types';
 export default function CustomEditor(props) {
-  const [editDescription1, setDescription] = useState();
+  const [editDescription1, setDescription] = useState(props.defaultValues);
   const handleChangeEditor = (value) => {
     setDescription(value);
     props.editorDescription(value);
   };
+  // console.log(props.defaultValues);
 
   return (
     <>
@@ -32,7 +33,7 @@ CustomEditor.modules = {
     [{ size: [] }],
     ['bold', 'italic', 'underline', 'strike', 'blockquote'],
     [{ list: 'ordered' }, { list: 'bullet' }, { indent: '-1' }, { indent: '+1' }],
-    ['link', 'image', 'video'],
+    // ['link', 'image', 'video'],
     ['clean'],
   ],
   clipboard: {

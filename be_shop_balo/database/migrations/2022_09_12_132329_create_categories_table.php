@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('name');
             $table->integer('parent_id');
             $table->string('image');
+            $table->softDeletes();
             $table->timestamps();
         });
     }

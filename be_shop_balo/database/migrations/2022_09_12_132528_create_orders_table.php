@@ -22,6 +22,7 @@ return new class extends Migration
             $table->float('discount_value');
             $table->float('total_price');
             $table->date('created_order_date');
+            $table->softDeletes();
 
             $table->timestamps();
         });

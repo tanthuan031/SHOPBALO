@@ -28,12 +28,14 @@ class ProductService
 
     public function store($request)
     {
+        // dd($request->all());
         $image = $request->image;
         $imageSlide = $request->image_slide;
         // return $image;
         $dataRequest = [
             'category_id' => $request->category_id,
             'name' => $request->name,
+            'status' => $request->status,
             'description' => $request->description,
             'image' => Helper::saveImgBase64($image, 'Product'),
             'image_slide' => Helper::saveImgBase64($imageSlide, 'ProductSlide'),
@@ -65,10 +67,10 @@ class ProductService
 
         if (!is_null($request->image)) {
 
-            $request['image'] = Helper::saveImage('Product', $request->image);
+            $request['image'] = Helper::saveImgBase64($request->image, 'Product');
         }
         if (!is_null($request->image_slide)) {
-            $request['image_slide'] = Helper::saveImage('ProductSlide', $request->image_slide);
+            $request['image_slide'] = Helper::saveImgBase64($request->image_slide, 'ProductSlide');
         }
 
         $result = $this->productRepository->updateProduct($request, $id);
@@ -79,5 +81,9 @@ class ProductService
         } else {
             return $this->apiResponse([], 'fail', 'Update product unsuccessful');
         }
+    }
+    public function deleteProduct($id)
+    {
+        return $this->productRepository->delete($id);
     }
 }

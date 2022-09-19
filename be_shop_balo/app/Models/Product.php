@@ -7,10 +7,12 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Product extends Model
 {
     use HasFactory;
+    // use SoftDeletes;
     protected  $table = 'products';
     /**
      * The attributes that are mass assignable.
@@ -20,9 +22,11 @@ class Product extends Model
     protected $fillable = [
         'category_id',
         'name',
+        'status',
         'description',
         'image',
-        'image_slide'
+        'image_slide',
+
     ];
     public function categories(): BelongsTo
     {
@@ -59,6 +63,24 @@ class Product extends Model
                 }
 
                 $query->orderBy($sortBy, $sortValue);
+            });
+    }
+
+    public function scopeFilter($query, $request)
+    {
+        // dd($request->query("filter")["type"]);
+        return $query->when($request->has('filter.status'), function ($query) use ($request) {
+            $list = explode(",", $request->query("filter")["status"]);
+            $query->whereIn("status", $list);
+        });
+    }
+    public function scopeSearch($query, $request)
+    {
+        return $query
+            ->when($request->has('search'), function ($query) use ($request) {
+                $search = $request->query('search');
+                $query
+                    ->where("name", "LIKE", "%{$search}%");
             });
     }
 }

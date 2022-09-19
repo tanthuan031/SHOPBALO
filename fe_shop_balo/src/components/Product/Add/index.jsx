@@ -33,6 +33,7 @@ function ProductAdd(props) {
       amount: '',
       price: '',
       description: '',
+      status: '',
     },
   });
   const [fileImageSlide, setFileImageSlide] = useState({
@@ -48,6 +49,7 @@ function ProductAdd(props) {
     setValue('image_slide', fileImageSlide);
     register('category_id');
     register('color');
+    register('status');
   }, [register, fileImageSlide]);
 
   const product_name = useWatch({
@@ -91,7 +93,10 @@ function ProductAdd(props) {
     { value: '1', label: 'Green' },
     { value: '2', label: 'Blue' },
   ];
-
+  const typeOptionsSatus = [
+    { value: '0', label: 'Active' },
+    { value: '1', label: 'Out of stock' },
+  ];
   const editorDescription = (value) => {
     setValue('description', value);
   };
@@ -115,6 +120,7 @@ function ProductAdd(props) {
         amount: data.amount,
         category_id: data.category_id,
         code_color: data.color,
+        status: data.status,
         description: data.description,
         image: [image1],
         image_slide: image_slide_array,
@@ -131,7 +137,7 @@ function ProductAdd(props) {
             value: 'desc',
           },
         ]);
-        backtoManagerUser();
+        backtoProduct();
       } else if (result === 404) {
         ErrorToast('Create product unsuccessfully', 3000);
         Notiflix.Block.remove('#root');
@@ -145,7 +151,7 @@ function ProductAdd(props) {
       ErrorToast('Please, Image or Description can not blank', 3000);
     }
   };
-  const backtoManagerUser = () => {
+  const backtoProduct = () => {
     dispatch(setIsAdd(false));
   };
   const uploadImageSlide = (e) => {
@@ -245,6 +251,40 @@ function ProductAdd(props) {
                   />
                 </td>
               </tr>
+
+              <tr>
+                <td width="30%">
+                  <p className="font-weight-bold">Status</p>
+                </td>
+                <td width="70%">
+                  <Controller
+                    control={control}
+                    name="status"
+                    render={({ field: { value, onChange } }) => (
+                      <Select
+                        options={typeOptionsSatus}
+                        onChange={(options) => {
+                          onChange(options?.value);
+                          if (options?.value === 1) {
+                            setValue('status', options.value);
+                          }
+                        }}
+                        value={typeOptionsSatus?.filter((option) => value === option?.value)}
+                        placeholder=""
+                        theme={(theme) => ({
+                          ...theme,
+                          colors: {
+                            ...theme.colors,
+                            primary25: '#f9d2e4',
+                            primary50: '#f9d2e4',
+                            primary: '#d6001c',
+                          },
+                        })}
+                      />
+                    )}
+                  />
+                </td>
+              </tr>
               <tr>
                 <td with="30%">
                   <p className="font-weight-bold">Image</p>
@@ -304,6 +344,7 @@ function ProductAdd(props) {
                   </div>
                 </td>
               </tr>
+
               <tr>
                 <td with="30%">
                   <p className="font-weight-bold">Description</p>
@@ -333,7 +374,7 @@ function ProductAdd(props) {
             </Button>
             <Button
               id="product-save-cancel"
-              onClick={() => backtoManagerUser()}
+              onClick={() => backtoProduct()}
               variant="outline-secondary"
               className="font-weight-bold"
             >
