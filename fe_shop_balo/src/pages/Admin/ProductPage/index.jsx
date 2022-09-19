@@ -66,6 +66,7 @@ export function ProductPage(props) {
       setProduct(result, 'page');
     }
     setLoading(false);
+    setFilterStatus('All');
   };
 
   const goToPageAddProduct = () => {
@@ -88,11 +89,7 @@ export function ProductPage(props) {
     setLoading(false);
   };
   const handleCurrentFilterStatus = async (value) => {
-    let tempSort;
-    let tempPage;
-    if (tempSort != '') tempSort = sort;
-    console.log('Current Filter Status1: ' + value);
-    console.log('Current Filter Status2: ' + filterStatus);
+    let tempStatus;
 
     if ((value === filterStatus && value === 'Active') || (value === filterStatus && value === 'Out_of_stock')) {
       setFilterStatus('All');
@@ -101,8 +98,23 @@ export function ProductPage(props) {
       return;
     } else {
       setFilterStatus(value);
-      // if (value === 'Admin' || value === 'Staff') tempFilter = value;
+      console.log('FilterCategory', value);
+      if (value === 'Active') tempStatus = '0';
+      if (value === 'Out_of_stock') tempStatus = '1';
     }
+    const result = await getAllProducts({
+      sort: sort,
+      search: search,
+      filterStatus: tempStatus,
+      page: page,
+    });
+    if (result === 401) {
+    } else if (result === 500) {
+      ErrorToast('Something went wrong. Please try again', 3000);
+    } else {
+      setProduct(result, 'page');
+    }
+    Notiflix.Block.remove('#root');
   };
   const handleCurrentFilterCategory = () => { };
   const handleSearch = async (e) => {
