@@ -6,14 +6,15 @@ import PaginationUI from '../../../components/Layouts/Pagination';
 import { StaffTable } from '../../../components/Staff';
 import Skeleton from '../../../components/Layouts/Skeleton';
 import { getAllStaffs } from '../../../api/Staff/staffAPI';
-import { getAllProducts } from '../../../api/Product/productAPI';
-import FilterCategory from '../../../components/Product/FilterCategory';
-import FilterStatus from '../../../components/Product/FilterStatus';
-import { Button, Form, InputGroup } from 'react-bootstrap';
+import FilterStatus from '../../../components/Staff/FilterStatus';
+import { Button, Dropdown, Form, InputGroup } from 'react-bootstrap';
 import { FaSearch } from 'react-icons/fa';
 import { BlockUI } from '../../../components/Layouts/Notiflix';
 import { setIsAdd } from '../../../redux/reducer/product/product.reducer';
 import Notiflix from 'notiflix';
+import { HiFilter } from 'react-icons/hi';
+import Filter from '../../../components/Staff/Fitler';
+
 export function StaffPage(props) {
   const data_staff_table_header = [...staff_table_header];
   const data_staff_table = [...data_staff];
@@ -26,7 +27,11 @@ export function StaffPage(props) {
   const [page,setPage] = React.useState(1)
 
   //Filter & Search
-  const [filter,setFilter] = React.useState([])
+  const [filter,setFilter] = React.useState('fullname')
+  const [sort,setSort] = React.useState([])
+  const [search,setSearch]=React.useState([])
+  const [searchValue,setSearchValue]=React.useState('')
+  const [filterStatus,setFilterStatus]=React.useState(1)
   //Redux
 
 
@@ -34,9 +39,15 @@ export function StaffPage(props) {
   const [loading, setLoading] = React.useState(true);
   //Logic
   const dispatch = useDispatch();
+  const dispatchAction={
+    dispatch,
+    search
+  }
   React.useEffect(() => {
     const handleGetAllStaffs = async () => {
-      const result = await getAllStaffs({});
+      const result = await getAllStaffs({
+        filter,search
+      });
       if (result === 401) {
         return false;
       } else if (result == 500) {
@@ -47,7 +58,7 @@ export function StaffPage(props) {
       setLoading(false);
     };
     handleGetAllStaffs();
-  }, [dispatch]);
+  }, [search]);
 
   const setStaff = (result, value) => {
     setData(result.data);
@@ -75,7 +86,7 @@ export function StaffPage(props) {
     setLoading(false);
   };
 
-  const handleCurrentFilter= (filter) => {
+  const handleFilter= (filter) => {
 
   }
   const goToPageAddStaff = () => {
@@ -94,22 +105,10 @@ export function StaffPage(props) {
         <div className="row">
           <div className="mb-3 d-flex justify-content-between">
             <div className="d-flex justify-content-between ">
-
+            <FilterStatus   setSearch={setSearch} setFilter={setFilter} />
             </div>
             <div className="d-flex justify-content-between ">
-              {/* onSubmit={e => handleSearch(e)} */}
-              <Form>
-                <InputGroup>
-                  <Form.Control
-                    id="search-user"
-                    placeholder="Category or name"
-                    // onChange={e => setSearch(e.target.value)}
-                  />
-                  <Button id="search-user" variant="danger" type="submit">
-                    <FaSearch />
-                  </Button>
-                </InputGroup>
-              </Form>
+              <Filter currentFilter={filter} currentSearch={search} setSearch={setSearch} setFilter={setFilter} />
               <Button
                 id="create-new-product"
                 variant="danger"

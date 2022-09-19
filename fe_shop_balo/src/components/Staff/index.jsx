@@ -19,7 +19,7 @@ export function StaffTable(props) {
         <tr key={item.id} className="cursor-pointer" onClick={() => showDetail(item.id)}>
           <td>{item.id}</td>
           <td>{item.role_name}</td>
-          <td>{`${item.first_name} ${item.lastname}`}</td>
+          <td>{`${item.first_name} ${item.last_name}`}</td>
           <td>{item.email}</td>
           <td> <img  className="img-avatar " src={item.avatar} /></td>
           <td>{item.status ? 'active' : 'disabled'}</td>

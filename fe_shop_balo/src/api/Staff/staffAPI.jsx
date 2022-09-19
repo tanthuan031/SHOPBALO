@@ -20,13 +20,14 @@ export const getAllStaffs = async ({ sort, filter, search, page } = {}) => {
       queryString.push(`sort[${titleToSlug(item.key)}]=${item.value}`);
     });
   }
-  if (search) {
-    queryString.push(`search=${search}`);
+  if (search && filter) {
+    queryString.push(`${filter}=${search}`);
   }
   if (page) {
     queryString.push(`page=${page}`);
   }
   const final_url = concatQueryString(queryString, url);
+  //alert(final_url)
   const reponse = await axiosClient.get(final_url);
   if (reponse.status === 401) {
     return 401;
