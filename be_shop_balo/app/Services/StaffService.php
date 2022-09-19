@@ -16,10 +16,10 @@ class StaffService
         $this->staffRepository = $staffRepository;
     }
 
-    public function getAllStaff()
+    public function getAllStaff($request)
     {
 
-        $result = $this->staffRepository->getAllStaff();
+        $result = $this->staffRepository->getAllStaff($request);
         if($result){
             return $this->apiResponse($result,'success','Get all staff success');
 
@@ -84,6 +84,16 @@ class StaffService
             return $this->apiResponse([],'Fail','Delete staff unsuccessful');
         }
 
+    }
+
+    public function getSearchStaff($request){
+        $result=$this->staffRepository->getSearchStaff($request);
+        if($result){
+            return $this->apiResponse($result,'Success','Search staff successful');
+        }
+        else{
+            return $this->apiResponse([],'Fail','Search staff unsuccessful');
+        }
     }
 
 }

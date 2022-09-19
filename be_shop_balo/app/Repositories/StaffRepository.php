@@ -16,11 +16,33 @@ class StaffRepository extends BaseRepository
         $this->staff =  $staff;
         parent::__construct( $staff);
     }
-    public function getAllStaff()
+    public function getAllStaff($request)
     {
         $data = Staff::query()
-            ->with('roles')
-            ->paginate($this->paginate);
+            ->with('roles');
+
+
+        if ($request->has('fullname') && !is_null($request->input('fullname'))) {
+            $data = $data->where('first_name', 'like', '%' . $request->input('fullname') . '%')
+                ->orWhere('last_name', 'like', '%' . $request->input('fullname') . '%');
+        }
+        if ($request->has('id') && !is_null($request->input('id'))) {
+            $data = $data->where('id', $request->input('id'));
+        }
+        if ($request->has('phone') && !is_null($request->input('phone'))) {
+            $data = $data->where('email', $request->input('phone'));
+        }
+        if ($request->has('email') && !is_null($request->input('email'))) {
+            $data = $data->where('email', $request->input('email'));
+        }
+
+        if ($request->has('role_id') && $request->input('role_id') != -1) {
+            $data = $data->where('role_id', $request->input('role_id'));
+        }
+        if ($request->has('status') && $request->input('status') != -1) {
+            $data = $data->where('status', $request->input('status'));
+        }
+        $data=$data->paginate($this->paginate);
         return StaffResource::collection($data)->response()->getData();
 
     }
@@ -73,5 +95,49 @@ class StaffRepository extends BaseRepository
             return false;
         }
         return $staff;
+    }
+
+    public function getSearchStaff($request)
+    {
+        $query = Staff::query();
+        if ($request->has('search') && !is_null($request->input('search')) && $request->has('searchFor')  ){
+            switch ($request->input('searchFor')) {
+                case 'fullname':
+                    $query = $query
+                        ->where('first_name', 'like', '%' . $request->input('search') . '%')
+                        ->orwhere('last_name', 'like', '%' . $request->input('search') . '%');
+                    break;
+                case 'email':
+                    $query = $query->where('email', $request->input('search'));
+                    break;
+                case 'phone':
+                    $query = $query->where('phone', $request->input('search'));
+                    break;
+                case 'id':
+                    $query = $query->where('id', $request->input('search'));
+                    break;
+
+            }
+
+        }
+        if ($request->has('role_id') && $request->input('role_id') != -1) {
+            $query = $query->where('role_id', $request->input('role_id'));
+        }
+        if ($request->has('status') && $request->input('status') != -1) {
+            $query = $query->where('status', $request->input('status'));
+        }
+        //  dd($query);
+        return $query->get();
+    }
+    public function getFilter($request)
+    {
+        $query = Staffs::query();
+        if ($request->has('role_id') && $request->input('role_id') != -1) {
+            $query = $query->where('role_id', $request->input('role_id'));
+        }
+        if ($request->has('status') && $request->input('status') != -1) {
+            $query = $query->where('status', $request->input('status'));
+        }
+        return $query->get();
     }
 }

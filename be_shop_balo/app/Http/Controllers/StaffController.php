@@ -18,9 +18,9 @@ class StaffController extends Controller
     {
        $this->staffService=$staffService;
     }
-    public function index()
+    public function index(Request $request)
     {
-        return   $this->staffService->getAllStaff();
+        return   $this->staffService->getAllStaff($request);
     }
 
     /**
@@ -89,4 +89,7 @@ class StaffController extends Controller
     {
         return $this->staffService->deleteStaff($id);
     }
+
+
+
 }
