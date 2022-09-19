@@ -26,7 +26,8 @@ class CategoryRepository extends BaseRepository
     public function getAll($search = [])
     {
 
-        return $this->model->withTrashed()->search($search['key'])->sort($search['sort_id'])->get();
+        return $this->model->status($search['status'])->search($search['key'])
+            ->sort($search['sort_id'])->paginate($search['per_page']);
     }
 
 

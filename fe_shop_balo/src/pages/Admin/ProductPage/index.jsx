@@ -78,7 +78,7 @@ export function ProductPage(props) {
     setProduct(result, 'page');
     setLoading(false);
   };
-  const handleCurrentFilter = () => {};
+  const handleCurrentFilter = () => { };
   const setProduct = (result, value) => {
     setData(result.data);
     if (value !== 'page') {
@@ -108,7 +108,7 @@ export function ProductPage(props) {
                       <Form.Control
                         id="search-user"
                         placeholder="Category or name"
-                        // onChange={e => setSearch(e.target.value)}
+                      // onChange={e => setSearch(e.target.value)}
                       />
                       <Button id="search-user" variant="danger" type="submit">
                         <FaSearch />

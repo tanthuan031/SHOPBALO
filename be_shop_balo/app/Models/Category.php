@@ -57,4 +57,19 @@ class Category extends Model
     {
         return $query->withTrashed()->where($field, $id);
     }
+
+
+    public function scopeStatus($query, $status = 'all')
+    {
+        switch ($status) {
+            case 'active':
+                return $query;
+                break;
+            case 'unactive':
+                return $query->onlyTrashed();
+                break;
+            default:
+                return $query->withTrashed();
+        }
+    }
 }
