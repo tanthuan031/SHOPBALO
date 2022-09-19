@@ -12,7 +12,7 @@ export const configHeadersAuthenticate = () => {
   };
 };
 
-export const getAllStaffs = async ({ sort, filter, search, page } = {}) => {
+export const getAllStaffs = async ({ sort, filter,filterStatus, search, page } = {}) => {
   const url = '/api/admin/staff';
   const queryString = [];
   if (sort && sort.length > 0) {
@@ -23,11 +23,14 @@ export const getAllStaffs = async ({ sort, filter, search, page } = {}) => {
   if (search && filter) {
     queryString.push(`${filter}=${search}`);
   }
+  if(filterStatus!=='All'){
+    queryString.push(`status=${filterStatus}`);
+  }
   if (page) {
     queryString.push(`page=${page}`);
   }
   const final_url = concatQueryString(queryString, url);
-  //alert(final_url)
+  //salert(final_url)
   const reponse = await axiosClient.get(final_url);
   if (reponse.status === 401) {
     return 401;
@@ -49,9 +52,9 @@ export const getStaffById = async (id) => {
     return {};
   }
 };
-export const addProduct = async (body) => {
+export const addStaff = async (data) => {
   const url = '/api/admin/staff';
-  const response = await axiosClient.post(url, body);
+  const response = await axiosClient.post(url, data);
   if (response.status === 401) {
     return 401;
   } else if (response.status === 'success') {

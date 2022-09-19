@@ -1,78 +1,52 @@
 import React from 'react';
 import { Dropdown, Form } from 'react-bootstrap';
-import { HiFilter } from 'react-icons/hi';
+import { IoMdArrowDropdown } from 'react-icons/io';
 import PropTypes from 'prop-types';
 
 import './style.css';
-import { set } from 'react-hook-form';
 
 export default function FilterStatus(props) {
-  const {setFilter,setSearch}=props
-  const [currentFilter,setCurrentFilter]=React.useState('All')
-  const handleFilter = (value) => {
-
-    setFilter(value==='All'?null:value)
+  const {setFilterStatus,data_options}=props
+  const [currentFilter,setCurrentFilter]=React.useState({name:'All',value:'All'})
+  const handleFilter = (item) => {
+    setCurrentFilter(item)
+    setFilterStatus(item.value)
   };
 
   return (
     <Dropdown>
       <Dropdown.Toggle
         id="user-type-filter-btn"
-        className="btn-danger filter-button d-flex align-items-center justity-content-center margin-left-12px"
+        className="btn-danger filter-status-button d-flex align-items-center justity-content-center margin-left-12px"
       >
-        <p className="flex-grow-1 font-weight-bold">Status</p>
-        <div className="fb-icon">
-          <HiFilter />
+        <p className="flex-grow-1 font-weight-bold">Status : {currentFilter.name}</p>
+        <div className="">
+          <IoMdArrowDropdown/>
         </div>
       </Dropdown.Toggle>
       <Dropdown.Menu id="user-type-filter-menu">
         <Form>
-          <Dropdown.Item onClick={() => handleFilter('All')}>
-            <Form.Check
-              type="checkbox"
-              id="checkbox-all"
-              className="mx-4 my-2 font-weight-bold"
-              label="All"
-              checked={currentFilter === 'All'}
-              onChange={() => {setSearch(null)
-                setCurrentFilter('All')}
-              }
-            />
-          </Dropdown.Item>
-          <Dropdown.Item onClick={() => handleFilter('Active')}>
-            <Form.Check
-              type="checkbox"
-              id="checkbox-admin"
-              className="mx-4 my-2 font-weight-bold"
-              label="Active"
-              checked={currentFilter === 'Active'}
-              onChange={() => {
-                setSearch(1)
-                setCurrentFilter('Active')
-              }
-            }
-            />
-          </Dropdown.Item>
-          <Dropdown.Item onClick={() => handleFilter('Out of stock')}>
-            <Form.Check
-              type="checkbox"
-              id="checkbox-admin"
-              className="mx-4 my-2 font-weight-bold"
-              label="Disable"
-              checked={currentFilter === 'Disable'}
-              onChange={() => {
-                setSearch(0)
-                setCurrentFilter('Disable')
-              }}
-            />
-          </Dropdown.Item>
+          {
+            data_options.map((item) =>
+              <Dropdown.Item key={item.id} onClick={() => handleFilter(item) }>
+                <Form.Check
+                  type="checkbox"
+                  id="checkbox-all"
+                  className="mx-4 my-2 font-weight-bold"
+                  label={item.name}
+                  checked={currentFilter.value === item.value}
+                  onChange={() => handleFilter(item)}
+                />
+              </Dropdown.Item>
+            )
+          }
         </Form>
       </Dropdown.Menu>
     </Dropdown>
   );
 }
 
-// FilterStatus.propTypes = {
-//   currentFilter: PropTypes.string,
-//   setCurrentFilter: PropTypes.func,
-// };
+FilterStatus.propTypes = {
+  data_options: PropTypes.array,
+  setFilterStatus: PropTypes.func,
+};

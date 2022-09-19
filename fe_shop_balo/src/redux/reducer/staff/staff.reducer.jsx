@@ -1,12 +1,13 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-export const productReducer = createSlice({
-  name: 'product',
+
+export const staffReducer = createSlice({
+  name: 'staff',
   initialState: {
     key: 0,
     isAdd: false,
     isEdit: false,
-    product: {},
+    staff: {},
   },
   reducers: {
     setKey: (state, action) => {
@@ -18,6 +19,6 @@ export const productReducer = createSlice({
   },
 });
 
-export const { setIsAdd } = productReducer.actions;
+export const { setIsAdd } = staffReducer.actions;
 
-export default productReducer.reducer;
+export default staffReducer.reducer;
