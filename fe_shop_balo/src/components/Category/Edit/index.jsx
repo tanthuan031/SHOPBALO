@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import Select from 'react-select';
 import { addSchemaCategory } from "../../../adapter/category";
 import { updateCategory } from "../../../api/Category/categoryAPI";
-import { setIsAdd } from "../../../redux/reducer/category/category.reducer";
+import { setCategory, setIsAdd, setIsEdit } from "../../../redux/reducer/category/category.reducer";
 import { isCategorySelector } from "../../../redux/selectors/category/category.selector";
 import { ErrorToast, SuccessToast } from "../../Layouts/Alerts";
 import { BlockUI } from "../../Layouts/Notiflix";
@@ -41,6 +41,8 @@ function EditCategory(props) {
     });
     const backtoManagerUser = () => {
         dispatch(setIsAdd(false));
+        dispatch(setIsEdit(false));
+        dispatch(setCategory({}));
     };
 
 
