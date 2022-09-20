@@ -7,10 +7,11 @@ use App\Models\Product;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Product>
+ * @extends Factory<\App\Models\Product>
  */
 class ProductFactory extends Factory
 {
+
     protected $model = Product::class;
     /**
      * Define the model's default state.
@@ -25,6 +26,9 @@ class ProductFactory extends Factory
             'description' => $this->faker->realTextBetween(),
             'image'=>$this->faker->imageUrl(),
             'image_slide'=>$this->faker->imageUrl(),
+            'status' => $this->faker->boolean(),
+            'image' => 'img2022091909564089089300.jpeg',
+            'image_slide' => 'img2022091909564089089300.jpeg,img2022091909564118842500.jpeg',
 
         ];
     }

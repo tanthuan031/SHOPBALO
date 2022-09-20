@@ -1,23 +1,31 @@
 import React, { useState } from 'react';
 import { Button, Carousel } from 'react-bootstrap';
 import { FaPen, FaSistrix, FaTimesCircle } from 'react-icons/fa';
+import { useDispatch } from 'react-redux';
 import { getProductById } from '../../api/Product/productAPI';
 import { getStorageImage } from '../../api/StorageImage';
+import { setIsEdit, setProduct } from '../../redux/reducer/product/product.reducer';
 import { URL_IMAGE_BACKEND } from '../../utils/urlPath';
 import Modal from '../Layouts/Modal';
-
 import TableLayout from '../Layouts/Table';
+import Notiflix from 'notiflix';
 import './style.css';
+import { ErrorToast } from '../Layouts/Alerts';
+import { BlockUI } from '../Layouts/Notiflix';
 export function ProductTable(props) {
   const [show, setShowDetail] = useState(false);
   const [dataImageSlide, setDataImage] = React.useState([]);
   const [detailProduct, setProductDetail] = useState({});
+  const dispatch = useDispatch();
 
   const handleShowDetail = async (id, image) => {
-    setShowDetail(true);
+    BlockUI('#root', 'fixed');
+
     const urlArrayImageSlide = 'ProductSlide?cat=' + image;
     const result = await getProductById(id);
     const imageProductSlice = await getStorageImage(urlArrayImageSlide);
+    Notiflix.Block.remove('#root');
+    setShowDetail(true);
     if (result === 401) {
       return false;
     } else if (result == 500) {
@@ -26,6 +34,20 @@ export function ProductTable(props) {
       setProductDetail({ ...result });
     }
     setDataImage(imageProductSlice);
+  };
+  const handleEditProduct = async (e, id) => {
+    e.stopPropagation();
+    const data = await getProductById(id);
+    console.log('edit', data);
+    if (Object.keys(data).length > 0) {
+      dispatch(setProduct(data));
+      dispatch(setIsEdit(true));
+    } else if (data === 401) {
+      Notiflix.Block.remove('#root');
+    } else {
+      Notiflix.Block.remove('#root');
+      ErrorToast('Something went wrong. Please try again', 3000);
+    }
   };
   const renderTableBody = () => {
     return props.tableBody.map((item, index) => {
@@ -45,25 +67,25 @@ export function ProductTable(props) {
           <td>
             <p
               className={`text-center border-radius-2px ${
-                item.amount > 0 ? 'bg-success-100 text-success' : 'bg-red-100 text-red '
+                item.status === '0' ? 'bg-success-100 text-success' : 'bg-red-100 text-red '
               }`}
             >
-              {item.amount > 0 ? 'Active' : 'Out of stock'}
+              {item.status === '0' ? 'Active' : 'Out of stock'}
             </p>
           </td>
           <td>
             <div className="d-flex">
               <button
                 id="edit-product"
-                // onClick={(e) => {
-                //   // handleEditUser(e, item.id);
-                // }}
+                onClick={(e) => {
+                  handleEditProduct(e, item.id);
+                }}
                 className="br-6px p-2 bg-gray-100 text-black w-48px h-48px d-flex align-items-center justify-content-center border-none"
               >
                 <FaPen className="font-20px" />
               </button>
               <button
-                id="disabled-user"
+                id="delete-product"
                 // onClick={(e) => {
                 //   handleCheckDisabledUser(e, item.id);
                 // }}

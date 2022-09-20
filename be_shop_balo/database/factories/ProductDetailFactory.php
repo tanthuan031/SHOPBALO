@@ -1,7 +1,7 @@
 <?php
 
 namespace Database\Factories;
-
+use App\Models\Product;
 use App\Models\ProductDetail;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -18,11 +18,12 @@ class ProductDetailFactory extends Factory
      */
     public function definition()
     {
+
         return [
-            'product_id' => $this->faker->numberBetween(1,10),
+            'product_id' => Product::all()->random()->id,
             'code_color' => $this->faker->domainWord,
-            'amount' => $this->faker->numberBetween(1,10),
-            'price'=>$this->faker->numberBetween(1,10)
+            'amount' => $this->faker->numberBetween(1, 10),
+            'price' => $this->faker->numberBetween(1000, 100000)
         ];
     }
 }

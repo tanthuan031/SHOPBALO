@@ -2,6 +2,7 @@
 import * as React from "react";
 import { Route, Routes } from "react-router-dom";
 import { AdminLayout } from "../../layouts/Admin";
+import { CategoryPage } from "../../pages/Admin/CategoryPage";
 import { DashBoardPage } from "../../pages/Admin/DashBoardPage";
 import { LoginPage } from "../../pages/Admin/LoginPage";
 import { ProductPage } from "../../pages/Admin/ProductPage";
@@ -27,7 +28,7 @@ export default function AdminRouter() {
         />
         <Route
           path="/admin/category"
-          element={<AdminLayout slot={<DashBoardPage key={"a"} />} />}
+          element={<AdminLayout slot={<CategoryPage key={"a"} />} />}
         />
         <Route
           path="/admin/promotion"

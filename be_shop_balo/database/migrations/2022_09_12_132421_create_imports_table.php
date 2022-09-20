@@ -16,6 +16,7 @@ return new class extends Migration
         Schema::create('imports', function (Blueprint $table) {
             $table->id();
             $table->float('total_price');
+            $table->softDeletes();
             $table->timestamps();
         });
     }

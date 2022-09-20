@@ -2,18 +2,27 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Category\CreateRequest;
+use App\Http\Requests\Category\UpdateRequest;
+use App\Services\CategoryService;
 use Illuminate\Http\Request;
 
 class CategoryController extends Controller
 {
+
+    protected $categoryService;
+    public function __construct(CategoryService $categoryService)
+    {
+        $this->categoryService = $categoryService;
+    }
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request  $request)
     {
-        //
+        return $this->categoryService->getAll($request);
     }
 
     /**
@@ -32,9 +41,10 @@ class CategoryController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CreateRequest $request)
     {
-        //
+
+        return $this->categoryService->create($request);
     }
 
     /**
@@ -45,7 +55,7 @@ class CategoryController extends Controller
      */
     public function show($id)
     {
-        //
+        return $this->categoryService->show($id);
     }
 
     /**
@@ -56,7 +66,7 @@ class CategoryController extends Controller
      */
     public function edit($id)
     {
-        //
+        return $this->categoryService->show($id);
     }
 
     /**
@@ -66,9 +76,10 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UpdateRequest $request, $id)
     {
-        //
+
+        return $this->categoryService->update($request, $id);
     }
 
     /**
@@ -79,6 +90,19 @@ class CategoryController extends Controller
      */
     public function destroy($id)
     {
-        //
+        return $this->categoryService->delete($id);
+    }
+
+
+    /**
+     * forgot 
+     *@author tranvannghia021
+     * @param  int $id
+     * @return \Illuminate\Http\Response
+     */
+    public function forgot($id)
+    {
+
+        return $this->categoryService->forgot($id);
     }
 }

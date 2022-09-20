@@ -6,32 +6,37 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getAllProducts } from '../../../api/Product/productAPI';
 import { data_product } from '../../../asset/data/data_product';
 import { product_table_header } from '../../../asset/data/product_table_header';
+import { ErrorToast } from '../../../components/Layouts/Alerts';
 import { BlockUI } from '../../../components/Layouts/Notiflix';
 import PaginationUI from '../../../components/Layouts/Pagination';
 import Skeleton from '../../../components/Layouts/Skeleton';
 import { ProductTable } from '../../../components/Product';
 import ProductAdd from '../../../components/Product/Add';
+import ProductEdit from '../../../components/Product/Edit';
 import FilterCategory from '../../../components/Product/FilterCategory';
 import FilterStatus from '../../../components/Product/FilterStatus';
 import { setIsAdd } from '../../../redux/reducer/product/product.reducer';
-import { isAddSelector } from '../../../redux/selectors';
+import { isAddSelector, isEditSelector } from '../../../redux/selectors';
 
 export function ProductPage(props) {
   const data_product_table_header = [...product_table_header];
   const [data, setData] = React.useState([]);
   const [page, setPage] = React.useState(1);
-  const [filter, setFilter] = React.useState([]);
+  const [filterStatus, setFilterStatus] = React.useState('All');
+  const [filterCategory, setFilterCategory] = React.useState('All');
   const [totalRecord, setTotalRecords] = useState(0);
   const [loading, setLoading] = useState(true);
   const [totalPage, setTotalPage] = useState(0);
   const [perPage] = React.useState(10);
   const isAdd = useSelector(isAddSelector);
+  const isEdit = useSelector(isEditSelector);
   const [sort, setCurrentSort] = React.useState([
     {
       key: 'updated_at',
       value: 'desc',
     },
   ]);
+  const [search, setSearch] = useState('');
   const dispatch = useDispatch();
   React.useEffect(() => {
     const handleGetAllProducts = async () => {
@@ -61,6 +66,7 @@ export function ProductPage(props) {
       setProduct(result, 'page');
     }
     setLoading(false);
+    setFilterStatus('All');
   };
 
   const goToPageAddProduct = () => {
@@ -70,21 +76,79 @@ export function ProductPage(props) {
       Notiflix.Block.remove('#root');
     }, 500);
   };
-  const backToProductList = async (value) => {
+  const backToProductList = async (value, action) => {
     setLoading(true);
+    if (action === 'edit') {
+      console.log('Back to Edit');
+    }
+
     const result = await getAllProducts({
       sort: value,
     });
     setProduct(result, 'page');
     setLoading(false);
   };
-  const handleCurrentFilter = () => {};
+  const handleCurrentFilterStatus = async (value) => {
+    let tempStatus;
+
+    if ((value === filterStatus && value === 'Active') || (value === filterStatus && value === 'Out_of_stock')) {
+      setFilterStatus('All');
+    } else if (value === filterStatus && value === 'All') {
+      setFilterStatus('All');
+      return;
+    } else {
+      setFilterStatus(value);
+      console.log('FilterCategory', value);
+      if (value === 'Active') tempStatus = '0';
+      if (value === 'Out_of_stock') tempStatus = '1';
+    }
+    const result = await getAllProducts({
+      sort: sort,
+      search: search,
+      filterStatus: tempStatus,
+      page: page,
+    });
+    if (result === 401) {
+    } else if (result === 500) {
+      ErrorToast('Something went wrong. Please try again', 3000);
+    } else {
+      setProduct(result, 'page');
+    }
+    Notiflix.Block.remove('#root');
+  };
+  const handleCurrentFilterCategory = () => { };
+  const handleSearch = async (e) => {
+    e.preventDefault();
+    let tempSort;
+    if (sort.length > 0) tempSort = sort;
+    if (search !== '') {
+      const result = await getAllProducts({
+        sort: tempSort,
+        page: page,
+        search,
+      });
+      if (result === 500 || result === 401) {
+        ErrorToast('Something went wrong. Please try again', 3000);
+      } else {
+        setProduct(result, 'page');
+      }
+      return;
+    }
+    const result = await getAllProducts({
+      sort: tempSort,
+      page: page,
+    });
+    if (result === 500 || result === 401) {
+      ErrorToast('Something went wrong. Please try again', 3000);
+    } else {
+      setProduct(result, 'page');
+    }
+  };
   const setProduct = (result, value) => {
     setData(result.data);
     if (value !== 'page') {
       setPage(1);
     }
-
     setTotalRecords(result.meta.total);
     setTotalPage(result.meta.last_page);
   };
@@ -92,23 +156,24 @@ export function ProductPage(props) {
     <>
       <section>
         <div className="container-fluid mt-5">
-          {!isAdd && <h5 className="text-danger font-weight-bold mb-3">Product List</h5>}
+          {!isAdd && !isEdit && <h5 className="text-danger font-weight-bold mb-3">Produc List</h5>}
           {isAdd && <h5 className="text-danger font-weight-bold mb-3">Add product</h5>}
-          {!isAdd ? (
+          {isEdit && <h5 className="text-danger font-weight-bold mb-3">Edit product</h5>}
+          {!isAdd && !isEdit ? (
             <div className="row">
               <div className="mb-3 d-flex justify-content-between">
                 <div className="d-flex justify-content-between ">
-                  <FilterCategory currentFilter={filter} setCurrentFilter={handleCurrentFilter} />
-                  <FilterStatus currentFilter={filter} setCurrentFilter={handleCurrentFilter} />
+                  <FilterCategory currentFilter={filterCategory} setCurrentFilter={handleCurrentFilterCategory} />
+                  <FilterStatus currentFilter={filterStatus} setCurrentFilter={handleCurrentFilterStatus} />
                 </div>
                 <div className="d-flex justify-content-between ">
                   {/* onSubmit={e => handleSearch(e)} */}
-                  <Form>
+                  <Form onSubmit={(e) => handleSearch(e)}>
                     <InputGroup>
                       <Form.Control
-                        id="search-user"
-                        placeholder="Category or name"
-                        // onChange={e => setSearch(e.target.value)}
+                        id="search-product"
+                        placeholder="Name"
+                        onChange={(e) => setSearch(e.target.value)}
                       />
                       <Button id="search-user" variant="danger" type="submit">
                         <FaSearch />
@@ -129,7 +194,7 @@ export function ProductPage(props) {
           ) : (
             ''
           )}
-          {!isAdd ? (
+          {!isAdd && !isEdit ? (
             <div className="row justify-content-center">
               {!loading ? (
                 <>
@@ -148,7 +213,10 @@ export function ProductPage(props) {
               )}
             </div>
           ) : (
-            <>{isAdd && <ProductAdd backToProductList={backToProductList} />}</>
+            <>
+              {isAdd && <ProductAdd backToProductList={backToProductList} />}
+              {isEdit && <ProductEdit backToProductList={backToProductList} />}
+            </>
           )}
         </div>
       </section>

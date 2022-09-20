@@ -25,10 +25,10 @@
   padding: var(--16px);
 }
 
-#table thead tr th:last-child,
+/* #table thead tr th:last-child,
 #table tbody tr td:last-child {
   border-bottom-width: 0;
-}
+} */
 
 #table tbody,
 td,

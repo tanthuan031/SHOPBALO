@@ -15,9 +15,15 @@ export const productReducer = createSlice({
     setIsAdd: (state, action) => {
       state.isAdd = action.payload;
     },
+    setIsEdit: (state, action) => {
+      state.isEdit = action.payload;
+    },
+    setProduct: (state, action) => {
+      state.product = action.payload;
+    },
   },
 });
 
-export const { setIsAdd } = productReducer.actions;
+export const { setIsAdd, setIsEdit, setProduct } = productReducer.actions;
 
 export default productReducer.reducer;

@@ -20,6 +20,7 @@ return new class extends Migration
             $table->float('point');
             $table->string('content');
             $table->string('image');
+            $table->softDeletes();
             $table->timestamps();
         });
     }
