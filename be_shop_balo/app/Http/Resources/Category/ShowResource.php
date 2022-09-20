@@ -18,7 +18,7 @@ class ShowResource extends JsonResource
             'id' => $this->id,
             'parent_id' => $this->parent_id,
             'name' => $this->name,
-            'image' => env('APP_URL') . '/upload/category/' . $this->image,
+            'image' => env('APP_URL') . '/storage/category/' . $this->image,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
             'deleted_at' => $this->deleted_at

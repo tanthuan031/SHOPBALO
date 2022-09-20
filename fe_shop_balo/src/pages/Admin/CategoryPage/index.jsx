@@ -7,13 +7,14 @@ import { getAll } from '../../../api/Category/categoryAPI';
 import { category_table_header } from '../../../asset/data/category_table_header';
 import CategoryTable from '../../../components/Category';
 import CreateCategoryForm from '../../../components/Category/Add';
+import EditCategory from '../../../components/Category/Edit';
 import FilterStatusCategory from '../../../components/Category/FilterStatusCategory';
 import Sort from '../../../components/Category/Sort';
 import { BlockUI } from '../../../components/Layouts/Notiflix';
 import PaginationUI from '../../../components/Layouts/Pagination';
 import Skeleton from '../../../components/Layouts/Skeleton';
 import { setIsAdd } from '../../../redux/reducer/category/category.reducer';
-import { isAddSelector } from '../../../redux/selectors/category/category.selector';
+import { isAddSelector, isCategorySelector, isEditSelector } from '../../../redux/selectors/category/category.selector';
 
 
 
@@ -25,6 +26,7 @@ export function CategoryPage(props) {
     const [totalRecord, setTotalRecords] = useState(0);
     const [loading, setLoading] = useState(true);
     const isAdd = useSelector(isAddSelector);
+    const isEdit = useSelector(isEditSelector);
     const [search, setSearch] = useState('');
     const dispatch = useDispatch();
     const handleCallApiCategory = async () => {
@@ -49,7 +51,7 @@ export function CategoryPage(props) {
         console.log('useffect');
 
         handleCallApiCategory();
-    }, [dispatch]);
+    }, [dispatch, isAdd]);
 
 
 
@@ -68,7 +70,6 @@ export function CategoryPage(props) {
     }
     const handleChangePage = async (page) => {
         setPage(page);
-        console.log(page)
         setLoading(true);
         const result = await getAll({ page });
 
@@ -77,11 +78,11 @@ export function CategoryPage(props) {
             console.log('error cate');
             return false;
         } else {
-            setData(result.data)
+            setData(result.data);
 
-            setTotalRecords(result.meta.total)
+            setTotalRecords(result.meta.total);
 
-            setPage(result.meta.current_page)
+            setPage(result.meta.current_page);
 
         }
         setLoading(false);
@@ -92,7 +93,8 @@ export function CategoryPage(props) {
             <section>
                 <div className="container-fluid mt-5">
                     {!isAdd && <h5 className="text-danger font-weight-bold mb-3">Category List</h5>}
-                    {isAdd && <h5 className="text-danger font-weight-bold mb-3">Add Category</h5>}
+                    {isAdd && !isEdit && <h5 className="text-danger font-weight-bold mb-3">Add Category</h5>}
+                    {isEdit && <h5 className="text-danger font-weight-bold mb-3">Update Category</h5>}
                     {!isAdd ? (
                         <div className="row">
                             <div className="mb-3 d-flex justify-content-between">
@@ -152,7 +154,10 @@ export function CategoryPage(props) {
                         </div>
                     ) : (
 
-                        <>{isAdd && <CreateCategoryForm backToProductList={"logger"} data={data} />}</>
+                        <>
+                            {isAdd && !isEdit && <CreateCategoryForm data={data} />}
+                            {isEdit && <EditCategory data={data} />}
+                        </>
                     )}
                 </div>
             </section>

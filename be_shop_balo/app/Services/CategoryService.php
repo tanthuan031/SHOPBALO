@@ -86,7 +86,7 @@ class CategoryService
 
         $isCheckCreate = (is_null($category)) ? false : true;
 
-        return  $isCheckCreate ?  $this->apiResponse($data, 200, 'Create category successfully') : $this->apiResponse($data, 422, 'Create category failed.');
+        return  $isCheckCreate ?  $this->apiResponse($category, 200, 'Create category successfully') : $this->apiResponse($category, 422, 'Create category failed.');
     }
 
 

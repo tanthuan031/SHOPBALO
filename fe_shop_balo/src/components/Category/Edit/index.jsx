@@ -1,18 +1,20 @@
+import { yupResolver } from "@hookform/resolvers/yup";
+import Notiflix from "notiflix";
 import { Button, Form } from "react-bootstrap";
-import { yupResolver } from '@hookform/resolvers/yup';
 import { Controller, useForm } from "react-hook-form";
+import { useDispatch, useSelector } from "react-redux";
 import Select from 'react-select';
-import './style.css';
 import { addSchemaCategory } from "../../../adapter/category";
-import { addCategory } from "../../../api/Category/categoryAPI";
-import { useDispatch } from "react-redux";
+import { updateCategory } from "../../../api/Category/categoryAPI";
 import { setIsAdd } from "../../../redux/reducer/category/category.reducer";
-import { BlockUI } from "../../Layouts/Notiflix";
+import { isCategorySelector } from "../../../redux/selectors/category/category.selector";
 import { ErrorToast, SuccessToast } from "../../Layouts/Alerts";
-import Notiflix from 'notiflix';
-function CreateCategoryForm(props) {
-    const dispatch = useDispatch()
+import { BlockUI } from "../../Layouts/Notiflix";
 
+
+function EditCategory(props) {
+    const dispatch = useDispatch()
+    const categorySelector = useSelector(isCategorySelector);
     const category = [];
     const {
         register,
@@ -25,9 +27,9 @@ function CreateCategoryForm(props) {
         mode: 'onChange',
         resolver: yupResolver(addSchemaCategory),
         defaultValues: {
-            Category: '',
-            parent_id: '',
-            image: '',
+            Category: categorySelector.name,
+            parent_id: categorySelector.parent_id,
+            image: categorySelector.image,
         },
     });
 
@@ -52,27 +54,48 @@ function CreateCategoryForm(props) {
         });
     const onSubmit = async (data) => {
 
-        if (data.image.length != 0) {
+        if (typeof data.image === typeof 'string') {
             BlockUI('#root', 'fixed');
-            const image = await toBase64(data.image[0]);
             const resultData = {
                 name: data.Category,
                 parent_id: data.parent_id === '' ? 0 : data.parent_id,
-                image: image
-            };
-            const result = await addCategory(resultData);
-            Notiflix.Block.remove('#root');
-            if (result.status === 200) {
 
-                SuccessToast('Create category successfully', 3000);
+            };
+            const result = await updateCategory(categorySelector.id, resultData);
+            Notiflix.Block.remove('#root');
+            if (result === 200) {
+
+                SuccessToast('Update category successfully', 3000);
 
                 backtoManagerUser();
             } else {
                 ErrorToast('Something went wrong. Please try again', 3000);
             }
-
         } else {
-            ErrorToast('Image is invalid', 3000);
+
+
+            if (data.image.length != 0) {
+                BlockUI('#root', 'fixed');
+                const image = await toBase64(data.image[0]);
+                const resultData = {
+                    name: data.Category,
+                    parent_id: data.parent_id === '' ? 0 : data.parent_id,
+                    image: image
+                };
+                const result = await updateCategory(categorySelector.id, resultData);
+                Notiflix.Block.remove('#root');
+                if (result === 200) {
+
+                    SuccessToast('Update category successfully', 3000);
+
+                    backtoManagerUser();
+                } else {
+                    ErrorToast('Something went wrong. Please try again', 3000);
+                }
+
+            } else {
+                ErrorToast('Image is invalid', 3000);
+            }
         }
     }
     return (<>
@@ -167,4 +190,4 @@ function CreateCategoryForm(props) {
     </>);
 }
 
-export default CreateCategoryForm;
+export default EditCategory;

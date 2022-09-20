@@ -1,9 +1,10 @@
 import * as yup from 'yup';
 
 export const addSchemaCategory = yup.object({
-    category_name: yup
+    Category: yup
         .string()
         .required('Please, Category name can not blank')
+        .min(6)
         .max(50)
         .trim(),
 

@@ -42,3 +42,19 @@ export const addCategory = async (data) => {
         return 401;
     }
 }
+export const showCategory = async (id) => {
+    const url = `/api/admin/category/${id}`;
+    const res = await axiosClient.get(url);
+    if (res.status === 200) {
+        return res.data;
+    }
+    return 401;
+}
+export const updateCategory = async (id, data) => {
+    const url = `/api/admin/category/${id}`;
+    const res = await axiosClient.put(url, data);
+    if (res.status === 200) {
+        return 200;
+    }
+    return 401;
+}
