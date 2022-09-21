@@ -63,7 +63,7 @@ export function StaffPage(props) {
       setLoading(false);
     };
     handleGetAllStaffs();
-  }, [filterStatus]);
+  }, [dispatch]);
 
   const setStaff = (result, value) => {
     setData(result.data);

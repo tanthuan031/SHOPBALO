@@ -66,7 +66,7 @@ const Filter = props => {
        </Dropdown.Menu>
      </Dropdown>
      {/* onSubmit={e => handleSearch(e)} */}
-     <Form className="ms-3">
+     <Form className="ms-3" >
        <InputGroup>
          <Form.Control
            id="search-user"
