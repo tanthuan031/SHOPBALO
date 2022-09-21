@@ -1,7 +1,6 @@
 import React from 'react';
 import { Dropdown, Form } from 'react-bootstrap';
 import { HiFilter } from 'react-icons/hi';
-import PropTypes from 'prop-types';
 
 import './style.css';
 
@@ -28,7 +27,7 @@ export default function FilterStatus(props) {
               id="All"
               className="mx-4 my-2 font-weight-bold"
               label="All"
-              checked={props.currentFilter == 'All'}
+              checked={props.currentFilter === 'All'}
               onChange={() => handleFilter('All')}
             />
           </Dropdown.Item>
@@ -38,7 +37,7 @@ export default function FilterStatus(props) {
               id="Active"
               className="mx-4 my-2 font-weight-bold"
               label="Active"
-              checked={props.currentFilter == 'Active'}
+              checked={props.currentFilter === 'Active'}
               onChange={() => handleFilter('Active')}
             />
           </Dropdown.Item>
@@ -48,7 +47,7 @@ export default function FilterStatus(props) {
               id="Out of stock"
               className="mx-4 my-2 font-weight-bold"
               label="Out of stock"
-              checked={props.currentFilter == 'Out_of_stock'}
+              checked={props.currentFilter === 'Out_of_stock'}
               onChange={() => handleFilter('Out_of_stock')}
             />
           </Dropdown.Item>

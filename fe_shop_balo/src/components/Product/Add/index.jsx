@@ -1,20 +1,21 @@
-import React, { useEffect } from 'react';
-import { Button, Form } from 'react-bootstrap';
-import { useDispatch, useSelector } from 'react-redux';
 import { yupResolver } from '@hookform/resolvers/yup';
+import Notiflix from 'notiflix';
+import React, { useEffect, useState } from 'react';
+import { Button, Form } from 'react-bootstrap';
 import { Controller, useForm, useWatch } from 'react-hook-form';
+import { FaTimesCircle } from 'react-icons/fa';
+import { useDispatch } from 'react-redux';
 import Select from 'react-select';
 import { addSchema } from '../../../adapter/product';
-import CustomEditor from '../../Layouts/Edittor';
-import './style.css';
-import { setIsAdd } from '../../../redux/reducer/product/product.reducer';
-import { useState } from 'react';
 import { addProduct } from '../../../api/Product/productAPI';
+import { setIsAdd } from '../../../redux/reducer/product/product.reducer';
 import { ErrorToast, SuccessToast } from '../../Layouts/Alerts';
-import Notiflix from 'notiflix';
+import CustomEditor from '../../Layouts/Edittor';
 import { BlockUI } from '../../Layouts/Notiflix';
-import { FaTimesCircle } from 'react-icons/fa';
+import './style.css';
 function ProductAdd(props) {
+  const [errorImage, setErrorImage] = useState('');
+  const [errorDescription, setErrorDescription] = useState('');
   const {
     register,
     setValue,
@@ -52,34 +53,34 @@ function ProductAdd(props) {
     register('status');
   }, [register, fileImageSlide]);
 
-  const product_name = useWatch({
-    control,
-    name: 'product_name',
-  });
-  const category_id = useWatch({
-    control,
-    name: 'category_id',
-  });
-  const color = useWatch({
-    control,
-    name: 'color',
-  });
-  const amount = useWatch({
-    control,
-    name: 'amount',
-  });
-  const price = useWatch({
-    control,
-    name: 'price',
-  });
-  const description = useWatch({
-    control,
-    name: 'description',
-  });
-  const image = useWatch({
-    control,
-    name: 'image',
-  });
+  // const product_name = useWatch({
+  //   control,
+  //   name: 'product_name',
+  // });
+  // const category_id = useWatch({
+  //   control,
+  //   name: 'category_id',
+  // });
+  // const color = useWatch({
+  //   control,
+  //   name: 'color',
+  // });
+  // const amount = useWatch({
+  //   control,
+  //   name: 'amount',
+  // });
+  // const price = useWatch({
+  //   control,
+  //   name: 'price',
+  // });
+  // const description = useWatch({
+  //   control,
+  //   name: 'description',
+  // });
+  // const image = useWatch({
+  //   control,
+  //   name: 'image',
+  // });
   const image_slide = useWatch({
     control,
     name: 'image_slide',
@@ -99,6 +100,7 @@ function ProductAdd(props) {
   ];
   const editorDescription = (value) => {
     setValue('description', value);
+    setErrorDescription('');
   };
   const toBase64 = (file) =>
     new Promise((resolve, reject) => {
@@ -110,7 +112,8 @@ function ProductAdd(props) {
 
   const onSubmit = async (data) => {
     BlockUI('#root', 'fixed');
-    if (data.image.length != 0 && data.description != '') {
+    console.log(data.image.length);
+    if (data.image.length !== 0 && data.description != '') {
       const image1 = await toBase64(data.image[0]);
       const image_slide_array = [];
       for (let i = 0; i < data.image_slide.file.length; i++) {
@@ -133,7 +136,7 @@ function ProductAdd(props) {
         SuccessToast('Create product successfully', 3000);
         props.backToProductList([
           {
-            key: 'updated_at',
+            key: 'id',
             value: 'desc',
           },
         ]);
@@ -149,6 +152,15 @@ function ProductAdd(props) {
       }
     } else {
       ErrorToast('Please, Image or Description can not blank', 3000);
+      setTimeout(function () {
+        Notiflix.Block.remove('#root');
+      }, 1000);
+
+      data.image.length === 0 && setErrorImage('Image can not blank');
+      data.description === '' && setErrorDescription('Description can not blank');
+      Notiflix.Block.remove('#root');
+
+      return;
     }
   };
   const backtoProduct = () => {
@@ -162,7 +174,7 @@ function ProductAdd(props) {
   };
   const onRemoveImage = (id) => {
     image_slide.file.forEach((value, index) => {
-      if (index == id) {
+      if (index === id) {
         image_slide.file.splice(index, 1);
       }
     });
@@ -292,9 +304,7 @@ function ProductAdd(props) {
                 <td width="70%">
                   <Form.Control id="image" type="file" {...register('image')} />
                   <div className="d-flex justify-content-between">
-                    <small className="text-red font-weight-semi">
-                      {/* {errors.image?.message || image.length === 0 ? 'Image can not blank' : ''} */}
-                    </small>
+                    <small className="text-red font-weight-semi">{}</small>
                   </div>
                 </td>
               </tr>
@@ -307,7 +317,7 @@ function ProductAdd(props) {
                   <Form.Control id="image-slide" type="file" multiple onChange={uploadImageSlide} />
 
                   <div className="image-product-slide">
-                    {fileImageSlideShow.file != [] &&
+                    {fileImageSlideShow.file !== [] &&
                       fileImageSlideShow.file.map((url, index) => (
                         <div key={index} className="image-product-slide-item">
                           <img className="multi-preview-slide-product " src={url} alt="..." />
@@ -354,9 +364,7 @@ function ProductAdd(props) {
                   <div className="ckeditor-wrapper" />
 
                   <div className="d-flex justify-content-between">
-                    <small className="text-red font-weight-semi">
-                      {errors.description && 'Description can not blank'}
-                    </small>
+                    <small className="text-red font-weight-semi">{errorDescription}</small>
                   </div>
                 </td>
               </tr>

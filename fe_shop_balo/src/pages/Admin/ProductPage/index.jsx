@@ -3,8 +3,8 @@ import React, { useState } from 'react';
 import { Button, Form, InputGroup } from 'react-bootstrap';
 import { FaSearch } from 'react-icons/fa';
 import { useDispatch, useSelector } from 'react-redux';
+import { getAll } from '../../../api/Category/categoryAPI';
 import { getAllProducts } from '../../../api/Product/productAPI';
-import { data_product } from '../../../asset/data/data_product';
 import { product_table_header } from '../../../asset/data/product_table_header';
 import { ErrorToast } from '../../../components/Layouts/Alerts';
 import { BlockUI } from '../../../components/Layouts/Notiflix';
@@ -20,20 +20,21 @@ import { isAddSelector, isEditSelector } from '../../../redux/selectors';
 
 export function ProductPage(props) {
   const data_product_table_header = [...product_table_header];
-  const [data, setData] = React.useState([]);
-  const [page, setPage] = React.useState(1);
-  const [filterStatus, setFilterStatus] = React.useState('All');
-  const [filterCategory, setFilterCategory] = React.useState('All');
+  const [data, setData] = useState([]);
+  const [listCategory, setDataCategory] = useState();
+  const [page, setPage] = useState(1);
+  const [filterStatus, setFilterStatus] = useState('All');
+  const [filterCategory, setFilterCategory] = useState('All');
   const [totalRecord, setTotalRecords] = useState(0);
   const [loading, setLoading] = useState(true);
-  const [totalPage, setTotalPage] = useState(0);
-  const [perPage] = React.useState(10);
+  // const [totalPage, setTotalPage] = useState(0);
+  const [perPage] = useState(10);
   const isAdd = useSelector(isAddSelector);
   const isEdit = useSelector(isEditSelector);
-  const [sort, setCurrentSort] = React.useState([
+  const [sort, setCurrentSort] = useState([
     {
-      key: 'updated_at',
-      value: 'desc',
+      key: 'id',
+      value: 'asc',
     },
   ]);
   const [search, setSearch] = useState('');
@@ -50,7 +51,17 @@ export function ProductPage(props) {
       }
       setLoading(false);
     };
+    const handleGetListCategory = async () => {
+      const result = await getAll();
+      if (result === 401) {
+        console.log('error cate');
+        return false;
+      } else {
+        setDataCategory(result.data);
+      }
+    };
     handleGetAllProducts();
+    handleGetListCategory();
   }, [dispatch]);
 
   const handlePageChange = async (page) => {
@@ -90,6 +101,7 @@ export function ProductPage(props) {
   };
   const handleCurrentFilterStatus = async (value) => {
     let tempStatus;
+    setLoading(true);
 
     if ((value === filterStatus && value === 'Active') || (value === filterStatus && value === 'Out_of_stock')) {
       setFilterStatus('All');
@@ -98,14 +110,21 @@ export function ProductPage(props) {
       return;
     } else {
       setFilterStatus(value);
-      console.log('FilterCategory', value);
       if (value === 'Active') tempStatus = '0';
       if (value === 'Out_of_stock') tempStatus = '1';
     }
+    // setCurrentSort({
+    //   key: 'id',
+    //   value: 'asc',
+    // });
     const result = await getAllProducts({
-      sort: sort,
+      sort: {
+        key: 'id',
+        value: 'asc',
+      },
       search: search,
       filterStatus: tempStatus,
+      filterCategory: filterCategory === 'All' ? undefined : filterCategory,
       page: page,
     });
     if (result === 401) {
@@ -115,8 +134,40 @@ export function ProductPage(props) {
       setProduct(result, 'page');
     }
     Notiflix.Block.remove('#root');
+    setLoading(false);
   };
-  const handleCurrentFilterCategory = () => { };
+  const handleCurrentFilterCategory = async (value) => {
+    setLoading(true);
+
+    let tempFilterCategory;
+    if (value === filterCategory && value === 'All') {
+      setFilterCategory('All');
+      tempFilterCategory = undefined;
+    } else {
+      setFilterCategory(value);
+      tempFilterCategory = value;
+    }
+    console.log(tempFilterCategory);
+    const result = await getAllProducts({
+      sort: {
+        key: 'id',
+        value: 'asc',
+      },
+      search: search,
+      filterCategory: tempFilterCategory,
+      filterStatus: filterStatus === 'All' ? undefined : filterStatus === 'Active' ? '0' : '1',
+      page: page,
+    });
+
+    if (result === 401) {
+    } else if (result === 500) {
+      ErrorToast('Something went wrong. Please try again', 3000);
+    } else {
+      setProduct(result, 'page');
+    }
+    Notiflix.Block.remove('#root');
+    setLoading(false);
+  };
   const handleSearch = async (e) => {
     e.preventDefault();
     let tempSort;
@@ -150,7 +201,7 @@ export function ProductPage(props) {
       setPage(1);
     }
     setTotalRecords(result.meta.total);
-    setTotalPage(result.meta.last_page);
+    // setTotalPage(result.meta.last_page);
   };
   return (
     <>
@@ -163,7 +214,11 @@ export function ProductPage(props) {
             <div className="row">
               <div className="mb-3 d-flex justify-content-between">
                 <div className="d-flex justify-content-between ">
-                  <FilterCategory currentFilter={filterCategory} setCurrentFilter={handleCurrentFilterCategory} />
+                  <FilterCategory
+                    currentFilter={filterCategory}
+                    setCurrentFilter={handleCurrentFilterCategory}
+                    data={listCategory}
+                  />
                   <FilterStatus currentFilter={filterStatus} setCurrentFilter={handleCurrentFilterStatus} />
                 </div>
                 <div className="d-flex justify-content-between ">

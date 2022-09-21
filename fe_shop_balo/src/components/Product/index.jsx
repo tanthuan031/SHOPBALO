@@ -1,17 +1,16 @@
+import Notiflix from 'notiflix';
 import React, { useState } from 'react';
-import { Button, Carousel } from 'react-bootstrap';
-import { FaPen, FaSistrix, FaTimesCircle } from 'react-icons/fa';
+import { Carousel } from 'react-bootstrap';
+import { FaPen, FaTimesCircle } from 'react-icons/fa';
 import { useDispatch } from 'react-redux';
 import { getProductById } from '../../api/Product/productAPI';
 import { getStorageImage } from '../../api/StorageImage';
 import { setIsEdit, setProduct } from '../../redux/reducer/product/product.reducer';
-import { URL_IMAGE_BACKEND } from '../../utils/urlPath';
-import Modal from '../Layouts/Modal';
-import TableLayout from '../Layouts/Table';
-import Notiflix from 'notiflix';
-import './style.css';
 import { ErrorToast } from '../Layouts/Alerts';
+import Modal from '../Layouts/Modal';
 import { BlockUI } from '../Layouts/Notiflix';
+import TableLayout from '../Layouts/Table';
+import './style.css';
 export function ProductTable(props) {
   const [show, setShowDetail] = useState(false);
   const [dataImageSlide, setDataImage] = React.useState([]);
@@ -28,7 +27,7 @@ export function ProductTable(props) {
     setShowDetail(true);
     if (result === 401) {
       return false;
-    } else if (result == 500) {
+    } else if (result === 500) {
       return false;
     } else {
       setProductDetail({ ...result });
@@ -113,7 +112,7 @@ export function ProductTable(props) {
                       // alt={props.urlImage}
                       width="100%"
                       height="70%"
-                      className=" d-block w-100 app-border-8px image-product-detail d-flex justify-content-center"
+                      className="d-block w-100 app-border-8px image-product-detail d-flex justify-content-center"
                     />
                   </Carousel.Item>
                 );
