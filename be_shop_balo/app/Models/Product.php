@@ -72,7 +72,11 @@ class Product extends Model
         return $query->when($request->has('filter.status'), function ($query) use ($request) {
             $list = explode(",", $request->query("filter")["status"]);
             $query->whereIn("status", $list);
-        });
+        })
+            ->when($request->has('filter.category_id'), function ($query) use ($request) {
+                $list = explode(",", $request->query("filter")["category_id"]);
+                $query->whereIn("category_id", $list);
+            });
     }
     public function scopeSearch($query, $request)
     {

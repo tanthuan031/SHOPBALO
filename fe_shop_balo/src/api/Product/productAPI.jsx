@@ -12,7 +12,7 @@ export const configHeadersAuthenticate = () => {
   };
 };
 
-export const getAllProducts = async ({ sort, filterStatus, search, page } = {}) => {
+export const getAllProducts = async ({ sort, filterStatus, filterCategory, search, page } = {}) => {
   const url = '/api/admin/product';
   const queryString = [];
   if (sort && sort.length > 0) {
@@ -27,8 +27,11 @@ export const getAllProducts = async ({ sort, filterStatus, search, page } = {}) 
     queryString.push(`page=${page}`);
   }
   if (filterStatus) {
-    console.log(`filterStatus:`, filterStatus);
+    // console.log(`filterStatus:`, filterStatus);
     queryString.push(`filter[status]=${filterStatus}`);
+  }
+  if (filterCategory) {
+    queryString.push(`filter[category_id]=${filterCategory}`);
   }
   const final_url = concatQueryString(queryString, url);
   const reponse = await axiosClient.get(final_url);

@@ -34,3 +34,10 @@ button.filter-button ~ .dropdown-item.show .dropdown-item:active {
   background-color: transparent !important;
   color: inherit;
 }
+#category-type-filter-menu {
+  max-height: 300px;
+  overflow-y: scroll;
+}
+.category-type-filter-menu-item {
+  cursor: pointer;
+}
