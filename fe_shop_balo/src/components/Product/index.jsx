@@ -19,7 +19,6 @@ export function ProductTable(props) {
 
   const handleShowDetail = async (id, image) => {
     BlockUI('#root', 'fixed');
-
     const urlArrayImageSlide = 'ProductSlide?cat=' + image;
     const result = await getProductById(id);
     const imageProductSlice = await getStorageImage(urlArrayImageSlide);
@@ -35,9 +34,10 @@ export function ProductTable(props) {
     setDataImage(imageProductSlice);
   };
   const handleEditProduct = async (e, id) => {
+    BlockUI('#root', 'fixed');
     e.stopPropagation();
     const data = await getProductById(id);
-    console.log('edit', data);
+    Notiflix.Block.remove('#root');
     if (Object.keys(data).length > 0) {
       dispatch(setProduct(data));
       dispatch(setIsEdit(true));

@@ -44,7 +44,7 @@ export function ProductPage(props) {
       const result = await getAllProducts({});
       if (result === 401) {
         return false;
-      } else if (result == 500) {
+      } else if (result === 500) {
         return false;
       } else {
         setProduct(result, 'reset-page');
@@ -140,14 +140,13 @@ export function ProductPage(props) {
     setLoading(true);
 
     let tempFilterCategory;
-    if (value === filterCategory && value === 'All') {
+    if (value === 'All') {
       setFilterCategory('All');
       tempFilterCategory = undefined;
     } else {
       setFilterCategory(value);
       tempFilterCategory = value;
     }
-    console.log(tempFilterCategory);
     const result = await getAllProducts({
       sort: {
         key: 'id',

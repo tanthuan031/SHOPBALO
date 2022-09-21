@@ -112,7 +112,6 @@ function ProductAdd(props) {
 
   const onSubmit = async (data) => {
     BlockUI('#root', 'fixed');
-    console.log(data.image.length);
     if (data.image.length !== 0 && data.description != '') {
       const image1 = await toBase64(data.image[0]);
       const image_slide_array = [];
