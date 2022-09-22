@@ -1,6 +1,7 @@
 <?php
 // admin
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\StorageImageController;
 use App\Models\Role;
@@ -17,9 +18,8 @@ Route::group([
     'prefix' => 'admin'
 ], function () {
     Route::resource('product', ProductController::class);
-    // api resource category
     Route::resource('category', CategoryController::class);
-    // api category forgot
+    Route::resource('order', OrderController::class);
     Route::delete('category/{category}/forgot', [CategoryController::class, 'forgot']);
 });
 Route::get('/storage/{filename}', [StorageImageController::class, 'index']);
