@@ -17,7 +17,7 @@ export const getAll = async ({ sort_id, search, status, page } = {}) => {
     const url = '/api/admin/category';
     const queryString = [];
     if (sort_id) queryString.push(`_sort_id=${sort_id}`);
-    if (search) queryString.push(`_search=${search}`);
+    if (search) queryString.push(`_q=${search}`);
     if (status) queryString.push(`_status=${status}`);
     if (page) queryString.push(`page=${page}`);
 
@@ -53,6 +53,22 @@ export const showCategory = async (id) => {
 export const updateCategory = async (id, data) => {
     const url = `/api/admin/category/${id}`;
     const res = await axiosClient.put(url, data);
+    if (res.status === 200) {
+        return 200;
+    }
+    return 401;
+}
+export const destroyCategory = async (id) => {
+    const url = `/api/admin/category/${id}`;
+    const res = await axiosClient.delete(url);
+    if (res.status === 200) {
+        return 200;
+    }
+    return 401;
+}
+export const forgotCategory = async (id) => {
+    const url = `/api/admin/category/${id}/forgot`;
+    const res = await axiosClient.delete(url);
     if (res.status === 200) {
         return 200;
     }

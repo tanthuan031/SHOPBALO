@@ -61,6 +61,7 @@ function CreateCategoryForm(props) {
                 image: image
             };
             const result = await addCategory(resultData);
+            console.log(result);
             Notiflix.Block.remove('#root');
             if (result.status === 200) {
 

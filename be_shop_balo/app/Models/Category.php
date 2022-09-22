@@ -59,13 +59,13 @@ class Category extends Model
     }
 
 
-    public function scopeStatus($query, $status = 'all')
+    public function scopeStatus($query, $status = 'All')
     {
         switch ($status) {
-            case 'active':
+            case 'Active':
                 return $query;
                 break;
-            case 'unactive':
+            case 'UnActive':
                 return $query->onlyTrashed();
                 break;
             default:

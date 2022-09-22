@@ -1,13 +1,18 @@
 import React from 'react';
 import { Dropdown, Form } from 'react-bootstrap';
 import { HiFilter } from 'react-icons/hi';
+import { useDispatch, useSelector } from 'react-redux';
+import { setSort } from '../../../redux/reducer/category/category.reducer';
+import { isSortSelector } from '../../../redux/selectors/category/category.selector';
 
 
 import './sort.css';
 
 export default function Sort(props) {
+    const dispatch = useDispatch();
+    const sort = useSelector(isSortSelector);
     const handleFilter = (value) => {
-        props.setCurrentFilter(value);
+        dispatch(setSort(value));
     };
 
     return (
@@ -23,24 +28,24 @@ export default function Sort(props) {
             </Dropdown.Toggle>
             <Dropdown.Menu id="user-type-filter-menu">
                 <Form>
-                    <Dropdown.Item onClick={() => handleFilter('First-Day')}>
+                    <Dropdown.Item as={'li'} onClick={() => handleFilter('DESC')}>
                         <Form.Check
-                            type="checkbox"
+                            type="radio"
                             id="checkbox-first-day"
                             className="mx-4 my-2 font-weight-bold"
-                            label="First Day"
-                            checked={props.currentFilter === 'First-Day'}
-                            onChange={() => handleFilter('First-Day')}
+                            label="Last Day"
+                            checked={sort === 'DESC'}
+                            onChange={() => handleFilter('DESC')}
                         />
                     </Dropdown.Item>
-                    <Dropdown.Item onClick={() => handleFilter('Last-Day')}>
+                    <Dropdown.Item as={'li'} onClick={() => handleFilter('ASC')}>
                         <Form.Check
-                            type="checkbox"
+                            type="radio"
                             id="checkbox-last-lay"
                             className="mx-4 my-2 font-weight-bold"
-                            label="Last Day"
-                            checked={props.currentFilter === 'Last-Day'}
-                            onChange={() => handleFilter('Last-Day')}
+                            label="First Day"
+                            checked={sort === 'ASC'}
+                            onChange={() => handleFilter('ASC')}
                         />
                     </Dropdown.Item>
 

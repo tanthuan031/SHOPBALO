@@ -6,6 +6,9 @@ export const categoryReducer = createSlice({
     initialState: {
         isAdd: false,
         isEdit: false,
+        isReset: 'reset-page',
+        status: 'All',
+        sort: 'DESC',
         category: {},
     },
     reducers: {
@@ -15,6 +18,15 @@ export const categoryReducer = createSlice({
         setIsEdit: (state, action) => {
             state.isEdit = action.payload;
         },
+        setIsReset: (state, action) => {
+            state.isReset = action.payload;
+        },
+        setStatus: (state, action) => {
+            state.status = action.payload;
+        },
+        setSort: (state, action) => {
+            state.sort = action.payload;
+        },
         setCategory: (state, action) => {
 
             state.category = { ...action.payload };
@@ -23,6 +35,6 @@ export const categoryReducer = createSlice({
     },
 });
 
-export const { setIsAdd, setIsEdit, setCategory } = categoryReducer.actions;
+export const { setIsAdd, setIsEdit, setCategory, setIsReset, setStatus, setSort } = categoryReducer.actions;
 
 export default categoryReducer.reducer;

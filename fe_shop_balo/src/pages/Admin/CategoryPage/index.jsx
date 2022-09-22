@@ -10,11 +10,12 @@ import CreateCategoryForm from '../../../components/Category/Add';
 import EditCategory from '../../../components/Category/Edit';
 import FilterStatusCategory from '../../../components/Category/FilterStatusCategory';
 import Sort from '../../../components/Category/Sort';
+import { ErrorToast } from '../../../components/Layouts/Alerts';
 import { BlockUI } from '../../../components/Layouts/Notiflix';
 import PaginationUI from '../../../components/Layouts/Pagination';
 import Skeleton from '../../../components/Layouts/Skeleton';
 import { setIsAdd } from '../../../redux/reducer/category/category.reducer';
-import { isAddSelector, isCategorySelector, isEditSelector } from '../../../redux/selectors/category/category.selector';
+import { isActiveSelector, isAddSelector, isEditSelector, isResetSelector, isSortSelector, isStatusSelector } from '../../../redux/selectors/category/category.selector';
 
 
 
@@ -27,31 +28,35 @@ export function CategoryPage(props) {
     const [loading, setLoading] = useState(true);
     const isAdd = useSelector(isAddSelector);
     const isEdit = useSelector(isEditSelector);
+    const isReset = useSelector(isResetSelector);
+    const status = useSelector(isStatusSelector);
+    const sort_id = useSelector(isSortSelector);
     const [search, setSearch] = useState('');
     const dispatch = useDispatch();
     const handleCallApiCategory = async () => {
-        const result = await getAll({});
+        setLoading(true);
 
+        const result = await getAll({ search, status, sort_id });
 
         if (result === 401) {
-            console.log('error cate');
+            ErrorToast('Something went wrong. Please try again', 3000);
             return false;
         } else {
-            setData(result.data)
+            setData(result.data);
 
-            setTotalRecords(result.meta.total)
+            setTotalRecords(result.meta.total);
 
-            setPage(result.meta.current_page)
+            setPage(result.meta.current_page);
 
         }
         setLoading(false);
 
     };
     useEffect(() => {
-        console.log('useffect');
+
 
         handleCallApiCategory();
-    }, [dispatch, isAdd]);
+    }, [dispatch, isAdd, isReset, status, sort_id]);
 
 
 
@@ -64,9 +69,13 @@ export function CategoryPage(props) {
     };
 
     const handleCurrentFilter = () => { };
-    const handleSearh = (e) => {
-        e.preventDefault()
-        console.log(search);
+
+    const handleSearh = async (e) => {
+        e.preventDefault();
+
+        handleCallApiCategory();
+
+
     }
     const handleChangePage = async (page) => {
         setPage(page);
@@ -75,7 +84,7 @@ export function CategoryPage(props) {
 
 
         if (result === 401) {
-            console.log('error cate');
+            ErrorToast('Something went wrong. Please try again', 3000);
             return false;
         } else {
             setData(result.data);
@@ -111,8 +120,7 @@ export function CategoryPage(props) {
                                                 placeholder="Search name category"
                                                 value={search}
                                                 onChange={(e) => {
-                                                    setSearch(e.target.value
-                                                    )
+                                                    setSearch(e.target.value)
                                                 }}
                                             />
                                             <Button id="seach-category" variant="danger" type="submit" onClick={handleSearh}>
