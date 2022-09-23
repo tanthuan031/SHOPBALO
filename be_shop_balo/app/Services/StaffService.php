@@ -38,29 +38,30 @@ class StaffService
         }
     }
 
-    public function storeStaff($request)
+    public function storeStaff($request): \Illuminate\Http\JsonResponse
     {
        // return $this->apiResponse('','testing',$request->all());
-        $avatar=$request->input('avatar');
-       $remakeRequest=[
-           'role_id'=>$request->input('role_id'),
-           'first_name'=>$request->input('first_name'),
-           'last_name'=>$request->input('last_name'),
-           'gender'=>$request->input('gender'),
-           'phone'=>$request->input('phone'),
-           'email'=>$request->input('email'),
-           'password'=>bcrypt($request->input('password')),
-         'avatar'=>Helper::saveImgBase64($avatar,'Staff'),
+       $avatar=Helper::saveImgBase64($request->avatar,'Staff');
+       $dataRequest=[
+           'role_id'=>$request->role_id,
+           'first_name'=>$request->first_name,
+           'last_name'=>$request->last_name,
+           'gender'=>$request->gender,
+           'phone'=>$request->phone,
+           'email'=>$request->email,
+           'password'=>bcrypt($request->password),
+            'avatar'=>$avatar,
            'status'=>1,
-           'address'=> $request->input('address'),
-           'created_date'=>$request->input('created_date'),
+           'address'=> $request->address,
+           'created_date'=>$request->created_date,
        ];
-       //return $this->apiResponse([],'success','');
-     $result=$this->staffRepository->storeStaff( $remakeRequest);
-       if( $result){
+     //  return $this->apiResponse([],'success',$remakeRequest);
+    $result=$this->staffRepository->storeStaff( $dataRequest);
+   // return $this->apiResponse('','fail',$result);
+      if( $result){
             return $this->apiResponse($result,'success','Create staff successful');
         }else{
-            return $this->apiResponse($result,'fail','Create staff unsuccessful');
+            return $this->apiResponse([],'fail','Create staff unsuccessful');
         }
     }
 

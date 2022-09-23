@@ -51,11 +51,12 @@ class StaffRepository extends BaseRepository
         $data = Staff::query()->with('roles')->find($id);
         return StaffResource::make($data)->response()->getData();
     }
-    public function storeStaff($request){
+    public function storeStaff($request): \Illuminate\Database\Eloquent\Model|bool|\Illuminate\Database\Eloquent\Builder
+    {
 
         try {
-        $staff = Staff::query()->create($request->all());
-
+        $staff = Staff::query()->create($request);
+       // return $request;
         /* $staff = Staff::query()->create([
                 'role_id'=>$request->input('role_id'),
                 'first_name'=>$request->input('first_name'),
