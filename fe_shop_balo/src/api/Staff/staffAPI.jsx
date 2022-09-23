@@ -52,9 +52,10 @@ export const getStaffById = async (id) => {
     return {};
   }
 };
-export const addStaff = async (data) => {
+export const addStaff = async (body) => {
   const url = '/api/admin/staff';
-  const response = await axiosClient.post(url, data);
+  const response = await axiosClient.post(url, body);
+
   if (response.status === 401) {
     return 401;
   } else if (response.status === 'success') {

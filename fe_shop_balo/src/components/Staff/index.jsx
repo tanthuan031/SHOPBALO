@@ -5,6 +5,7 @@ import Modal from '../Layouts/Modal';
 
 import TableLayout from '../Layouts/Table';
 import './style.css';
+import { URL_SERVER } from '../../utils/urlPath';
 
 export function StaffTable(props) {
   const [show, setShowDetail] =  useState(false);
@@ -21,7 +22,7 @@ export function StaffTable(props) {
           <td>{item.role_name}</td>
           <td>{`${item.first_name} ${item.last_name}`}</td>
           <td>{item.email}</td>
-          <td> <img  className="img-avatar " src={item.avatar} /></td>
+          <td> <img  className="img-avatar " src={ `${URL_SERVER}/storage/staff/${item.avatar} `}/></td>
           <td>{item.status ? 'active' : 'disabled'}</td>
           <td>
             <div className="d-flex">

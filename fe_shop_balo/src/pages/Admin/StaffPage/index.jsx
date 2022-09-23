@@ -15,6 +15,7 @@ import Notiflix from 'notiflix';
 import Filter from '../../../components/Staff/Fitler';
 import { isAddStaffSelector } from '../../../redux/selectors';
 import StaffAdd from '../../../components/Staff/Add';
+import { getAllProducts } from '../../../api/Product/productAPI';
 
 
 export function StaffPage(props) {
@@ -91,9 +92,18 @@ export function StaffPage(props) {
     setLoading(false);
   };
 
-  const handleFilter= (filter) => {
+  const backToStaffList = async (value, action) => {
+    setLoading(true);
+    if (action === 'edit') {
+      console.log('Back to Edit');
+    }
 
-  }
+    const result = await getAllStaffs({
+      sort: value,
+    });
+    setStaff(result, 'page');
+    setLoading(false);
+  };
   const goToPageAddStaff = () => {
     BlockUI('#root', 'fixed');
     setTimeout(function () {
@@ -148,7 +158,7 @@ export function StaffPage(props) {
           ):(
             <>
               <h5 className="text-danger font-weight-bold mb-3">Add Staff</h5>
-              <StaffAdd />
+              <StaffAdd  backToStaffList={backToStaffList} />
             </>
 
           )
