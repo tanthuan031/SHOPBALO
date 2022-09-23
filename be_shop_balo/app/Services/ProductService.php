@@ -22,7 +22,7 @@ class ProductService
         if ($result) {
             return $this->apiResponse($result, 'success', 'Get all product successfully');
         } else {
-            return $this->apiResponse([], 'fail', 'Get product unsuccessful');
+            return $this->apiResponse([], 'fail', 'Get product unsuccessfuly');
         }
     }
 

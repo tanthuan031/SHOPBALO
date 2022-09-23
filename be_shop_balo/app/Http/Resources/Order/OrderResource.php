@@ -2,15 +2,15 @@
 
 namespace App\Http\Resources\Order;
 
+use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Http\Resources\Json\ResourceCollection;
 
-class OrderResource extends ResourceCollection
+class OrderResource extends JsonResource
 {
     /**
      * Transform the resource collection into an array.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return array|\Illuminate\Contracts\Support\Arrayable|\JsonSerializable
+     * @param  Request  $request
      */
     public function toArray($request): array
     {
@@ -26,6 +26,7 @@ class OrderResource extends ResourceCollection
             'status' => $this->status,
             'discount_value' => $this->discount_value,
             'total_price' => $this->total_price,
+            'created_order_date' => $this->created_order_date,
         ];
         return $arrayOrder;
     }

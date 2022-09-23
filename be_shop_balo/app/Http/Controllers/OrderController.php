@@ -20,7 +20,7 @@ class OrderController extends Controller
 
     public function index(Request $request)
     {
-        //
+
         return $this->orderService->getAllOrder($request);
     }
 
@@ -54,6 +54,7 @@ class OrderController extends Controller
     public function show($id)
     {
         //
+        return $this->orderService->getOrderDetailById($id);
     }
 
     /**

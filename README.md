@@ -45,3 +45,7 @@ php artisan server
 
 create Resource
 php artisan make:resource User --collection
+
+NOTE GIT
+
+- Before fetch or pull run command: git remote update origin --prune

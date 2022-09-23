@@ -23,4 +23,13 @@ class OrderService
             return $this->apiResponse([], 'failed', 'Get order unsuccessfully');
         }
     }
+    public function getOrderDetailById($id)
+    {
+        $result = $this->orderRepository->getOrderDetailById($id);
+        if ($result) {
+            return $this->apiResponse($result, 'success', 'Get order by id successfully');
+        } else {
+            return $this->apiResponse([], 'failed', 'Get order by id unsuccessfully');
+        }
+    }
 }

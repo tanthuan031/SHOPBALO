@@ -2,8 +2,10 @@
 
 namespace App\Repositories;
 
+use App\Http\Resources\Order\OrderDetailResource;
 use App\Http\Resources\Order\OrderResource;
 use App\Models\Order;
+use App\Models\OrderDetail;
 use App\Repositories\BaseRepository;
 
 
@@ -22,10 +24,20 @@ class OrderRepository extends BaseRepository
             ->with('customers')
             ->with('staff')
             ->with('discounts')
-            ->sort($request)
-            ->filter($request)
-            ->search($request)
+            // ->sort($request)
+            // ->filter($request)
+            // ->search($request)
             ->paginate($this->paginate);
-        return  OrderResource::collection($data)->response()->getData();
+        return OrderResource::collection($data)->response()->getData();
+    }
+
+    public function getOrderDetailById($id)
+    {
+        $data = OrderDetail::query()
+            ->where('order_id', $id)
+            ->with('products')
+            ->get();
+        return
+            OrderDetailResource::collection($data)->response()->getData();
     }
 }
