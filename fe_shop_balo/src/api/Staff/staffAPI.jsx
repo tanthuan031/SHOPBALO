@@ -66,3 +66,17 @@ export const addStaff = async (body) => {
     return 404;
   }
 };
+
+export const editStaff = async (id, body) => {
+  const url = `/api/admin/product/${id}`;
+  const response = await axiosClient.put(url, body);
+  if (response.status === 401) {
+    return 401;
+  } else if (response.status === 'Success') {
+    return 200;
+  } else if (response.status === 500) {
+    return 500;
+  } else {
+    return 404;
+  }
+};

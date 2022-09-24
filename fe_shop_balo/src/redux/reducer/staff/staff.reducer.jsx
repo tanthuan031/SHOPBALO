@@ -16,9 +16,15 @@ export const staffReducer = createSlice({
     setIsAdd: (state, action) => {
       state.isAdd = action.payload;
     },
+    setIsEdit: (state, action) => {
+      state.isEdit = action.payload;
+    },
+    setStaff: (state, action) => {
+      state.staff = action.payload;
+    },
   },
 });
 
-export const { setIsAdd } = staffReducer.actions;
+export const { setIsAdd,setIsEdit, setStaff } = staffReducer.actions;
 
 export default staffReducer.reducer;

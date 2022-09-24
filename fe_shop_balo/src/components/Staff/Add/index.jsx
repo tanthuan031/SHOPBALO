@@ -85,6 +85,7 @@ const StaffAdd = props => {
 
   return (
     <div className=' edit_form d-flex justify-content-center'>
+      <h5 className="text-danger font-weight-bold mb-3">Add Staff</h5>
       <Form className='font_add_edit_prduct' onSubmit={handleSubmit(onSubmit)} encType='multipart/form-data'>
         <Row>
           <Col>

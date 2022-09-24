@@ -1,7 +1,7 @@
 export const staff_table_header = [
   {
     id: 1,
-    name: "STT",
+    name: "Avatar",
     isSortAsc: false,
     isSortDesc: false,
     isSort: true,
@@ -9,7 +9,7 @@ export const staff_table_header = [
   },
   {
     id: 2,
-    name: "Role",
+    name: "Name",
     isSortAsc: false,
     isSortDesc: false,
     isSort: true,
@@ -17,7 +17,7 @@ export const staff_table_header = [
   },
   {
     id: 3,
-    name: "Name",
+    name: "Role",
     isSortAsc: false,
     isSortDesc: false,
     isSort: false,
@@ -26,22 +26,15 @@ export const staff_table_header = [
 
   {
     id: 4,
-    name: "Email",
+    name: "Contact",
     isSortAsc: false,
     isSortDesc: false,
     isSort: true,
     cursor: true,
   },
+
   {
     id: 5,
-    name: "Avatar",
-    isSortAsc: false,
-    isSortDesc: false,
-    isSort: true,
-    cursor: true,
-  },
-  {
-    id: 6,
     name: "Active",
     isSortAsc: false,
     isSortDesc: false,
@@ -49,7 +42,7 @@ export const staff_table_header = [
     cursor: true,
   },
   {
-    id: 7,
+    id: 6,
     name: "Action",
     isSortAsc: false,
     isSortDesc: false,

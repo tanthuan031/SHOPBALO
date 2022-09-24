@@ -13,9 +13,10 @@ import { BlockUI } from '../../../components/Layouts/Notiflix';
 import { setIsAdd } from '../../../redux/reducer/staff/staff.reducer';
 import Notiflix from 'notiflix';
 import Filter from '../../../components/Staff/Fitler';
-import { isAddStaffSelector } from '../../../redux/selectors';
+import { isAddStaffSelector, isEditStaffSelector } from '../../../redux/selectors';
 import StaffAdd from '../../../components/Staff/Add';
 import { getAllProducts } from '../../../api/Product/productAPI';
+import StaffEdit from '../../../components/Staff/Edit';
 
 
 export function StaffPage(props) {
@@ -41,6 +42,8 @@ export function StaffPage(props) {
   ]
   //Redux
   const isAddStaff=useSelector(isAddStaffSelector)
+  const isEditStaff=useSelector(isEditStaffSelector)
+  console.log(isEditStaff)
   const dispatch = useDispatch();
   //Loading
   const [loading, setLoading] = React.useState(true);
@@ -56,7 +59,7 @@ export function StaffPage(props) {
       });
       if (result === 401) {
         return false;
-      } else if (result == 500) {
+      } else if (result === 500) {
         return false;
       } else {
         setStaff(result, 'reset-page');
@@ -71,11 +74,9 @@ export function StaffPage(props) {
     if (value !== 'page') {
       setPage(1);
     }
-
     setTotalRecord(result.meta.total);
     setTotalPage(result.meta.last_page);
   };
-
 
   const handlePageChange=async (page) => {
     setPage(page);
@@ -116,7 +117,7 @@ export function StaffPage(props) {
     <section>
       <div className="container-fluid mt-5">
         {
-          !isAddStaff ?(
+          !isAddStaff && !isEditStaff ?(
             <>
               <h5 className="text-danger font-weight-bold mb-3">Staff List</h5>
               <div className="row">
@@ -157,11 +158,15 @@ export function StaffPage(props) {
             </>
           ):(
             <>
-              <h5 className="text-danger font-weight-bold mb-3">Add Staff</h5>
-              <StaffAdd  backToStaffList={backToStaffList} />
+              {isAddStaff && <StaffAdd  backToStaffList={backToStaffList} />}
+              { isEditStaff && <StaffEdit backToStaffList={backToStaffList} />}
             </>
 
+
+
           )
+
+
         }
 
       </div>
