@@ -72,9 +72,9 @@ class StaffController extends Controller
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  \App\Models\Staff  $staff
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
-    public function update(Request $request, int $id)
+    public function update(Request $request, int $id): \Illuminate\Http\JsonResponse
     {
         return $this->staffService->updateStaff($request,$id );
     }

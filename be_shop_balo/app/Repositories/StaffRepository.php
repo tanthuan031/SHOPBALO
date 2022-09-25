@@ -78,6 +78,7 @@ class StaffRepository extends BaseRepository
     public function updateStaff($request,$id)
     {
         try{
+
             $staff=  Staff::query()->where('id','=',$id)->first();
             $staff->update($request->all());
         }
@@ -85,7 +86,6 @@ class StaffRepository extends BaseRepository
             return false;
         }
         return $staff;
-
     }
     public function deleteStaff($id){
         try{

@@ -37,4 +37,19 @@ class Staff extends Model
         return $this->belongsTo(Role::class,'role_id');
 
     }
+    public function scopeSort($query, $request)
+    {
+        return $query
+            ->when($request->has("sort"), function ($query) use ($request) {
+                $sortBy = '';
+                $sortValue = '';
+
+                foreach ($request->query("sort") as $key => $value) {
+                    $sortBy = $key;
+                    $sortValue = $value;
+                }
+
+                $query->orderBy($sortBy, $sortValue);
+            });
+    }
 }

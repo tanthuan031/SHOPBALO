@@ -65,11 +65,18 @@ class StaffService
         }
     }
 
-    public function updateStaff($request,$id){
+    public function updateStaff($request,$id): \Illuminate\Http\JsonResponse
+    {
+        if (!is_null($request->avatar)) {
+            $request['avatar'] = Helper::saveImgBase64($request->avatar,'Staff');
+        }
+        if(!is_null($request->created_date)) {
+            $request['created_date'] = date('Y-m-d' , strtotime($request->created_date));
+        }
         $result=$this->staffRepository->updateStaff($request,$id);
-       // return $this->apiResponse([],$id);
-        if($result){
-            return $this->apiResponse($result,'Success','Update staff successfully');
+     //return $this->apiResponse([],$result,'ÚUp');
+     if($result){
+            return $this->apiResponse($result,'success','Update staff successfully');
         }else{
             return $this->apiResponse([],'Fail','Update staff unsuccessful');
         }
