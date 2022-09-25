@@ -133,7 +133,7 @@ function ProductEdit(props) {
         temDirtyFields.image_slide = undefined;
       }
     }
-
+    console.log(temDirtyFields)
     const result = await editProduct(productDetailById.id, temDirtyFields);
     Notiflix.Block.remove('#root');
     if (result === 200) {

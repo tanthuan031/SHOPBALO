@@ -4,7 +4,7 @@ import { Button, Col, Form, InputGroup, Row } from 'react-bootstrap';
 import { Controller, useForm, useWatch } from 'react-hook-form';
 import Select from 'react-select';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { addSchema } from '../../../adapter/staff';
+import { addSchema, editSchema } from '../../../adapter/staff';
 import { useDispatch, useSelector } from 'react-redux';
 import { BlockUI } from '../../Layouts/Notiflix';
 import Notiflix from 'notiflix';
@@ -12,11 +12,15 @@ import { ErrorToast, SuccessToast } from '../../Layouts/Alerts';
 import { setIsEdit } from '../../../redux/reducer/staff/staff.reducer';
 import { isEditStaffSelector, staffByIdSelector } from '../../../redux/selectors/';
 import { editStaff } from '../../../api/Staff/staffAPI';
-
+import { URL_SERVER } from '../../../utils/urlPath';
+import './style.css'
 
 const StaffEdit = props => {
-  const dataStaff=useSelector(staffByIdSelector)
-  console.log(dataStaff)
+  const staffSelector=useSelector(staffByIdSelector)
+  const dataStaff=staffSelector.data
+  const [imageAvatarStaff,setImageAvatarStaff] = useState({file:[]})
+  const [imageAvatarStaffShow,setImageAvatarStaffShow] = useState(false)
+  //console.log(dataStaff)
   const data_roles=[
     { value: 1, label: 'Admin' },
     { value: 2, label: 'CTO' },
@@ -25,14 +29,25 @@ const StaffEdit = props => {
     { value: 1, label: 'male' },
     { value: 2, label: 'female' },
   ]
-  const { register, handleSubmit,setValue, watch,control, formState: { errors } } = useForm({
+  const { register, handleSubmit,control,setValue,
+    formState: { errors,isDirty, dirtyFields } } = useForm({
       mode: 'onChange',
-      resolver: yupResolver(addSchema),
+      resolver: yupResolver(editSchema),
       defaultValues: {
-        first_name: dataStaff.first_name
-    }
+        first_name: dataStaff.first_name,
+        last_name: dataStaff.last_name,
+        role_id:   { value: dataStaff.role_id, label: dataStaff.role_name },
+        gender: { value: 1, label: dataStaff.gender },
+        phone: dataStaff.phone,
+        password: dataStaff.password,
+        email: dataStaff.email,
+        avatar: dataStaff.avatar,
+        address: dataStaff.address,
+        created_date: dataStaff.created_date,
+      }
     }
   );
+
   const dispatch = useDispatch();
 
   const backtoManageStaff = () => {
@@ -46,26 +61,31 @@ const StaffEdit = props => {
       reader.onload = () => resolve(reader.result);
       reader.onerror = (error) => reject(error);
     });
-  const onSubmit = async (data) => {
 
-    BlockUI('#root', 'fixed');
-    const image = await toBase64(data.avatar[0]);
-    const resultData = {
-      first_name: data.first_name,
-      last_name: data.last_name,
-      role_id: data.role_id.value,
-      gender: data.gender.label,
-      phone: data.phone,
-      email: data.email,
-      password: data.password,
-      avatar:  [image],
-      status:1,
-      address: data.address,
-      created_date: '2022-05-05', //data.created_date,
-    };
-    console.log('data:', resultData);
-    const result = await editStaff(dataStaff.data.id,resultData);
-    console.log('Result:',result);
+  /*useEffect(() => {
+    //console.log(imageAvatarStaff.file.size > 0,imageAvatarStaff.file)
+   if( imageAvatarStaffShow !==undefined)
+      setValue('avatar','123456', { shouldDirty: true })
+
+  }, [imageAvatarStaffShow])*/
+
+  const onSubmit = async (data) => {
+    console.log(data)
+   // BlockUI('#root', 'fixed');
+    const temDirtyFields = { ...dirtyFields };
+    Object.keys(temDirtyFields).map((key) => {
+      temDirtyFields[key] = data[key];
+    });
+   console.log('dataBefore:', temDirtyFields);
+   if(temDirtyFields.avatar!==undefined) {
+      const image = await toBase64(temDirtyFields.avatar);
+      temDirtyFields.avatar=[image]
+    }
+
+   console.log('dataAfter:', temDirtyFields);
+
+    const result= await editStaff(dataStaff.id,temDirtyFields);
+   // console.log('Result:',result);
     Notiflix.Block.remove('#root');
     if (result === 200) {
       SuccessToast('Create product successfully', 3000);
@@ -88,13 +108,20 @@ const StaffEdit = props => {
 
 
   }
+  const uploadImage = (e) => {
+    let image = e.target.files[0];
+    if (e.target.files.length > 0) {
+      setImageAvatarStaffShow(URL.createObjectURL(image))
+    }
+
+  };
 
   return (
     <div className=' edit_form d-flex justify-content-center'>
       <Form className='font_add_edit_prduct' onSubmit={handleSubmit(onSubmit)} encType='multipart/form-data'>
         <Row>
           <Col>
-            <Form.Group className="mb-3" controlId="formUsername">
+            <Form.Group className="mb-3" >
               <Form.Label className="label-input" >First Name</Form.Label>
               <Controller control={control} name="fisrt_name"
                           defaultValue=""
@@ -109,7 +136,7 @@ const StaffEdit = props => {
             </Form.Group>
           </Col>
           <Col>
-            <Form.Group className="mb-3" controlId="formEmail">
+            <Form.Group className="mb-3" >
               <Form.Label className="label-input" >Last Name</Form.Label>
               <Controller control={control} name="last_name"
                           defaultValue=""
@@ -126,7 +153,7 @@ const StaffEdit = props => {
         </Row>
         <Row>
           <Col>
-            <Form.Group className="mb-3" controlId="formUsername">
+            <Form.Group className="mb-3" >
               <Form.Label className="label-input" >Phone</Form.Label>
               <Controller control={control} name="phone"
                           defaultValue=""
@@ -141,7 +168,7 @@ const StaffEdit = props => {
             </Form.Group>
           </Col>
           <Col>
-            <Form.Group className="mb-3" controlId="formEmail">
+            <Form.Group className="mb-3" >
               <Form.Label className="label-input" >Email</Form.Label>
               <Controller control={control} name="email"
                           defaultValue=""
@@ -161,7 +188,7 @@ const StaffEdit = props => {
         </Row>
         <Row>
           <Col>
-            <Form.Group className="mb-3" controlId="formUsername">
+            <Form.Group className="mb-3" >
               <Form.Label className="label-input" >Password</Form.Label>
               <Controller control={control} name="password"
                           defaultValue=""
@@ -180,7 +207,7 @@ const StaffEdit = props => {
             </Form.Group>
           </Col>
           <Col>
-            <Form.Group className="mb-3" controlId="formEmail">
+            <Form.Group className="mb-3" >
               <Form.Label className="label-input" >Created date</Form.Label>
               <Controller control={control} name="created_date"
                           defaultValue=""
@@ -197,7 +224,7 @@ const StaffEdit = props => {
         </Row>
         <Row>
           <Col>
-            <Form.Group className="mb-3" controlId="formUsername">
+            <Form.Group className="mb-3" >
               <Form.Label className="label-input" >Role</Form.Label>
               <Controller
                 name="role_id"
@@ -223,7 +250,7 @@ const StaffEdit = props => {
             </Form.Group>
           </Col>
           <Col>
-            <Form.Group className="mb-3" controlId="formEmail">
+            <Form.Group className="mb-3" >
               <Form.Label className="label-input" >Gender</Form.Label>
               <Controller
                 name="gender"
@@ -250,23 +277,7 @@ const StaffEdit = props => {
             </Form.Group>
           </Col>
         </Row>
-
         <Form.Group className="mb-3" >
-          <Form.Label className="label-input">Avatar</Form.Label>
-          <Form.Control id="avatar" type="file" {...register('avatar')} />
-          {/*<Controller control={control} name="avatar"
-                      defaultValue=""
-                      render={({ field: { onChange, onBlur, value, ref } }) => (
-                        <Form.Control
-                          value={value} ref={ref} type="file"
-
-                          placeholder="Upload avatar"
-                          {...register("avatar", {required: true, })}/>
-
-                      )} />*/}
-
-        </Form.Group>
-        <Form.Group className="mb-3" controlId="password">
           <Form.Label className="label-input" >Address</Form.Label>
           <Controller control={control} name="address"
                       defaultValue=""
@@ -283,6 +294,22 @@ const StaffEdit = props => {
           </div>
 
         </Form.Group>
+
+        <Form.Group className="mb-3" >
+          <Form.Label className="label-input">Avatar</Form.Label>
+          <Form.Control id="avatar" type="file" onChange={e=>{
+
+            setValue('avatar', e.target.files[0], { shouldDirty: true })
+            uploadImage(e)
+          } }  />
+         <div className="d-flex container-avatar">
+           <img className="img-responsive image-avatar" src={
+            imageAvatarStaffShow? imageAvatarStaffShow:
+             `${URL_SERVER}/storage/staff/${dataStaff.avatar}`
+           }  alt={'avatar'}/>
+         </div>
+        </Form.Group>
+
 
 
         <div className='d-flex justify-content-end p-2 mt-3'>

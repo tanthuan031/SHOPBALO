@@ -7,7 +7,12 @@ import { HiFilter } from 'react-icons/hi';
 const Filter = props => {
   const {setSearch,setFilter,currentFilter,currentSearch} = props;
  const [label,setLabel] = React.useState('Search')
+  const [searchValue,setSearchValue] = React.useState('')
+  const handleSearch=(e)=>{
+   e.preventDefault();
+   setSearch(searchValue)
 
+  }
   return (
    <>
      <Dropdown className="ml-4">
@@ -66,16 +71,16 @@ const Filter = props => {
        </Dropdown.Menu>
      </Dropdown>
      {/* onSubmit={e => handleSearch(e)} */}
-     <Form className="ms-3" >
+     <Form className="ms-3" onSubmit={e=>handleSearch(e)}>
        <InputGroup>
          <Form.Control
            id="search-user"
            placeholder="Type to search"
            value={currentSearch}
-           onChange={e => setSearch(e.target.value)}
+          onChange={e => setSearchValue(e.target.value)}
          />
          <Button id="search-user" variant="danger" type="submit"
-           //  onClick={()=>setSearch(searchValue)}
+
          >
            <FaSearch />
          </Button>

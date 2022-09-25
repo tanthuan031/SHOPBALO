@@ -43,14 +43,13 @@ export function StaffPage(props) {
   //Redux
   const isAddStaff=useSelector(isAddStaffSelector)
   const isEditStaff=useSelector(isEditStaffSelector)
-  console.log(isEditStaff)
   const dispatch = useDispatch();
   //Loading
   const [loading, setLoading] = React.useState(true);
   //Logic
   const dispatchAction={
     dispatch,
-    search
+    search,filterStatus
   }
   React.useEffect(() => {
     const handleGetAllStaffs = async () => {
@@ -67,7 +66,8 @@ export function StaffPage(props) {
       setLoading(false);
     };
     handleGetAllStaffs();
-  }, [dispatch]);
+  }, [dispatch,
+    search,filterStatus]);
 
   const setStaff = (result, value) => {
     setData(result.data);

@@ -68,11 +68,26 @@ export const addStaff = async (body) => {
 };
 
 export const editStaff = async (id, body) => {
-  const url = `/api/admin/product/${id}`;
+  const url = `/api/admin/staff/${id}`;
   const response = await axiosClient.put(url, body);
+  console.log(response)
   if (response.status === 401) {
     return 401;
-  } else if (response.status === 'Success') {
+  } else if (response.status === 'success') {
+    return 200;
+  } else if (response.status === 500) {
+    return 500;
+  } else {
+    return 404;
+  }
+};
+export const deleteStaff = async (id) => {
+  const url = `/api/admin/staff/${id}`;
+  const response = await axiosClient.delete(url);
+  console.log(response)
+  if (response.status === 401) {
+    return 401;
+  } else if (response.status === 'success') {
     return 200;
   } else if (response.status === 500) {
     return 500;

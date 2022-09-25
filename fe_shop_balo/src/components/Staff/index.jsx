@@ -13,10 +13,11 @@ import { GrStatusUnknown } from 'react-icons/gr';
 import AutoCallPhone from '../Layouts/AutoCallPhone';
 import { setIsEdit  } from '../../redux/reducer/staff/staff.reducer';
 import Notiflix from 'notiflix';
-import { ErrorToast } from '../Layouts/Alerts';
-import { getStaffById } from '../../api/Staff/staffAPI';
+import { ErrorToast, SuccessToast } from '../Layouts/Alerts';
+import { deleteStaff, getStaffById } from '../../api/Staff/staffAPI';
 import { setStaff } from '../../redux/reducer/staff/staff.reducer';
 import { useDispatch } from 'react-redux';
+import async from 'async';
 
 export function StaffTable(props) {
   const [show, setShowDetail] =  useState(false);
@@ -36,7 +37,6 @@ export function StaffTable(props) {
   const handleEditStaff = async (e, id) => {
     e.stopPropagation();
     const data = await getStaffById(id);
-    console.log('edit', data);
     if (Object.keys(data).length > 0) {
       dispatch(setStaff(data));
       dispatch(setIsEdit(true));
@@ -47,6 +47,23 @@ export function StaffTable(props) {
       ErrorToast('Something went wrong. Please try again', 3000);
     }
   };
+  const handleRemoveStaff= async(e,id) => {
+    e.stopPropagation();
+    const result=await deleteStaff(id);
+    if (result === 200) {
+      SuccessToast('Remove staff successfully', 3000);
+    } else if (result === 404) {
+      ErrorToast('Remove staffs unsuccessfully', 3000);
+      Notiflix.Block.remove('#root');
+    } else if (result === 401) {
+      Notiflix.Block.remove('#root');
+    } else {
+      Notiflix.Block.remove('#root');
+      ErrorToast('Something went wrong. Please try again', 3000);
+    }
+
+  }
+
   const renderTableBody = () => {
     return props.tableBody.map((item) => {
       return (
@@ -83,9 +100,9 @@ export function StaffTable(props) {
               </button>
               <button
                 id="disabled-user"
-                // onClick={(e) => {
-                //   handleCheckDisabledUser(e, item.id);
-                // }}
+                onClick={(e) => {
+                handleRemoveStaff(e, item.id);
+                }}
                 className="br-6px p-2 ms-3 text-danger bg-gray-100 w-48px h-48px d-flex align-items-center justify-content-center border-none"
               >
                 <FaTimesCircle className="text-danger font-20px" />
@@ -97,7 +114,6 @@ export function StaffTable(props) {
     });
   };
   const renderDetailStaff = (item) => {
-    console.log(typeof item.email);
     return (
         <div className='card-overlay'>
         <div className='card-image-overlay'>
