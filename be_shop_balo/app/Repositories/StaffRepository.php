@@ -10,7 +10,7 @@ use Illuminate\Database\Query\Builder;
 class StaffRepository extends BaseRepository
 {
     protected $staff;
-    protected int $paginate=5;
+    protected int $paginate=8;
     public function __construct(Staff $staff)
     {
         $this->staff =  $staff;
@@ -19,30 +19,11 @@ class StaffRepository extends BaseRepository
     public function getAllStaff($request)
     {
         $data = Staff::query()
-            ->with('roles');
-
-
-        if ($request->has('fullname') && !is_null($request->input('fullname'))) {
-            $data = $data->where('first_name', 'like', '%' . $request->input('fullname') . '%')
-                ->orWhere('last_name', 'like', '%' . $request->input('fullname') . '%');
-        }
-        if ($request->has('id') && !is_null($request->input('id'))) {
-            $data = $data->where('id', $request->input('id'));
-        }
-        if ($request->has('phone') && !is_null($request->input('phone'))) {
-            $data = $data->where('email', $request->input('phone'));
-        }
-        if ($request->has('email') && !is_null($request->input('email'))) {
-            $data = $data->where('email', $request->input('email'));
-        }
-
-        if ($request->has('role_id') && $request->input('role_id') != -1) {
-            $data = $data->where('role_id', $request->input('role_id'));
-        }
-        if ($request->has('status') && $request->input('status') != -1) {
-            $data = $data->where('status', $request->input('status'));
-        }
-        $data=$data->paginate($this->paginate);
+            ->with('roles')
+            ->sort($request)
+            ->search($request)
+            ->filter($request)
+            ->paginate($this->paginate);
         return StaffResource::collection($data)->response()->getData();
 
     }

@@ -53,7 +53,7 @@ class StaffService
             'avatar'=>$avatar,
            'status'=>1,
            'address'=> $request->address,
-           'created_date'=>$request->created_date,
+           'created_date'=>date('Y-m-d' , strtotime($request->created_date)),
        ];
      //  return $this->apiResponse([],'success',$remakeRequest);
     $result=$this->staffRepository->storeStaff( $dataRequest);
