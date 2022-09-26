@@ -24,7 +24,7 @@ export function StaffPage(props) {
   const data_staff_table = [...data_staff];
   const [data,setData]=React.useState([])
   // Pagination
-  const [perPage,setPerPage] = React.useState(10)
+  const [perPage,setPerPage] = React.useState(8)
   const [totalPage,setTotalPage] = React.useState(0)
   const [totalRecord,setTotalRecord] = React.useState(0)
   const [page,setPage] = React.useState(1)
@@ -52,10 +52,13 @@ export function StaffPage(props) {
     search,filterStatus
   }
   React.useEffect(() => {
+    // handle FilterStatus Value
+   let params={}
+    if (filterStatus!=='All') params={...params,filterStatus}
+   // console.log(filter)
+    if(search !='') params={...params,filter,search}
     const handleGetAllStaffs = async () => {
-      const result = await getAllStaffs({
-        filter,filterStatus,search
-      });
+      const result = await getAllStaffs(params);
       if (result === 401) {
         return false;
       } else if (result === 500) {
@@ -75,7 +78,7 @@ export function StaffPage(props) {
       setPage(1);
     }
     setTotalRecord(result.meta.total);
-    setTotalPage(result.meta.last_page);
+   // setTotalPage(result.meta.);
   };
 
   const handlePageChange=async (page) => {
@@ -95,6 +98,7 @@ export function StaffPage(props) {
 
   const backToStaffList = async (value, action) => {
     setLoading(true);
+    console.log(value);
     if (action === 'edit') {
       console.log('Back to Edit');
     }
@@ -102,6 +106,7 @@ export function StaffPage(props) {
     const result = await getAllStaffs({
       sort: value,
     });
+    console.log('Result: ',result);
     setStaff(result, 'page');
     setLoading(false);
   };
@@ -142,7 +147,7 @@ export function StaffPage(props) {
                 {!loading ? (
                   <>
                     <StaffTable tableHeader={data_staff_table_header} tableBody={data} />
-                    {totalRecord > 5 && (
+                    {totalRecord > 8 && (
                       <PaginationUI
                         handlePageChange={handlePageChange}
                         perPage={perPage}

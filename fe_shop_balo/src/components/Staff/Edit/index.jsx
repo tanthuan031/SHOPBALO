@@ -189,42 +189,6 @@ const StaffEdit = props => {
         <Row>
           <Col>
             <Form.Group className="mb-3" >
-              <Form.Label className="label-input" >Password</Form.Label>
-              <Controller control={control} name="password"
-                          defaultValue=""
-                          render={({ field: { onChange, onBlur, value, ref } }) => (
-                            <Form.Control onChange={onChange} value={value} ref={ref} type="password"
-                                          isInvalid={errors.password}
-                                          placeholder="Enter password" />)}
-                          {...register("password", {
-                            required: true,
-                            minLength: 8,
-
-                          })}/>
-              <div className="d-flex justify-content-between">
-                <small className="text-red font-weight-semi">{errors?.password?.message}</small>
-              </div>
-            </Form.Group>
-          </Col>
-          <Col>
-            <Form.Group className="mb-3" >
-              <Form.Label className="label-input" >Created date</Form.Label>
-              <Controller control={control} name="created_date"
-                          defaultValue=""
-                          render={({field: {onChange, onBlur, value, ref}}) => (
-                            <Form.Control  onChange={onChange} value={value} ref={ref} type="date"
-                                           isInvalid={errors.created_date}
-                                           placeholder="Enter created date" />)}
-                          {...register("created_date", {required: true, })}/>
-              <div className="d-flex justify-content-between">
-                <small className="text-red font-weight-semi">{errors?.created_date?.message}</small>
-              </div>
-            </Form.Group>
-          </Col>
-        </Row>
-        <Row>
-          <Col>
-            <Form.Group className="mb-3" >
               <Form.Label className="label-input" >Role</Form.Label>
               <Controller
                 name="role_id"
@@ -277,6 +241,47 @@ const StaffEdit = props => {
             </Form.Group>
           </Col>
         </Row>
+        <Row>
+          <Col>
+            <Form.Group className="mb-3" >
+              <Form.Label className="label-input" >Password</Form.Label>
+              <Controller control={control} name="status"
+                          defaultValue=""
+                          render={({ field: { onChange, onBlur, value, ref } }) => (
+                           <>
+                             <Form.Check  onChange={onChange} value={1} ref={ref}
+                                         type='checkbox'
+                                          id={1}
+                                         label='Active'/>
+                             <Form.Check  onChange={onChange} value={0} ref={ref}
+                                         type='checkbox'
+                                          id={0}
+                                         label='Disable'/>
+                           </>)
+              }
+                       />
+              <div className="d-flex justify-content-between">
+                <small className="text-red font-weight-semi">{errors?.password?.message}</small>
+              </div>
+            </Form.Group>
+          </Col>
+          <Col>
+            <Form.Group className="mb-3" >
+              <Form.Label className="label-input" >Created date</Form.Label>
+              <Controller control={control} name="created_date"
+                          defaultValue=""
+                          render={({field: {onChange, onBlur, value, ref}}) => (
+                            <Form.Control  onChange={onChange} value={value} ref={ref} type="date"
+                                           isInvalid={errors.created_date}
+                                           placeholder="Enter created date" />)}
+                          {...register("created_date", {required: true, })}/>
+              <div className="d-flex justify-content-between">
+                <small className="text-red font-weight-semi">{errors?.created_date?.message}</small>
+              </div>
+            </Form.Group>
+          </Col>
+        </Row>
+
         <Form.Group className="mb-3" >
           <Form.Label className="label-input" >Address</Form.Label>
           <Controller control={control} name="address"

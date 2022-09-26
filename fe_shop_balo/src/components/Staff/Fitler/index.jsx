@@ -76,14 +76,10 @@ const Filter = props => {
          <Form.Control
            id="search-user"
            placeholder="Type to search"
-           value={currentSearch}
+           value={searchValue}
           onChange={e => setSearchValue(e.target.value)}
          />
-         <Button id="search-user" variant="danger" type="submit"
-
-         >
-           <FaSearch />
-         </Button>
+         <Button id="search-user" variant="danger" type="submit"><FaSearch /></Button>
        </InputGroup>
      </Form>
    </>

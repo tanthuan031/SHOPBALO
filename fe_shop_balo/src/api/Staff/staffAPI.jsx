@@ -12,7 +12,7 @@ export const configHeadersAuthenticate = () => {
   };
 };
 
-export const getAllStaffs = async ({ sort, filter,filterStatus, search, page } = {}) => {
+export const getAllStaffs = async ({ sort,filterStatus,filterRole,filter, search, page } = {}) => {
   const url = '/api/admin/staff';
   const queryString = [];
   if (sort && sort.length > 0) {
@@ -20,17 +20,25 @@ export const getAllStaffs = async ({ sort, filter,filterStatus, search, page } =
       queryString.push(`sort[${titleToSlug(item.key)}]=${item.value}`);
     });
   }
-  if (search && filter) {
+  if (search) {
     queryString.push(`${filter}=${search}`);
   }
-  if(filterStatus!=='All'){
-    queryString.push(`status=${filterStatus}`);
+  if (page) {
+    queryString.push(`page=${page}`);
+  }
+
+  if (filterStatus===1 || filterStatus===0) {
+    // console.log(`filterStatus:`, filterStatus);
+    queryString.push(`filter[status]=${filterStatus}`);
+  }
+  if (filterRole) {
+    queryString.push(`filter[category_id]=${filterRole}`);
   }
   if (page) {
     queryString.push(`page=${page}`);
   }
   const final_url = concatQueryString(queryString, url);
-  //salert(final_url)
+ // console.log(final_url)
   const reponse = await axiosClient.get(final_url);
   if (reponse.status === 401) {
     return 401;

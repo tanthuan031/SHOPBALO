@@ -12,6 +12,7 @@ import { ErrorToast, SuccessToast } from '../../Layouts/Alerts';
 import { setIsAdd } from '../../../redux/reducer/staff/staff.reducer';
 import "./style.css"
 import { addStaff } from '../../../api/Staff/staffAPI';
+import { AiFillEye, AiFillEyeInvisible } from 'react-icons/ai';
 
 const StaffAdd = props => {
   const data_roles=[
@@ -22,6 +23,7 @@ const StaffAdd = props => {
     { value: 1, label: 'male' },
     { value: 2, label: 'female' },
   ]
+  const [showPassword,setShowPassword] =useState(false)
   const { register, handleSubmit,setValue, watch,control, formState: { errors } } = useForm({
       mode: 'onChange',
       resolver: yupResolver(addSchema),
@@ -55,7 +57,7 @@ const StaffAdd = props => {
         avatar:  [image],
         status:1,
         address: data.address,
-        created_date: '2022-05-05', //data.created_date,
+        created_date: data.created_date,
       };
     console.log('data:', resultData);
       const result = await addStaff(resultData);
@@ -161,14 +163,16 @@ const StaffAdd = props => {
               <Controller control={control} name="password"
                           defaultValue=""
                           render={({ field: { onChange, onBlur, value, ref } }) => (
-                            <Form.Control onChange={onChange} value={value} ref={ref} type="password"
+                            <Form.Control onChange={onChange} value={value} ref={ref} type={showPassword?'text':'password'}
                                           isInvalid={errors.password}
                                           placeholder="Enter password" />)}
+
                           {...register("password", {
                             required: true,
                             minLength: 8,
 
                           })}/>
+
               <div className="d-flex justify-content-between">
                 <small className="text-red font-weight-semi">{errors?.password?.message}</small>
               </div>
@@ -278,7 +282,11 @@ const StaffAdd = props => {
           </div>
 
         </Form.Group>
-
+        <Form.Group className="mb-3">
+          <InputGroup.Text>
+            {showPassword?<AiFillEyeInvisible /> :<AiFillEye />}
+          </InputGroup.Text>
+        </Form.Group>
 
         <div className='d-flex justify-content-end p-2 mt-3'>
           <Button
