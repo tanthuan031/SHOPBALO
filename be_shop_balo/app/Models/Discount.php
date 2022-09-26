@@ -4,8 +4,45 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Discount extends Model
 {
-    use HasFactory;
+    use HasFactory, SoftDeletes;
+    protected $table = 'discounts';
+    protected $fillable = [
+        'name',
+        'value',
+        'status',
+        'description',
+    ];
+
+
+    /**
+     * scopeStatus
+     *
+     * @param  mixed $query
+     * @param  mixed $status
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeStatus($query, $status = 'All')
+    {
+        switch ($status) {
+            case 'Active':
+                return $query->where('status', true);
+                break;
+            case 'UnActive':
+                return $query->where('status', false);
+                break;
+            default:
+
+                return $query;
+        }
+    }
+
+    public function scopeSearch($query, $key)
+    {
+        if (is_null($key)) return $query;
+        return $query->whereLike(['name', 'description'], $key);
+    }
 }

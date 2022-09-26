@@ -14,6 +14,7 @@ class CategoryService
 
     use ApiResponse;
     protected $categoryRepo;
+    protected $limit = 10;
     public function __construct(CategoryRepository $categoryRepo)
     {
         $this->categoryRepo = $categoryRepo;
@@ -30,7 +31,7 @@ class CategoryService
         $search = [];
         (is_null($request->_q) || (empty($request->_q))) ? $search['key'] = null : $search['key'] = $request->_q;
         (is_null($request->_status) || (empty($request->_status))) ? $search['status'] = 'all' : $search['status'] = $request->_status;
-        (is_null($request->_per_page) || (empty($request->_per_page))) ? $search['per_page'] = 10 : $search['per_page'] = $request->_per_page;
+        (is_null($request->_per_page) || (empty($request->_per_page))) ? $search['per_page'] = $this->limit : $search['per_page'] = $request->_per_page;
         (is_null($request->_sort_id) || (empty($request->_sort_id))) ? $search['sort_id'] = null : $search['sort_id'] = $request->_sort_id;
 
         $categories = $this->categoryRepo->getAll($search);

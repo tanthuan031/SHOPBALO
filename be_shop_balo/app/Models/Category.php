@@ -58,7 +58,14 @@ class Category extends Model
         return $query->withTrashed()->where($field, $id);
     }
 
-
+    
+    /**
+     * scopeStatus
+     *
+     * @param  mixed $query
+     * @param  mixed $status
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
     public function scopeStatus($query, $status = 'All')
     {
         switch ($status) {

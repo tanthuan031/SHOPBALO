@@ -17,9 +17,8 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->float('value');
-            $table->boolean('status');
+            $table->boolean('status')->default(true);
             $table->string('description');
-            $table->date('created_date');
             $table->softDeletes();
             $table->timestamps();
         });
