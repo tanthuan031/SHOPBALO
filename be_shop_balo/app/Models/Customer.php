@@ -10,7 +10,7 @@ class Customer extends Model
     use HasFactory;
 
 
-    public function rating()
+    public function ratings()
     {
         return $this->hasMany(Rating::class);
     }

@@ -33,10 +33,11 @@ class RatingService
         (is_null($request->_per_page) || (empty($request->_per_page))) ? $search['per_page'] = $this->limit : $search['per_page'] = $request->_per_page;
         $ratings = $this->ratingRepo->getAll($search);
         $data = [];
-
+        // dd($ratings->only(['data']));
         if (!is_null($ratings)) {
             $data = GetAllresource::collection($ratings)->response()->getData();
         }
+        // dd($data);
         return $this->apiResponse($data, 200, 'List rating');
     }
 
@@ -49,14 +50,18 @@ class RatingService
      */
     public function create($request)
     {
+        $nameFile = Helper::saveImgBase64v1($request->image, 'Rating');
+
+        if ($nameFile === false) return $this->apiResponse([], 200, 'Image is invalid');
         $payload = [
-            'customers' => $request->customer_id,
+            'customer_id' => $request->customer_id,
             'product_id' => $request->product_id,
             'point' => $request->point,
             'content' => $request->content,
-            'image' => Helper::saveImgBase64v1($request->image, 'Rating'),
+            'image' => $nameFile,
         ];
         $rating = $this->ratingRepo->create($payload);
+
         $data = [];
         if (!is_null($rating)) {
             $data = (new ShowResource($rating));
@@ -93,10 +98,11 @@ class RatingService
      */
     public function update($request, $id)
     {
+
         if (is_null($id)) throw new Exception();
 
         $payload = [
-            'customers' => $request->customer_id,
+            'customer_id' => $request->customer_id,
             'product_id' => $request->product_id,
             'point' => $request->point,
             'content' => $request->content,

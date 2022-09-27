@@ -75,6 +75,8 @@ class Helper
     public static function saveImgBase64v1($param, $folder)
     {
         $fileExtension = ['png', 'jpg', 'jpeg', 'gif'];
+
+        if (count(explode(';', $param)) != 2) return false;
         list($extension, $content) = explode(';', $param);
         $tmpExtension = explode('/', $extension);
         if (!in_array($tmpExtension[1], $fileExtension)) {
