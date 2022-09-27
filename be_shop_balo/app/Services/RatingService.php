@@ -50,11 +50,11 @@ class RatingService
     public function create($request)
     {
         $payload = [
-            'customers' => $this->customer_id,
-            'product_id' => $this->product_id,
-            'point' => $this->point,
-            'content' => $this->content,
-            'image' => Helper::saveImgBase64v1($this->image, 'Rating'),
+            'customers' => $request->customer_id,
+            'product_id' => $request->product_id,
+            'point' => $request->point,
+            'content' => $request->content,
+            'image' => Helper::saveImgBase64v1($request->image, 'Rating'),
         ];
         $rating = $this->ratingRepo->create($payload);
         $data = [];
@@ -96,14 +96,14 @@ class RatingService
         if (is_null($id)) throw new Exception();
 
         $payload = [
-            'customers' => $this->customer_id,
-            'product_id' => $this->product_id,
-            'point' => $this->point,
-            'content' => $this->content,
+            'customers' => $request->customer_id,
+            'product_id' => $request->product_id,
+            'point' => $request->point,
+            'content' => $request->content,
 
         ];
         if ($request->image != '' || !is_null($request->image)) {
-            $payload['image'] = Helper::saveImgBase64v1($this->image, 'Rating');
+            $payload['image'] = Helper::saveImgBase64v1($request->image, 'Rating');
         }
         $result = $this->ratingRepo->update($id, $payload);
 

@@ -31,7 +31,7 @@ class Discount extends Model
             case 'Active':
                 return $query->where('status', true);
                 break;
-            case 'UnActive':
+            case 'InActive':
                 return $query->where('status', false);
                 break;
             default:

@@ -50,10 +50,10 @@ class DiscountService
     public function create($request)
     {
         $payload = [
-            'name' => $this->name,
-            'value' => (float)$this->value,
-            'status' => $this->status == 'Active' ? true : false,
-            'description' => $this->description
+            'name' => $request->name,
+            'value' => (float)$request->value,
+            'status' => $request->status == 'Active' ? true : false,
+            'description' => $request->description
         ];
         $discount = $this->discountRepo->create($payload);
         $data = [];
@@ -93,10 +93,10 @@ class DiscountService
     {
         if (is_null($id)) throw new Exception();
         $payload = [
-            'name' => $this->name,
-            'value' => (float)$this->value,
-            'status' => $this->status == 'Active' ? true : false,
-            'description' => $this->description
+            'name' => $request->name,
+            'value' => (float)$request->value,
+            'status' => $request->status == 'Active' ? true : false,
+            'description' => $request->description
         ];
         $result = $this->discountRepo->update($id, $payload);
 
