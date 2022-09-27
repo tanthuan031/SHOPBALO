@@ -14,10 +14,21 @@ class GetAllresource extends JsonResource
      */
     public function toArray($request)
     {
+        // dd($this->customers->phone);
         return [
             'id' => $this->id,
-            'customer_id' => $this->customers,
-            'product_id' => $this->product_id,
+            'customers' => $this->customers->only([
+                'id', 'last_name', 'first_name',
+                'gender', 'phone', 'email',
+                'avatar', 'status', 'address',
+                'created_date', 'created_at'
+            ]),
+            'products' => $this->products->only([
+                'id',
+                'name', 'description',
+                'image', 'image_slide',
+                'status', 'created_at'
+            ]),
             'point' => $this->point,
             'content' => $this->content,
             'image' => env('APP_URL') . '/storage/rating/' . $this->image,
