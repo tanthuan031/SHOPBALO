@@ -1,3 +1,4 @@
+import React from 'react';
 import { Button, Form } from 'react-bootstrap';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Controller, useForm } from 'react-hook-form';
@@ -30,7 +31,7 @@ function CreateCategoryForm(props) {
     },
   });
 
-  props.data.map((item) => {
+  props.data.map(item => {
     category.push({
       value: item.id,
       label: item.name,
@@ -40,14 +41,14 @@ function CreateCategoryForm(props) {
     dispatch(setIsAdd(false));
   };
 
-  const toBase64 = (file) =>
+  const toBase64 = file =>
     new Promise((resolve, reject) => {
       const reader = new FileReader();
       reader.readAsDataURL(file);
       reader.onload = () => resolve(reader.result);
-      reader.onerror = (error) => reject(error);
+      reader.onerror = error => reject(error);
     });
-  const onSubmit = async (data) => {
+  const onSubmit = async data => {
     BlockUI('#root', 'fixed');
     if (data.image.length !== 0) {
       const image = await toBase64(data.image[0]);
@@ -97,13 +98,13 @@ function CreateCategoryForm(props) {
                     render={({ field: { value, onChange } }) => (
                       <Select
                         options={category}
-                        onChange={(options) => {
+                        onChange={options => {
                           onChange(options?.value);
                           setValue('parent_id', options.value);
                         }}
-                        value={category.filter((option) => value === option?.value)}
+                        value={category.filter(option => value === option?.value)}
                         placeholder=""
-                        theme={(theme) => ({
+                        theme={theme => ({
                           ...theme,
                           colors: {
                             ...theme.colors,

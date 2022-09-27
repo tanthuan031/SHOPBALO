@@ -1,3 +1,4 @@
+import React from 'react';
 import { useState } from 'react';
 import { FaPen, FaTimesCircle } from 'react-icons/fa';
 import { IMG_NOT_FOUND } from '../../utils/urlPath';
@@ -5,7 +6,7 @@ import Modal from '../Layouts/Modal';
 import TableLayout from '../Layouts/Table';
 import './style.css';
 
-const renderBody = (body) => {
+const renderBody = body => {
   return body.length <= 0 ? (
     <>
       <tr className="text-center">
