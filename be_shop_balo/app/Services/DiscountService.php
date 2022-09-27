@@ -28,9 +28,9 @@ class DiscountService
     public function getAll($request)
     {
         $search = [];
-        (is_null($request->_q) || (empty($request->_q))) ? $search['key'] = null : $search['key'] = $request->_q;
-        (is_null($request->_status) || (empty($request->_status))) ? $search['status'] = 'all' : $search['status'] = $request->_status;
-        (is_null($request->_per_page) || (empty($request->_per_page))) ? $search['per_page'] = $this->limit : $search['per_page'] = $request->_per_page;
+        (is_null($request->q) || (empty($request->q))) ? $search['key'] = null : $search['key'] = $request->q;
+        (is_null($request->status) || (empty($request->status))) ? $search['status'] = 'all' : $search['status'] = $request->status;
+        (is_null($request->per_page) || (empty($request->per_page))) ? $search['per_page'] = $this->limit : $search['per_page'] = $request->per_page;
         $discounts = $this->discountRepo->getAll($search);
 
         $data = [];
@@ -50,10 +50,10 @@ class DiscountService
     public function create($request)
     {
         $payload = [
-            'name' => $this->name,
-            'value' => (float)$this->value,
-            'status' => $this->status == 'Active' ? true : false,
-            'description' => $this->description
+            'name' => $request->name,
+            'value' => (float)$request->value,
+            'status' => $request->status == 'Active' ? true : false,
+            'description' => $request->description
         ];
         $discount = $this->discountRepo->create($payload);
         $data = [];
@@ -93,10 +93,10 @@ class DiscountService
     {
         if (is_null($id)) throw new Exception();
         $payload = [
-            'name' => $this->name,
-            'value' => (float)$this->value,
-            'status' => $this->status == 'Active' ? true : false,
-            'description' => $this->description
+            'name' => $request->name,
+            'value' => (float)$request->value,
+            'status' => $request->status == 'Active' ? true : false,
+            'description' => $request->description
         ];
         $result = $this->discountRepo->update($id, $payload);
 
