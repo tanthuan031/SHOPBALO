@@ -28,12 +28,6 @@ export function StaffTable(props) {
     setShowDetail(true);
     setDetailStaff(item.item)
   };
-  const handleAutoSendMail = (email) => {
-    window.location.href = `mailto:${email}?subject=Hello.Nice to Meet You&body=message%20goes%20here`
-  }
-  const handleAutoCallPhone=(phoneNumber) => {
-    window.open(`tel:${phoneNumber}`)
-  }
   const handleEditStaff = async (e, id) => {
     e.stopPropagation();
     const data = await getStaffById(id);
@@ -122,10 +116,10 @@ export function StaffTable(props) {
             <p className='card-txt card-txt-title'>{`${item.first_name} ${item.last_name}`}</p>
             <p className='card-txt'>
               <BsFillTelephoneFill  className='icon'/>
-              <AutoCallPhone onClick={()=>handleAutoCallPhone(item.phone)} phoneNumber={item.phone} />
+              <AutoCallPhone  phoneNumber={item.phone} />
             </p>
             <p className='card-txt'> <HiMail className='cursor-pointer spinner icon'/>
-              <AutoSendMail  onClick={()=>handleAutoSendMail(item.email)} email={item.email} className='spinner' />
+              <AutoSendMail   email={item.email} className='spinner' />
             </p>
         </div>
         <div className='card-content-overlay'>

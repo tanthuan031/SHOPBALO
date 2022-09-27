@@ -2,17 +2,19 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 const AutoSendMail = props => {
-  const {className,onClick,email} = props
+  const {className,email} = props
+  const handleAutoSendMail = (email) => {
+    window.location.href = `mailto:${email}?subject=Hello.Nice to Meet You&body=message%20goes%20here`
+  }
   return (
-    <span className={`cursor-pointer ${className}`} onClick={onClick}>
+    <span className={`cursor-pointer ${className}`} onClick={handleAutoSendMail}>
       {email}
     </span>
   );
 };
 
 AutoSendMail.propTypes = {
-    onClick: PropTypes.func.isRequired,
-  email: PropTypes.string.isRequired
+  email: PropTypes.string.isRequired,
 };
 
 export default AutoSendMail;

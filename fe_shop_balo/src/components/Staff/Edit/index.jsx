@@ -18,9 +18,8 @@ import './style.css'
 const StaffEdit = props => {
   const staffSelector=useSelector(staffByIdSelector)
   const dataStaff=staffSelector.data
-  const [imageAvatarStaff,setImageAvatarStaff] = useState({file:[]})
   const [imageAvatarStaffShow,setImageAvatarStaffShow] = useState(false)
-  //console.log(dataStaff)
+  const [status,setStatus]= useState(dataStaff.status)
   const data_roles=[
     { value: 1, label: 'Admin' },
     { value: 2, label: 'CTO' },
@@ -28,6 +27,10 @@ const StaffEdit = props => {
   const data_gender=[
     { value: 1, label: 'male' },
     { value: 2, label: 'female' },
+  ]
+  const data_status=[
+    {value: 1, label: 'Active'},
+    { value: 0, label: 'Disable' }
   ]
   const { register, handleSubmit,control,setValue,
     formState: { errors,isDirty, dirtyFields } } = useForm({
@@ -44,6 +47,7 @@ const StaffEdit = props => {
         avatar: dataStaff.avatar,
         address: dataStaff.address,
         created_date: dataStaff.created_date,
+        status: dataStaff.status
       }
     }
   );
@@ -61,14 +65,6 @@ const StaffEdit = props => {
       reader.onload = () => resolve(reader.result);
       reader.onerror = (error) => reject(error);
     });
-
-  /*useEffect(() => {
-    //console.log(imageAvatarStaff.file.size > 0,imageAvatarStaff.file)
-   if( imageAvatarStaffShow !==undefined)
-      setValue('avatar','123456', { shouldDirty: true })
-
-  }, [imageAvatarStaffShow])*/
-
   const onSubmit = async (data) => {
     console.log(data)
    // BlockUI('#root', 'fixed');
@@ -88,7 +84,7 @@ const StaffEdit = props => {
    // console.log('Result:',result);
     Notiflix.Block.remove('#root');
     if (result === 200) {
-      SuccessToast('Create product successfully', 3000);
+      SuccessToast('Update staff successfully', 3000);
       props.backToStaffList([
         {
           key: 'id',
@@ -97,7 +93,7 @@ const StaffEdit = props => {
       ]);
       backtoManageStaff();
     } else if (result === 404) {
-      ErrorToast('Create staffs unsuccessfully', 3000);
+      ErrorToast('Update staffs unsuccessfully', 3000);
       Notiflix.Block.remove('#root');
     } else if (result === 401) {
       Notiflix.Block.remove('#root');
@@ -105,8 +101,6 @@ const StaffEdit = props => {
       Notiflix.Block.remove('#root');
       ErrorToast('Something went wrong. Please try again', 3000);
     }
-
-
   }
   const uploadImage = (e) => {
     let image = e.target.files[0];
@@ -119,6 +113,7 @@ const StaffEdit = props => {
   return (
     <div className=' edit_form d-flex justify-content-center'>
       <Form className='font_add_edit_prduct' onSubmit={handleSubmit(onSubmit)} encType='multipart/form-data'>
+        <h5 className='text-danger font-weight-bold mb-3'>Update Staff</h5>
         <Row>
           <Col>
             <Form.Group className="mb-3" >
@@ -244,29 +239,6 @@ const StaffEdit = props => {
         <Row>
           <Col>
             <Form.Group className="mb-3" >
-              <Form.Label className="label-input" >Password</Form.Label>
-              <Controller control={control} name="status"
-                          defaultValue=""
-                          render={({ field: { onChange, onBlur, value, ref } }) => (
-                           <>
-                             <Form.Check  onChange={onChange} value={1} ref={ref}
-                                         type='checkbox'
-                                          id={1}
-                                         label='Active'/>
-                             <Form.Check  onChange={onChange} value={0} ref={ref}
-                                         type='checkbox'
-                                          id={0}
-                                         label='Disable'/>
-                           </>)
-              }
-                       />
-              <div className="d-flex justify-content-between">
-                <small className="text-red font-weight-semi">{errors?.password?.message}</small>
-              </div>
-            </Form.Group>
-          </Col>
-          <Col>
-            <Form.Group className="mb-3" >
               <Form.Label className="label-input" >Created date</Form.Label>
               <Controller control={control} name="created_date"
                           defaultValue=""
@@ -280,6 +252,28 @@ const StaffEdit = props => {
               </div>
             </Form.Group>
           </Col>
+          <Col>
+            <Form.Group className="mb-3" >
+              <Form.Label className="label-input" >Status</Form.Label>
+              {data_status.map((item) => (
+                  <Form.Check
+                    onChange={e=>{
+                      setValue('status', e.target.value,{shouldDirty: true})
+                      setStatus(item.value)
+                    }}
+                    label={item.label}
+                    name="status"
+                    type='radio'
+                   checked={status===item.value}
+                  //  className={status.value===1?'status-active':'status-disabled'}
+                    value={item.value}
+                  />
+              ))}          <div className="d-flex justify-content-between">
+                <small className="text-red font-weight-semi">{errors?.password?.message}</small>
+              </div>
+            </Form.Group>
+          </Col>
+
         </Row>
 
         <Form.Group className="mb-3" >
@@ -323,6 +317,7 @@ const StaffEdit = props => {
             variant='danger'
             type='submit'
             className='font-weight-bold me-3'
+            disabled={!isDirty}
           >
             Save
           </Button>
@@ -344,3 +339,26 @@ const StaffEdit = props => {
 StaffEdit.propTypes = {};
 
 export default StaffEdit;
+
+
+
+
+
+
+{/* <Controller control={control} name="status"
+                          defaultValue=""
+                          render={({ field: { onChange, onBlur, value, ref } }) => (
+                           <>
+                             <Form.Check  onChange={onChange} value={value} ref={ref}
+                                         type='radio'
+                                          name='status'
+                                          id={1}
+                                         label='Active'/>
+                             <Form.Check  onChange={onChange} value={value} ref={ref}
+                                         type='radio'
+                                          name='status'
+                                          id={0}
+                                         label='Disable'/>
+                           </>)
+              }
+                       />*/}

@@ -12,11 +12,12 @@ import { FaSearch } from 'react-icons/fa';
 import { BlockUI } from '../../../components/Layouts/Notiflix';
 import { setIsAdd } from '../../../redux/reducer/staff/staff.reducer';
 import Notiflix from 'notiflix';
-import Filter from '../../../components/Staff/Fitler';
+import Filter from '../../../components/Layouts/SearchWithDropdownOptions/SearchWithDropdownOptions';
 import { isAddStaffSelector, isEditStaffSelector } from '../../../redux/selectors';
 import StaffAdd from '../../../components/Staff/Add';
 import { getAllProducts } from '../../../api/Product/productAPI';
 import StaffEdit from '../../../components/Staff/Edit';
+import SearchWithDropdownOptions from '../../../components/Layouts/SearchWithDropdownOptions/SearchWithDropdownOptions';
 
 
 export function StaffPage(props) {
@@ -131,7 +132,7 @@ export function StaffPage(props) {
                     <FilterStatus  data_options={data_options_filter} setFilterStatus={setFilterStatus}  />
                   </div>
                   <div className="d-flex justify-content-between ">
-                    <Filter currentFilter={filter} currentSearch={search} setSearch={setSearch} setFilter={setFilter} />
+                    <SearchWithDropdownOptions currentFilter={filter}  setSearch={setSearch} setFilter={setFilter} />
                     <Button
                       id="create-new-product"
                       variant="danger"

@@ -2,16 +2,17 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 const AutoCallPhone = (props) => {
-  const {className,onClick,phoneNumber} = props;
-
+  const {className,phoneNumber} = props;
+  const handleAutoCallPhone=(phoneNumber) => {
+    window.open(`tel:${phoneNumber}`)
+  }
   return (
-    <span className={`cursor-pointer ${className}`} onClick={onClick}>
+    <span className={`cursor-pointer ${className}`} onClick={handleAutoCallPhone}>
       {phoneNumber}
     </span>
   );
 };
 AutoCallPhone.propTypes = {
-  onClick: PropTypes.func.isRequired,
   phoneNumber: PropTypes.string.isRequired
 }
 export default AutoCallPhone;

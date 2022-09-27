@@ -1,5 +1,5 @@
 import * as yup from 'yup';
-
+const today=new Date('YYYY-MM-DDTHH:mm:ss.sss');
 export const addSchema = yup.object({
   first_name: yup
     .string()
@@ -28,7 +28,7 @@ export const addSchema = yup.object({
     .string()
     .required('Please, Password can not blank')
     .max(50),
-  created_date: yup.date().required('Please type a date'),
+  created_date: yup.date().min( today,`Created date must be later than ${today}`).required('Please type a date'),
   role_id: yup.object().required('Please! Choose a role'),
   gender: yup.object().required('Please !Choose a gender')
 });
@@ -56,7 +56,7 @@ export const editSchema = yup.object({
     .required('Please, Address can not blank')
     .max(250)
     .trim(),
-  created_date: yup.date().required('Please type a date'),
+  created_date: yup.date().min( today,`Created date must be later than ${today}`).required('Please type a date'),
   role_id: yup.object().required('Please! Choose a role'),
   gender: yup.object().required('Please !Choose a gender')
 });
