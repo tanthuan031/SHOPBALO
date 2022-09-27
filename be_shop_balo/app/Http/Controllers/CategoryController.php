@@ -22,6 +22,9 @@ class CategoryController extends Controller
      */
     public function index(Request  $request)
     {
+        if ($request->has('get_all')) {
+            return $this->categoryService->index();
+        }
         return $this->categoryService->getAll($request);
     }
 

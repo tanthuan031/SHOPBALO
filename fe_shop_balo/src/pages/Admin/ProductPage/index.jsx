@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { Button, Form, InputGroup } from 'react-bootstrap';
 import { FaSearch } from 'react-icons/fa';
 import { useDispatch, useSelector } from 'react-redux';
-import { getAll } from '../../../api/Category/categoryAPI';
+import { getAll, getAllNotPage } from '../../../api/Category/categoryAPI';
 import { getAllProducts } from '../../../api/Product/productAPI';
 import { product_table_header } from '../../../asset/data/product_table_header';
 import { ErrorToast } from '../../../components/Layouts/Alerts';
@@ -52,7 +52,7 @@ export function ProductPage(props) {
       setLoading(false);
     };
     const handleGetListCategory = async () => {
-      const result = await getAll();
+      const result = await getAllNotPage();
       if (result === 401) {
         console.log('error cate');
         return false;
@@ -268,8 +268,8 @@ export function ProductPage(props) {
             </div>
           ) : (
             <>
-              {isAdd && <ProductAdd backToProductList={backToProductList} />}
-              {isEdit && <ProductEdit backToProductList={backToProductList} />}
+              {isAdd && <ProductAdd backToProductList={backToProductList} dataCategory={listCategory} />}
+              {isEdit && <ProductEdit backToProductList={backToProductList} dataCategory={listCategory} />}
             </>
           )}
         </div>

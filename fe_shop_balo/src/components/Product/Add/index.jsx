@@ -48,7 +48,7 @@ function ProductAdd(props) {
     register('description', { required: true });
     register('image_slide');
     setValue('image_slide', fileImageSlide);
-    register('category_id');
+    // register('category_id');
     register('color');
     register('status');
   }, [register, fileImageSlide]);
@@ -85,11 +85,11 @@ function ProductAdd(props) {
     control,
     name: 'image_slide',
   });
-  const typeOptionsCategory = [
-    { value: '1', label: 'Category1' },
-    { value: '2', label: 'Category 2' },
-  ];
-
+  const typeOptionsCategory = [];
+  props.dataCategory != null &&
+    props.dataCategory.map((item) => {
+      typeOptionsCategory.push({ value: item.id, label: item.name });
+    });
   const typeOptionsColor = [
     { value: '1', label: 'Green' },
     { value: '2', label: 'Blue' },
@@ -206,7 +206,8 @@ function ProductAdd(props) {
                   <Controller
                     control={control}
                     name="category_id"
-                    // {...register('category_name')}
+                    {...register('category_name')}
+                    ref={null}
                     render={({ field: { value, onChange } }) => (
                       <Select
                         options={typeOptionsCategory}
