@@ -34,6 +34,7 @@ export const getAllProducts = async ({ sort, filterStatus, filterCategory, searc
     queryString.push(`filter[category_id]=${filterCategory}`);
   }
   const final_url = concatQueryString(queryString, url);
+  console.log(final_url);
   const reponse = await axiosClient.get(final_url);
   if (reponse.status === 401) {
     return 401;

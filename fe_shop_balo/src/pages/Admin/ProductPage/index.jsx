@@ -16,7 +16,7 @@ import ProductEdit from '../../../components/Product/Edit';
 import FilterCategory from '../../../components/Product/FilterCategory';
 import FilterStatus from '../../../components/Product/FilterStatus';
 import { setIsAdd } from '../../../redux/reducer/product/product.reducer';
-import { isAddSelector, isEditSelector } from '../../../redux/selectors/product/product.selector';
+import { isAddSelector, isEditSelector } from '../../../redux/selectors';
 
 export function ProductPage(props) {
   const data_product_table_header = [...product_table_header];
@@ -31,6 +31,7 @@ export function ProductPage(props) {
   const [perPage] = useState(10);
   const isAdd = useSelector(isAddSelector);
   const isEdit = useSelector(isEditSelector);
+  console.log(isEdit)
   const [sort, setCurrentSort] = useState([
     {
       key: 'id',

@@ -34,8 +34,7 @@ class Product extends Model
     }
     public function product_details(): HasOne
     {
-
-        return $this->hasOne(ProductDetail::class);
+        return $this->hasOne(ProductDetail::class,'product_id');
     }
 
     public function  ratings(): HasMany

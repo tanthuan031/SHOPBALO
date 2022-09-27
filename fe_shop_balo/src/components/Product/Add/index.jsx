@@ -53,34 +53,6 @@ function ProductAdd(props) {
     register('status');
   }, [register, fileImageSlide]);
 
-  // const product_name = useWatch({
-  //   control,
-  //   name: 'product_name',
-  // });
-  // const category_id = useWatch({
-  //   control,
-  //   name: 'category_id',
-  // });
-  // const color = useWatch({
-  //   control,
-  //   name: 'color',
-  // });
-  // const amount = useWatch({
-  //   control,
-  //   name: 'amount',
-  // });
-  // const price = useWatch({
-  //   control,
-  //   name: 'price',
-  // });
-  // const description = useWatch({
-  //   control,
-  //   name: 'description',
-  // });
-  // const image = useWatch({
-  //   control,
-  //   name: 'image',
-  // });
   const image_slide = useWatch({
     control,
     name: 'image_slide',
@@ -130,6 +102,7 @@ function ProductAdd(props) {
         name: data.product_name,
       };
       const result = await addProduct(resultData);
+      console.log(result);
       Notiflix.Block.remove('#root');
       if (result === 200) {
         SuccessToast('Create product successfully', 3000);

@@ -6,6 +6,7 @@ import { CategoryPage } from "../../pages/Admin/CategoryPage";
 import { DashBoardPage } from "../../pages/Admin/DashBoardPage";
 import { LoginPage } from "../../pages/Admin/LoginPage";
 import { ProductPage } from "../../pages/Admin/ProductPage";
+import { StaffPage } from "../../pages/Admin/StaffPage";
 import { ProtectedRoutes } from "../ProtectedRouters";
 export default function AdminRouter() {
   return (
@@ -39,7 +40,7 @@ export default function AdminRouter() {
         />
         <Route
           path="/admin/staff"
-          element={<AdminLayout slot={<DashBoardPage key={"a"} />} />}
+          element={<AdminLayout slot={<StaffPage key={"a"} />} />}
         />
         <Route
           path="/admin/customer"

@@ -8,6 +8,7 @@ use Illuminate\Http\Resources\Json\JsonResource;
 
 class ProductResource extends JsonResource
 {
+
     /**
      * Transform the resource collection into an array.
      *
@@ -15,6 +16,7 @@ class ProductResource extends JsonResource
      */
     public function toArray($request): array
     {
+
         $arrayData = [
             'id' => $this->id,
             'category_id' => $this->category_id,
