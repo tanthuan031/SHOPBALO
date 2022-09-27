@@ -1,4 +1,4 @@
-export const discount_table_header = [
+export const promotion_table_header = [
   {
     id: 1,
     name: 'STT',

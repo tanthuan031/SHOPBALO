@@ -1,6 +1,6 @@
 
 import axiosClient from '../axiosClient';
-import { concatQueryString } from './../../utils/concatQueryString';
+import { concatQueryString } from '../../utils/concatQueryString';
 
 export const configHeadersAuthenticate = () => {
   const token = localStorage.getItem('token');
@@ -11,12 +11,12 @@ export const configHeadersAuthenticate = () => {
   };
 }
 
-export const getAllDisount = async ({sort, filter, search, page}={}) => {
+export const getAllDisount = async ({sort, status, search, page}={}) => {
   const url = '/api/admin/discount';
   const queryString = [];
   if (sort && sort.length > 0) queryString.push(`sort=${sort}`)
   if (search) queryString.push(`q=${search}`)
-  if (filter) queryString.push(`filter=${filter}`)
+  if (status) queryString.push(`filter=${status}`);
   if (page) queryString.push(`page=${page}`)
   
   const final_url = concatQueryString(queryString, url)
