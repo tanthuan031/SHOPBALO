@@ -1,9 +1,9 @@
 <?php
-// admin
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\DiscountController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\RatingController;
+use App\Http\Controllers\StaffController;
 use App\Http\Controllers\StorageImageController;
 use App\Models\Role;
 use Illuminate\Http\Request;
@@ -19,6 +19,8 @@ Route::group([
     'prefix' => 'admin'
 ], function () {
     Route::resource('product', ProductController::class);
+
+    Route::resource('staff', StaffController::class);
     // api resource category
     Route::resource('category', CategoryController::class);
     // api category forgot
