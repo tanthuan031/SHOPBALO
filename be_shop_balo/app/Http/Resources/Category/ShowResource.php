@@ -21,7 +21,7 @@ class ShowResource extends JsonResource
             'image' => env('APP_URL') . '/storage/category/' . $this->image,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
-            'deleted_at' => $this->deleted_at
+            // 'deleted_at' => $this->deleted_at
         ];
     }
 }
