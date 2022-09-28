@@ -68,15 +68,17 @@ class Category extends Model
      */
     public function scopeStatus($query, $status = 'All')
     {
-        switch ($status) {
-            case 'Active':
-                return $query;
-                break;
-            case 'UnActive':
-                return $query->onlyTrashed();
-                break;
-            default:
-                return $query->withTrashed();
-        }
+        // getAll not delete_at
+        return $query;
+        // switch ($status) {
+        //     case 'Active':
+        //         return $query;
+        //         break;
+        //     case 'InActive':
+        //         return $query->onlyTrashed();
+        //         break;
+        //     default:
+        //         return $query->withTrashed();
+        // }
     }
 }

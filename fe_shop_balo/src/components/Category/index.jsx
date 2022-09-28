@@ -70,7 +70,7 @@ function CategoryTable(props) {
         return (body.length <= 0 ? (
             <>
                 <tr className="text-center">
-                    <td colSpan={5} >Categorys not found.</td>
+                    <td colSpan={4} >Categorys not found.</td>
                 </tr>
             </>) : (
 
@@ -89,14 +89,14 @@ function CategoryTable(props) {
                     </td>
                     <td>{item.name}</td>
 
-                    <td>
+                    {/* <td>
                         <p
                             className={`text-center border-radius-2px ${item.deleted_at === null ? 'bg-success-100 text-success' : 'bg-red-100 text-red '
                                 }`}
                         >
                             {item.deleted_at === null ? 'Active' : 'UnActive'}
                         </p>
-                    </td>
+                    </td> */}
                     <td>
                         <div className="d-flex">
                             <button
