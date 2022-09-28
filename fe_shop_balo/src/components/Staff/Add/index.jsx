@@ -14,6 +14,7 @@ import './style.css';
 import { addStaff } from '../../../api/Staff/staffAPI';
 import { AiFillEye, AiFillEyeInvisible } from 'react-icons/ai';
 import { URL_SERVER } from '../../../utils/urlPath';
+import { formatDate } from '../../../utils/formatDate';
 
 const StaffAdd = props => {
   const data_roles = [
@@ -26,7 +27,7 @@ const StaffAdd = props => {
   ];
   const [showPassword, setShowPassword] = useState(false);
   const [imageAvatarStaffShow,setImageAvatarStaffShow] = useState(false);
-  const { register, handleSubmit, setValue, watch, control, formState: { errors } } = useForm({
+  const { register, handleSubmit, setValue, watch, control, formState: { errors,isValid } } = useForm({
       mode: 'onChange',
       resolver: yupResolver(addSchema),
     },
@@ -47,6 +48,8 @@ const StaffAdd = props => {
   const onSubmit = async (data) => {
 
    BlockUI('#root', 'fixed');
+   console.log('Date:',data.created_date);
+   if(data.created_date) data.created_date=formatDate(data.created_date,'YYYY-MM-DD')
    const image = await toBase64(data.avatar[0]);
     const resultData = {
       first_name: data.first_name,
@@ -59,7 +62,7 @@ const StaffAdd = props => {
       avatar: [image],
       status: 1,
       address: data.address,
-      created_date: data.created_date,
+      created_date:  data.created_date,
     };
     console.log('data:', resultData);
    const result = await addStaff(resultData);
@@ -101,13 +104,16 @@ const StaffAdd = props => {
           <Col>
             <Form.Group className='mb-3' >
               <Form.Label className='label-input'>First Name</Form.Label>
-              <Controller control={control} name='fisrt_name'
-                          defaultValue=''
+              <Controller control={control} name="fisrt_name"
+                          defaultValue=""
+                          {...register("first_name", {required: true, })} ref={null}
                           render={({ field: { onChange, onBlur, value, ref } }) => (
                             <Form.Control onChange={onChange} value={value} ref={ref}
                                           isInvalid={errors.fisrt_name}
-                                          placeholder='Enter fisrt_name' />)}
-                          {...register('first_name', { required: true })} />
+                                          placeholder="Enter fisrt_name"
+
+                            />)}
+                          />
               <div className='d-flex justify-content-between'>
                 <small className='text-red font-weight-semi'>{errors?.first_name?.message}</small>
               </div>
@@ -118,18 +124,20 @@ const StaffAdd = props => {
               <Form.Label className='label-input'>Last Name</Form.Label>
               <Controller control={control} name='last_name'
                           defaultValue=''
-                          render={({ field: { onChange, onBlur, value, ref } }) => (
+                          {...register('last_name', { required: true })} ref={null}
+                          render={({ field: { onChange, onBlur, value,ref} }) => (
                             <Form.Control onChange={onChange} value={value} ref={ref}
                                           isInvalid={errors.last_name}
-                                          placeholder='Enter last_name' />)}
-                          {...register('last_name', { required: true })} />
+                                          placeholder='Enter last_name'
+                            />)}
+                         />
               <div className='d-flex justify-content-between'>
                 <small className='text-red font-weight-semi'>{errors?.last_name?.message}</small>
               </div>
             </Form.Group>
           </Col>
         </Row>
-        <Row>
+         <Row>
           <Col>
             <Form.Group className='mb-3' >
               <Form.Label className='label-input'>Phone</Form.Label>
@@ -138,8 +146,10 @@ const StaffAdd = props => {
                           render={({ field: { onChange, onBlur, value, ref } }) => (
                             <Form.Control onChange={onChange} value={value} ref={ref}
                                           isInvalid={errors.phone}
-                                          placeholder='Enter phone' />)}
-                          {...register('phone', { required: true, pattern: /^0[3|7|8|9|5]\d{7,8}$/ })} />
+                                          placeholder='Enter phone'
+                                          {...register('phone', { required: true, pattern: /^0[3|7|8|9|5]\d{7,8}$/ })}
+                            />)}
+                          />
               <div className='d-flex justify-content-between'>
                 <small className='text-red font-weight-semi'>{errors?.phone?.message}</small>
               </div>
@@ -153,11 +163,12 @@ const StaffAdd = props => {
                           render={({ field: { onChange, onBlur, value, ref } }) => (
                             <Form.Control onChange={onChange} value={value} ref={ref}
                                           isInvalid={errors.email}
-                                          placeholder='Enter email' />)}
-                          {...register('email', {
-                            required: true,
-                            pattern: /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/,
-                          })} />
+                                          placeholder='Enter email'
+                                          {...register('email', {
+                                            required: true,
+                                            pattern: /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/,
+                                          })}/>)}
+                           />
               <div className='d-flex justify-content-between'>
                 <small className='text-red font-weight-semi'>{errors?.email?.message}</small>
               </div>
@@ -176,13 +187,13 @@ const StaffAdd = props => {
                                           isInvalid={errors.password}
                                           placeholder='Enter password'
                                           className='input-password'
-                            />)}
+                                          {...register('password', {
+                                            required: true,
+                                            minLength: 8,
 
-                          {...register('password', {
-                            required: true,
-                            minLength: 8,
+                                          })}/>)}
 
-                          })} />
+                           />
               <span onClick={()=>setShowPassword(!showPassword)}>
                     {showPassword ? <AiFillEyeInvisible className='show-pass-icon' /> : <AiFillEye className='show-pass-icon' />}
                 </span>
@@ -200,8 +211,9 @@ const StaffAdd = props => {
                           render={({ field: { onChange, onBlur, value, ref } }) => (
                             <Form.Control onChange={onChange} value={value} ref={ref} type='date'
                                           isInvalid={errors.created_date}
-                                          placeholder='Enter created date' />)}
-                          {...register('created_date', { required: true })} />
+                                          placeholder='Enter created date'
+                                          {...register('created_date', { required: true })}/>)}
+                          />
               <div className='d-flex justify-content-between'>
                 <small className='text-red font-weight-semi'>{errors?.created_date?.message}</small>
               </div>
@@ -253,8 +265,8 @@ const StaffAdd = props => {
                       primary: '#d6001c',
                     },
                   })}
-                />}
-                {...register('gender', { required: true })}
+                 />}
+
               />
               <div className='d-flex justify-content-between'>
                 <small className='text-red font-weight-semi'>{errors?.gender?.message}</small>
@@ -296,6 +308,7 @@ const StaffAdd = props => {
             variant='danger'
             type='submit'
             className='font-weight-bold me-3'
+            disabled={!isValid}
           >
             Save
           </Button>

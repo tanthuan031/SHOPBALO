@@ -7,12 +7,11 @@ const AutoCallPhone = (props) => {
     window.open(`tel:${phoneNumber}`)
   }
   return (
-    <span className={`cursor-pointer ${className}`} onClick={handleAutoCallPhone}>
+    <span className={`cursor-pointer ${className}`} onClick={()=>handleAutoCallPhone(phoneNumber)}>
       {phoneNumber}
     </span>
   );
 };
 AutoCallPhone.propTypes = {
-  phoneNumber: PropTypes.string.isRequired
-}
+  phoneNumber: PropTypes.string.isRequired  }
 export default AutoCallPhone;

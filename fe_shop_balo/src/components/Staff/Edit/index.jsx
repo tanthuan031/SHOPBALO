@@ -70,7 +70,10 @@ const StaffEdit = props => {
    // BlockUI('#root', 'fixed');
     const temDirtyFields = { ...dirtyFields };
     Object.keys(temDirtyFields).map((key) => {
-      temDirtyFields[key] = data[key];
+      if(key==='gender')  temDirtyFields[key]=data[key].label;
+      else if(key==='role_id')  temDirtyFields[key]=data[key].value;
+     else  temDirtyFields[key] = data[key];
+
     });
    console.log('dataBefore:', temDirtyFields);
    if(temDirtyFields.avatar!==undefined) {
@@ -87,7 +90,7 @@ const StaffEdit = props => {
       SuccessToast('Update staff successfully', 3000);
       props.backToStaffList([
         {
-          key: 'id',
+          key: 'updated_at',
           value: 'desc',
         },
       ]);
@@ -120,11 +123,14 @@ const StaffEdit = props => {
               <Form.Label className="label-input" >First Name</Form.Label>
               <Controller control={control} name="fisrt_name"
                           defaultValue=""
+                          {...register("first_name", {required: true, })}
+                          ref={null}
                           render={({ field: { onChange, onBlur, value, ref } }) => (
                             <Form.Control onChange={onChange} value={value} ref={ref}
                                           isInvalid={errors.fisrt_name}
-                                          placeholder="Enter fisrt_name" />)}
-                          {...register("first_name", {required: true, })}/>
+                                          placeholder="Enter fisrt_name"
+                                        />)}
+                         />
               <div className="d-flex justify-content-between">
                 <small className="text-red font-weight-semi">{errors?.first_name?.message}</small>
               </div>
@@ -138,8 +144,10 @@ const StaffEdit = props => {
                           render={({field: {onChange, onBlur, value, ref}}) => (
                             <Form.Control onChange={onChange} value={value} ref={ref}
                                           isInvalid={errors.last_name}
-                                          placeholder="Enter last_name" />)}
-                          {...register("last_name", {required: true, })}/>
+                                          placeholder="Enter last_name"
+                                          {...register("last_name", {required: true, })}
+                            />)}
+                         />
               <div className="d-flex justify-content-between">
                 <small className="text-red font-weight-semi">{errors?.last_name?.message}</small>
               </div>
@@ -155,8 +163,10 @@ const StaffEdit = props => {
                           render={({ field: { onChange, onBlur, value, ref } }) => (
                             <Form.Control onChange={onChange} value={value} ref={ref}
                                           isInvalid={errors.phone}
-                                          placeholder="Enter phone" />)}
-                          {...register("phone", {required: true,pattern:/^0[3|7|8|9|5]\d{7,8}$/ })}/>
+                                          placeholder="Enter phone"
+                                          {...register("phone", {required: true,pattern:/^0[3|7|8|9|5]\d{7,8}$/ })}
+                            />)}
+                         />
               <div className="d-flex justify-content-between">
                 <small className="text-red font-weight-semi">{errors?.phone?.message}</small>
               </div>
@@ -170,11 +180,13 @@ const StaffEdit = props => {
                           render={({field: {onChange, onBlur, value, ref}}) => (
                             <Form.Control onChange={onChange} value={value} ref={ref}
                                           isInvalid={errors.email}
-                                          placeholder="Enter email" />)}
-                          {...register("email", {
-                            required: true,
-                            pattern: /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/
-                          })}/>
+                                          placeholder="Enter email"
+                                          {...register("email", {
+                                            required: true,
+                                            pattern: /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/
+                                          })}
+                            />)}
+                          />
               <div className="d-flex justify-content-between">
                 <small className="text-red font-weight-semi">{errors?.email?.message}</small>
               </div>
@@ -226,8 +238,9 @@ const StaffEdit = props => {
                       primary: '#d6001c',
                     },
                   })}
+
                 />}
-                {...register("gender", {required: true, })}
+
               />
               <div className="d-flex justify-content-between">
                 <small className="text-red font-weight-semi">{errors?.gender?.message}</small>
@@ -246,7 +259,7 @@ const StaffEdit = props => {
                             <Form.Control  onChange={onChange} value={value} ref={ref} type="date"
                                            isInvalid={errors.created_date}
                                            placeholder="Enter created date" />)}
-                          {...register("created_date", {required: true, })}/>
+                        />
               <div className="d-flex justify-content-between">
                 <small className="text-red font-weight-semi">{errors?.created_date?.message}</small>
               </div>
@@ -255,8 +268,9 @@ const StaffEdit = props => {
           <Col>
             <Form.Group className="mb-3" >
               <Form.Label className="label-input" >Status</Form.Label>
-              {data_status.map((item) => (
+              {data_status.map((item,index) => (
                   <Form.Check
+                    key={index}
                     onChange={e=>{
                       setValue('status', e.target.value,{shouldDirty: true})
                       setStatus(item.value)
@@ -285,7 +299,7 @@ const StaffEdit = props => {
                           onChange={onChange} value={value} ref={ref} type="address"
                           isInvalid={errors.address}
                           placeholder="Enter address"
-                          {...register("address", {required: true, })}/>
+                        />
 
                       )} />
           <div className="d-flex justify-content-between">

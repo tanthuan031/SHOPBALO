@@ -1,5 +1,5 @@
 import React, { useState,useRef } from 'react';
-import { FaPen, FaTimesCircle, FaTransgender } from 'react-icons/fa';
+import { FaFemale, FaMale, FaPen, FaTimesCircle, FaTransgender } from 'react-icons/fa';
 import Modal from '../Layouts/Modal';
 import TableLayout from '../Layouts/Table';
 import './style.css';
@@ -108,6 +108,7 @@ export function StaffTable(props) {
     });
   };
   const renderDetailStaff = (item) => {
+
     return (
         <div className='card-overlay'>
         <div className='card-image-overlay'>
@@ -116,17 +117,17 @@ export function StaffTable(props) {
             <p className='card-txt card-txt-title'>{`${item.first_name} ${item.last_name}`}</p>
             <p className='card-txt'>
               <BsFillTelephoneFill  className='icon'/>
-              <AutoCallPhone  phoneNumber={item.phone} />
+              { item.phone && <AutoCallPhone  phoneNumber={item.phone} /> }
             </p>
             <p className='card-txt'> <HiMail className='cursor-pointer spinner icon'/>
-              <AutoSendMail   email={item.email} className='spinner' />
+              {  item.email && <AutoSendMail   email={item.email} className='spinner' />}
             </p>
         </div>
         <div className='card-content-overlay'>
           <p className='card-txt-content'>
             <MdOutlineManageAccounts className='icon' />{item.role_name}
           </p>
-          <p className='card-txt-content'><FaTransgender className='icon'  /> {item.gender}</p>
+          <p className='card-txt-content'>{item.gender==='female'?<FaFemale className='icon' />:<FaMale className='icon'/>}{  item.gender}</p>
           <p className='card-txt-content'> <FiMapPin className='icon' /> {item.address}</p>
           <p className='card-txt-content'> <GrStatusUnknown className='icon' /> {item.status?'active':'disabled'}</p>
           <p className='card-txt-content'> <strong>First date working:</strong> {item.created_date}</p>

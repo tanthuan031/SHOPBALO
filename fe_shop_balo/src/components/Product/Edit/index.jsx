@@ -129,7 +129,7 @@ function ProductEdit(props) {
       temDirtyFields.image_slide = image_slide_array;
     }
     if (temDirtyFields.image_slide !== undefined) {
-      if (temDirtyFields.image_slide.length == 0) {
+      if (temDirtyFields.image_slide.length === 0) {
         temDirtyFields.image_slide = undefined;
       }
     }
