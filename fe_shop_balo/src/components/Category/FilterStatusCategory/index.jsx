@@ -1,13 +1,23 @@
 import React from 'react';
+
 import { Dropdown, Form } from 'react-bootstrap';
 import { HiFilter } from 'react-icons/hi';
+import { useDispatch, useSelector } from 'react-redux';
+import { setStatus } from '../../../redux/reducer/category/category.reducer';
+import { isStatusSelector } from '../../../redux/selectors/category/category.selector';
+
+
 
 
 import './style.css';
 
 export default function FilterStatusCategory(props) {
+
+    const status = useSelector(isStatusSelector);
+    const dispatch = useDispatch();
+
     const handleFilter = (value) => {
-        props.setCurrentFilter(value);
+        dispatch(setStatus(value));
     };
 
     return (
@@ -23,33 +33,33 @@ export default function FilterStatusCategory(props) {
             </Dropdown.Toggle>
             <Dropdown.Menu id="user-type-filter-menu">
                 <Form>
-                    <Dropdown.Item onClick={() => handleFilter('All')}>
+                    <Dropdown.Item as={'li'} onClick={() => handleFilter('All')}>
                         <Form.Check
-                            type="checkbox"
+                            type="radio"
                             id="checkbox-all"
                             className="mx-4 my-2 font-weight-bold"
                             label="All"
-                            checked={props.currentFilter === 'All'}
+                            checked={status === 'All'}
                             onChange={() => handleFilter('All')}
                         />
                     </Dropdown.Item>
-                    <Dropdown.Item onClick={() => handleFilter('Active')}>
+                    <Dropdown.Item as={'li'} onClick={() => handleFilter('Active')}>
                         <Form.Check
-                            type="checkbox"
+                            type="radio"
                             id="checkbox-admin"
                             className="mx-4 my-2 font-weight-bold"
                             label="Active"
-                            checked={props.currentFilter === 'Active'}
+                            checked={status === 'Active'}
                             onChange={() => handleFilter('Active')}
                         />
                     </Dropdown.Item>
-                    <Dropdown.Item onClick={() => handleFilter('UnActive')}>
+                    <Dropdown.Item as={'li'} onClick={() => handleFilter('UnActive')}>
                         <Form.Check
-                            type="checkbox"
+                            type="radio"
                             id="checkbox-unactive"
                             className="mx-4 my-2 font-weight-bold"
                             label="UnActive"
-                            checked={props.currentFilter === 'UnActive'}
+                            checked={status === 'UnActive'}
                             onChange={() => handleFilter('UnActive')}
                         />
                     </Dropdown.Item>

@@ -131,11 +131,11 @@ function ProductEdit(props) {
       temDirtyFields.image_slide = image_slide_array;
     }
     if (temDirtyFields.image_slide !== undefined) {
-      if (temDirtyFields.image_slide.length == 0) {
+      if (temDirtyFields.image_slide.length === 0) {
         temDirtyFields.image_slide = undefined;
       }
     }
-
+    console.log(temDirtyFields)
     const result = await editProduct(productDetailById.id, temDirtyFields);
     Notiflix.Block.remove('#root');
     if (result === 200) {

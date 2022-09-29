@@ -6,7 +6,8 @@ import './style.css';
 
 export default function FilterStatus(props) {
   const handleFilter = (value) => {
-    props.setCurrentFilter(value);
+    if(value ==='All') props.setCurrentFilter()
+    else props.setCurrentFilter(value);
   };
   return (
     <Dropdown>

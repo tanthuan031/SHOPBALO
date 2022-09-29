@@ -12,7 +12,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Product extends Model
 {
     use HasFactory;
-    // use SoftDeletes;
+    use SoftDeletes;
     protected  $table = 'products';
     /**
      * The attributes that are mass assignable.
@@ -34,8 +34,7 @@ class Product extends Model
     }
     public function product_details(): HasOne
     {
-
-        return $this->hasOne(ProductDetail::class);
+        return $this->hasOne(ProductDetail::class,'product_id');
     }
 
     public function  ratings(): HasMany

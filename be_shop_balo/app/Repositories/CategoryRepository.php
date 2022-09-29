@@ -41,18 +41,18 @@ class CategoryRepository extends BaseRepository
     }
 
 
-    /**
-     * override
-     * find
-     *
-     * @param  int $id
-     * @return collection
-     */
-    public function find($id)
-    {
+    // /**
+    //  * override
+    //  * find
+    //  *
+    //  * @param  int $id
+    //  * @return collection
+    //  */
+    // public function find($id)
+    // {
 
-        return $this->model->findCategory('id', $id)->first();
-    }
+    //     return $this->model->findCategory('id', $id)->first();
+    // }
     /**
      * forgot 
      *@author tranvannghia021

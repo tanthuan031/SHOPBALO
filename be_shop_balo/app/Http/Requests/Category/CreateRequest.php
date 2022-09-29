@@ -39,7 +39,7 @@ class CreateRequest extends FormRequest
         return [
             'name.required' => 'Name category is required!',
             'image.required' => 'image category is required!',
-            'name.min' => 'name at Least 6 Characters!',
+            'name.min' => 'Name at last 6 characters!',
         ];
     }
 
