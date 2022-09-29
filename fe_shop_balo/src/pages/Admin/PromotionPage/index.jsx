@@ -5,10 +5,10 @@ import { useSelector, useDispatch } from 'react-redux';
 import { promotion_table_header } from '../../../asset/data/promotion_table_header';
 import FilterStatus from './../../../components/Promotion/FilterStatus/index';
 import {
-  isAddSelector,
-  isEditSelector,
-  isSortSelector,
-  isStatusSelector,
+  isAddSelectorPromotion,
+  isEditSelectorPromotion,
+  isSortSelectorPromotion,
+  isStatusSelectorPromotion,
 } from './../../../redux/selectors/promotion/promotion.selector';
 import PromotionTable from './../../../components/Promotion/index';
 import { getAllDisount } from '../../../api/Promotion/promotionAPI';
@@ -28,11 +28,11 @@ const PromotionPage = () => {
   const [data, setData] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [totalRecord, setTotalRecords] = useState(0);
-  const isAdd = useSelector(isAddSelector);
-  const isEdit = useSelector(isEditSelector);
+  const isAdd = useSelector(isAddSelectorPromotion);
+  const isEdit = useSelector(isEditSelectorPromotion);
   const [search, setSearch] = useState('');
-  const status = useSelector(isStatusSelector);
-  const sort = useSelector(isSortSelector);
+  const status = useSelector(isStatusSelectorPromotion);
+  const sort = useSelector(isSortSelectorPromotion);
   const [page, setPage] = useState(1);
   const dispatch = useDispatch();
 
@@ -50,7 +50,7 @@ const PromotionPage = () => {
     setIsLoading(false);
   };
 
-  useEffect(() => {    
+  useEffect(() => {
     handleGetAllPromotion();
   }, []);
 
@@ -79,7 +79,7 @@ const PromotionPage = () => {
       Notiflix.Block.remove('#root');
     }, 500);
   };
-  
+
   const handleSearh = async (e) => {
     e.preventDefault();
     handleGetAllPromotion();
@@ -111,12 +111,7 @@ const PromotionPage = () => {
                           setSearch(e.target.value);
                         }}
                       />
-                      <Button
-                        id="seach-category"
-                        variant="danger"
-                        type="submit"
-                        onClick={handleSearh}
-                      >
+                      <Button id="seach-category" variant="danger" type="submit" onClick={handleSearh}>
                         <FaSearch />
                       </Button>
                     </InputGroup>
