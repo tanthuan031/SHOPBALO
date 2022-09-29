@@ -23,9 +23,13 @@
   overflow: hidden;
 }
 .description-product-detail {
-  font-size: 1.3rem;
+  font-size: 1rem;
   padding: 4px;
   margin-top: 20px;
+}
+.description-product-detail h1,
+h2:first-child {
+  font-size: 1rem;
 }
 .text-product-detail {
   font-size: 1.2rem;

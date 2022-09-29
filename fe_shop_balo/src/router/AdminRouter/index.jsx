@@ -7,6 +7,7 @@ import { DashBoardPage } from "../../pages/Admin/DashBoardPage";
 import { LoginPage } from "../../pages/Admin/LoginPage";
 import { ProductPage } from "../../pages/Admin/ProductPage";
 import PromotionPage from "../../pages/Admin/PromotionPage";
+import { StaffPage } from "../../pages/Admin/StaffPage";
 import { ProtectedRoutes } from "../ProtectedRouters";
 export default function AdminRouter() {
   return (

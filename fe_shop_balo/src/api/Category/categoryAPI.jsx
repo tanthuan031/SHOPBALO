@@ -16,9 +16,9 @@ export const configHeadersAuthenticate = () => {
 export const getAll = async ({ sort_id, search, status, page } = {}) => {
     const url = '/api/admin/category';
     const queryString = [];
-    if (sort_id) queryString.push(`_sort_id=${sort_id}`);
-    if (search) queryString.push(`_q=${search}`);
-    if (status) queryString.push(`_status=${status}`);
+    if (sort_id) queryString.push(`sort_id=${sort_id}`);
+    if (search) queryString.push(`q=${search}`);
+    if (status) queryString.push(`status=${status}`);
     if (page) queryString.push(`page=${page}`);
 
     const final_url = concatQueryString(queryString, url);

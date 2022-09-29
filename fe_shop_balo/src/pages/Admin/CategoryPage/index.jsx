@@ -109,7 +109,7 @@ export function CategoryPage(props) {
                             <div className="mb-3 d-flex justify-content-between">
                                 <div className="d-flex justify-content-between ">
                                     <Sort currentFilter={'logger'} setCurrentFilter={handleCurrentFilter} />
-                                    <FilterStatusCategory currentFilter={"logger"} setCurrentFilter={handleCurrentFilter} />
+                                    {/* <FilterStatusCategory currentFilter={"logger"} setCurrentFilter={handleCurrentFilter} /> */}
                                 </div>
                                 <div className="d-flex justify-content-between ">
 
@@ -157,7 +157,7 @@ export function CategoryPage(props) {
                                     )}
                                 </>
                             ) : (
-                                <Skeleton column={4} />
+                                <Skeleton column={3} />
                             )}
                         </div>
                     ) : (

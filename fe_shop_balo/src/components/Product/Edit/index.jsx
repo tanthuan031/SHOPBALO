@@ -117,23 +117,23 @@ function ProductEdit(props) {
     Object.keys(temDirtyFields).map((key) => {
       temDirtyFields[key] = data[key];
     });
-    if (temDirtyFields.image != undefined) {
+    if (temDirtyFields.image !== undefined) {
       const image1 = await toBase64(data.image[0]);
       temDirtyFields.image = [image1];
     }
-    if (temDirtyFields.image_slide != undefined) {
+    if (temDirtyFields.image_slide !== undefined) {
       const image_slide_array = [];
       for (let i = 0; i < data.image_slide.file.length; i++) {
         image_slide_array.push(await toBase64(data.image_slide.file[i]));
       }
       temDirtyFields.image_slide = image_slide_array;
     }
-    if (temDirtyFields.image_slide != undefined) {
-      if (temDirtyFields.image_slide.length == 0) {
+    if (temDirtyFields.image_slide !== undefined) {
+      if (temDirtyFields.image_slide.length === 0) {
         temDirtyFields.image_slide = undefined;
       }
     }
-
+    console.log(temDirtyFields)
     const result = await editProduct(productDetailById.id, temDirtyFields);
     Notiflix.Block.remove('#root');
     if (result === 200) {
@@ -167,7 +167,7 @@ function ProductEdit(props) {
   };
   const onRemoveImage = (id) => {
     image_slide.file.forEach((value, index) => {
-      if (index == id) {
+      if (index === id) {
         image_slide.file.splice(index, 1);
       }
     });
@@ -314,7 +314,7 @@ function ProductEdit(props) {
                   <Form.Control id="image-slide" type="file" multiple onChange={uploadImageSlide} />
 
                   <div className="image-product-slide">
-                    {fileImageSlideShow.file != [] &&
+                    {fileImageSlideShow.file !== [] &&
                       fileImageSlideShow.file.map((url, index) => (
                         <div key={index} className="image-product-slide-item">
                           <img className="multi-preview-slide-product " src={url} alt="..." />
