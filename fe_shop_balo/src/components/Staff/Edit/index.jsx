@@ -14,6 +14,7 @@ import { isEditStaffSelector, staffByIdSelector } from '../../../redux/selectors
 import { editStaff } from '../../../api/Staff/staffAPI';
 import { URL_SERVER } from '../../../utils/urlPath';
 import './style.css'
+import { formatDate } from '../../../utils/formatDate';
 
 const StaffEdit = props => {
   const staffSelector=useSelector(staffByIdSelector)
@@ -80,7 +81,7 @@ const StaffEdit = props => {
       const image = await toBase64(temDirtyFields.avatar);
       temDirtyFields.avatar=[image]
     }
-
+    if(temDirtyFields.created_date!==undefined) temDirtyFields.created_date=formatDate(temDirtyFields.created_date,'YYYY-MM-DD')
    console.log('dataAfter:', temDirtyFields);
 
     const result= await editStaff(dataStaff.id,temDirtyFields);
