@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Customer;
 use App\Models\Product;
 use App\Models\ProductDetail;
 use Illuminate\Database\Seeder;
@@ -21,8 +22,7 @@ class DatabaseSeeder extends Seeder
             ProductDetailSeeder::class,
             RoleSeeder::class,
             StaffSeeder::class,
-
-
+            CustomerSeeder::class,
         ]);
     }
 }

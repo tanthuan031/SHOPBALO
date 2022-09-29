@@ -1,5 +1,6 @@
 <?php
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\StaffController;
 use App\Http\Controllers\StorageImageController;
@@ -19,6 +20,8 @@ Route::group([
     Route::resource('product', ProductController::class);
 
     Route::resource('staff', StaffController::class);
+
+    Route::resource('customer',CustomerController::class);
     // api resource category
     Route::resource('category', CategoryController::class);
     // api category forgot

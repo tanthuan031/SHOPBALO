@@ -70,9 +70,9 @@ class StaffService
         if (!is_null($request->avatar)) {
             $request['avatar'] = Helper::saveImgBase64($request->avatar,'Staff');
         }
-        if(!is_null($request->created_date)) {
+      /*  if(!is_null($request->created_date)) {
             $request['created_date'] = date('Y-m-d' , strtotime($request->created_date));
-        }
+        }*/
         $result=$this->staffRepository->updateStaff($request,$id);
      //return $this->apiResponse([],$result,'ÚUp');
      if($result){

@@ -18,9 +18,10 @@ return new class extends Migration
             $table->string('first_name');
             $table->string('last_name');
             $table->string('gender');
-            $table->integer('phone');
+            $table->string('phone');
             $table->string('email');
             $table->string('password');
+            $table->integer('point');
             $table->string('avatar');
             $table->boolean('status');
             $table->string('address');
