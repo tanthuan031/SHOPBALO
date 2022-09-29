@@ -52,7 +52,7 @@ class RatingService
     {
         $nameFile = Helper::saveImgBase64v1($request->image, 'Rating');
 
-        if ($nameFile === false) return $this->apiResponse([], 200, 'Image is invalid');
+        if ($nameFile === false) return $this->errorResponse('Image is invalid', 422);
         $payload = [
             'customer_id' => $request->customer_id,
             'product_id' => $request->product_id,
@@ -78,7 +78,7 @@ class RatingService
      */
     public function show($id)
     {
-        if (is_null($id)) throw new Exception();
+        if (is_null($id)) return $this->errorResponse();
         $rating = $this->ratingRepo->find(intval($id));
         $data = [];
         if (!is_null($rating)) {
@@ -99,7 +99,7 @@ class RatingService
     public function update($request, $id)
     {
 
-        if (is_null($id)) throw new Exception();
+        if (is_null($id)) return $this->errorResponse();
 
         $payload = [
             'customer_id' => $request->customer_id,
@@ -119,7 +119,7 @@ class RatingService
 
     public function destroy($id)
     {
-        if (is_null($id)) throw new Exception();
+        if (is_null($id)) return $this->errorResponse();
 
         $result = $this->ratingRepo->delete($id);
         return $result ? $this->apiResponse([], 200, 'Delete rating successfully') : $this->apiResponse([], 401, 'Delete rating failed');
