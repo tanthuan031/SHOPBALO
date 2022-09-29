@@ -22,6 +22,7 @@ class DiscountFactory extends Factory
             'name' => $this->faker->sentence($this->faker->biasedNumberBetween(4, 6)),
             'value' => 90,
             'status' => true,
+            'created_date' => '2022-09-29 04:22:44',
             'description' => $this->faker->text(),
         ];
     }
