@@ -22,7 +22,7 @@ class DatabaseSeeder extends Seeder
             RoleSeeder::class,
             StaffSeeder::class,
             DiscountSeeder::class,
-            RatingSeeder::class,
+            // RatingSeeder::class,
 
 
 
