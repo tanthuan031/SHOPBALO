@@ -8,7 +8,9 @@ import './style.css';
 
 const FilterStatus = () => {
   const status = useSelector(isStatusSelectorPromotion);
+
   const dispatch = useDispatch();
+
   const handleFilter = (value) => {
     dispatch(setStatus(value));
   };

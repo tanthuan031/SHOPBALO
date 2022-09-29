@@ -16,7 +16,7 @@ export const getAllDisount = async ({sort, status, search, page}={}) => {
   const queryString = [];
   if (sort && sort.length > 0) queryString.push(`sort=${sort}`)
   if (search) queryString.push(`q=${search}`)
-  if (status) queryString.push(`filter=${status}`);
+  if (status) queryString.push(`status=${status}`);
   if (page) queryString.push(`page=${page}`)
   
   const final_url = concatQueryString(queryString, url)
@@ -59,4 +59,13 @@ export const editDiscount = async(id, data) => {
   } else {
     return 404;
   }
+}
+
+export const deletePromotion = async (id) => {
+   const url = `/api/admin/discount/${id}`;
+   const res = await axiosClient.delete(url);
+   if (res.status === 200) {
+     return 200;
+   }
+   return 401;
 }

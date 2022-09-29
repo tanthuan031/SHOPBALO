@@ -18,11 +18,10 @@ function PromotionAdd(props) {
   const dispatch = useDispatch();
 
   const typeOptionsStatus = [
-    { value: '0', label: 'Active' },
-    { value: '1', label: 'Inactive' },
+    { value: 'Active', label: 'Active' },
+    { value: 'InActive', label: 'InActive' },
   ];
 
-  const promotion = [];
   const {
     register,
     setValue,
@@ -40,36 +39,41 @@ function PromotionAdd(props) {
     },
   });
 
-  const backtoPromotionList = () => {
+  const backToManage = () => {
     dispatch(setIsAdd(false));
   };
 
   const onSubmit = async (data) => {
     BlockUI('#root', 'fixed');
-    if (data.name.length != 0) {
-      const resultData = {
-        name: data.name,
-        value: data.value,
-        status: data.status,
-        description: data.description,
-      };
 
-      const result = await addDiscount(resultData);
+    const resultData = {
+      name: data.name,
+      value: data.value,
+      status: data.status,
+      description: data.description,
+    };
 
-      Notiflix.Block.remove('#root');
-      if (result.status === 200) {
-        SuccessToast('Create a item promotion successfully', 3000);
-        backtoPromotionList();
-      } else {
-        ErrorToast('Something went wrong. Please try again', 3000);
-      }
+    const result = await addDiscount(resultData);
+
+    Notiflix.Block.remove('#root');
+    if (result.status === 200) {
+      SuccessToast('Create a item promotion successfully', 3000);
+      backToManage();
+      props.backToPromotionList([
+        {
+          key: 'id',
+          value: 'desc',
+        },
+      ]);
+    } else {
+      ErrorToast('Something went wrong. Please try again', 3000);
     }
   };
 
   const editorDescription = (value) => {
     setValue('description', value);
+    console.log('editorDescription', value);
   };
-  
 
   const TableRow = (props) => {
     return (
@@ -104,7 +108,7 @@ function PromotionAdd(props) {
               <TableRow
                 control={
                   <>
-                    <Form.Control id="value" type="text" maxLength="128" {...register('value')} />
+                    <Form.Control id="value" type="text" {...register('value')} />
                     <div className="d-flex justify-content-between">
                       <small className="text-red font-weight-semi">{errors?.value?.message}</small>
                     </div>
@@ -124,7 +128,7 @@ function PromotionAdd(props) {
                         options={typeOptionsStatus}
                         onChange={(options) => {
                           onChange(options?.value);
-                          if (options?.value === 1) {
+                          if (options?.value === 'Active') {
                             setValue('status', options.value);
                           }
                         }}
@@ -176,7 +180,7 @@ function PromotionAdd(props) {
             </Button>
             <Button
               id="product-save-cancel"
-              onClick={backtoPromotionList}
+              onClick={backToManage}
               variant="outline-secondary"
               className="font-weight-bold"
             >

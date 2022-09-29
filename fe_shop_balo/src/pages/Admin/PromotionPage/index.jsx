@@ -1,27 +1,26 @@
+import Notiflix from 'notiflix';
 import React, { useEffect, useState } from 'react';
 import { Button, Form, InputGroup } from 'react-bootstrap';
 import { FaSearch } from 'react-icons/fa';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { getAllDisount } from '../../../api/Promotion/promotionAPI';
 import { promotion_table_header } from '../../../asset/data/promotion_table_header';
+import { ErrorToast } from '../../../components/Layouts/Alerts';
+import { BlockUI } from '../../../components/Layouts/Notiflix';
+import PaginationUI from '../../../components/Layouts/Pagination';
+import SortValue from '../../../components/Promotion/SortValue';
+import { setIsAdd } from '../../../redux/reducer/promotion/promotion.reducer';
+import Skeleton from './../../../components/Layouts/Skeleton/index';
+import PromotionAdd from './../../../components/Promotion/Add/index';
+import PromotionEdit from './../../../components/Promotion/Edit/index';
 import FilterStatus from './../../../components/Promotion/FilterStatus/index';
+import PromotionTable from './../../../components/Promotion/index';
 import {
   isAddSelectorPromotion,
   isEditSelectorPromotion,
   isSortSelectorPromotion,
-  isStatusSelectorPromotion,
+  isStatusSelectorPromotion
 } from './../../../redux/selectors/promotion/promotion.selector';
-import PromotionTable from './../../../components/Promotion/index';
-import { getAllDisount } from '../../../api/Promotion/promotionAPI';
-import { ErrorToast } from '../../../components/Layouts/Alerts';
-import Skeleton from './../../../components/Layouts/Skeleton/index';
-import PaginationUI from '../../../components/Layouts/Pagination';
-import PromotionEdit from '../../../components/Promotion/Edit';
-import { BlockUI } from '../../../components/Layouts/Notiflix';
-import Notiflix from 'notiflix';
-import { setIsAdd } from '../../../redux/reducer/promotion/promotion.reducer';
-import PromotionAdd from './../../../components/Promotion/Add/index';
-import CreateCategoryForm from './../../../components/Category/Add/index';
-import SortValue from '../../../components/Promotion/SortValue';
 
 const PromotionPage = () => {
   const data_promotion_table_header = [...promotion_table_header];
@@ -38,6 +37,9 @@ const PromotionPage = () => {
 
   const handleGetAllPromotion = async () => {
     setIsLoading(true);
+
+    console.log('41',status);
+
     const result = await getAllDisount({ sort, status, search });
     if (result === 401) {
       ErrorToast('Something went wrong. Please try again', 3000);
@@ -52,7 +54,7 @@ const PromotionPage = () => {
 
   useEffect(() => {
     handleGetAllPromotion();
-  }, []);
+  }, [status]);
 
   const handleCurrentFilter = () => {};
 
@@ -85,6 +87,17 @@ const PromotionPage = () => {
     handleGetAllPromotion();
   };
 
+  const backToPromotionList = async (value) => {
+    setIsLoading(true);
+    console.log('value: ', value);
+
+    const result = await getAllDisount({ sort: value });
+
+    setData(result.data);
+    setTotalRecords(result.meta.total);
+    setIsLoading(false);
+  };
+
   return (
     <>
       <section>
@@ -105,7 +118,7 @@ const PromotionPage = () => {
                     <InputGroup>
                       <Form.Control
                         id="seach-category"
-                        placeholder="Search name category"
+                        placeholder="Search name promotion"
                         value={search}
                         onChange={(e) => {
                           setSearch(e.target.value);
@@ -151,8 +164,8 @@ const PromotionPage = () => {
             </div>
           ) : (
             <>
-              {isAdd && !isEdit && <PromotionAdd data={data} />}
-              {isEdit && <PromotionEdit data={data} />}
+              {isAdd && !isEdit && <PromotionAdd backToPromotionList={backToPromotionList} />}
+              {isEdit && <PromotionEdit backToPromotionList={backToPromotionList} />}
             </>
           )}
         </div>

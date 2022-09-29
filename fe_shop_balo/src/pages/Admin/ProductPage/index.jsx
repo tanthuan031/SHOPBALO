@@ -100,6 +100,7 @@ export function ProductPage(props) {
     setProduct(result, 'page');
     setLoading(false);
   };
+  
   const handleCurrentFilterStatus = async (value) => {
     let tempStatus;
     setLoading(true);

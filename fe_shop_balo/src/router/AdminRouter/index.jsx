@@ -1,14 +1,14 @@
 // @flow
-import * as React from "react";
-import { Route, Routes } from "react-router-dom";
-import { AdminLayout } from "../../layouts/Admin";
-import { CategoryPage } from "../../pages/Admin/CategoryPage";
-import { DashBoardPage } from "../../pages/Admin/DashBoardPage";
-import { LoginPage } from "../../pages/Admin/LoginPage";
-import { ProductPage } from "../../pages/Admin/ProductPage";
-import PromotionPage from "../../pages/Admin/PromotionPage";
-import { StaffPage } from "../../pages/Admin/StaffPage";
-import { ProtectedRoutes } from "../ProtectedRouters";
+import * as React from 'react';
+import { Route, Routes } from 'react-router-dom';
+import { AdminLayout } from '../../layouts/Admin';
+import { CategoryPage } from '../../pages/Admin/CategoryPage';
+import { DashBoardPage } from '../../pages/Admin/DashBoardPage';
+import { LoginPage } from '../../pages/Admin/LoginPage';
+import { ProductPage } from '../../pages/Admin/ProductPage';
+import { StaffPage } from '../../pages/Admin/StaffPage';
+import { ProtectedRoutes } from '../ProtectedRouters';
+import PromotionPage from './../../pages/Admin/PromotionPage';
 export default function AdminRouter() {
   return (
     <Routes>
@@ -20,7 +20,7 @@ export default function AdminRouter() {
         <Route path="/admin/category" element={<AdminLayout slot={<CategoryPage key={'a'} />} />} />
         <Route path="/admin/promotion" element={<AdminLayout slot={<PromotionPage key={'a'} />} />} />
         <Route path="/admin/order" element={<AdminLayout slot={<DashBoardPage key={'a'} />} />} />
-        <Route path="/admin/staff" element={<AdminLayout slot={<DashBoardPage key={'a'} />} />} />
+        <Route path="/admin/staff" element={<AdminLayout slot={<StaffPage key={'a'} />} />} />
         <Route path="/admin/customer" element={<AdminLayout slot={<DashBoardPage key={'a'} />} />} />
         <Route path="/admin/review" element={<AdminLayout slot={<DashBoardPage key={'a'} />} />} />
         <Route path="/admin/decentralization" element={<AdminLayout slot={<DashBoardPage key={'a'} />} />} />
