@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests\Category;
+namespace App\Http\Requests\Rating;
 
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
@@ -8,7 +8,7 @@ use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Validation\ValidationException;
 
-class CreateRequest extends FormRequest
+class UpdateRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -17,7 +17,7 @@ class CreateRequest extends FormRequest
      */
     public function authorize()
     {
-        return true;
+        return false;
     }
 
     /**
@@ -28,18 +28,25 @@ class CreateRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|min:6',
-            'image' => 'required'
+            'customer_id' => 'required',
+            'product_id' => 'required',
+            'point' => 'required',
+            'content' => 'required',
 
         ];
     }
 
+
+
     public function messages()
     {
         return [
-            'name.required' => 'Name category is required!',
-            'image.required' => 'image category is required!',
-            'name.min' => 'Name at last 6 characters!',
+            'customer_id.required' => 'Customer_id rating is required!',
+            'product_id.required' => 'product_id rating is required!',
+            'point.required' => 'Point rating is required!',
+            'content.required' => 'Content rating is required!',
+
+
         ];
     }
 

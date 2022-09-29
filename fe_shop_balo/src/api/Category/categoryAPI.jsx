@@ -16,9 +16,9 @@ export const configHeadersAuthenticate = () => {
 export const getAll = async ({ sort_id, search, status, page } = {}) => {
     const url = '/api/admin/category';
     const queryString = [];
-    if (sort_id) queryString.push(`_sort_id=${sort_id}`);
-    if (search) queryString.push(`_search=${search}`);
-    if (status) queryString.push(`_status=${status}`);
+    if (sort_id) queryString.push(`sort_id=${sort_id}`);
+    if (search) queryString.push(`q=${search}`);
+    if (status) queryString.push(`status=${status}`);
     if (page) queryString.push(`page=${page}`);
 
     const final_url = concatQueryString(queryString, url);
@@ -41,4 +41,36 @@ export const addCategory = async (data) => {
     } else {
         return 401;
     }
+}
+export const showCategory = async (id) => {
+    const url = `/api/admin/category/${id}`;
+    const res = await axiosClient.get(url);
+    if (res.status === 200) {
+        return res.data;
+    }
+    return 401;
+}
+export const updateCategory = async (id, data) => {
+    const url = `/api/admin/category/${id}`;
+    const res = await axiosClient.put(url, data);
+    if (res.status === 200) {
+        return 200;
+    }
+    return 401;
+}
+export const destroyCategory = async (id) => {
+    const url = `/api/admin/category/${id}`;
+    const res = await axiosClient.delete(url);
+    if (res.status === 200) {
+        return 200;
+    }
+    return 401;
+}
+export const forgotCategory = async (id) => {
+    const url = `/api/admin/category/${id}/forgot`;
+    const res = await axiosClient.delete(url);
+    if (res.status === 200) {
+        return 200;
+    }
+    return 401;
 }

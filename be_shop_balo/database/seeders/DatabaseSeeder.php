@@ -23,6 +23,8 @@ class DatabaseSeeder extends Seeder
             RoleSeeder::class,
             StaffSeeder::class,
             CustomerSeeder::class,
+            DiscountSeeder::class,
+            RatingSeeder::class,
         ]);
     }
 }

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Resources\category;
+namespace App\Http\Resources\Rating;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -16,12 +16,12 @@ class ShowResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'parent_id' => $this->parent_id,
-            'name' => $this->name,
-            'image' => env('APP_URL') . '/storage/category/' . $this->image,
-            'created_at' => $this->created_at,
-            'updated_at' => $this->updated_at,
-            // 'deleted_at' => $this->deleted_at
+            'customer_id' => $this->customers,
+            'product_id' => $this->product_id,
+            'point' => $this->point,
+            'content' => $this->content,
+            'image' => env('APP_URL') . '/storage/Rating/' . $this->image,
+            'created_date' => $this->created_at,
         ];
     }
 }

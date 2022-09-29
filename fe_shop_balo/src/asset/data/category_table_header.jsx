@@ -23,14 +23,14 @@ export const category_table_header = [
     isSort: true,
     cursor: true,
   },
-  {
-    id: 4,
-    name: 'Status',
-    isSortAsc: false,
-    isSortDesc: false,
-    isSort: true,
-    cursor: true,
-  },
+  // {
+  //   id: 4,
+  //   name: 'Status',
+  //   isSortAsc: false,
+  //   isSortDesc: false,
+  //   isSort: true,
+  //   cursor: true,
+  // },
   {
     id: 5,
     name: 'Action',
