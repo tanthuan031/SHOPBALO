@@ -8,7 +8,6 @@ import { category_table_header } from '../../../asset/data/category_table_header
 import CategoryTable from '../../../components/Category';
 import CreateCategoryForm from '../../../components/Category/Add';
 import EditCategory from '../../../components/Category/Edit';
-import FilterStatusCategory from '../../../components/Category/FilterStatusCategory';
 import Sort from '../../../components/Category/Sort';
 import { ErrorToast } from '../../../components/Layouts/Alerts';
 import { BlockUI } from '../../../components/Layouts/Notiflix';
@@ -16,12 +15,11 @@ import PaginationUI from '../../../components/Layouts/Pagination';
 import Skeleton from '../../../components/Layouts/Skeleton';
 import { setIsAdd } from '../../../redux/reducer/category/category.reducer';
 import {
-  isActiveSelector,
-  isAddSelectorCategory,
-  isEditSelectorCategory,
-  isResetSelector,
-  isSortSelector,
-  isStatusSelector,
+  isAddCategorySelector,
+  isEditCategorySelector,
+  isResetCategorySelector,
+  isSortCategorySelector,
+  isStatusCategorySelector,
 } from '../../../redux/selectors/category/category.selector';
 
 export function CategoryPage(props) {
@@ -30,11 +28,11 @@ export function CategoryPage(props) {
   const [page, setPage] = useState(1);
   const [totalRecord, setTotalRecords] = useState(0);
   const [loading, setLoading] = useState(true);
-  const isAdd = useSelector(isAddSelectorCategory);
-  const isEdit = useSelector(isEditSelectorCategory);
-  const isReset = useSelector(isResetSelector);
-  const status = useSelector(isStatusSelector);
-  const sort_id = useSelector(isSortSelector);
+  const isAdd = useSelector(isAddCategorySelector);
+  const isEdit = useSelector(isEditCategorySelector);
+  const isReset = useSelector(isResetCategorySelector);
+  const status = useSelector(isStatusCategorySelector);
+  const sort_id = useSelector(isSortCategorySelector);
   const [search, setSearch] = useState('');
   const dispatch = useDispatch();
   const handleCallApiCategory = async () => {

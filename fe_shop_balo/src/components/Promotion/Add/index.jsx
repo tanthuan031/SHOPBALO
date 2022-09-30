@@ -27,7 +27,7 @@ function PromotionAdd(props) {
     setValue,
     handleSubmit,
     control,
-    formState: { isValid, errors },
+    formState: { isDirty, errors },
   } = useForm({
     mode: 'onChange',
     resolver: yupResolver(addSchemaPromotion),
@@ -95,7 +95,7 @@ function PromotionAdd(props) {
               <TableRow
                 control={
                   <>
-                    <Form.Control id="name" type="text" maxLength="128" {...register('name')} />
+                    <Form.Control id="name" type="text" {...register('name')} />
                     <div className="d-flex justify-content-between">
                       <small className="text-red font-weight-semi">{errors?.name?.message}</small>
                     </div>
@@ -174,7 +174,7 @@ function PromotionAdd(props) {
               variant="danger"
               type="submit"
               className="font-weight-bold me-3"
-              disabled={!isValid}
+              disabled={!isDirty}
             >
               Save
             </Button>

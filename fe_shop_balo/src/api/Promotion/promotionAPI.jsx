@@ -14,7 +14,7 @@ export const configHeadersAuthenticate = () => {
 export const getAllDisount = async ({sort, status, search, page}={}) => {
   const url = '/api/admin/discount';
   const queryString = [];
-  if (sort && sort.length > 0) queryString.push(`sort=${sort}`)
+  if (sort && sort.length > 0) queryString.push(`sortValue=${sort}`)
   if (search) queryString.push(`q=${search}`)
   if (status) queryString.push(`status=${status}`);
   if (page) queryString.push(`page=${page}`)

@@ -8,8 +8,10 @@ import { isSortSelectorPromotion } from '../../../redux/selectors/promotion/prom
 import './style.css';
 
 export default function SortValue(props) {
-  const dispatch = useDispatch();
   const sort = useSelector(isSortSelectorPromotion);
+
+  const dispatch = useDispatch();
+  
   const handleFilter = (value) => {
     dispatch(setSort(value));
   };
@@ -27,24 +29,24 @@ export default function SortValue(props) {
       </Dropdown.Toggle>
       <Dropdown.Menu id="user-type-filter-menu">
         <Form>
-          <Dropdown.Item as={'li'} onClick={() => handleFilter('DESC')}>
-            <Form.Check
-              type="radio"
-              id="checkbox-desc"
-              className="mx-4 my-2 font-weight-bold"
-              label="↓ Desc"
-              checked={sort === 'DESC'}
-              onChange={() => handleFilter('DESC')}
-            />
-          </Dropdown.Item>
-          <Dropdown.Item as={'li'} onClick={() => handleFilter('ASC')}>
+          <Dropdown.Item as={'li'} onClick={() => handleFilter('asc')}>
             <Form.Check
               type="radio"
               id="checkbox-asc"
               className="mx-4 my-2 font-weight-bold"
               label="↑ Asc"
-              checked={sort === 'ASC'}
-              onChange={() => handleFilter('ASC')}
+              checked={sort === 'asc'}
+              onChange={() => handleFilter('asc')}
+            />
+          </Dropdown.Item>
+          <Dropdown.Item as={'li'} onClick={() => handleFilter('desc')}>
+            <Form.Check
+              type="radio"
+              id="checkbox-desc"
+              className="mx-4 my-2 font-weight-bold"
+              label="↓ Desc"
+              checked={sort === 'desc'}
+              onChange={() => handleFilter('desc')}
             />
           </Dropdown.Item>
         </Form>

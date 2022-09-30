@@ -19,7 +19,7 @@ import {
   isAddSelectorPromotion,
   isEditSelectorPromotion,
   isSortSelectorPromotion,
-  isStatusSelectorPromotion
+  isStatusSelectorPromotion,
 } from './../../../redux/selectors/promotion/promotion.selector';
 
 const PromotionPage = () => {
@@ -38,9 +38,7 @@ const PromotionPage = () => {
   const handleGetAllPromotion = async () => {
     setIsLoading(true);
 
-    console.log('41',status);
-
-    const result = await getAllDisount({ sort, status, search });
+    const result = await getAllDisount({ sort, status, search, page });
     if (result === 401) {
       ErrorToast('Something went wrong. Please try again', 3000);
       return false;
@@ -54,9 +52,7 @@ const PromotionPage = () => {
 
   useEffect(() => {
     handleGetAllPromotion();
-  }, [status]);
-
-  const handleCurrentFilter = () => {};
+  }, [status, sort, isEdit, isAdd]);
 
   const handleChangePage = async (page) => {
     setPage(page);
@@ -110,7 +106,7 @@ const PromotionPage = () => {
             <div className="row">
               <div className="mb-3 d-flex justify-content-between">
                 <div className="d-flex justify-content-between ">
-                  <SortValue currentFilter={'logger'} setCurrentFilter={handleCurrentFilter} />
+                  <SortValue />
                   <FilterStatus />
                 </div>
                 <div className="d-flex justify-content-between ">
