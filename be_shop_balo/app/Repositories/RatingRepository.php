@@ -24,6 +24,8 @@ class RatingRepository extends BaseRepository
      */
     public function getAll($search = [])
     {
-        return $this->rating->search(@$search['key'])->with(['customers', 'products'])->paginate(@$search['per_page']);
+        return $this->rating->search(@$search['key'])->sortPoint($search['sortPoint'])
+            ->sortStatus(@$search['sortStatus'])
+            ->with(['customers', 'products'])->paginate(@$search['per_page']);
     }
 }

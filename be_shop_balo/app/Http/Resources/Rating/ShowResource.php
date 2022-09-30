@@ -29,6 +29,7 @@ class ShowResource extends JsonResource
                 'status', 'created_at'
             ]),
             'point' => $this->point,
+            'status' => $this->status,
             'content' => $this->content,
             'image' => env('APP_URL') . '/storage/Rating/' . $this->image,
             'created_date' => $this->created_at,

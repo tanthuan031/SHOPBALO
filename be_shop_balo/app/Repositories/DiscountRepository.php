@@ -23,6 +23,7 @@ class DiscountRepository extends BaseRepository
      */
     public function getAll($search = [])
     {
-        return $this->discount->status(@$search['status'])->search(@$search['key'])->paginate(@$search['per_page']);
+        return $this->discount->status(@$search['status'])
+            ->search(@$search['key'])->paginate(@$search['per_page']);
     }
 }

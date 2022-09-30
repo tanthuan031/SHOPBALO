@@ -18,6 +18,7 @@ return new class extends Migration
             $table->foreignId('customer_id')->constrained('customers');
             $table->foreignId('product_id')->constrained('products');
             $table->float('point');
+            $table->enum('status', ['pending', 'pushlished'])->default('pending');
             $table->string('content');
             $table->string('image');
             $table->softDeletes();

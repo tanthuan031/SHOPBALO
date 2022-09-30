@@ -31,12 +31,45 @@ class Rating extends Model
     }
 
 
+    /**
+     * scopeSearch
+     *
+     * @param  mixed $query
+     * @param  mixed $key
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
     public function scopeSearch($query, $key)
     {
         if (is_null($key)) return $query;
         return $query->whereLike([
-            'point', 'content', 'customers.last_name', 'customers.first_name',
+            'point', 'customers.last_name', 'customers.first_name',
             'customers.email', 'customers.address', 'products.name', 'products.description'
         ], $key);
+    }
+
+
+    /**
+     * sortStatus
+     *
+     * @param  mixed $query
+     * @param  mixed $sort
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function sortStatus($query, $sort)
+    {
+        if ($sort == 'pending' || $sort == 'pushlished') return $query->where('status', $sort);
+        return $query;
+    }
+
+    /**
+     * sortPoint
+     *
+     * @param  mixed $query
+     * @param  mixed $sort
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function sortPoint($query, $sort)
+    {
+        return $query->orderBy('point', $sort);
     }
 }
