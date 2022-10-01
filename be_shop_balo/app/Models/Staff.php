@@ -81,7 +81,21 @@ class Staff extends Model
             ->when($request->has('phone'), function ($query) use ($request) {
             $search = $request->query('phone');
             $query
-                ->where("phone", "LIKE", "%{$search}%");
+                ->orWhere("phone", "LIKE", "%{$search}%");
     });
+    }
+    public function scopeUnique($query, $request)
+    {
+        return $query
+            ->when($request->has('email'), function ($query) use ($request) {
+                $search = $request->query('email');
+                $query
+                    ->where("email", "LIKE", "%{$search}%");
+            })
+            ->when($request->has('phone'), function ($query) use ($request) {
+                $search = $request->query('phone');
+                $query
+                    ->where("phone", "LIKE", "%{$search}%");
+            });
     }
 }
