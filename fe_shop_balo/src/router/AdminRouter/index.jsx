@@ -8,6 +8,7 @@ import { LoginPage } from "../../pages/Admin/LoginPage";
 import { ProductPage } from "../../pages/Admin/ProductPage";
 import { StaffPage } from "../../pages/Admin/StaffPage";
 import { ProtectedRoutes } from "../ProtectedRouters";
+import { CustomerPage } from '../../pages/Admin/CustomerPage';
 export default function AdminRouter() {
   return (
     <Routes>
@@ -44,7 +45,7 @@ export default function AdminRouter() {
         />
         <Route
           path="/admin/customer"
-          element={<AdminLayout slot={<DashBoardPage key={"a"} />} />}
+          element={<AdminLayout slot={<CustomerPage key={"a"} />} />}
         />
         <Route
           path="/admin/review"
