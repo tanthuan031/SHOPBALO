@@ -57,9 +57,9 @@ export function StaffPage(props) {
    let params={}
     if (filterStatus!=='All') params={...params,filterStatus}
    // console.log(filter)
-    if(search !='') params={...params,filter,search}
+    if(search !=='') params={...params,filter,search}
     const handleGetAllStaffs = async () => {
-      const result = await getAllStaffs(params);
+      const result = await getAllStaffs(params)
       if (result === 401) {
         return false;
       } else if (result === 500) {
@@ -70,8 +70,7 @@ export function StaffPage(props) {
       setLoading(false);
     };
     handleGetAllStaffs();
-  }, [dispatch,
-    search,filterStatus]);
+  }, [dispatch, search,filterStatus]);
 
   const setStaff = (result, value) => {
     setData(result.data);

@@ -101,7 +101,9 @@ const StaffEdit = props => {
       Notiflix.Block.remove('#root');
     } else if (result === 401) {
       Notiflix.Block.remove('#root');
-    } else {
+    } else if (result ===402)
+      ErrorToast('Email or phone numbers have existed!', 3000);
+    else {
       Notiflix.Block.remove('#root');
       ErrorToast('Something went wrong. Please try again', 3000);
     }

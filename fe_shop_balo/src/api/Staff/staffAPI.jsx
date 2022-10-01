@@ -2,6 +2,7 @@ import React from 'react';
 import { concatQueryString } from '../../utils/concatQueryString';
 import { titleToSlug } from '../../utils/titleToSlug';
 import axiosClient from '../axiosClient';
+import { getAllProducts } from '../Product/productAPI';
 
 export const configHeadersAuthenticate = () => {
   const token = localStorage.getItem('token');
@@ -62,32 +63,42 @@ export const getStaffById = async (id) => {
 };
 export const addStaff = async (body) => {
   const url = '/api/admin/staff';
-  const response = await axiosClient.post(url, body);
-
-  if (response.status === 401) {
-    return 401;
-  } else if (response.status === 'success') {
-    return 200;
-  } else if (response.status === 500) {
-    return 500;
-  } else {
-    return 404;
+  //check email and phonenumber existance
+  const email = body.email
+  const phoneNumber = body.phone
+  const check_email_existence= await  getAllStaffsWithEmailAndPhone({email,phoneNumber})
+  if(check_email_existence.data.length>0) return 402
+  else {
+    const response = await axiosClient.post(url, body);
+    if (response.status === 401) {
+      return 401;
+    } else if (response.status === 'success') {
+      return 200;
+    } else if (response.status === 500) {
+      return 500;
+    } else {
+      return 404;
+    }
   }
 };
 
 export const editStaff = async (id, body) => {
   const url = `/api/admin/staff/${id}`;
-  const response = await axiosClient.put(url, body);
-  console.log(response)
-  if (response.status === 401) {
-    return 401;
-  } else if (response.status === 'success') {
-    return 200;
-  } else if (response.status === 500) {
-    return 500;
-  } else {
-    return 404;
-  }
+    if(body.email||body.phone) {
+     const check_email_existence = await getAllStaffsWithEmailAndPhone({ email: body.email, phoneNumber: body.phone })
+      if (check_email_existence.data.length>0) return 402
+    }
+   const response = await axiosClient.put(url, body);
+    if (response.status === 401) {
+      return 401;
+    } else if (response.status === 'success') {
+      return 200;
+    } else if (response.status === 500) {
+      return 500;
+    } else {
+      return 404;
+    }
+
 };
 export const deleteStaff = async (id) => {
   const url = `/api/admin/staff/${id}`;
@@ -101,5 +112,26 @@ export const deleteStaff = async (id) => {
     return 500;
   } else {
     return 404;
+  }
+};
+export const getAllStaffsWithEmailAndPhone = async ({ email, phoneNumber } = {}) => {
+  const url = '/api/admin/staff';
+  const queryString = [];
+  if (email) {
+    queryString.push(`email=${email}`);
+  }
+  if (phoneNumber) {
+    queryString.push(`phone=${phoneNumber}`);
+  }
+
+  const final_url = concatQueryString(queryString, url);
+  console.log(final_url)
+  const reponse = await axiosClient.get(final_url);
+  if (reponse.status === 401) {
+    return 401;
+  } else if (reponse.status === 'success') {
+    return reponse.data;
+  } else {
+    return 500;
   }
 };
