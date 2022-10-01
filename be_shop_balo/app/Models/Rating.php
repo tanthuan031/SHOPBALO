@@ -55,7 +55,7 @@ class Rating extends Model
      * @param  mixed $sort
      * @return \Illuminate\Database\Eloquent\Builder
      */
-    public function sortStatus($query, $sort)
+    public function scopeSortStatus($query, $sort)
     {
         if ($sort == 'pending' || $sort == 'pushlished') return $query->where('status', $sort);
         return $query;
@@ -68,7 +68,7 @@ class Rating extends Model
      * @param  mixed $sort
      * @return \Illuminate\Database\Eloquent\Builder
      */
-    public function sortPoint($query, $sort)
+    public function scopeSortPoint($query, $sort)
     {
         return $query->orderBy('point', $sort);
     }
