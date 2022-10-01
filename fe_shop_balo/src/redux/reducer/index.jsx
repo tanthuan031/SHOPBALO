@@ -1,11 +1,11 @@
 import { combineReducers } from '@reduxjs/toolkit';
 import categoryReducer from './category/category.reducer';
 import productReducer from './product/product.reducer';
-import  staffReducer  from './staff/staff.reducer';
+import reviewReducer from './review/review.reducer';
 
 const rootReducer = combineReducers({
   product: productReducer,
-  staff:staffReducer,
   category: categoryReducer,
+  review: reviewReducer
 });
 export default rootReducer;

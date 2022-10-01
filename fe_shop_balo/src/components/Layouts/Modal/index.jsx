@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import './style.css';
 
 export default function Modal(props) {
-  const { elementModalBody, elementModalTitle,className,isHeader=true } = props;
+  const { elementModalBody, elementModalTitle } = props;
 
   return (
     <ModalBootstrap
@@ -15,16 +15,12 @@ export default function Modal(props) {
       }}
       dialogClassName="modal-90w"
       centered
-
       backdrop={props.backdrop}
     >
-      {
-        isHeader && <ModalBootstrap.Header closeButton className="">
-          <h5 className="text-danger font-weight-bold w-100 text-center">{elementModalTitle}</h5>
-        </ModalBootstrap.Header>
-      }
-
-      <ModalBootstrap.Body className='pd-0'>
+      <ModalBootstrap.Header closeButton className="">
+        <h5 className="text-danger font-weight-bold w-100 text-center">{elementModalTitle}</h5>
+      </ModalBootstrap.Header>
+      <ModalBootstrap.Body>
         <div>{elementModalBody}</div>
       </ModalBootstrap.Body>
     </ModalBootstrap>

@@ -12,7 +12,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Product extends Model
 {
     use HasFactory;
-    use SoftDeletes;
+    // use SoftDeletes;
     protected  $table = 'products';
     /**
      * The attributes that are mass assignable.
@@ -34,7 +34,8 @@ class Product extends Model
     }
     public function product_details(): HasOne
     {
-        return $this->hasOne(ProductDetail::class,'product_id');
+
+        return $this->hasOne(ProductDetail::class);
     }
 
     public function  ratings(): HasMany
@@ -71,11 +72,7 @@ class Product extends Model
         return $query->when($request->has('filter.status'), function ($query) use ($request) {
             $list = explode(",", $request->query("filter")["status"]);
             $query->whereIn("status", $list);
-        })
-            ->when($request->has('filter.category_id'), function ($query) use ($request) {
-                $list = explode(",", $request->query("filter")["category_id"]);
-                $query->whereIn("category_id", $list);
-            });
+        });
     }
     public function scopeSearch($query, $request)
     {

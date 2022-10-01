@@ -12,7 +12,7 @@ form label {
 }
 
 .form-control:focus {
-  border-color: var(--bs-focus-input);
+  border-color: var(--bs-danger);
 }
 
 .form-password .show-hide-password {

@@ -1,14 +1,15 @@
 import React from 'react';
 import { Dropdown, Form } from 'react-bootstrap';
 import { HiFilter } from 'react-icons/hi';
+import PropTypes from 'prop-types';
 
 import './style.css';
 
 export default function FilterCategory(props) {
-  // console.log('data cate', props.data);
   const handleFilter = (value) => {
     props.setCurrentFilter(value);
   };
+
   return (
     <Dropdown>
       <Dropdown.Toggle
@@ -20,9 +21,9 @@ export default function FilterCategory(props) {
           <HiFilter />
         </div>
       </Dropdown.Toggle>
-      <Dropdown.Menu id="category-type-filter-menu">
+      <Dropdown.Menu id="user-type-filter-menu">
         <Form>
-          <Dropdown.Item onClick={() => handleFilter('All')} className="category-type-filter-menu-item">
+          <Dropdown.Item onClick={() => handleFilter('All')}>
             <Form.Check
               type="checkbox"
               id="checkbox-all"
@@ -32,25 +33,36 @@ export default function FilterCategory(props) {
               onChange={() => handleFilter('All')}
             />
           </Dropdown.Item>
-          {props.data !== undefined &&
-            props.data.map((item, index) => {
-              return (
-                <Dropdown.Item
-                  onClick={() => handleFilter(item.id)}
-                  key={index}
-                  className="category-type-filter-menu-item"
-                >
-                  <Form.Check
-                    type="checkbox"
-                    id={`checkbox-${item.id}`}
-                    className="mx-4 my-2 font-weight-bold"
-                    label={item.name}
-                    checked={props.currentFilter === item.id}
-                    onChange={() => handleFilter(item.id)}
-                  />
-                </Dropdown.Item>
-              );
-            })}
+          <Dropdown.Item onClick={() => handleFilter('Admin')}>
+            <Form.Check
+              type="checkbox"
+              id="checkbox-admin"
+              className="mx-4 my-2 font-weight-bold"
+              label="Category"
+              checked={props.currentFilter === 'Admin'}
+              onChange={() => handleFilter('Admin')}
+            />
+          </Dropdown.Item>
+          <Dropdown.Item onClick={() => handleFilter('Staff')}>
+            <Form.Check
+              type="checkbox"
+              id="checkbox-staff"
+              className="mx-4 my-2 font-weight-bold"
+              label="Amount"
+              checked={props.currentFilter === 'Staff'}
+              onChange={() => handleFilter('Staff')}
+            />
+          </Dropdown.Item>
+          <Dropdown.Item onClick={() => handleFilter('Staff')}>
+            <Form.Check
+              type="checkbox"
+              id="checkbox-staff"
+              className="mx-4 my-2 font-weight-bold"
+              label="Status"
+              checked={props.currentFilter === 'Staff'}
+              onChange={() => handleFilter('Staff')}
+            />
+          </Dropdown.Item>
         </Form>
       </Dropdown.Menu>
     </Dropdown>

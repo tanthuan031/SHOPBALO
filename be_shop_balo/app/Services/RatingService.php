@@ -29,14 +29,18 @@ class RatingService
     public function getAll($request)
     {
         $search = [];
-        (is_null($request->_q) || (empty($request->_q))) ? $search['key'] = null : $search['key'] = $request->_q;
-        (is_null($request->_per_page) || (empty($request->_per_page))) ? $search['per_page'] = $this->limit : $search['per_page'] = $request->_per_page;
+        (is_null($request->q) || (empty($request->q))) ? $search['key'] = null : $search['key'] = $request->q;
+        (is_null($request->per_page) || (empty($request->per_page))) ? $search['per_page'] = $this->limit : $search['per_page'] = $request->per_page;
+        (is_null($request->sortPoint) || (empty($request->sortPoint))) ? $search['sortPoint'] = 'asc' : $search['sortPoint'] = $request->sortPoint;
+        (is_null($request->sortStatus) || (empty($request->sortStatus))) ? $search['sortStatus'] = 'all' : $search['sortStatus'] = $request->sortStatus;
+
         $ratings = $this->ratingRepo->getAll($search);
         $data = [];
 
         if (!is_null($ratings)) {
             $data = GetAllresource::collection($ratings)->response()->getData();
         }
+
         return $this->apiResponse($data, 200, 'List rating');
     }
 
@@ -49,14 +53,18 @@ class RatingService
      */
     public function create($request)
     {
+        $nameFile = Helper::saveImgBase64v1($request->image, 'Rating');
+
+        if ($nameFile === false) return $this->apiResponse([], 200, 'Image is invalid');
         $payload = [
-            'customers' => $request->customer_id,
+            'customer_id' => $request->customer_id,
             'product_id' => $request->product_id,
             'point' => $request->point,
             'content' => $request->content,
-            'image' => Helper::saveImgBase64v1($request->image, 'Rating'),
+            'image' => $nameFile,
         ];
         $rating = $this->ratingRepo->create($payload);
+
         $data = [];
         if (!is_null($rating)) {
             $data = (new ShowResource($rating));
@@ -93,19 +101,14 @@ class RatingService
      */
     public function update($request, $id)
     {
+
+
         if (is_null($id)) throw new Exception();
-
-        $payload = [
-            'customers' => $request->customer_id,
-            'product_id' => $request->product_id,
-            'point' => $request->point,
-            'content' => $request->content,
-
-        ];
         if ($request->image != '' || !is_null($request->image)) {
-            $payload['image'] = Helper::saveImgBase64v1($request->image, 'Rating');
+            $request['image'] = Helper::saveImgBase64v1($request->image, 'Rating');
         }
-        $result = $this->ratingRepo->update($id, $payload);
+
+        $result = $this->ratingRepo->update($id, $request);
 
         return $result ? $this->apiResponse([], 200, 'Update rating successfully') : $this->apiResponse([], 401, 'Update rating failed');
     }

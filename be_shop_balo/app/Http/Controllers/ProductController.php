@@ -22,7 +22,6 @@ class ProductController extends Controller
     {
         $this->productService = $productService;
     }
-
     public function index(Request $request)
     {
         return $this->productService->getAllProduct($request);

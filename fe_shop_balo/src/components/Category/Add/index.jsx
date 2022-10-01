@@ -1,18 +1,17 @@
-import React from 'react';
-import { Button, Form } from 'react-bootstrap';
+import { Button, Form } from "react-bootstrap";
 import { yupResolver } from '@hookform/resolvers/yup';
-import { Controller, useForm } from 'react-hook-form';
+import { Controller, useForm } from "react-hook-form";
 import Select from 'react-select';
 import './style.css';
-import { addSchemaCategory } from '../../../adapter/category';
-import { addCategory } from '../../../api/Category/categoryAPI';
-import { useDispatch } from 'react-redux';
-import { setIsAdd } from '../../../redux/reducer/category/category.reducer';
-import { BlockUI } from '../../Layouts/Notiflix';
-import { ErrorToast, SuccessToast } from '../../Layouts/Alerts';
+import { addSchemaCategory } from "../../../adapter/category";
+import { addCategory } from "../../../api/Category/categoryAPI";
+import { useDispatch } from "react-redux";
+import { setIsAdd } from "../../../redux/reducer/category/category.reducer";
+import { BlockUI } from "../../Layouts/Notiflix";
+import { ErrorToast, SuccessToast } from "../../Layouts/Alerts";
 import Notiflix from 'notiflix';
 function CreateCategoryForm(props) {
-  const dispatch = useDispatch();
+  const dispatch = useDispatch()
 
   const category = [];
   const {
@@ -21,6 +20,7 @@ function CreateCategoryForm(props) {
     handleSubmit,
     control,
     formState: { isValid, errors },
+
   } = useForm({
     mode: 'onChange',
     resolver: yupResolver(addSchemaCategory),
