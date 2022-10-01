@@ -9,9 +9,11 @@ export const configHeadersAuthenticate = () => {
   };
 };
 
-export const getAllReviews = async ({ search, page } = {}) => {
+export const getAllReviews = async ({ sortPoint, sortStatus, search, page } = {}) => {
   const url = '/api/admin/rating';
   const queryString = [];
+  if (sortPoint && sortPoint.length > 0) queryString.push(`sortPoint=${sortPoint}`);
+  if (sortStatus) queryString.push(`sortStatus=${sortStatus}`);
   if (search) queryString.push(`q=${search}`);
   if (page) queryString.push(`page=${page}`);
 
@@ -45,6 +47,15 @@ export const editReview = async (id, data) => {
   const url = `/api/admin/rating/${id}`;
   const response = await axiosClient.put(url, data);
   if (response.status === 200) return response.data;
+  else if (response.status === 404) return 404;
+  else if (response.status === 401) return 401;
+  else return 500;
+};
+
+export const deleteReview = async (id) => {
+  const url = `/api/admin/rating/${id}`;
+  const response = await axiosClient.delete(url);
+  if (response.status === 200) return 200;
   else if (response.status === 404) return 404;
   else if (response.status === 401) return 401;
   else return 500;

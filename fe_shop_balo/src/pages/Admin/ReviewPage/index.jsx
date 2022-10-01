@@ -1,6 +1,11 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { isAddSelectorReview, isEditSelectorReview } from './../../../redux/selectors/review/review.selector';
+import {
+  isAddSelectorReview,
+  isEditSelectorReview,
+  isSortSelectorReview,
+  isStatusSelectorReview,
+} from './../../../redux/selectors/review/review.selector';
 import { useDispatch } from 'react-redux';
 import { useState, useEffect } from 'react';
 import { review_table_header } from '../../../asset/data/review_table_header';
@@ -12,11 +17,15 @@ import { getAllReviews } from '../../../api/Review/reviewAPI';
 import { ErrorToast } from '../../../components/Layouts/Alerts';
 import PaginationUI from './../../../components/Layouts/Pagination/index';
 import ReviewDetail from './../../../components/Review/Detail/index';
+import SortPoint from './../../../components/Review/SortPoint/index';
+import FilterStatus from './../../../components/Review/FilterStatus/index';
 
 const ReviewPage = () => {
   const data_review_table_header = [...review_table_header];
   const dispatch = useDispatch();
   const isEdit = useSelector(isEditSelectorReview);
+  const status = useSelector(isStatusSelectorReview);
+  const sort = useSelector(isSortSelectorReview);
   const [data, setData] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [search, setSearch] = useState('');
@@ -26,7 +35,7 @@ const ReviewPage = () => {
   const handleGetAllReview = async () => {
     setIsLoading(true);
 
-    const result = await getAllReviews({ search, page });
+    const result = await getAllReviews({ sortPoint: sort, sortStatus: status, search, page });
     if (result.status === 401) {
       ErrorToast('Something went wrong. Please try again', 3000);
       return false;
@@ -36,11 +45,12 @@ const ReviewPage = () => {
       setPage(result.meta.current_page);
     }
     setIsLoading(false);
+    console.log(status)
   };
 
   useEffect(() => {
     handleGetAllReview();
-  }, [search]);
+  }, [ isEdit,sort, status]);
 
   const handleChangePage = async (page) => {
     setPage(page);
@@ -58,15 +68,11 @@ const ReviewPage = () => {
     setIsLoading(false);
   };
 
-  const backToPromotionList = async (value) => {
-    setIsLoading(true);
-
-    const result = await getAllReviews({});
-
-    setData(result.data);
-    setTotalRecords(result.meta.total);
-    setIsLoading(false);
+  const handleSearh = async (e) => {
+    e.preventDefault();
+    handleGetAllReview({search});
   };
+
 
   return (
     <>
@@ -79,15 +85,15 @@ const ReviewPage = () => {
             <div className="row">
               <div className="mb-3 d-flex justify-content-between">
                 <div className="d-flex justify-content-between ">
-                  {/* sort by point */}
-                  {/* <SortValue /> */}
+                  <SortPoint />
+                  <FilterStatus />
                 </div>
                 <div className="d-flex justify-content-between ">
                   <Form>
                     <InputGroup>
                       <Form.Control
                         id="seach-category"
-                        placeholder="Search name promotion"
+                        placeholder="Search name ..."
                         value={search}
                         onChange={(e) => {
                           setSearch(e.target.value);
@@ -97,7 +103,7 @@ const ReviewPage = () => {
                         id="seach-category"
                         variant="danger"
                         type="submit"
-                        // onClick={handleSearh}
+                        onClick={handleSearh}
                       >
                         <FaSearch />
                       </Button>
@@ -129,7 +135,7 @@ const ReviewPage = () => {
               )}
             </div>
           ) : (
-            <>{isEdit && <ReviewDetail backToPromotionList={backToPromotionList} />}</>
+            <>{isEdit && <ReviewDetail  />}</>
           )}
         </div>
       </section>

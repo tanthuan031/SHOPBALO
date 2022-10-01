@@ -6,6 +6,8 @@ export const reviewReducer = createSlice({
     isAdd: false,
     isEdit: false,
     isReset: 'reset-page',
+    status: 'all',
+    sort: 'asc',
     review: {},
   },
   reducers: {
@@ -18,11 +20,17 @@ export const reviewReducer = createSlice({
     setIsReset: (state, action) => {
       state.isReset = action.payload;
     },
+    setStatus: (state, action) => {
+      state.status = action.payload;
+    },
+    setSort: (state, action) => {
+      state.sort = action.payload;
+    },
     setReview: (state, action) => {
       state.review = { ...action.payload };
     },
   },
 });
 
-export const { setIsAdd, setIsEdit, setIsReset, setReview } = reviewReducer.actions;
+export const { setIsAdd, setIsEdit, setIsReset,setSort,setStatus, setReview } = reviewReducer.actions;
 export default reviewReducer.reducer;

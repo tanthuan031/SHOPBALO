@@ -41,7 +41,7 @@ export const review_table_header = [
   },
   {
     id: 6,
-    name: 'Image review',
+    name: 'Status',
     isSortAsc: false,
     isSortDesc: false,
     isSort: true,
