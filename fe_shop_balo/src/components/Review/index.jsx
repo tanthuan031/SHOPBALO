@@ -170,7 +170,7 @@ const ReviewTable = (props) => {
     ) : (
       <>
         <tr className="text-center">
-          <td colSpan={6}>Review is not found.</td>
+          <td colSpan={7}>Review is not found.</td>
         </tr>
       </>
     );
