@@ -40,9 +40,31 @@ class Discount extends Model
         }
     }
 
+    /**
+     * scopeSearch
+     *
+     * @param  mixed $query
+     * @param  mixed $key
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
     public function scopeSearch($query, $key)
     {
         if (is_null($key)) return $query;
         return $query->whereLike(['name', 'description'], $key);
+    }
+
+
+
+    /**
+     * scopeSort
+     *
+     * @param  mixed $query
+     * @param  mixed $value
+     * @param  mixed $filter
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeSort($query, $value, $filter = 'asc')
+    {
+        return $query->orderBy($value, $filter);
     }
 }

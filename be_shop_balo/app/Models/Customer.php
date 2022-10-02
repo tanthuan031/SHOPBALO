@@ -23,8 +23,10 @@ class Customer extends Model
         'address',
         'created_date'
 
+
     ];
-    public function  ratings(): HasMany
+
+    public function ratings()
     {
         return $this->hasMany(Rating::class);
     }

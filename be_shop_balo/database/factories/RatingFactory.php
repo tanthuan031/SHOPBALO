@@ -19,7 +19,7 @@ class RatingFactory extends Factory
     public function definition()
     {
         return [
-            'customers' => 1,
+            'customer_id' => 1,
             'product_id' => $this->faker->numberBetween(1, 10),
             'point' => $this->faker->numberBetween(1, 5),
             'content' => $this->faker->sentence($this->faker->biasedNumberBetween(4, 6)),

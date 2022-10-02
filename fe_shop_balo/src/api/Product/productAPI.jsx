@@ -1,4 +1,3 @@
-import React from 'react';
 import { concatQueryString } from '../../utils/concatQueryString';
 import { titleToSlug } from '../../utils/titleToSlug';
 import axiosClient from '../axiosClient';

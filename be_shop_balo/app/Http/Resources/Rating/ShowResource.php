@@ -16,9 +16,20 @@ class ShowResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'customer_id' => $this->customers,
-            'product_id' => $this->product_id,
+            'customers' => $this->customers->only([
+                'id', 'last_name', 'first_name',
+                'gender', 'phone', 'email',
+                'avatar', 'status', 'address',
+                'created_date', 'created_at'
+            ]),
+            'products' => $this->products->only([
+                'id',
+                'name', 'description',
+                'image', 'image_slide',
+                'status', 'created_at'
+            ]),
             'point' => $this->point,
+            'status' => $this->status,
             'content' => $this->content,
             'image' => env('APP_URL') . '/storage/Rating/' . $this->image,
             'created_date' => $this->created_at,

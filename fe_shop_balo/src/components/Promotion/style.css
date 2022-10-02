@@ -1,0 +1,15 @@
+.category_parrent {
+    width: 100px;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.category_image {
+    width: 100%;
+    object-fit: cover;
+    object-position: center;
+}
+
+.modal-popup {}
