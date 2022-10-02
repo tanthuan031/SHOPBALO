@@ -27,10 +27,14 @@ class DiscountService
      */
     public function getAll($request)
     {
+
         $search = [];
-        (is_null($request->_q) || (empty($request->_q))) ? $search['key'] = null : $search['key'] = $request->_q;
-        (is_null($request->_status) || (empty($request->_status))) ? $search['status'] = 'all' : $search['status'] = $request->_status;
-        (is_null($request->_per_page) || (empty($request->_per_page))) ? $search['per_page'] = $this->limit : $search['per_page'] = $request->_per_page;
+        (is_null($request->q) || (empty($request->q))) ? $search['key'] = null : $search['key'] = $request->q;
+        (is_null($request->status) || (empty($request->status))) ? $search['status'] = 'all' : $search['status'] = $request->status;
+        (is_null($request->per_page) || (empty($request->per_page))) ? $search['per_page'] = $this->limit : $search['per_page'] = $request->per_page;
+        (is_null($request->sortValue) || (empty($request->sortValue))) ? $search['sortValue'] = 'asc' : $search['sortValue'] = $request->sortValue;
+
+
         $discounts = $this->discountRepo->getAll($search);
 
         $data = [];
@@ -49,6 +53,8 @@ class DiscountService
      */
     public function create($request)
     {
+        if ($request->value > 100) return $this->errorResponse();
+
         $payload = [
             'name' => $request->name,
             'value' => (float)$request->value,
@@ -72,7 +78,7 @@ class DiscountService
      */
     public function show($id)
     {
-        if (is_null($id)) throw new Exception();
+        if (is_null($id)) return $this->errorResponse();
         $discount = $this->discountRepo->find(intval($id));
         $data = [];
         if (!is_null($discount)) {
@@ -91,7 +97,8 @@ class DiscountService
      */
     public function update($request, $id)
     {
-        if (is_null($id)) throw new Exception();
+        if (is_null($id) || $request->value > 100) return $this->errorResponse();
+
         $payload = [
             'name' => $request->name,
             'value' => (float)$request->value,
@@ -114,7 +121,7 @@ class DiscountService
      */
     public function destroy($id)
     {
-        if (is_null($id)) throw new Exception();
+        if (is_null($id)) return $this->errorResponse();
         $result = $this->discountRepo->delete($id);
 
         return $result ? $this->apiResponse([], 200, 'Delete discount successfully') : $this->apiResponse([], 401, 'Delete discount failed');

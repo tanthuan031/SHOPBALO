@@ -100,6 +100,7 @@ export function ProductPage(props) {
     setProduct(result, 'page');
     setLoading(false);
   };
+  
   const handleCurrentFilterStatus = async (value) => {
     let tempStatus;
     setLoading(true);
@@ -207,7 +208,7 @@ export function ProductPage(props) {
     <>
       <section>
         <div className="container-fluid mt-5">
-          {!isAdd && !isEdit && <h5 className="text-danger font-weight-bold mb-3">Produc List</h5>}
+          {!isAdd && !isEdit && <h5 className="text-danger font-weight-bold mb-3">Product List</h5>}
           {isAdd && <h5 className="text-danger font-weight-bold mb-3">Add product</h5>}
           {isEdit && <h5 className="text-danger font-weight-bold mb-3">Edit product</h5>}
           {!isAdd && !isEdit ? (

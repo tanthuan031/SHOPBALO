@@ -77,6 +77,7 @@ class RatingController extends Controller
      */
     public function update(UpdateRequest $request, $id)
     {
+
         return $this->ratingService->update($request, (int)$id);
     }
 

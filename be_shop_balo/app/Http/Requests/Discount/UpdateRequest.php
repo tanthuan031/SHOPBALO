@@ -28,9 +28,9 @@ class UpdateRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|min:6',
-            'value' => 'required',
-            'status' => 'required',
+            // 'name' => 'required|min:6',
+            // 'value' => 'required',
+            // 'status' => 'required',
         ];
     }
 
@@ -38,10 +38,10 @@ class UpdateRequest extends FormRequest
     public function messages()
     {
         return [
-            'name.required' => 'Name discount is required!',
-            'name.min' => 'Name at last 6 characters!',
-            'value.required' => 'Value discount is required!',
-            'status.required' => 'Status discount is required!',
+            // 'name.required' => 'Name discount is required!',
+            // 'name.min' => 'Name at last 6 characters!',
+            // 'value.required' => 'Value discount is required!',
+            // 'status.required' => 'Status discount is required!',
         ];
     }
 

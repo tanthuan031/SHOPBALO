@@ -7,21 +7,21 @@ const axiosClient = axios.create({
   headers: {
     'content-type': 'application/json',
   },
-  paramsSerializer: params => queryString.stringify(params),
+  paramsSerializer: (params) => queryString.stringify(params),
 });
 
-axiosClient.interceptors.request.use(async config => {
+axiosClient.interceptors.request.use(async (config) => {
   return config;
 });
 
 axiosClient.interceptors.response.use(
-  response => {
+  (response) => {
     if (response.data) {
       return response.data;
     }
     return response;
   },
-  error => {
+  (error) => {
     switch (error.response.status) {
       case 500:
         console.log('Server error');
