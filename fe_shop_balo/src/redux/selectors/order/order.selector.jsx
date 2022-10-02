@@ -1,2 +1,2 @@
 export const isEditStatusOrderSelector = (state) => state.order.isEdit;
-export const isIdEditStatusOrderSelector = (state) => state.order.idEditStatus;
+export const orderByIdSelector = (state) => state.order.orderById;

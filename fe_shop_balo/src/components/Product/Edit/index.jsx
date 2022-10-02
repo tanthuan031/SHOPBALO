@@ -135,11 +135,10 @@ function ProductEdit(props) {
         temDirtyFields.image_slide = undefined;
       }
     }
-    console.log(temDirtyFields)
     const result = await editProduct(productDetailById.id, temDirtyFields);
     Notiflix.Block.remove('#root');
     if (result === 200) {
-      SuccessToast('Create product successfully', 3000);
+      SuccessToast('Update product successfully', 3000);
       props.backToProductList([
         {
           key: 'updated_at',
@@ -148,7 +147,7 @@ function ProductEdit(props) {
       ]);
       backtoProduct();
     } else if (result === 404) {
-      ErrorToast('Create product unsuccessfully', 3000);
+      ErrorToast('Update product unsuccessfully', 3000);
       Notiflix.Block.remove('#root');
     } else if (result === 401) {
       Notiflix.Block.remove('#root');

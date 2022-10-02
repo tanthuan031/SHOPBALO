@@ -7,8 +7,7 @@ export const orderReducer = createSlice({
     key: 0,
     isEdit: false,
     isDetail: false,
-    idEditStatus: '',
-    order: {},
+    orderById: {},
   },
   reducers: {
     setKey: (state, action) => {
@@ -17,10 +16,10 @@ export const orderReducer = createSlice({
     setIsEdit: (state, action) => {
       state.isEdit = action.payload;
     },
-    setIdEditStatus: (state, action) => {
-      state.idEditStatus = action.payload;
+    setOrder: (state, action) => {
+      state.orderById = action.payload;
     },
   },
 });
-export const { setIsEdit, setIdEditStatus } = orderReducer.actions;
+export const { setIsEdit, setOrder } = orderReducer.actions;
 export default orderReducer.reducer;

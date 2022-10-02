@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Http\Traits\ApiResponse;
 use App\Repositories\OrderRepository;
+use Exception;
 
 class OrderService
 {
@@ -23,13 +24,32 @@ class OrderService
             return $this->apiResponse([], 'failed', 'Get order unsuccessfully');
         }
     }
-    public function getOrderDetailById($id)
+    public function getOrderDetailById($request, $id)
     {
-        $result = $this->orderRepository->getOrderDetailById($id);
-        if ($result) {
-            return $this->apiResponse($result, 'success', 'Get order by id successfully');
+        if ($request->has('order_details')) {
+            $result = $this->orderRepository->getOrderDetailById($id);
+            if ($result) {
+                return $this->apiResponse($result, 'success', 'Get order detail by id successfully');
+            } else {
+                return $this->apiResponse([], 'failed', 'Get order detail by id unsuccessfully');
+            }
         } else {
-            return $this->apiResponse([], 'failed', 'Get order by id unsuccessfully');
+            $result = $this->orderRepository->getOrderById($id);
+            if ($result) {
+                return $this->apiResponse($result, 'success', 'Get order by id successfully');
+            } else {
+                return $this->apiResponse([], 'failed', 'Get order by id unsuccessfully');
+            }
+        }
+    }
+    public function updateOrder($request, $id)
+    {
+        if (is_null($id)) throw new Exception();;
+        $result = $this->orderRepository->updateOrder($request, $id);
+        if ($result) {
+            return $this->apiResponse($result, 'success', 'Order updated successfully');
+        } else {
+            return $this->apiResponse([], 'fail', 'Update order unsuccessfully');
         }
     }
 }

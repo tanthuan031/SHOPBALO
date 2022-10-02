@@ -40,4 +40,20 @@ class OrderRepository extends BaseRepository
         return
             OrderDetailResource::collection($data)->response()->getData();
     }
+    public function getOrderById($id)
+    {
+        $data = Order::query()->find($id);
+        return
+            OrderResource::make($data);
+    }
+    public function updateOrder($request, $id)
+    {
+        $order = Order::query()->where('id', '=', $id)->first();
+        if ($order) {
+            $order->update($request->all());
+            return $order;
+        } else {
+            return false;
+        }
+    }
 }

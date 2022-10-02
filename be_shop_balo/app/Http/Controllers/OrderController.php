@@ -51,10 +51,10 @@ class OrderController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Request $request, $id)
     {
         //
-        return $this->orderService->getOrderDetailById($id);
+        return $this->orderService->getOrderDetailById($request, $id);
     }
 
     /**
@@ -78,6 +78,7 @@ class OrderController extends Controller
     public function update(Request $request, $id)
     {
         //
+        return $this->orderService->updateOrder($request, $id);
     }
 
     /**

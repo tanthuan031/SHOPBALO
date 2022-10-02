@@ -94,7 +94,6 @@ class ProductController extends Controller
      */
     public function destroy($id)
     {
-        //
         return $this->productService->deleteProduct($id);
     }
 }

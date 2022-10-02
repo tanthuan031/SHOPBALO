@@ -1,15 +1,29 @@
+import Notiflix from 'notiflix';
 import React from 'react';
-import { FaPen, FaTimesCircle } from 'react-icons/fa';
+import { FaPen, FaRegEye, FaTimesCircle } from 'react-icons/fa';
 import { useDispatch } from 'react-redux';
-import { setIdEditStatus, setIsEdit } from '../../redux/reducer/order/order.reducer';
+import { getOrderById } from '../../api/order/indexAPI';
+import { setIdEditStatus, setIsEdit, setOrder } from '../../redux/reducer/order/order.reducer';
+import { ErrorToast } from '../Layouts/Alerts';
+import { BlockUI } from '../Layouts/Notiflix';
 import TableLayout from '../Layouts/Table';
 // import './style.css';
 export function OrderTable(props) {
   const dispatch = useDispatch();
-  const handleEditOrder = (e, status) => {
+  const handleEditOrder = async (e, id) => {
+    BlockUI('#root', 'fixed');
     e.stopPropagation();
-    dispatch(setIsEdit(true));
-    dispatch(setIdEditStatus(status));
+    const dataOrderId = await getOrderById(id);
+    Notiflix.Block.remove('#root');
+    if (Object.keys(dataOrderId).length > 0) {
+      dispatch(setIsEdit(true));
+      dispatch(setOrder(dataOrderId));
+    } else if (dataOrderId === 401) {
+      Notiflix.Block.remove('#root');
+    } else {
+      Notiflix.Block.remove('#root');
+      ErrorToast('Something went wrong. Please try again', 3000);
+    }
   };
   const renderTableBody = () => {
     return props.tableBody.map((item, index) => {
@@ -50,22 +64,22 @@ export function OrderTable(props) {
           <td>
             <div className="d-flex">
               <button
-                id="edit-product"
-                onClick={(e) => {
-                  handleEditOrder(e, item.status);
-                }}
-                className="br-6px p-2 bg-gray-100 text-black w-48px h-48px d-flex align-items-center justify-content-center border-none"
-              >
-                <FaPen className="font-20px" />
-              </button>
-              <button
                 id="delete-product"
                 // onClick={(e) => {
                 //   handleCheckDisabledUser(e, item.id);
                 // }}
-                className="br-6px p-2 ms-3 text-danger bg-gray-100 w-48px h-48px d-flex align-items-center justify-content-center border-none"
+                className="br-6px p-2   bg-gray-100 w-48px h-48px d-flex align-items-center justify-content-center border-none"
               >
-                <FaTimesCircle className="text-danger font-20px" />
+                <FaRegEye className=" font-20px" />
+              </button>
+              <button
+                id="edit-product"
+                onClick={(e) => {
+                  handleEditOrder(e, item.order_id);
+                }}
+                className="br-6px p-2 ms-3 bg-gray-100 text-black w-48px h-48px d-flex align-items-center justify-content-center border-none"
+              >
+                <FaPen className="font-20px" />
               </button>
             </div>
           </td>

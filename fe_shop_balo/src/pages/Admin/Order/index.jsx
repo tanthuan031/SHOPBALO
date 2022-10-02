@@ -35,6 +35,20 @@ function OrderPage(props) {
     };
     handleGetAllOrder();
   }, [dispatch]);
+
+  const backToOrderList = async (value, action) => {
+    setLoading(true);
+    if (action === 'edit') {
+      console.log('Back to Edit');
+    }
+
+    const result = await getAllOrder({
+      sort: value,
+    });
+    setOrder(result, 'page');
+    setLoading(false);
+  };
+
   const setOrder = (result, value) => {
     setData(result.data);
     if (value !== 'page') {
@@ -68,7 +82,7 @@ function OrderPage(props) {
               </>
             </div>
           ) : (
-            <>{isUpdateStatus && <UpdateStatusOrder />}</>
+            <>{isUpdateStatus && <UpdateStatusOrder backToOrderList={backToOrderList} />}</>
           )}
         </div>
       </section>

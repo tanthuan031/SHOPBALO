@@ -1,34 +1,30 @@
-import React, { useEffect, useState } from 'react';
-import { yupResolver } from '@hookform/resolvers/yup';
 import Notiflix from 'notiflix';
+import React from 'react';
 
 import { Button, Form } from 'react-bootstrap';
-import { Controller, useForm, useWatch } from 'react-hook-form';
-import { FaTimesCircle } from 'react-icons/fa';
+import { Controller, useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 import Select from 'react-select';
-import { addSchema } from '../../../adapter/product';
-import { addProduct } from '../../../api/Product/productAPI';
+import { updateStatusOrder } from '../../../api/order/indexAPI';
 import { setIsEdit } from '../../../redux/reducer/order/order.reducer';
-import { setIsAdd } from '../../../redux/reducer/product/product.reducer';
-import { isIdEditStatusOrderSelector } from '../../../redux/selectors/order/order.selector';
+import { orderByIdSelector } from '../../../redux/selectors/order/order.selector';
 import { ErrorToast, SuccessToast } from '../../Layouts/Alerts';
-import CustomEditor from '../../Layouts/Edittor';
+
 import { BlockUI } from '../../Layouts/Notiflix';
 // import './style.css';
 function UpdateStatusOrder(props) {
-  const idStatusUpdate = useSelector(isIdEditStatusOrderSelector);
+  const idStatusUpdate = useSelector(orderByIdSelector);
   const {
     register,
     setValue,
     handleSubmit,
     control,
-    formState: { isValid, errors },
+    formState: { isValid, errors, dirtyFields, isDirty },
   } = useForm({
     mode: 'onChange',
-    resolver: yupResolver(addSchema),
+    // resolver: yupResolver(addSchema),
     defaultValues: {
-      status_order: idStatusUpdate,
+      status: idStatusUpdate.status,
     },
   });
   const dispatch = useDispatch();
@@ -46,11 +42,37 @@ function UpdateStatusOrder(props) {
 
   const onSubmit = async (data) => {
     BlockUI('#root', 'fixed');
+    const temDirtyFields = { ...dirtyFields };
+    Object.keys(temDirtyFields).map((key) => {
+      temDirtyFields[key] = data[key];
+    });
+    const result = await updateStatusOrder(idStatusUpdate.order_id, temDirtyFields);
+    Notiflix.Block.remove('#root');
+    if (result === 200) {
+      SuccessToast('Update status order successfully');
+      props.backToOrderList([
+        {
+          key: 'updated_at',
+          value: 'desc',
+        },
+      ]);
+      backtoOrder();
+    } else if (result === 404) {
+      ErrorToast('Update status order unsuccessfully', 3000);
+      Notiflix.Block.remove('#root');
+    } else if (result === 401) {
+      Notiflix.Block.remove('#root');
+    } else {
+      Notiflix.Block.remove('#root');
+      ErrorToast('Something went wrong. Please try again', 3000);
+    }
+    // const data=await updateStatusOrder()
+    console.log('gr', data);
   };
-  const backtoProduct = () => {
+  const backtoOrder = () => {
     dispatch(setIsEdit(false));
   };
-
+  console.log('backtoOrder', idStatusUpdate);
   return (
     <>
       <div className=" edit_form d-flex justify-content-center">
@@ -64,15 +86,15 @@ function UpdateStatusOrder(props) {
                 <td width="70%">
                   <Controller
                     control={control}
-                    name="status_order"
-                    {...register('status_order')}
+                    name="status"
+                    {...register('status')}
                     ref={null}
                     render={({ field: { value, onChange } }) => (
                       <Select
                         options={typeOptionsStatusOrder}
                         onChange={(options) => {
                           onChange(options?.value);
-                          setValue('status_order', options.value);
+                          setValue('status', options.value);
                         }}
                         value={typeOptionsStatusOrder.filter((option) => value === option?.value)}
                         placeholder="Select..."
@@ -94,17 +116,17 @@ function UpdateStatusOrder(props) {
           </table>
           <div className="d-flex justify-content-end p-2 mt-3">
             <Button
-              id="product-save-btn"
+              id="order-save-btn"
               variant="danger"
               type="submit"
               className="font-weight-bold me-3"
-              disabled={!isValid}
+              disabled={!isDirty}
             >
               Save
             </Button>
             <Button
-              id="product-save-cancel"
-              onClick={() => backtoProduct()}
+              id="order-save-cancel"
+              onClick={() => backtoOrder()}
               variant="outline-secondary"
               className="font-weight-bold"
             >

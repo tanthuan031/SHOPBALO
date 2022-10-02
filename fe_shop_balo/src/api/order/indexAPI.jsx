@@ -1,4 +1,4 @@
-import React from 'react';
+// import React from 'react';
 import { concatQueryString } from '../../utils/concatQueryString';
 import { titleToSlug } from '../../utils/titleToSlug';
 import axiosClient from '../axiosClient';
@@ -67,17 +67,27 @@ export const getAllOrder = async ({ sort, filterStatus, filterCategory, search, 
 //     return 404;
 //   }
 // };
-
-// export const editProduct = async (id, body) => {
-//   const url = `/api/admin/product/${id}`;
-//   const response = await axiosClient.put(url, body);
-//   if (response.status === 401) {
-//     return 401;
-//   } else if (response.status === 'Success') {
-//     return 200;
-//   } else if (response.status === 500) {
-//     return 500;
-//   } else {
-//     return 404;
-//   }
-// };
+export const getOrderById = async (id) => {
+  const url = `/api/admin/order/${id}`;
+  const response = await axiosClient.get(url);
+  if (response.status === 'success') {
+    return response.data;
+  } else if (response.status === 401) {
+    return 401;
+  } else {
+    return {};
+  }
+};
+export const updateStatusOrder = async (id, body) => {
+  const url = `/api/admin/order/${id}`;
+  const response = await axiosClient.put(url, body);
+  if (response.status === 401) {
+    return 401;
+  } else if (response.status === 'success') {
+    return 200;
+  } else if (response.status === 500) {
+    return 500;
+  } else {
+    return 404;
+  }
+};
