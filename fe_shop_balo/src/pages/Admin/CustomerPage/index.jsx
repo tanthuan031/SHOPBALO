@@ -2,21 +2,18 @@ import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import PaginationUI from '../../../components/Layouts/Pagination';
 import Skeleton from '../../../components/Layouts/Skeleton';
-import { getAllStaffs } from '../../../api/Staff/staffAPI';
 import FilterStatus from '../../../components/Staff/FilterStatus';
-import { Button, Dropdown, Form, InputGroup } from 'react-bootstrap';
-import { FaSearch } from 'react-icons/fa';
+import { Button } from 'react-bootstrap';
 import { BlockUI } from '../../../components/Layouts/Notiflix';
-import { setIsAdd } from '../../../redux/reducer/staff/staff.reducer';
+import { setIsAdd } from '../../../redux/reducer/customer/customer.reducer';
 import Notiflix from 'notiflix';
-import Filter from '../../../components/Layouts/SearchWithDropdownOptions/SearchWithDropdownOptions';
 import { isAddCustomerSelector, isEditCustomerSelector, } from '../../../redux/selectors';
-import StaffAdd from '../../../components/Staff/Add';
-import StaffEdit from '../../../components/Staff/Edit';
 import SearchWithDropdownOptions from '../../../components/Layouts/SearchWithDropdownOptions/SearchWithDropdownOptions';
 import { CustomerTable } from '../../../components/Customer';
 import { customer_table_header } from '../../../asset/data/customer_table_header';
 import { getAllCustomers } from '../../../api/Customer/customerAPI';
+import CustomerAdd from '../../../components/Customer/Add';
+import CustomerEdit from '../../../components/Customer/Edit';
 
 
 export function CustomerPage(props) {
@@ -30,9 +27,7 @@ export function CustomerPage(props) {
 
   //Filter & Search
   const [filter,setFilter] = React.useState('fullname')
-  const [sort,setSort] = React.useState([])
   const [search,setSearch]=React.useState([])
-  const [searchValue,setSearchValue]=React.useState('')
   const [filterStatus,setFilterStatus]=React.useState('All')
   const data_options_filter=[
     { id: 1, name: 'All',value: 'All' },
@@ -40,8 +35,8 @@ export function CustomerPage(props) {
     { id: 3, name: 'Disable',value: 0 },
   ]
   //Redux
-  const isAddStaff=useSelector(isAddCustomerSelector)
-  const isEditStaff=useSelector(isEditCustomerSelector)
+  const isAddCustomer=useSelector(isAddCustomerSelector)
+  const isEditCustomer=useSelector(isEditCustomerSelector)
   const dispatch = useDispatch();
   //Loading
   const [loading, setLoading] = React.useState(true);
@@ -63,7 +58,7 @@ export function CustomerPage(props) {
       setLoading(false);
     };
     handleGetAllCustomers();
-  }, [dispatch]);
+  }, [dispatch,search,filterStatus]);
 
   const setCustomer = (result, value) => {
     setData(result.data);
@@ -74,7 +69,7 @@ export function CustomerPage(props) {
   const handlePageChange=async (page) => {
     setPage(page);
     setLoading(true);
-    const result = await getAllStaffs({
+    const result = await getAllCustomers({
       page,
     });
     if (result === 401) {
@@ -86,21 +81,21 @@ export function CustomerPage(props) {
     setLoading(false);
   };
 
-  const backToStaffList = async (value, action) => {
+  const backToCustomerList = async (value, action) => {
     setLoading(true);
     console.log(value);
     if (action === 'edit') {
       console.log('Back to Edit');
     }
 
-    const result = await getAllStaffs({
+    const result = await getAllCustomers({
       sort: value,
     });
     console.log('Result: ',result);
     setCustomer(result, 'page');
     setLoading(false);
   };
-  const goToPageAddStaff = () => {
+  const goToPageAddCustomer = () => {
     BlockUI('#root', 'fixed');
     setTimeout(function () {
       dispatch(setIsAdd(true));
@@ -112,7 +107,7 @@ export function CustomerPage(props) {
     <section>
       <div className="container-fluid mt-5">
         {
-          !isAddStaff && !isEditStaff ?(
+          !isAddCustomer && !isEditCustomer ?(
             <>
               <h5 className="text-danger font-weight-bold mb-3">Customer List</h5>
               <div className="row">
@@ -126,9 +121,9 @@ export function CustomerPage(props) {
                       id="create-new-product"
                       variant="danger"
                       className="font-weight-bold ms-3"
-                      onClick={goToPageAddStaff}
+                      onClick={goToPageAddCustomer}
                     >
-                      Create new staff
+                      Create new customer
                     </Button>
                   </div>
                 </div>
@@ -153,8 +148,8 @@ export function CustomerPage(props) {
             </>
           ):(
             <>
-              {isAddStaff && <StaffAdd  backToStaffList={backToStaffList} />}
-              { isEditStaff && <StaffEdit backToStaffList={backToStaffList} />}
+              {isAddCustomer && <CustomerAdd  backToCustomerList={backToCustomerList} />}
+              { isEditCustomer && <CustomerEdit backToCustomerList={backToCustomerList} />}
             </>
 
 

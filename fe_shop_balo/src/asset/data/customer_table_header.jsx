@@ -15,22 +15,21 @@ export const customer_table_header = [
     isSort: true,
     cursor: true,
   },
-  {
+    {
     id: 3,
-    name: "Role",
-    isSortAsc: false,
-    isSortDesc: false,
-    isSort: false,
-    cursor: false,
-  },
-
-  {
-    id: 4,
     name: "Contact",
     isSortAsc: false,
     isSortDesc: false,
     isSort: true,
     cursor: true,
+  },
+  {
+    id: 4,
+    name: "Reward Point",
+    isSortAsc: false,
+    isSortDesc: false,
+    isSort: false,
+    cursor: false,
   },
 
   {
