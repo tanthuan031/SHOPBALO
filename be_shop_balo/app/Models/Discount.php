@@ -13,6 +13,7 @@ class Discount extends Model
     protected $fillable = [
         'name',
         'value',
+        'point',
         'status',
         'description',
     ];
