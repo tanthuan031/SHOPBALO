@@ -1,4 +1,5 @@
 <?php
+// admin
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\DiscountController;
 use App\Http\Controllers\ProductController;

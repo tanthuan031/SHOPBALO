@@ -31,6 +31,7 @@ class GetAllresource extends JsonResource
             ]),
             'point' => $this->point,
             'content' => $this->content,
+            'status' => $this->status,
             'image' => env('APP_URL') . '/storage/rating/' . $this->image,
             'created_date' => $this->created_at,
         ];

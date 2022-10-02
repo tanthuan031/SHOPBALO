@@ -31,6 +31,9 @@ class RatingService
         $search = [];
         (is_null($request->q) || (empty($request->q))) ? $search['key'] = null : $search['key'] = $request->q;
         (is_null($request->per_page) || (empty($request->per_page))) ? $search['per_page'] = $this->limit : $search['per_page'] = $request->per_page;
+        (is_null($request->sortPoint) || (empty($request->sortPoint))) ? $search['sortPoint'] = 'asc' : $search['sortPoint'] = $request->sortPoint;
+        (is_null($request->sortStatus) || (empty($request->sortStatus))) ? $search['sortStatus'] = 'all' : $search['sortStatus'] = $request->sortStatus;
+
         $ratings = $this->ratingRepo->getAll($search);
         $data = [];
 
@@ -100,18 +103,11 @@ class RatingService
     {
 
         if (is_null($id)) return $this->errorResponse();
-
-        $payload = [
-            'customer_id' => $request->customer_id,
-            'product_id' => $request->product_id,
-            'point' => $request->point,
-            'content' => $request->content,
-
-        ];
         if ($request->image != '' || !is_null($request->image)) {
-            $payload['image'] = Helper::saveImgBase64v1($request->image, 'Rating');
+            $request['image'] = Helper::saveImgBase64v1($request->image, 'Rating');
         }
-        $result = $this->ratingRepo->update($id, $payload);
+
+        $result = $this->ratingRepo->update($id, $request);
 
         return $result ? $this->apiResponse([], 200, 'Update rating successfully') : $this->apiResponse([], 401, 'Update rating failed');
     }
