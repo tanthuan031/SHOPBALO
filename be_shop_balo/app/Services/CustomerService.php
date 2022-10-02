@@ -20,13 +20,13 @@ class CustomerService
     {
 
         $result = $this->CustomerRepository->getAllCustomer($request);
-        return $this->apiResponse([],'sending',$result);
-      /*  if($result){
+       // return $this->apiResponse([],'sending',$result);
+      if($result){
             return $this->apiResponse($result,'success','Get all Customer success');
 
         }else{
             return $this->apiResponse([],'fail','Get Customer unsuccessful');
-        }*/
+        }
     }
 
     public function  showCustomer($id){

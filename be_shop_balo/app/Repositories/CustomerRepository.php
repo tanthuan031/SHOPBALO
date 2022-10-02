@@ -28,7 +28,7 @@ class CustomerRepository extends BaseRepository
     }
     public function getCustomer(int $id)
     {
-        $data = Customer::query()->with('roles')->find($id);
+        $data = Customer::query()->find($id);
         return CustomerResource::make($data)->response()->getData();
     }
     public function storeCustomer($request): \Illuminate\Database\Eloquent\Model|bool|\Illuminate\Database\Eloquent\Builder
