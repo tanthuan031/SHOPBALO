@@ -15,6 +15,7 @@ class Rating extends Model
         'customer_id',
         'product_id',
         'point',
+        'status',
         'content',
         'image',
     ];
