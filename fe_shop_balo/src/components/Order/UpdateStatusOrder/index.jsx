@@ -43,6 +43,7 @@ function UpdateStatusOrder(props) {
   const onSubmit = async (data) => {
     BlockUI('#root', 'fixed');
     const temDirtyFields = { ...dirtyFields };
+
     Object.keys(temDirtyFields).map((key) => {
       temDirtyFields[key] = data[key];
     });
@@ -73,7 +74,6 @@ function UpdateStatusOrder(props) {
   const backtoOrder = () => {
     dispatch(setIsEdit(false));
   };
-  console.log('backtoOrder', idStatusUpdate);
   return (
     <>
       <div className=" edit_form d-flex justify-content-center">

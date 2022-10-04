@@ -103,7 +103,7 @@ const OrderDetail = () => {
                     <div className="d-flex flex-column">
                       <div className=" row">
                         <div className=" col-3 image_detail_order">
-                          <img src={item.image} width={100} height={100} />
+                          <img src={item.image} width={100} height={100} alt="image_detail_order" />
                         </div>
                         <div className="col-5 ml-3">
                           <h4 className="fs-6  mt-4 mb-1 font-weight-bold ">
