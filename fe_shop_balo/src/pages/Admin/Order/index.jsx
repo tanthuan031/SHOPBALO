@@ -1,11 +1,10 @@
-import React, { useEffect } from 'react';
-import { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getAllOrder } from '../../../api/order/indexAPI';
-import { data_order } from '../../../asset/data/data_order';
 
 import { order_table_header } from '../../../asset/data/order_table_header';
 import PaginationUI from '../../../components/Layouts/Pagination';
+import Skeleton from '../../../components/Layouts/Skeleton';
 import { OrderTable } from '../../../components/Order';
 import OrderDetail from '../../../components/Order/OrderDetail';
 import UpdateStatusOrder from '../../../components/Order/UpdateStatusOrder';
@@ -13,7 +12,7 @@ import { isEditStatusOrderSelector, isOrderDetailSelector } from '../../../redux
 
 function OrderPage(props) {
   const data_order_table_header = [...order_table_header];
-  const data_order_table_body = [data_order];
+
   const [data, setData] = useState([]);
   const [page, setPage] = useState(1);
   const [totalRecord, setTotalRecord] = useState(0);
@@ -83,13 +82,22 @@ function OrderPage(props) {
           {!isUpdateStatus && !isOrderDetail ? (
             <div className="row justify-content-center">
               <>
-                <OrderTable tableHeader={data_order_table_header} tableBody={data} />
-                <PaginationUI
-                  handlePageChange={handlePageChange}
-                  perPage={perPage}
-                  totalRecord={totalRecord}
-                  currentPage={page}
-                />
+                {!loading ? (
+                  <>
+                    <OrderTable tableHeader={data_order_table_header} tableBody={data} />
+
+                    {totalRecord > 10 && (
+                      <PaginationUI
+                        handlePageChange={handlePageChange}
+                        perPage={perPage}
+                        totalRecord={totalRecord}
+                        currentPage={page}
+                      />
+                    )}
+                  </>
+                ) : (
+                  <Skeleton column={6} />
+                )}
               </>
             </div>
           ) : (

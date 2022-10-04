@@ -1,15 +1,9 @@
 import Notiflix from 'notiflix';
 import React from 'react';
-import { FaPen, FaRegEye, FaTimesCircle } from 'react-icons/fa';
+import { FaPen, FaRegEye } from 'react-icons/fa';
 import { useDispatch } from 'react-redux';
 import { getOrderById, getOrderDetailById } from '../../api/order/indexAPI';
-import {
-  setIdEditStatus,
-  setIsDetail,
-  setIsEdit,
-  setOrder,
-  setOrderDetail,
-} from '../../redux/reducer/order/order.reducer';
+import { setIsDetail, setIsEdit, setOrder, setOrderDetail } from '../../redux/reducer/order/order.reducer';
 import { ErrorToast } from '../Layouts/Alerts';
 import { BlockUI } from '../Layouts/Notiflix';
 import TableLayout from '../Layouts/Table';

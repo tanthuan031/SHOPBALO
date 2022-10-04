@@ -19,7 +19,7 @@ function UpdateStatusOrder(props) {
     setValue,
     handleSubmit,
     control,
-    formState: { isValid, errors, dirtyFields, isDirty },
+    formState: { dirtyFields, isDirty },
   } = useForm({
     mode: 'onChange',
     // resolver: yupResolver(addSchema),
