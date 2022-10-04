@@ -36,7 +36,7 @@ const ReviewDetail = () => {
             </p>
           </span>
         </div>
-        <hr class="border border-1 opacity-50"></hr>
+        <hr className="border border-1 opacity-50"></hr>
         <h2 className="mt-2 fs-5 fw-bold">General Information</h2>
         <div className="d-flex flex-column">
           <div className="d-flex">
@@ -66,7 +66,7 @@ const ReviewDetail = () => {
         <div className="d-flex flex-column gap-3">
           <span className="d-flex">
             {Array.from(Array(reviewData.point), (e, i) => {
-              return <FaStar className="text-danger" />;
+              return <FaStar key={i} className="text-danger" />;
             })}
           </span>
           <span className="text-secondary" style={{ fontSize: '13px' }}>

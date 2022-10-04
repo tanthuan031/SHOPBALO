@@ -18,6 +18,7 @@ class OrderDetailResource extends JsonResource
             'order_id' => $this->order_id,
             'product_id' => $this->product_id,
             'product_name' => $this->products->name,
+            'image' => env('APP_URL') . '/storage/product/' .  $this->products->image,
             'amount' => $this->amount,
             'price' => $this->price,
 

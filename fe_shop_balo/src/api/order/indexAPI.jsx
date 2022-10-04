@@ -78,6 +78,17 @@ export const getOrderById = async (id) => {
     return {};
   }
 };
+export const getOrderDetailById = async (id) => {
+  const url = `/api/admin/order/${id}?order_details`;
+  const response = await axiosClient.get(url);
+  if (response.status === 'success') {
+    return response.data;
+  } else if (response.status === 401) {
+    return 401;
+  } else {
+    return {};
+  }
+};
 export const updateStatusOrder = async (id, body) => {
   const url = `/api/admin/order/${id}`;
   const response = await axiosClient.put(url, body);

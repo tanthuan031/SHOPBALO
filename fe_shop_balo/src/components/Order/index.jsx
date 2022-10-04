@@ -2,8 +2,14 @@ import Notiflix from 'notiflix';
 import React from 'react';
 import { FaPen, FaRegEye, FaTimesCircle } from 'react-icons/fa';
 import { useDispatch } from 'react-redux';
-import { getOrderById } from '../../api/order/indexAPI';
-import { setIdEditStatus, setIsEdit, setOrder } from '../../redux/reducer/order/order.reducer';
+import { getOrderById, getOrderDetailById } from '../../api/order/indexAPI';
+import {
+  setIdEditStatus,
+  setIsDetail,
+  setIsEdit,
+  setOrder,
+  setOrderDetail,
+} from '../../redux/reducer/order/order.reducer';
 import { ErrorToast } from '../Layouts/Alerts';
 import { BlockUI } from '../Layouts/Notiflix';
 import TableLayout from '../Layouts/Table';
@@ -19,6 +25,24 @@ export function OrderTable(props) {
       dispatch(setIsEdit(true));
       dispatch(setOrder(dataOrderId));
     } else if (dataOrderId === 401) {
+      Notiflix.Block.remove('#root');
+    } else {
+      Notiflix.Block.remove('#root');
+      ErrorToast('Something went wrong. Please try again', 3000);
+    }
+  };
+  const handleOrderDetail = async (e, id, dataOrderByID) => {
+    BlockUI('#root', 'fixed');
+    e.stopPropagation();
+    console.log('data', dataOrderByID);
+    const dataDetailOrderId = await getOrderDetailById(id);
+
+    Notiflix.Block.remove('#root');
+    if (Object.keys(dataDetailOrderId).length > 0) {
+      dispatch(setIsDetail(true));
+      dispatch(setOrderDetail(dataDetailOrderId));
+      dispatch(setOrder(dataOrderByID));
+    } else if (dataDetailOrderId === 401) {
       Notiflix.Block.remove('#root');
     } else {
       Notiflix.Block.remove('#root');
@@ -70,7 +94,12 @@ export function OrderTable(props) {
                 // }}
                 className="br-6px p-2   bg-gray-100 w-48px h-48px d-flex align-items-center justify-content-center border-none"
               >
-                <FaRegEye className=" font-20px" />
+                <FaRegEye
+                  className=" font-20px"
+                  onClick={(e) => {
+                    handleOrderDetail(e, item.order_id, item);
+                  }}
+                />
               </button>
               <button
                 id="edit-product"

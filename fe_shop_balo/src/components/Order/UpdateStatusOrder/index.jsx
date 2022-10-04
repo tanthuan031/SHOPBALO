@@ -49,7 +49,7 @@ function UpdateStatusOrder(props) {
     const result = await updateStatusOrder(idStatusUpdate.order_id, temDirtyFields);
     Notiflix.Block.remove('#root');
     if (result === 200) {
-      SuccessToast('Update status order successfully');
+      SuccessToast('Update status order successfully', 3000);
       props.backToOrderList([
         {
           key: 'updated_at',
@@ -66,6 +66,7 @@ function UpdateStatusOrder(props) {
       Notiflix.Block.remove('#root');
       ErrorToast('Something went wrong. Please try again', 3000);
     }
+
     // const data=await updateStatusOrder()
     console.log('gr', data);
   };
