@@ -62,7 +62,7 @@ class ProductRepository extends BaseRepository
 
     public function updateProductDetail($request, $id)
     {
-        $productDetail = ProductDetail::query()->where('id', '=', $id)->first();
+        $productDetail = ProductDetail::query()->where('product_id', '=', $id)->first();
         $productDetail->update($request->all());
         return $productDetail;
     }
