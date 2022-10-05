@@ -1,12 +1,13 @@
 // @flow
-import * as React from "react";
-import Header from "../../components/Layouts/Header";
-import PropTypes from "prop-types";
-import ListGroup from "../../components/Layouts/ListGroup";
-import { menu_admin_item } from "../../asset/data/menu_admin_item";
-import Drawer from "../../components/Layouts/Drawer";
-import { FaUsers } from "react-icons/fa";
-import "./style.css";
+import * as React from 'react';
+import Header from '../../components/Layouts/Header';
+import PropTypes from 'prop-types';
+import ListGroup from '../../components/Layouts/ListGroup';
+import { menu_admin_item } from '../../asset/data/menu_admin_item';
+import Drawer from '../../components/Layouts/Drawer';
+import { FaUsers } from 'react-icons/fa';
+import './style.css';
+import { Button } from 'react-bootstrap';
 
 export function AdminLayout(props) {
   const { slot } = props;
@@ -26,6 +27,9 @@ export function AdminLayout(props) {
               {/* {user?.type === "Admin" && <ListGroup data={menu_item_admin} />} */}
               {/* {user?.type === "Staff" && <ListGroup data={menu_item_staff} />} */}
               <ListGroup data={menu_admin_item_data} />
+            </div>
+            <div className="d-flex justify-content-center ">
+              <Button className="btn-danger">Logout</Button>
             </div>
           </>
         }

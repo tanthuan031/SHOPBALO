@@ -6,6 +6,7 @@ import { useDispatch } from 'react-redux';
 import { getProductById } from '../../api/Product/productAPI';
 import { getStorageImage } from '../../api/StorageImage';
 import { setIsEdit, setProduct } from '../../redux/reducer/product/product.reducer';
+import { formatter } from '../../utils/formatCurrency';
 import { ErrorToast } from '../Layouts/Alerts';
 import Modal from '../Layouts/Modal';
 import { BlockUI } from '../Layouts/Notiflix';
@@ -62,7 +63,7 @@ export function ProductTable(props) {
           <td>{item.name}</td>
           {/* <td>{item.description}</td> */}
           <td>{item.amount}</td>
-          <td>{item.price}</td>
+          <td>{formatter.format(item.price)}</td>
           {/* <td>{item.image}</td> */}
           <td>
             <p
@@ -129,7 +130,7 @@ export function ProductTable(props) {
               ></div>
               <p className="text-product-detail">Color </p>
               <p className="color-product-detail"></p>
-              <p className="text-product-detail">Price : {detailProduct.price}</p>
+              <p className="text-product-detail">Price : {formatter.format(detailProduct.price)}</p>
               <p className="text-product-detail">Status : {detailProduct.amount > 0 ? 'Active' : 'Out of stock'}</p>
             </div>
           </div>

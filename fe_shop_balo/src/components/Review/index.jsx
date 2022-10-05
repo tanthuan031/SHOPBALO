@@ -14,6 +14,7 @@ import { URL_SERVER } from './../../utils/urlPath';
 import Modal from './../Layouts/Modal/index';
 import { ErrorToast, SuccessToast } from './../Layouts/Alerts/index';
 import { editReview } from './../../api/Review/reviewAPI';
+import { formatter } from '../../utils/formatCurrency';
 
 const ReviewTable = (props) => {
   const dispatch = useDispatch();
@@ -94,7 +95,7 @@ const ReviewTable = (props) => {
               <img className="img-avatar " src={`${URL_SERVER}/storage/product/${item.products.image} `} />
               <div className="d-flex flex-column">
                 <p>{item.products.name}</p>
-                <span id="text-price">Price: 20$</span>
+                {/* <span id="text-price">{formatter.format(item.products.price)}</span> */}
               </div>
             </div>
           </td>

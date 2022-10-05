@@ -58,7 +58,7 @@ const PromotionTable = (props) => {
         <tr key={index} className=" font-weight-bold ">
           <td>{++index}</td>
           <td>{item.name}</td>
-          <td>{item.value}</td>
+          <td>{item.value} %</td>
           <td>
             <p
               className={`text-center border-radius-2px ${
