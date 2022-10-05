@@ -56,7 +56,6 @@ export function StaffPage(props) {
     // handle FilterStatus Value
    let params={}
     if (filterStatus!=='All') params={...params,filterStatus}
-   // console.log(filter)
     if(search !=='') params={...params,filter,search}
     const handleGetAllStaffs = async () => {
       const result = await getAllStaffs(params)
@@ -98,15 +97,12 @@ export function StaffPage(props) {
 
   const backToStaffList = async (value, action) => {
     setLoading(true);
-    console.log(value);
     if (action === 'edit') {
-      console.log('Back to Edit');
     }
 
     const result = await getAllStaffs({
       sort: value,
     });
-    console.log('Result: ',result);
     setStaff(result, 'page');
     setLoading(false);
   };

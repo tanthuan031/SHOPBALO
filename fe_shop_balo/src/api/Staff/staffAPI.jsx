@@ -99,7 +99,7 @@ export const editStaff = async (id, body) => {
 export const deleteStaff = async (id) => {
   const url = `/api/admin/staff/${id}`;
   const response = await axiosClient.delete(url);
-  console.log(response)
+  //console.log(response)
   if (response.status === 401) {
     return 401;
   } else if (response.status === 'success') {
@@ -121,7 +121,7 @@ export const getAllStaffsWithEmailAndPhone = async ({ email, phoneNumber } = {})
   }
 
   const final_url = concatQueryString(queryString, url);
-  console.log(final_url)
+  //console.log(final_url)
   const reponse = await axiosClient.get(final_url);
   if (reponse.status === 401) {
     return 401;

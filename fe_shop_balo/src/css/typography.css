@@ -64,7 +64,9 @@ a {
 .font-20px {
   font-size: var(--20px);
 }
-
+.font-30px {
+  font-size: 1.9rem;
+}
 .text-justify {
   text-align: justify;
 }

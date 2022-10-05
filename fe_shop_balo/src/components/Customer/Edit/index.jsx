@@ -19,10 +19,6 @@ const CustomerEdit = props => {
   const dataCustomer=customerSelector.data
   const [imageAvatarCustomerShow,setImageAvatarCustomerShow] = useState(false)
   const [status,setStatus]= useState(dataCustomer.status)
-  const data_roles=[
-    { value: 1, label: 'Admin' },
-    { value: 2, label: 'CTO' },
-  ]
   const data_gender=[
     { value: 1, label: 'male' },
     { value: 2, label: 'female' },
@@ -64,7 +60,7 @@ const CustomerEdit = props => {
       reader.onerror = (error) => reject(error);
     });
   const onSubmit = async (data) => {
-    console.log(data)
+   // console.log(data)
     // BlockUI('#root', 'fixed');
     const temDirtyFields = { ...dirtyFields };
     Object.keys(temDirtyFields).map((key) => {
@@ -72,13 +68,13 @@ const CustomerEdit = props => {
       else  temDirtyFields[key] = data[key];
 
     });
-    console.log('dataBefore:', temDirtyFields);
+   // console.log('dataBefore:', temDirtyFields);
     if(temDirtyFields.avatar!==undefined) {
       const image = await toBase64(temDirtyFields.avatar);
       temDirtyFields.avatar=[image]
     }
     if(temDirtyFields.created_date!==undefined) temDirtyFields.created_date=formatDate(temDirtyFields.created_date,'YYYY-MM-DD')
-    console.log('dataAfter:', temDirtyFields);
+   // console.log('dataAfter:', temDirtyFields);
 
     const result= await editCustomer(dataCustomer.id,temDirtyFields);
     // console.log('Result:',result);
@@ -341,7 +337,7 @@ const CustomerEdit = props => {
 };
 
 CustomerEdit.propTypes = {
-
+  backToCustomerList: PropTypes.func.isRequired,
 };
 
 export default CustomerEdit ;

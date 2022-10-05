@@ -1,4 +1,4 @@
-import React from 'react';
+
 import { concatQueryString } from '../../utils/concatQueryString';
 import { titleToSlug } from '../../utils/titleToSlug';
 import axiosClient from '../axiosClient';
@@ -28,7 +28,6 @@ export const getAllCustomers = async ({ sort,filterStatus,filterRole,filter, sea
   }
 
   if (filterStatus===1 || filterStatus===0) {
-    // console.log(`filterStatus:`, filterStatus);
     queryString.push(`filter[status]=${filterStatus}`);
   }
   if (filterRole) {
@@ -102,7 +101,6 @@ export const editCustomer = async (id, body) => {
 export const deleteCustomer = async (id) => {
   const url = `/api/admin/customer/${id}`;
   const response = await axiosClient.delete(url);
-  console.log(response)
   if (response.status === 401) {
     return 401;
   } else if (response.status === 'success') {
@@ -124,7 +122,7 @@ export const getAllCustomersWithEmailAndPhone = async ({ email, phoneNumber } = 
   }
 
   const final_url = concatQueryString(queryString, url);
-  console.log(final_url)
+ // console.log(final_url)
   const reponse = await axiosClient.get(final_url);
   if (reponse.status === 401) {
     return 401;

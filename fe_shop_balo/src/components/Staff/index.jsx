@@ -1,5 +1,5 @@
 import React, { useState,useRef } from 'react';
-import { FaFemale, FaMale, FaPen, FaTimesCircle, FaTransgender } from 'react-icons/fa';
+import { FaFemale, FaMale, FaPen, FaTimesCircle } from 'react-icons/fa';
 import Modal from '../Layouts/Modal';
 import TableLayout from '../Layouts/Table';
 import './style.css';

@@ -25,7 +25,6 @@ const ReviewTable = (props) => {
     e.stopPropagation();
     BlockUI('#root', 'fixed');
     const result = await getReviewById(id);
-    console.log(result.products.image);
     Notiflix.Block.remove('#root');
     if (result !== 401) {
       dispatch(setIsEdit(true));
@@ -90,7 +89,6 @@ const ReviewTable = (props) => {
       body.map((item, index) => (
         <tr key={item.id} className=" font-weight-bold ">
           <td>{++index}</td>
-
           <td>
             <div className="d-flex gap-2">
               <img className="img-avatar " src={`${URL_SERVER}/storage/product/${item.products.image} `} />
@@ -103,7 +101,7 @@ const ReviewTable = (props) => {
 
           <td>
             <div className="d-flex gap-2">
-              <img className="img-avatar " src={`${URL_SERVER}/storage/customer/${item.customers.image} `} />
+              <img className="img-avatar " src={` ${URL_SERVER}/storage/customer/${item.customers.image} `} />
               <div className="d-flex flex-column">
                 <p>{`${item.customers.last_name} ${item.customers.first_name}`}</p>
                 <span id="text-price">{item.customers.email}</span>
@@ -117,7 +115,11 @@ const ReviewTable = (props) => {
             <div className="d-flex flex-column">
               <span className="d-flex">
                 {Array.from(Array(item.point), (e, i) => {
-                  return <FaStar />;
+                  return (
+                    <span key={i}>
+                      <FaStar />
+                    </span>
+                  );
                 })}
               </span>
 
@@ -169,8 +171,8 @@ const ReviewTable = (props) => {
       ))
     ) : (
       <>
-        <tr className="text-center">
-          <td colSpan={6}>Review is not found.</td>
+        <tr key={1} className="text-center">
+          <td colSpan={7}>Review is not found.</td>
         </tr>
       </>
     );

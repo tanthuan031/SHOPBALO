@@ -36,6 +36,7 @@ export function ProductTable(props) {
   const handleEditProduct = async (e, id) => {
     BlockUI('#root', 'fixed');
     e.stopPropagation();
+    // console.log('f', id);
     const data = await getProductById(id);
     Notiflix.Block.remove('#root');
     if (Object.keys(data).length > 0) {

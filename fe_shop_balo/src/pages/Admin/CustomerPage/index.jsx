@@ -83,15 +83,12 @@ export function CustomerPage(props) {
 
   const backToCustomerList = async (value, action) => {
     setLoading(true);
-    console.log(value);
     if (action === 'edit') {
-      console.log('Back to Edit');
     }
 
     const result = await getAllCustomers({
       sort: value,
     });
-    console.log('Result: ',result);
     setCustomer(result, 'page');
     setLoading(false);
   };

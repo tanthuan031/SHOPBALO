@@ -1,16 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import { Button, Col, Form, InputGroup, Row } from 'react-bootstrap';
-import { Controller, useForm, useWatch } from 'react-hook-form';
+import { Button, Col, Form, Row } from 'react-bootstrap';
+import { Controller, useForm} from 'react-hook-form';
 import Select from 'react-select';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { addSchema, editSchema } from '../../../adapter/staff';
+import {  editSchema } from '../../../adapter/staff';
 import { useDispatch, useSelector } from 'react-redux';
 import { BlockUI } from '../../Layouts/Notiflix';
 import Notiflix from 'notiflix';
 import { ErrorToast, SuccessToast } from '../../Layouts/Alerts';
 import { setIsEdit } from '../../../redux/reducer/staff/staff.reducer';
-import { isEditStaffSelector, staffByIdSelector } from '../../../redux/selectors/';
+import {  staffByIdSelector } from '../../../redux/selectors/';
 import { editStaff } from '../../../api/Staff/staffAPI';
 import { URL_SERVER } from '../../../utils/urlPath';
 import './style.css'
@@ -67,8 +67,8 @@ const StaffEdit = props => {
       reader.onerror = (error) => reject(error);
     });
   const onSubmit = async (data) => {
-    console.log(data)
-   // BlockUI('#root', 'fixed');
+   // console.log(data)
+   BlockUI('#root', 'fixed');
     const temDirtyFields = { ...dirtyFields };
     Object.keys(temDirtyFields).map((key) => {
       if(key==='gender')  temDirtyFields[key]=data[key].label;
@@ -76,13 +76,13 @@ const StaffEdit = props => {
      else  temDirtyFields[key] = data[key];
 
     });
-   console.log('dataBefore:', temDirtyFields);
+   //console.log('dataBefore:', temDirtyFields);
    if(temDirtyFields.avatar!==undefined) {
       const image = await toBase64(temDirtyFields.avatar);
       temDirtyFields.avatar=[image]
     }
     if(temDirtyFields.created_date!==undefined) temDirtyFields.created_date=formatDate(temDirtyFields.created_date,'YYYY-MM-DD')
-   console.log('dataAfter:', temDirtyFields);
+  //console.log('dataAfter:', temDirtyFields);
 
     const result= await editStaff(dataStaff.id,temDirtyFields);
    // console.log('Result:',result);
@@ -353,7 +353,9 @@ const StaffEdit = props => {
   );
 };
 
-StaffEdit.propTypes = {};
+StaffEdit.propTypes = {
+  backToStaffList: PropTypes.func.isRequired,
+};
 
 export default StaffEdit;
 

@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React, {  useState } from 'react';
 import PropTypes from 'prop-types';
-import { Button, Col, Form, InputGroup, Row } from 'react-bootstrap';
-import { Controller, useForm, useWatch } from 'react-hook-form';
+import { Button, Col, Form,  Row } from 'react-bootstrap';
+import { Controller, useForm, } from 'react-hook-form';
 import Select from 'react-select';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { addSchema } from '../../../adapter/customer';
@@ -15,15 +15,16 @@ import { addCustomer } from '../../../api/Customer/customerAPI';
 import { AiFillEye, AiFillEyeInvisible } from 'react-icons/ai';
 import { URL_SERVER } from '../../../utils/urlPath';
 import { formatDate } from '../../../utils/formatDate';
+import { FaEye, FaEyeSlash } from 'react-icons/fa';
 
 const CustomerAdd = props => {
   const data_gender = [
     { value: 1, label: 'male' },
     { value: 2, label: 'female' },
   ];
-  const [showPassword, setShowPassword] = useState(false);
+  const [showPassword, setShowPassword] = useState('password');
   const [imageAvatarCustomerShow,setImageAvatarCustomerShow] = useState(false);
-  const { register, handleSubmit, setValue, watch, control, formState: { errors,isValid } } = useForm({
+  const { register, handleSubmit,  control, formState: { errors,isValid } } = useForm({
       mode: 'onChange',
       resolver: yupResolver(addSchema),
     },
@@ -60,9 +61,9 @@ const CustomerAdd = props => {
       address: data.address,
       created_date:  data.created_date,
     };
-   console.log('data:', resultData);
+   //console.log('data:', resultData);
     const result = await addCustomer(resultData);
-    console.log('Result:', result);
+   //console.log('Result:', result);
     Notiflix.Block.remove('#root');
     if (result === 200) {
       SuccessToast('Create customer successfully', 3000);
@@ -175,21 +176,29 @@ const CustomerAdd = props => {
         </Row>
         <Row>
           <Col>
-            <Form.Group className='mb-3'>
+            <Form.Group className='mb-3 form-password'>
               <Form.Label className='label-input'>Password</Form.Label>
               <Controller control={control} name='password'
                           defaultValue=''
                           render={({ field: { onChange, onBlur, value, ref } }) => (
-                            <Form.Control onChange={onChange} value={value} ref={ref}
-                                          type={showPassword ? 'text' : 'password'}
-                                          isInvalid={errors.password}
-                                          placeholder='Enter password'
-                                          className='input-password'
-                                          {...register('password', {
-                                            required: true,
-                                            minLength: 8,
+                            <div className="fp-input">
+                              <Form.Control onChange={onChange} value={value} ref={ref}
+                                            type={showPassword}
+                                            isInvalid={errors.password}
+                                            placeholder='Enter password'
+                                            className='input-password'
+                                            {...register('password', {
+                                              required: true,
+                                              minLength: 8,
 
-                                          })}/>)}
+                                            })}/>
+                              {showPassword === 'text' ? (
+                                <FaEye onClick={() => setShowPassword('password')} />
+                              ) : (
+                                <FaEyeSlash onClick={() => setShowPassword('text')} />
+                              )}
+                            </div>
+                           )}
 
               />
               <span onClick={()=>setShowPassword(!showPassword)}>
@@ -304,6 +313,8 @@ const CustomerAdd = props => {
   );
 };
 
-CustomerAdd.propTypes = {};
+CustomerAdd.propTypes = {
+  backToCustomerList: PropTypes.func.isRequired,
+};
 
 export default CustomerAdd;

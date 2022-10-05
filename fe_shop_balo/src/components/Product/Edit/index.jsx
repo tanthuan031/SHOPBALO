@@ -15,6 +15,7 @@ import Notiflix from 'notiflix';
 import { BlockUI } from '../../Layouts/Notiflix';
 import { FaTimesCircle } from 'react-icons/fa';
 import { productByIdSelector } from '../../../redux/selectors/product/product.selector';
+import { getAll } from '../../../api/Category/categoryAPI';
 function ProductEdit(props) {
   const dispatch = useDispatch();
   const productDetailById = useSelector(productByIdSelector);
@@ -36,6 +37,7 @@ function ProductEdit(props) {
       amount: productDetailById.amount,
       price: productDetailById.price,
       description: productDetailById.description,
+      status: productDetailById.status,
     },
   });
   const [fileImageSlide, setFileImageSlide] = useState({
@@ -48,7 +50,7 @@ function ProductEdit(props) {
   useEffect(() => {
     register('description', { required: true });
     register('image_slide');
-    register('category_id');
+    // register('category_id');
     register('color');
     if (fileImageSlide.file.length > 0) {
       setValue('image_slide', fileImageSlide, { shouldDirty: true });
@@ -87,11 +89,11 @@ function ProductEdit(props) {
     control,
     name: 'image_slide',
   });
-  const typeOptionsCategory = [
-    { value: 1, label: 'Category1' },
-    { value: 2, label: 'Category 2' },
-  ];
-
+  const typeOptionsCategory = [];
+  props.dataCategory != null &&
+    props.dataCategory.map((item) => {
+      typeOptionsCategory.push({ value: item.id, label: item.name });
+    });
   const typeOptionsColor = [
     { value: '1', label: 'Green' },
     { value: '2', label: 'Blue' },
@@ -133,11 +135,10 @@ function ProductEdit(props) {
         temDirtyFields.image_slide = undefined;
       }
     }
-    console.log(temDirtyFields)
     const result = await editProduct(productDetailById.id, temDirtyFields);
     Notiflix.Block.remove('#root');
     if (result === 200) {
-      SuccessToast('Create product successfully', 3000);
+      SuccessToast('Update product successfully', 3000);
       props.backToProductList([
         {
           key: 'updated_at',
@@ -146,7 +147,7 @@ function ProductEdit(props) {
       ]);
       backtoProduct();
     } else if (result === 404) {
-      ErrorToast('Create product unsuccessfully', 3000);
+      ErrorToast('Update product unsuccessfully', 3000);
       Notiflix.Block.remove('#root');
     } else if (result === 401) {
       Notiflix.Block.remove('#root');
@@ -203,7 +204,8 @@ function ProductEdit(props) {
                   <Controller
                     control={control}
                     name="category_id"
-                    // {...register('category_name')}
+                    {...register('category_id')}
+                    ref={null}
                     render={({ field: { value, onChange } }) => (
                       <Select
                         options={typeOptionsCategory}
@@ -267,16 +269,16 @@ function ProductEdit(props) {
                   <Controller
                     control={control}
                     name="status"
+                    {...register('status')}
+                    ref={null}
                     render={({ field: { value, onChange } }) => (
                       <Select
                         options={typeOptionsSatus}
                         onChange={(options) => {
                           onChange(options?.value);
-                          if (options?.value === 1) {
-                            setValue('status', options.value);
-                          }
+                          setValue('status', options.value);
                         }}
-                        value={typeOptionsSatus?.filter((option) => value === option?.value)}
+                        value={typeOptionsSatus.filter((option) => value === option?.value)}
                         placeholder=""
                         theme={(theme) => ({
                           ...theme,
