@@ -28,7 +28,7 @@ function ProductAdd(props) {
     defaultValues: {
       product_name: '',
       category_id: '',
-      color: '',
+      color: '#fff',
       image: '',
       image_slide: '',
       amount: '',
@@ -49,7 +49,7 @@ function ProductAdd(props) {
     register('image_slide');
     setValue('image_slide', fileImageSlide);
     // register('category_id');
-    register('color');
+    // register('color');
     register('status');
   }, [register, fileImageSlide]);
 
@@ -83,6 +83,7 @@ function ProductAdd(props) {
     });
 
   const onSubmit = async (data) => {
+    console.log('color', data.color);
     BlockUI('#root', 'fixed');
     if (data.image.length !== 0 && data.description != '') {
       const image1 = await toBase64(data.image[0]);
@@ -102,7 +103,6 @@ function ProductAdd(props) {
         name: data.product_name,
       };
       const result = await addProduct(resultData);
-      console.log(result);
       Notiflix.Block.remove('#root');
       if (result === 200) {
         SuccessToast('Create product successfully', 3000);
@@ -127,11 +127,9 @@ function ProductAdd(props) {
       setTimeout(function () {
         Notiflix.Block.remove('#root');
       }, 1000);
-
       data.image.length === 0 && setErrorImage('Image can not blank');
       data.description === '' && setErrorDescription('Description can not blank');
       Notiflix.Block.remove('#root');
-
       return;
     }
   };
@@ -214,23 +212,13 @@ function ProductAdd(props) {
                     control={control}
                     name="color"
                     render={({ field: { value, onChange } }) => (
-                      <Select
-                        options={typeOptionsColor}
-                        onChange={(options) => {
-                          onChange(options.value);
-                          setValue('color', options.value);
+                      <Form.Control
+                        onChange={(e) => {
+                          onChange(e.target.value);
                         }}
-                        value={typeOptionsColor.filter((option) => value === option.value)}
-                        placeholder=""
-                        theme={(theme) => ({
-                          ...theme,
-                          colors: {
-                            ...theme.colors,
-                            primary25: '#f9d2e4',
-                            primary50: '#f9d2e4',
-                            primary: '#d6001c',
-                          },
-                        })}
+                        type="color"
+                        value={value}
+                        {...register('color')}
                       />
                     )}
                   />

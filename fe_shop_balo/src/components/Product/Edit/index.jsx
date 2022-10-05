@@ -31,7 +31,7 @@ function ProductEdit(props) {
     defaultValues: {
       name: productDetailById.name,
       category_id: productDetailById.category_id,
-      color: productDetailById.code_color,
+      code_color: productDetailById.code_color,
       image: productDetailById.image,
       image_slide: productDetailById.image_slide,
       amount: productDetailById.amount,
@@ -65,9 +65,9 @@ function ProductEdit(props) {
     control,
     name: 'category_id',
   });
-  const color = useWatch({
+  const code_color = useWatch({
     control,
-    name: 'color',
+    name: 'code_color',
   });
   const amount = useWatch({
     control,
@@ -237,25 +237,15 @@ function ProductEdit(props) {
                 <td width="70%">
                   <Controller
                     control={control}
-                    name="color"
+                    name="code_color"
                     render={({ field: { value, onChange } }) => (
-                      <Select
-                        options={typeOptionsColor}
-                        onChange={(options) => {
-                          onChange(options.value);
-                          setValue('color', options.value);
+                      <Form.Control
+                        onChange={(e) => {
+                          onChange(e.target.value);
                         }}
-                        value={typeOptionsColor.filter((option) => value === option.value)}
-                        placeholder=""
-                        theme={(theme) => ({
-                          ...theme,
-                          colors: {
-                            ...theme.colors,
-                            primary25: '#f9d2e4',
-                            primary50: '#f9d2e4',
-                            primary: '#d6001c',
-                          },
-                        })}
+                        type="color"
+                        value={value}
+                        {...register('code_color')}
                       />
                     )}
                   />

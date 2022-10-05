@@ -1,6 +1,6 @@
 import Notiflix from 'notiflix';
 import React, { useState } from 'react';
-import { Carousel } from 'react-bootstrap';
+import { Carousel, Form } from 'react-bootstrap';
 import { FaPen, FaTimesCircle } from 'react-icons/fa';
 import { useDispatch } from 'react-redux';
 import { getProductById } from '../../api/Product/productAPI';
@@ -103,7 +103,7 @@ export function ProductTable(props) {
   const renderDetailProduct = () => {
     return (
       <>
-        <div className="row ">
+        <div className="row p-5">
           <div className="col col-md-6 model-detail-product-left ">
             <Carousel variant="dark" nextIcon="" prevIcon="">
               {dataImageSlide.map((value, index) => {
@@ -128,10 +128,16 @@ export function ProductTable(props) {
                 className="description-product-detail"
                 dangerouslySetInnerHTML={{ __html: detailProduct.description }}
               ></div>
+
               <p className="text-product-detail">Color </p>
-              <p className="color-product-detail"></p>
+              <Form.Control type="color" value={detailProduct.code_color} disabled className="margin-left-12px " />
               <p className="text-product-detail">Price : {formatter.format(detailProduct.price)}</p>
-              <p className="text-product-detail">Status : {detailProduct.amount > 0 ? 'Active' : 'Out of stock'}</p>
+              <p className="text-product-detail">
+                Status :
+                <span className={`${detailProduct.status === '0' ? 'text-success' : 'text-danger'}`}>
+                  {detailProduct.status === '0' ? ' Active' : ' Out of stock'}
+                </span>
+              </p>
             </div>
           </div>
         </div>
