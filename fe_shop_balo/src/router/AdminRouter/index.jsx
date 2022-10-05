@@ -6,6 +6,8 @@ import { CategoryPage } from '../../pages/Admin/CategoryPage';
 import { DashBoardPage } from '../../pages/Admin/DashBoardPage';
 import { LoginPage } from '../../pages/Admin/LoginPage';
 import { ProductPage } from '../../pages/Admin/ProductPage';
+import OrderPage from '../../pages/Admin/Order';
+import ReviewPage from '../../pages/Admin/ReviewPage';
 import { StaffPage } from '../../pages/Admin/StaffPage';
 import { ProtectedRoutes } from '../ProtectedRouters';
 import PromotionPage from './../../pages/Admin/PromotionPage';
@@ -19,10 +21,10 @@ export default function AdminRouter() {
         <Route path="/admin/product" element={<AdminLayout slot={<ProductPage key={'1'} />} />} />
         <Route path="/admin/category" element={<AdminLayout slot={<CategoryPage key={'a'} />} />} />
         <Route path="/admin/promotion" element={<AdminLayout slot={<PromotionPage key={'a'} />} />} />
-        <Route path="/admin/order" element={<AdminLayout slot={<DashBoardPage key={'a'} />} />} />
+        <Route path="/admin/order" element={<AdminLayout slot={<OrderPage key={'a'} />} />} />
         <Route path="/admin/staff" element={<AdminLayout slot={<StaffPage key={'a'} />} />} />
         <Route path="/admin/customer" element={<AdminLayout slot={<DashBoardPage key={'a'} />} />} />
-        <Route path="/admin/review" element={<AdminLayout slot={<DashBoardPage key={'a'} />} />} />
+        <Route path="/admin/review" element={<AdminLayout slot={<ReviewPage key={'a'} />} />} />
         <Route path="/admin/decentralization" element={<AdminLayout slot={<DashBoardPage key={'a'} />} />} />
       </Route>
     </Routes>

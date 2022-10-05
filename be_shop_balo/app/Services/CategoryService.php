@@ -26,6 +26,17 @@ class CategoryService
      *
      * @return collection
      */
+    public function index()
+    {
+        $categories = $this->categoryRepo->index();
+
+        $data = [];
+        if (!is_null($categories)) {
+            $data = getAllResource::collection($categories)->response()->getData();
+        }
+
+        return  $this->apiResponse($data, 200, 'List all category');
+    }
     public function getAll($request)
     {
         $search = [];

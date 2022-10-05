@@ -22,7 +22,6 @@ class ProductController extends Controller
     {
         $this->productService = $productService;
     }
-
     public function index(Request $request)
     {
         return $this->productService->getAllProduct($request);
@@ -94,7 +93,6 @@ class ProductController extends Controller
      */
     public function destroy($id)
     {
-        //
         return $this->productService->deleteProduct($id);
     }
 }

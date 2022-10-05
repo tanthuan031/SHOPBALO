@@ -28,10 +28,10 @@ class UpdateRequest extends FormRequest
     public function rules()
     {
         return [
-            'customer_id' => 'required',
-            'product_id' => 'required',
-            'point' => 'required',
-            'content' => 'required',
+            // 'customer_id' => 'required',
+            // 'product_id' => 'required',
+            // 'point' => 'required',
+            // 'content' => 'required',
 
         ];
     }
@@ -41,10 +41,10 @@ class UpdateRequest extends FormRequest
     public function messages()
     {
         return [
-            'customer_id.required' => 'Customer_id rating is required!',
-            'product_id.required' => 'product_id rating is required!',
-            'point.required' => 'Point rating is required!',
-            'content.required' => 'Content rating is required!',
+            // 'customer_id.required' => 'Customer_id rating is required!',
+            // 'product_id.required' => 'product_id rating is required!',
+            // 'point.required' => 'Point rating is required!',
+            // 'content.required' => 'Content rating is required!',
 
 
         ];

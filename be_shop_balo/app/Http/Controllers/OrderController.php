@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Services\OrderService;
 use Illuminate\Http\Request;
 
 class OrderController extends Controller
@@ -11,9 +12,16 @@ class OrderController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    protected OrderService $orderService;
+    public function __construct(OrderService $orderService)
     {
-        //
+        $this->orderService = $orderService;
+    }
+
+    public function index(Request $request)
+    {
+
+        return $this->orderService->getAllOrder($request);
     }
 
     /**
@@ -43,9 +51,10 @@ class OrderController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Request $request, $id)
     {
         //
+        return $this->orderService->getOrderDetailById($request, $id);
     }
 
     /**
@@ -69,6 +78,7 @@ class OrderController extends Controller
     public function update(Request $request, $id)
     {
         //
+        return $this->orderService->updateOrder($request, $id);
     }
 
     /**

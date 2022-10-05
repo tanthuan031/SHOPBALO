@@ -1,5 +1,7 @@
 <?php
+// admin
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\DiscountController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\RatingController;
@@ -23,7 +25,7 @@ Route::group([
     Route::resource('staff', StaffController::class);
     // api resource category
     Route::resource('category', CategoryController::class);
-    // api category forgot
+    Route::resource('order', OrderController::class);
     Route::delete('category/{category}/forgot', [CategoryController::class, 'forgot']);
     // api discounts
     Route::resource('discount', DiscountController::class);

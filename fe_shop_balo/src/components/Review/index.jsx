@@ -1,19 +1,16 @@
 import Notiflix from 'notiflix';
 import React, { useState } from 'react';
-import { CgDetailsMore } from 'react-icons/cg';
-import { FaStar, FaTimesCircle } from 'react-icons/fa';
+import { FaRegEye, FaStar, FaTimesCircle } from 'react-icons/fa';
 import { TiTick } from 'react-icons/ti';
 import { useDispatch } from 'react-redux';
 import { deleteReview, getReviewById } from '../../api/Review/reviewAPI';
 import { setIsEdit, setIsReset, setReview } from '../../redux/reducer/review/review.reducer';
+import { URL_SERVER } from './../../utils/urlPath';
+import { ErrorToast, SuccessToast } from './../Layouts/Alerts/index';
+import Modal from './../Layouts/Modal/index';
 import { BlockUI } from './../Layouts/Notiflix/index';
 import TableLayout from './../Layouts/Table/index';
 import './style.css';
-import { isSelectorReview } from './../../redux/selectors/review/review.selector';
-import { URL_SERVER } from './../../utils/urlPath';
-import Modal from './../Layouts/Modal/index';
-import { ErrorToast, SuccessToast } from './../Layouts/Alerts/index';
-import { editReview } from './../../api/Review/reviewAPI';
 
 const ReviewTable = (props) => {
   const dispatch = useDispatch();
@@ -25,7 +22,6 @@ const ReviewTable = (props) => {
     e.stopPropagation();
     BlockUI('#root', 'fixed');
     const result = await getReviewById(id);
-    console.log(result.products.image);
     Notiflix.Block.remove('#root');
     if (result !== 401) {
       dispatch(setIsEdit(true));
@@ -88,22 +84,21 @@ const ReviewTable = (props) => {
   const renderTableBody = (body) => {
     return body.length > 0 ? (
       body.map((item, index) => (
-        <tr key={item.id} className=" font-weight-bold ">
+        <tr key={item.id} className={`font-weight-bold row-data ${isCheck === item.id ? 'choose-row-data' : ''}`}>
           <td>{++index}</td>
-
           <td>
             <div className="d-flex gap-2">
               <img className="img-avatar " src={`${URL_SERVER}/storage/product/${item.products.image} `} />
               <div className="d-flex flex-column">
                 <p>{item.products.name}</p>
-                <span id="text-price">Price: 20$</span>
+                {/* <span id="text-price">{formatter.format(item.products.price)}</span> */}
               </div>
             </div>
           </td>
 
           <td>
             <div className="d-flex gap-2">
-              <img className="img-avatar " src={`${URL_SERVER}/storage/customer/${item.customers.image} `} />
+              <img className="img-avatar " src={` ${URL_SERVER}/storage/customer/${item.customers.image} `} />
               <div className="d-flex flex-column">
                 <p>{`${item.customers.last_name} ${item.customers.first_name}`}</p>
                 <span id="text-price">{item.customers.email}</span>
@@ -117,7 +112,11 @@ const ReviewTable = (props) => {
             <div className="d-flex flex-column">
               <span className="d-flex">
                 {Array.from(Array(item.point), (e, i) => {
-                  return <FaStar />;
+                  return (
+                    <span key={i}>
+                      <FaStar />
+                    </span>
+                  );
                 })}
               </span>
 
@@ -144,7 +143,7 @@ const ReviewTable = (props) => {
                 onClick={(e) => handleDetailReview(e, item.id)}
                 className="cursor-pointer br-6px p-2 bg-gray-100 text-black w-48px h-48px d-flex align-items-center justify-content-center border-none"
               >
-                <CgDetailsMore className="font-20px" />
+                <FaRegEye className="font-20px" />
               </button>
               {item.status === 'pending' ? (
                 <button
@@ -169,7 +168,7 @@ const ReviewTable = (props) => {
       ))
     ) : (
       <>
-        <tr className="text-center">
+        <tr key={1} className="text-center">
           <td colSpan={7}>Review is not found.</td>
         </tr>
       </>
@@ -180,7 +179,10 @@ const ReviewTable = (props) => {
     return (
       <div className="modal-content">
         <div className="modal-body">
-          <h5>Are you sure pushlish this comment id {isCheck} ?</h5>
+          <h5>
+            Are you sure pushlish this comment id{' '}
+            {/* {props.tableBody.filter((item) => item.id === isCheck).customers.first_name} ? */}
+          </h5>
         </div>
         <div className="modal-footer">
           <button
@@ -202,7 +204,7 @@ const ReviewTable = (props) => {
     return (
       <div className="modal-content">
         <div className="modal-body">
-          <h5>Are you sure delete this comment id {isCheck} ?</h5>
+          <h5>Are you sure delete this comment ?</h5>
         </div>
         <div className="modal-footer">
           <button type="button" className="btn btn-danger" onClick={() => handleDelete()}>

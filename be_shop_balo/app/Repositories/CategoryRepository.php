@@ -15,7 +15,17 @@ class CategoryRepository extends BaseRepository
         parent::__construct($category);
     }
 
-
+    /**
+     * override
+     * getAll record delete_at
+     * @author  tranvannghia021
+     *
+     * @return collection
+     */
+    public function index()
+    {
+        return $this->model->get();
+    }
     /**
      * override
      * getAll record delete_at

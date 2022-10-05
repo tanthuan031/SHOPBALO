@@ -1,18 +1,16 @@
-import { Button, Form } from 'react-bootstrap';
 import { yupResolver } from '@hookform/resolvers/yup';
+import { Button, Form } from 'react-bootstrap';
 import { Controller, useForm } from 'react-hook-form';
 import Select from 'react-select';
 import './style.css';
-import { useDispatch } from 'react-redux';
-import { setIsAdd } from '../../../redux/reducer/promotion/promotion.reducer';
-import { BlockUI } from '../../Layouts/Notiflix';
-import { ErrorToast, SuccessToast } from '../../Layouts/Alerts';
 import Notiflix from 'notiflix';
-import CustomEditor from './../../Layouts/Edittor/index';
+import { useDispatch } from 'react-redux';
 import { addSchemaPromotion } from '../../../adapter/promotion';
 import { addDiscount } from '../../../api/Promotion/promotionAPI';
-import { useEffect } from 'react';
-import { FaRegRegistered } from 'react-icons/fa';
+import { setIsAdd } from '../../../redux/reducer/promotion/promotion.reducer';
+import { ErrorToast, SuccessToast } from '../../Layouts/Alerts';
+import { BlockUI } from '../../Layouts/Notiflix';
+import CustomEditor from './../../Layouts/Edittor/index';
 
 function PromotionAdd(props) {
   const dispatch = useDispatch();
@@ -34,6 +32,7 @@ function PromotionAdd(props) {
     defaultValues: {
       name: '',
       value: '',
+      point: '',
       status: '',
       description: '',
     },
@@ -49,6 +48,7 @@ function PromotionAdd(props) {
     const resultData = {
       name: data.name,
       value: data.value,
+      point: data.point,
       status: data.status,
       description: data.description,
     };
@@ -72,7 +72,6 @@ function PromotionAdd(props) {
 
   const editorDescription = (value) => {
     setValue('description', value);
-    console.log('editorDescription', value);
   };
 
   const TableRow = (props) => {
@@ -116,6 +115,19 @@ function PromotionAdd(props) {
                 }
               >
                 Value
+              </TableRow>
+
+              <TableRow
+                control={
+                  <>
+                    <Form.Control id="point" type="text" {...register('point')} />
+                    <div className="d-flex justify-content-between">
+                      <small className="text-red font-weight-semi">{errors?.point?.message}</small>
+                    </div>
+                  </>
+                }
+              >
+                Point
               </TableRow>
 
               <TableRow
