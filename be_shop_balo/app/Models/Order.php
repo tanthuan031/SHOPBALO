@@ -37,4 +37,18 @@ class Order extends Model
     {
         return $this->belongsTo(Staff::class, 'staff_id');
     }
+    public function scopeSearch($query, $request)
+    {
+        return $query
+            ->when($request->has('search'), function ($query) use ($request) {
+                $search = $request->query('search');
+                $query
+                    ->where("id", "LIKE", "%{$search}%");
+            })
+            ->when($request->has('search'), function ($query) use ($request) {
+                $search = $request->query('search');
+                $query
+                    ->where("customer_id", "LIKE", "%{$search}%");
+            });
+    }
 }

@@ -52,6 +52,7 @@ export function OrderTable(props) {
           //   onClick={() => handleShowDetail(item.order_id, item.image_slorder_ide)}
         >
           <td>{item.order_id} </td>
+          <td>#{item.order_id} </td>
           <td>{item.customer_lastname + ' ' + item.customer_firstname}</td>
           {/* Status: 1. Cho xac nhan 2.Xac nhan 3.Dang giao hang 4.Giao hang thanh cong 5. Giao hang that bai  6. Da hoan thanh 7 that bai */}
           <td>

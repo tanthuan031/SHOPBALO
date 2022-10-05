@@ -26,7 +26,7 @@ class OrderRepository extends BaseRepository
             ->with('discounts')
             // ->sort($request)
             // ->filter($request)
-            // ->search($request)
+            ->search($request)
             ->paginate($this->paginate);
         return OrderResource::collection($data)->response()->getData();
     }

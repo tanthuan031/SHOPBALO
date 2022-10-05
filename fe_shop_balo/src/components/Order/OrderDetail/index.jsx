@@ -29,8 +29,8 @@ const OrderDetail = () => {
             <div>
               <h1 className="mt-2 mb-4 font-30px fw-bold text-center ">Information order</h1>
               <div className="d-flex flex-column">
-                <h5 className="text-end p0">
-                  Code: #{dataOrder && dataOrder.order_id} - {dataOrder && dataOrder.created_order_date}
+                <h5 className="text-end p0 fw-bold">
+                  #{dataOrder && dataOrder.order_id} - {dataOrder && dataOrder.created_order_date}
                 </h5>
                 <div className=" row">
                   <div className="col-5 ml-3">

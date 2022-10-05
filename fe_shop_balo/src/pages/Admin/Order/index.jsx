@@ -1,11 +1,15 @@
 import React, { useEffect, useState } from 'react';
+import { Button, Form, InputGroup } from 'react-bootstrap';
+import { FaSearch } from 'react-icons/fa';
 import { useDispatch, useSelector } from 'react-redux';
 import { getAllOrder } from '../../../api/order/indexAPI';
 
 import { order_table_header } from '../../../asset/data/order_table_header';
+import { ErrorToast } from '../../../components/Layouts/Alerts';
 import PaginationUI from '../../../components/Layouts/Pagination';
 import Skeleton from '../../../components/Layouts/Skeleton';
 import { OrderTable } from '../../../components/Order';
+import FilterOrder from '../../../components/Order/FilterOrder';
 import OrderDetail from '../../../components/Order/OrderDetail';
 import UpdateStatusOrder from '../../../components/Order/UpdateStatusOrder';
 import { isEditStatusOrderSelector, isOrderDetailSelector } from '../../../redux/selectors/order/order.selector';
@@ -20,6 +24,7 @@ function OrderPage(props) {
   const [perPage] = useState(10);
   const isUpdateStatus = useSelector(isEditStatusOrderSelector);
   const isOrderDetail = useSelector(isOrderDetailSelector);
+  const [search, setSearch] = useState('');
   const dispatch = useDispatch();
   console.log('fr', isOrderDetail);
   useEffect(() => {
@@ -61,6 +66,29 @@ function OrderPage(props) {
     setPage(page);
     setLoading(true);
   };
+  const handleSearchOrder = async (e) => {
+    e.preventDefault();
+    if (search !== '') {
+      const result = await getAllOrder({
+        page: page,
+        search,
+      });
+      if (result === 500 || result === 401) {
+        ErrorToast('Something went wrong. Please try again', 3000);
+      } else {
+        setOrder(result, 'page');
+      }
+      return;
+    }
+    const result = await getAllOrder({
+      page: page,
+    });
+    if (result === 500 || result === 401) {
+      ErrorToast('Something went wrong. Please try again', 3000);
+    } else {
+      setOrder(result, 'page');
+    }
+  };
   return (
     <>
       <section>
@@ -74,7 +102,21 @@ function OrderPage(props) {
           )}
           {!isUpdateStatus && !isOrderDetail ? (
             <div className="row">
-              <div className="mb-3 d-flex justify-content-between">Fillter</div>
+              <div className="d-flex justify-content-end">
+                <Form onSubmit={(e) => handleSearchOrder(e)}>
+                  <InputGroup>
+                    <Form.Control
+                      id="search-order"
+                      placeholder="Code order or customer"
+                      onChange={(e) => setSearch(e.target.value)}
+                    />
+
+                    <Button id="search-user" variant="danger" type="submit">
+                      <FaSearch />
+                    </Button>
+                  </InputGroup>
+                </Form>
+              </div>
             </div>
           ) : (
             ''
