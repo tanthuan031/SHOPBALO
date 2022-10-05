@@ -74,7 +74,10 @@ const ReviewDetail = () => {
           </span>
           <p className="fs-6 text-secondary">Content</p>
           <p>{reviewData.content}</p>
-          <img style={{ width: '150px', height: '150px' }} src={`${reviewData.image} `} />
+          <img
+            style={{ width: '150px', height: '150px' }}
+            src={`${URL_SERVER}/storage/rating/${reviewData.image} `}
+          />
         </div>
         <div className="d-flex justify-content-end">
           <Button
