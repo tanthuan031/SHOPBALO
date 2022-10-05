@@ -14,20 +14,34 @@ class ShowResource extends JsonResource
      */
     public function toArray($request)
     {
+        $products = $this->products;
+        $customers = $this->customers;
         return [
             'id' => $this->id,
-            'customers' => $this->customers->only([
-                'id', 'last_name', 'first_name',
-                'gender', 'phone', 'email',
-                'avatar', 'status', 'address',
-                'created_date', 'created_at'
-            ]),
-            'products' => $this->products->only([
-                'id',
-                'name', 'description',
-                'image', 'image_slide',
-                'status', 'created_at'
-            ]),
+            'customers' => [
+                'id' => $customers->id,
+                'last_name' => $customers->last_name,
+                'first_name' => $customers->first_name,
+                'full_name' => $customers->last_name . ' ' . $customers->first_name,
+                'gender' => $customers->gender,
+                'phone' => $customers->phone,
+                'email' => $customers->email,
+                'avatar' => env('APP_URL') . '/storage/Customer/' . $customers->avatar,
+                'status' => $customers->status,
+                'address' => $customers->address,
+                'created_date' => $customers->created_date,
+                'created_at' => $customers->created_at,
+
+            ],
+
+            'products' => [
+                'id' => $products->id,
+                'name' => $products->name,
+                'description' => $products->description,
+                'status' => $products->status,
+                'image' => env('APP_URL') . '/storage/Product/' . $products->image,
+                'created_at' => $products->created_at,
+            ],
             'point' => $this->point,
             'status' => $this->status,
             'content' => $this->content,

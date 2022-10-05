@@ -60,7 +60,7 @@ class DiscountService
             'value' => (float)$request->value,
             'status' => $request->status == 'Active' ? true : false,
             'description' => $request->description,
-            'point' => empty($request->point) && is_null($request->point) ? false : (int)$request->point,
+            'point' => empty($request->point) && is_null($request->point) && $request->point < 0 ? false : (int)$request->point,
         ];
         $discount = $this->discountRepo->create($payload);
         $data = [];
