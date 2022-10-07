@@ -2,12 +2,11 @@
 
 namespace Database\Seeders;
 
+use App\Models\Customer;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
-use App\Models\Staff;
-use Illuminate\Support\Facades\DB;
 
-class StaffSeeder extends Seeder
+class CustomerSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -16,8 +15,6 @@ class StaffSeeder extends Seeder
      */
     public function run()
     {
-         Staff::factory()
-            ->count(5)
-            ->create();
+        Customer::factory()->count(10)->create();
     }
 }

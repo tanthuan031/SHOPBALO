@@ -1,30 +1,24 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { Button, Col, Form, Row } from 'react-bootstrap';
-import { Controller, useForm} from 'react-hook-form';
+import { Controller, useForm } from 'react-hook-form';
 import Select from 'react-select';
-import { yupResolver } from '@hookform/resolvers/yup';
-import {  editSchema } from '../../../adapter/staff';
+import { URL_SERVER } from '../../../utils/urlPath';
+import { yupResolver } from '@hookform/resolvers/yup/dist/yup';
+import { editSchema } from '../../../adapter/customer';
 import { useDispatch, useSelector } from 'react-redux';
-import { BlockUI } from '../../Layouts/Notiflix';
+import { customerByIdSelector} from '../../../redux/selectors';
+import { setIsEdit } from '../../../redux/reducer/customer/customer.reducer';
+import { formatDate } from '../../../utils/formatDate';
 import Notiflix from 'notiflix';
 import { ErrorToast, SuccessToast } from '../../Layouts/Alerts';
-import { setIsEdit } from '../../../redux/reducer/staff/staff.reducer';
-import {  staffByIdSelector } from '../../../redux/selectors/';
-import { editStaff } from '../../../api/Staff/staffAPI';
-import { URL_SERVER } from '../../../utils/urlPath';
-import './style.css'
-import { formatDate } from '../../../utils/formatDate';
+import { editCustomer } from '../../../api/Customer/customerAPI';
 
-const StaffEdit = props => {
-  const staffSelector=useSelector(staffByIdSelector)
-  const dataStaff=staffSelector.data
-  const [imageAvatarStaffShow,setImageAvatarStaffShow] = useState(false)
-  const [status,setStatus]= useState(dataStaff.status)
-  const data_roles=[
-    { value: 1, label: 'Admin' },
-    { value: 2, label: 'CTO' },
-  ]
+const CustomerEdit = props => {
+  const customerSelector=useSelector(customerByIdSelector)
+  const dataCustomer=customerSelector.data
+  const [imageAvatarCustomerShow,setImageAvatarCustomerShow] = useState(false)
+  const [status,setStatus]= useState(dataCustomer.status)
   const data_gender=[
     { value: 1, label: 'male' },
     { value: 2, label: 'female' },
@@ -38,24 +32,23 @@ const StaffEdit = props => {
       mode: 'onChange',
       resolver: yupResolver(editSchema),
       defaultValues: {
-        first_name: dataStaff.first_name,
-        last_name: dataStaff.last_name,
-        role_id:   { value: dataStaff.role_id, label: dataStaff.role_name },
-        gender: { value: 1, label: dataStaff.gender },
-        phone: dataStaff.phone,
-        password: dataStaff.password,
-        email: dataStaff.email,
-        avatar: dataStaff.avatar,
-        address: dataStaff.address,
-        created_date: dataStaff.created_date,
-        status: dataStaff.status
+        first_name: dataCustomer.first_name,
+        last_name: dataCustomer.last_name,
+        point: dataCustomer.point,
+        gender: { value: 1, label: dataCustomer.gender },
+        phone: dataCustomer.phone,
+        password: dataCustomer.password,
+        email: dataCustomer.email,
+        avatar: dataCustomer.avatar,
+        address: dataCustomer.address,
+        created_date: dataCustomer.created_date,
+        status: dataCustomer.status
       }
     }
   );
-
   const dispatch = useDispatch();
 
-  const backtoManageStaff = () => {
+  const backtoManageCustomer = () => {
     dispatch(setIsEdit(false));
 
   };
@@ -68,36 +61,35 @@ const StaffEdit = props => {
     });
   const onSubmit = async (data) => {
    // console.log(data)
-   BlockUI('#root', 'fixed');
+    // BlockUI('#root', 'fixed');
     const temDirtyFields = { ...dirtyFields };
     Object.keys(temDirtyFields).map((key) => {
       if(key==='gender')  temDirtyFields[key]=data[key].label;
-      else if(key==='role_id')  temDirtyFields[key]=data[key].value;
-     else  temDirtyFields[key] = data[key];
+      else  temDirtyFields[key] = data[key];
 
     });
-   //console.log('dataBefore:', temDirtyFields);
-   if(temDirtyFields.avatar!==undefined) {
+   // console.log('dataBefore:', temDirtyFields);
+    if(temDirtyFields.avatar!==undefined) {
       const image = await toBase64(temDirtyFields.avatar);
       temDirtyFields.avatar=[image]
     }
     if(temDirtyFields.created_date!==undefined) temDirtyFields.created_date=formatDate(temDirtyFields.created_date,'YYYY-MM-DD')
-  //console.log('dataAfter:', temDirtyFields);
+   // console.log('dataAfter:', temDirtyFields);
 
-    const result= await editStaff(dataStaff.id,temDirtyFields);
-   // console.log('Result:',result);
+    const result= await editCustomer(dataCustomer.id,temDirtyFields);
+    // console.log('Result:',result);
     Notiflix.Block.remove('#root');
     if (result === 200) {
-      SuccessToast('Update staff successfully', 3000);
-      props.backToStaffList([
+      SuccessToast('Update customer successfully', 3000);
+      props.backToCustomerList([
         {
           key: 'updated_at',
           value: 'desc',
         },
       ]);
-      backtoManageStaff();
+      backtoManageCustomer();
     } else if (result === 404) {
-      ErrorToast('Update staffs unsuccessfully', 3000);
+      ErrorToast('Update customers unsuccessfully', 3000);
       Notiflix.Block.remove('#root');
     } else if (result === 401) {
       Notiflix.Block.remove('#root');
@@ -111,15 +103,14 @@ const StaffEdit = props => {
   const uploadImage = (e) => {
     let image = e.target.files[0];
     if (e.target.files.length > 0) {
-      setImageAvatarStaffShow(URL.createObjectURL(image))
+      setImageAvatarCustomerShow(URL.createObjectURL(image))
     }
 
   };
-
   return (
     <div className=' edit_form d-flex justify-content-center'>
       <Form className='font_add_edit_prduct' onSubmit={handleSubmit(onSubmit)} encType='multipart/form-data'>
-        <h5 className='text-danger font-weight-bold mb-3'>Update Staff</h5>
+        <h5 className='text-danger font-weight-bold mb-3'>Update Customer</h5>
         <Row>
           <Col>
             <Form.Group className="mb-3" >
@@ -132,8 +123,8 @@ const StaffEdit = props => {
                             <Form.Control onChange={onChange} value={value} ref={ref}
                                           isInvalid={errors.fisrt_name}
                                           placeholder="Enter fisrt_name"
-                                        />)}
-                         />
+                            />)}
+              />
               <div className="d-flex justify-content-between">
                 <small className="text-red font-weight-semi">{errors?.first_name?.message}</small>
               </div>
@@ -150,7 +141,7 @@ const StaffEdit = props => {
                                           placeholder="Enter last_name"
                                           {...register("last_name", {required: true, })}
                             />)}
-                         />
+              />
               <div className="d-flex justify-content-between">
                 <small className="text-red font-weight-semi">{errors?.last_name?.message}</small>
               </div>
@@ -169,7 +160,7 @@ const StaffEdit = props => {
                                           placeholder="Enter phone"
                                           {...register("phone", {required: true,pattern:/^0[3|7|8|9|5]\d{7,8}$/ })}
                             />)}
-                         />
+              />
               <div className="d-flex justify-content-between">
                 <small className="text-red font-weight-semi">{errors?.phone?.message}</small>
               </div>
@@ -189,7 +180,7 @@ const StaffEdit = props => {
                                             pattern: /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/
                                           })}
                             />)}
-                          />
+              />
               <div className="d-flex justify-content-between">
                 <small className="text-red font-weight-semi">{errors?.email?.message}</small>
               </div>
@@ -199,27 +190,19 @@ const StaffEdit = props => {
         <Row>
           <Col>
             <Form.Group className="mb-3" >
-              <Form.Label className="label-input" >Role</Form.Label>
-              <Controller
-                name="role_id"
-                rules={{ required: true }}
-                control={control}
-                render={({ field }) => <Select
-                  {...field}
-                  options={data_roles}
-                  theme={(theme) => ({
-                    ...theme,
-                    colors: {
-                      ...theme.colors,
-                      primary25: '#f9d2e4',
-                      primary50: '#f9d2e4',
-                      primary: '#d6001c',
-                    },
-                  })}
-                />}
+              <Form.Label className="label-input" >Point</Form.Label>
+              <Controller control={control} name="point"
+                          defaultValue=""
+                          {...register("point", {required: true, })}
+                          ref={null}
+                          render={({ field: { onChange, onBlur, value, ref } }) => (
+                            <Form.Control onChange={onChange} value={value} ref={ref}
+                                          isInvalid={errors.point}
+                                          placeholder="Enter point"
+                            />)}
               />
               <div className="d-flex justify-content-between">
-                <small className="text-red font-weight-semi">{errors?.role_id?.message}</small>
+                <small className="text-red font-weight-semi">{errors?.point?.message}</small>
               </div>
             </Form.Group>
           </Col>
@@ -262,7 +245,7 @@ const StaffEdit = props => {
                             <Form.Control  onChange={onChange} value={value} ref={ref} type="date"
                                            isInvalid={errors.created_date}
                                            placeholder="Enter created date" />)}
-                        />
+              />
               <div className="d-flex justify-content-between">
                 <small className="text-red font-weight-semi">{errors?.created_date?.message}</small>
               </div>
@@ -272,22 +255,22 @@ const StaffEdit = props => {
             <Form.Group className="mb-3" >
               <Form.Label className="label-input" >Status</Form.Label>
               {data_status.map((item,index) => (
-                  <Form.Check
-                    key={index}
-                    onChange={e=>{
-                      setValue('status', e.target.value,{shouldDirty: true})
-                      setStatus(item.value)
-                    }}
-                    label={item.label}
-                    name="status"
-                    type='radio'
-                   checked={status===item.value}
+                <Form.Check
+                  key={index}
+                  onChange={e=>{
+                    setValue('status', e.target.value,{shouldDirty: true})
+                    setStatus(item.value)
+                  }}
+                  label={item.label}
+                  name="status"
+                  type='radio'
+                  checked={status===item.value}
                   //  className={status.value===1?'status-active':'status-disabled'}
-                    value={item.value}
-                  />
+                  value={item.value}
+                />
               ))}          <div className="d-flex justify-content-between">
-                <small className="text-red font-weight-semi">{errors?.password?.message}</small>
-              </div>
+              <small className="text-red font-weight-semi">{errors?.password?.message}</small>
+            </div>
             </Form.Group>
           </Col>
 
@@ -318,12 +301,12 @@ const StaffEdit = props => {
             setValue('avatar', e.target.files[0], { shouldDirty: true })
             uploadImage(e)
           } }  />
-         <div className="d-flex container-avatar">
-           <img className="img-responsive image-avatar" src={
-            imageAvatarStaffShow? imageAvatarStaffShow:
-             `${URL_SERVER}/storage/staff/${dataStaff.avatar}`
-           }  alt={'avatar'}/>
-         </div>
+          <div className="d-flex container-avatar">
+            <img className="img-responsive image-avatar" src={
+              imageAvatarCustomerShow? imageAvatarCustomerShow:
+                `${URL_SERVER}/storage/customer/${dataCustomer.avatar}`
+            }  alt={'avatar'}/>
+          </div>
         </Form.Group>
 
 
@@ -340,7 +323,7 @@ const StaffEdit = props => {
           </Button>
           <Button
             id='product-save-cancel'
-            onClick={() => backtoManageStaff()}
+            onClick={() => backtoManageCustomer()}
             variant='outline-secondary'
             className='font-weight-bold'
           >
@@ -353,31 +336,8 @@ const StaffEdit = props => {
   );
 };
 
-StaffEdit.propTypes = {
-  backToStaffList: PropTypes.func.isRequired,
+CustomerEdit.propTypes = {
+  backToCustomerList: PropTypes.func.isRequired,
 };
 
-export default StaffEdit;
-
-
-
-
-
-
-{/* <Controller control={control} name="status"
-                          defaultValue=""
-                          render={({ field: { onChange, onBlur, value, ref } }) => (
-                           <>
-                             <Form.Check  onChange={onChange} value={value} ref={ref}
-                                         type='radio'
-                                          name='status'
-                                          id={1}
-                                         label='Active'/>
-                             <Form.Check  onChange={onChange} value={value} ref={ref}
-                                         type='radio'
-                                          name='status'
-                                          id={0}
-                                         label='Disable'/>
-                           </>)
-              }
-                       />*/}
+export default CustomerEdit ;
