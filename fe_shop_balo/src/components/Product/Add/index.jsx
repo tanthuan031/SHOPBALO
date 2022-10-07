@@ -11,11 +11,13 @@ import { addProduct } from '../../../api/Product/productAPI';
 import { setIsAdd } from '../../../redux/reducer/product/product.reducer';
 import { ErrorToast, SuccessToast } from '../../Layouts/Alerts';
 import CustomEditor from '../../Layouts/Edittor';
+import ImageCustom from '../../Layouts/Image';
 import { BlockUI } from '../../Layouts/Notiflix';
 import './style.css';
 function ProductAdd(props) {
   const [errorImage, setErrorImage] = useState('');
   const [errorDescription, setErrorDescription] = useState('');
+  const [imageOne, setImageOne] = useState('');
   const {
     register,
     setValue,
@@ -142,6 +144,12 @@ function ProductAdd(props) {
       setFileImageSlideShow({ file: [...fileImageSlideShow.file, URL.createObjectURL(e.target.files[0])] });
     }
   };
+  const uploadImage = (e) => {
+    let image = e.target.files[0];
+    if (e.target.files.length > 0) {
+      setImageOne(URL.createObjectURL(image));
+    }
+  };
   const onRemoveImage = (id) => {
     image_slide.file.forEach((value, index) => {
       if (index === id) {
@@ -263,7 +271,14 @@ function ProductAdd(props) {
                   <p className="font-weight-bold">Image</p>
                 </td>
                 <td width="70%">
-                  <Form.Control id="image" type="file" {...register('image')} />
+                  <Form.Control id="image" type="file" {...register('image')} onChange={(e) => uploadImage(e)} />
+                  <div className="image-product-slide">
+                    {imageOne && (
+                      <div className="d-flex image-product-slide ">
+                        <ImageCustom className="multi-preview-slide-product" src={imageOne} alt={'image_product'} />
+                      </div>
+                    )}
+                  </div>
                   <div className="d-flex justify-content-between">
                     <small className="text-red font-weight-semi">{}</small>
                   </div>

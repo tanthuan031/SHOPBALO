@@ -20,6 +20,7 @@
   height: 100px;
   background-repeat: no-repeat;
   object-fit: contain;
+  border-radius: 10px;
 }
 
 .btn-delete-product-slide {

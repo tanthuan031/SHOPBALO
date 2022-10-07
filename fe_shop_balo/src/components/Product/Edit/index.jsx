@@ -16,9 +16,11 @@ import { BlockUI } from '../../Layouts/Notiflix';
 import { FaTimesCircle } from 'react-icons/fa';
 import { productByIdSelector } from '../../../redux/selectors/product/product.selector';
 import { getAll } from '../../../api/Category/categoryAPI';
+import ImageCustom from '../../Layouts/Image';
 function ProductEdit(props) {
   const dispatch = useDispatch();
   const productDetailById = useSelector(productByIdSelector);
+  const [imageOne, setImageOne] = useState(productDetailById.image);
   const {
     register,
     setValue,
@@ -94,10 +96,6 @@ function ProductEdit(props) {
     props.dataCategory.map((item) => {
       typeOptionsCategory.push({ value: item.id, label: item.name });
     });
-  const typeOptionsColor = [
-    { value: '1', label: 'Green' },
-    { value: '2', label: 'Blue' },
-  ];
   const typeOptionsSatus = [
     { value: '0', label: 'Active' },
     { value: '1', label: 'Out of stock' },
@@ -160,7 +158,6 @@ function ProductEdit(props) {
     dispatch(setIsEdit(false));
   };
   const uploadImageSlide = async (e) => {
-    console.log('Uploading image slide', fileImageSlide);
     if (e.target.files.length > 0) {
       setFileImageSlide({ file: [...fileImageSlide.file, e.target.files[0]] });
       setFileImageSlideShow({ file: [...fileImageSlideShow.file, URL.createObjectURL(e.target.files[0])] });
@@ -177,7 +174,12 @@ function ProductEdit(props) {
     setValue('image_slide', image_slide);
     fileImageSlideShow.file.splice(id, 1);
   };
-
+  const uploadImage = (e) => {
+    let image = e.target.files[0];
+    if (e.target.files.length > 0) {
+      setImageOne(URL.createObjectURL(image));
+    }
+  };
   return (
     <>
       <div className=" edit_form d-flex justify-content-center">
@@ -289,7 +291,14 @@ function ProductEdit(props) {
                   <p className="font-weight-bold">Image</p>
                 </td>
                 <td width="70%">
-                  <Form.Control id="image" type="file" {...register('image')} />
+                  <Form.Control id="image" type="file" {...register('image')} onChange={(e) => uploadImage(e)} />
+                  <div className="image-product-slide">
+                    {imageOne && (
+                      <div className="d-flex image-product-slide ">
+                        <ImageCustom className="multi-preview-slide-product" src={imageOne} alt={'image_product'} />
+                      </div>
+                    )}
+                  </div>
                   <div className="d-flex justify-content-between">
                     <small className="text-red font-weight-semi">
                       {/* {errors.image?.message || image.length === 0 ? 'Image can not blank' : ''} */}

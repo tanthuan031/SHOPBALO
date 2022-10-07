@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Button, Form } from 'react-bootstrap';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Controller, useForm } from 'react-hook-form';
@@ -11,9 +11,10 @@ import { setIsAdd } from '../../../redux/reducer/category/category.reducer';
 import { BlockUI } from '../../Layouts/Notiflix';
 import { ErrorToast, SuccessToast } from '../../Layouts/Alerts';
 import Notiflix from 'notiflix';
+
 function CreateCategoryForm(props) {
   const dispatch = useDispatch();
-
+  const [imageCategory, setImageCategory] = useState();
   const category = [];
   const {
     register,
@@ -31,7 +32,7 @@ function CreateCategoryForm(props) {
     },
   });
 
-  props.data.map(item => {
+  props.data.map((item) => {
     category.push({
       value: item.id,
       label: item.name,
@@ -41,8 +42,6 @@ function CreateCategoryForm(props) {
     dispatch(setIsAdd(false));
   };
 
-
-
   const toBase64 = (file) =>
     new Promise((resolve, reject) => {
       const reader = new FileReader();
@@ -51,31 +50,34 @@ function CreateCategoryForm(props) {
       reader.onerror = (error) => reject(error);
     });
   const onSubmit = async (data) => {
-
     if (data.image.length != 0) {
       BlockUI('#root', 'fixed');
       const image = await toBase64(data.image[0]);
       const resultData = {
         name: data.Category,
         parent_id: data.parent_id === '' ? 0 : data.parent_id,
-        image: image
+        image: image,
       };
       const result = await addCategory(resultData);
       console.log(result);
       Notiflix.Block.remove('#root');
       if (result.status === 200) {
-
         SuccessToast('Create category successfully', 3000);
 
         backtoManagerUser();
       } else {
         ErrorToast('Something went wrong. Please try again', 3000);
       }
-
     } else {
       ErrorToast('Image is invalid', 3000);
     }
-  }
+  };
+  const uploadImage = (e) => {
+    let image = e.target.files[0];
+    if (e.target.files.length > 0) {
+      setImageCategory(URL.createObjectURL(image));
+    }
+  };
   return (
     <>
       <div className=" edit_form d-flex justify-content-center">
@@ -131,7 +133,14 @@ function CreateCategoryForm(props) {
                   <p className="font-weight-bold">Image</p>
                 </td>
                 <td width="70%">
-                  <Form.Control id="image" type="file" {...register('image')} />
+                  <Form.Control id="image" type="file" {...register('image')} onChange={(e) => uploadImage(e)} />
+                  <div className="image-product-slide">
+                    {imageCategory && (
+                      <div className="d-flex image-product-slide ">
+                        <img className="multi-preview-slide-product" src={imageCategory} alt={'image_product'} />
+                      </div>
+                    )}
+                  </div>
                   <div className="d-flex justify-content-between">
                     <small className="text-red font-weight-semi">
                       <small className="text-red font-weight-semi">{errors?.image?.message}</small>
