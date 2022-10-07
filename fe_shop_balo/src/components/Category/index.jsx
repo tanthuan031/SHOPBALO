@@ -1,15 +1,14 @@
-
-import Notiflix from "notiflix";
-import { useState } from "react";
-import { FaPen, FaTimesCircle } from "react-icons/fa";
-import { useDispatch } from "react-redux";
-import { destroyCategory, showCategory } from "../../api/Category/categoryAPI";
-import { setCategory, setIsAdd, setIsEdit, setIsReset } from "../../redux/reducer/category/category.reducer";
-import { IMG_NOT_FOUND } from "../../utils/urlPath";
-import { ErrorToast, SuccessToast } from "../Layouts/Alerts";
-import Modal from "../Layouts/Modal";
-import { BlockUI } from "../Layouts/Notiflix";
-import TableLayout from "../Layouts/Table";
+import Notiflix from 'notiflix';
+import { useState } from 'react';
+import { FaPen, FaTimesCircle } from 'react-icons/fa';
+import { useDispatch } from 'react-redux';
+import { destroyCategory, showCategory } from '../../api/Category/categoryAPI';
+import { setCategory, setIsAdd, setIsEdit, setIsReset } from '../../redux/reducer/category/category.reducer';
+import { ErrorToast, SuccessToast } from '../Layouts/Alerts';
+import ImageCustom from '../Layouts/Image';
+import Modal from '../Layouts/Modal';
+import { BlockUI } from '../Layouts/Notiflix';
+import TableLayout from '../Layouts/Table';
 import './style.css';
 
 function CategoryTable(props) {
@@ -26,15 +25,15 @@ function CategoryTable(props) {
       dispatch(setIsAdd(true));
     }
     return;
-  }
+  };
   const handleShowModal = (id) => {
     setShow(true);
     setIsCheck(id);
-  }
+  };
   const handleSetState = () => {
     setShow(false);
     setIsCheck(null);
-  }
+  };
   const handleDelete = async () => {
     BlockUI('#root', 'fixed');
     if (isCheck !== null) {
@@ -48,44 +47,35 @@ function CategoryTable(props) {
       handleSetState();
       dispatch(setIsReset(''));
     }
-
-
-
-  }
+  };
   const bodyPopUp = () => {
     return (
       <div className="modal-content">
         <div className="modal-body">
-          <h5>Are you sure this action won't undo?.</h5 >
+          <h5>Are you sure this action won't undo?.</h5>
         </div>
         <div className="modal-footer">
-          <button type="button" className="btn btn-danger" onClick={() => handleDelete()}>Delete</button>
-          <button type="button" className="btn btn-secondary" onClick={() => setShow(false)} >Close</button>
+          <button type="button" className="btn btn-danger" onClick={() => handleDelete()}>
+            Delete
+          </button>
+          <button type="button" className="btn btn-secondary" onClick={() => setShow(false)}>
+            Close
+          </button>
         </div>
       </div>
     );
-  }
+  };
   const renderBody = (body) => {
-
-    return (body.length <= 0 ? (
-      <>
-        <tr className="text-center">
-          <td colSpan={4} >Categorys not found.</td>
-        </tr>
-      </>) : (
-
+    return (
+      body.length > 0 &&
       body.map((item, index) => (
-        <tr
-          key={index}
-          className=" font-weight-bold "
-
-        >
+        <tr key={index} className=" font-weight-bold ">
           <td>{++index}</td>
           <td>
             <div className="category_parrent">
-              <img className="category_image" src={item.image || IMG_NOT_FOUND} alt="" />
+              {/* <img className="category_image" src={item.image || IMG_NOT_FOUND} alt="" /> */}
+              <ImageCustom src={item.image} className="w-100 " />
             </div>
-
           </td>
           <td>{item.name}</td>
 
@@ -117,14 +107,12 @@ function CategoryTable(props) {
           </td>
         </tr>
       ))
-
-    )
-    )
-  }
+    );
+  };
 
   return (
     <>
-      <div className="container-fluid " >
+      <div className="container-fluid ">
         <div className="row justify-content-center">
           <TableLayout tableHeader={props.tableHeader} tableBody={renderBody(props.tableBody)} />
         </div>
@@ -137,17 +125,7 @@ function CategoryTable(props) {
         className="modal-popup"
       />
     </>
-
-
-  )
-
-
-
+  );
 }
-
-
-
-
-
 
 export default CategoryTable;

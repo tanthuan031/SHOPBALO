@@ -15,6 +15,7 @@ import Modal from './../Layouts/Modal/index';
 import { ErrorToast, SuccessToast } from './../Layouts/Alerts/index';
 import { editReview } from './../../api/Review/reviewAPI';
 import { formatter } from '../../utils/formatCurrency';
+import ImageCustom from '../Layouts/Image';
 
 const ReviewTable = (props) => {
   const dispatch = useDispatch();
@@ -92,7 +93,10 @@ const ReviewTable = (props) => {
           <td>{++index}</td>
           <td>
             <div className="d-flex gap-2">
-              <img className="img-avatar " src={`${URL_SERVER}/storage/product/${item.products.image} `} />
+              <div className="img-avatar ">
+                <ImageCustom src={`${URL_SERVER}/storage/product/${item.products.image} `} className="w-100 " />
+              </div>
+
               <div className="d-flex flex-column">
                 <p>{item.products.name}</p>
                 {/* <span id="text-price">{formatter.format(item.products.price)}</span> */}
@@ -102,7 +106,10 @@ const ReviewTable = (props) => {
 
           <td>
             <div className="d-flex gap-2">
-              <img className="img-avatar " src={` ${URL_SERVER}/storage/customer/${item.customers.image} `} />
+              {/* <img className="img-avatar " src={` ${URL_SERVER}/storage/customer/${item.customers.image} `} /> */}
+              <div className="img-avatar ">
+                <ImageCustom src={` ${URL_SERVER}/storage/customer/${item.customers.image} `} className="w-100 " />
+              </div>
               <div className="d-flex flex-column">
                 <p>{`${item.customers.last_name} ${item.customers.first_name}`}</p>
                 <span id="text-price">{item.customers.email}</span>

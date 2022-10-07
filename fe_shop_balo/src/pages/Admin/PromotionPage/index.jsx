@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getAllDisount } from '../../../api/Promotion/promotionAPI';
 import { promotion_table_header } from '../../../asset/data/promotion_table_header';
 import { ErrorToast } from '../../../components/Layouts/Alerts';
+import NotFoundData from '../../../components/Layouts/NotFoundData';
 import { BlockUI } from '../../../components/Layouts/Notiflix';
 import PaginationUI from '../../../components/Layouts/Pagination';
 import SortValue from '../../../components/Promotion/SortValue';
@@ -144,7 +145,11 @@ const PromotionPage = () => {
             <div className="row justify-content-center">
               {!isLoading ? (
                 <>
-                  <PromotionTable tableHeader={data_promotion_table_header} tableBody={data} />
+                  {data.length > 0 ? (
+                    <PromotionTable tableHeader={data_promotion_table_header} tableBody={data} />
+                  ) : (
+                    <NotFoundData />
+                  )}
                   {totalRecord > 10 && (
                     <PaginationUI
                       handlePageChange={handleChangePage}

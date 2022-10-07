@@ -8,6 +8,7 @@ import { setIsEdit } from '../../../redux/reducer/review/review.reducer';
 import { isSelectorReview } from './../../../redux/selectors/review/review.selector';
 import { FaStar } from 'react-icons/fa';
 import { URL_SERVER } from './../../../utils/urlPath';
+import ImageCustom from '../../Layouts/Image';
 
 const ReviewDetail = () => {
   const dispatch = useDispatch();
@@ -23,7 +24,9 @@ const ReviewDetail = () => {
       <div className="mt-2 p-4 detail-review container w-75 rounded">
         <div className="d-flex gap-3 justify-content-between">
           <div className="d-flex gap-3 align-items-center">
-            <img className="img-avatar " src={`${URL_SERVER}/storage/customer/${reviewData.customers.image} `} />
+            <div className="img-avatar ">
+              <ImageCustom src={`${URL_SERVER}/storage/customer/${reviewData.customers.image} `} className="w-100 " />
+            </div>
             <h1 className="fs-5 fw-bold">{`${reviewData.customers.last_name} ${reviewData.customers.first_name}`}</h1>
           </div>
           <span className="d-flex justify-self-end">
@@ -74,7 +77,14 @@ const ReviewDetail = () => {
           </span>
           <p className="fs-6 text-secondary">Content</p>
           <p>{reviewData.content}</p>
-          <img style={{ width: '150px', height: '150px' }} src={`${reviewData.image} `} />
+          {/* <img style={{ width: '150px', height: '150px' }} src={`${reviewData.image} `} /> */}
+          {/* <div className="image-review"> */}
+          <ImageCustom
+            src={`${reviewData.image} `}
+            className="image-review"
+            style={{ width: '150px', height: '150px' }}
+          />
+          {/* </div> */}
         </div>
         <div className="d-flex justify-content-end">
           <Button

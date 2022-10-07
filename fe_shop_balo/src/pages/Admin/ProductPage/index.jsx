@@ -3,10 +3,11 @@ import React, { useState } from 'react';
 import { Button, Form, InputGroup } from 'react-bootstrap';
 import { FaSearch } from 'react-icons/fa';
 import { useDispatch, useSelector } from 'react-redux';
-import { getAll, getAllNotPage } from '../../../api/Category/categoryAPI';
+import { getAllNotPage } from '../../../api/Category/categoryAPI';
 import { getAllProducts } from '../../../api/Product/productAPI';
 import { product_table_header } from '../../../asset/data/product_table_header';
 import { ErrorToast } from '../../../components/Layouts/Alerts';
+import NotFoundData from '../../../components/Layouts/NotFoundData';
 import { BlockUI } from '../../../components/Layouts/Notiflix';
 import PaginationUI from '../../../components/Layouts/Pagination';
 import Skeleton from '../../../components/Layouts/Skeleton';
@@ -31,7 +32,7 @@ export function ProductPage(props) {
   const [perPage] = useState(10);
   const isAdd = useSelector(isAddSelector);
   const isEdit = useSelector(isEditSelector);
-  console.log(isEdit)
+  console.log(isEdit);
   const [sort, setCurrentSort] = useState([
     {
       key: 'id',
@@ -100,7 +101,7 @@ export function ProductPage(props) {
     setProduct(result, 'page');
     setLoading(false);
   };
-  
+
   const handleCurrentFilterStatus = async (value) => {
     let tempStatus;
     setLoading(true);
@@ -254,7 +255,11 @@ export function ProductPage(props) {
             <div className="row justify-content-center">
               {!loading ? (
                 <>
-                  <ProductTable tableHeader={data_product_table_header} tableBody={data} />
+                  {data.length > 0 ? (
+                    <ProductTable tableHeader={data_product_table_header} tableBody={data} />
+                  ) : (
+                    <NotFoundData />
+                  )}
                   {totalRecord > 10 && (
                     <PaginationUI
                       handlePageChange={handlePageChange}

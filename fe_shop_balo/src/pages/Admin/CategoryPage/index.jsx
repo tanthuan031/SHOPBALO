@@ -10,6 +10,7 @@ import CreateCategoryForm from '../../../components/Category/Add';
 import EditCategory from '../../../components/Category/Edit';
 import Sort from '../../../components/Category/Sort';
 import { ErrorToast } from '../../../components/Layouts/Alerts';
+import NotFoundData from '../../../components/Layouts/NotFoundData';
 import { BlockUI } from '../../../components/Layouts/Notiflix';
 import PaginationUI from '../../../components/Layouts/Pagination';
 import Skeleton from '../../../components/Layouts/Skeleton';
@@ -81,7 +82,7 @@ export function CategoryPage(props) {
       return false;
     } else {
       setData(result.data);
-      console.log("🚀 ~ file: index.jsx ~ line 85 ~ handleChangePage ~ data", data)
+      console.log('🚀 ~ file: index.jsx ~ line 85 ~ handleChangePage ~ data', data);
 
       setTotalRecords(result.meta.total);
 
@@ -138,7 +139,12 @@ export function CategoryPage(props) {
             <div className="row justify-content-center">
               {!loading ? (
                 <>
-                  <CategoryTable tableHeader={data_category_table_header} tableBody={data} />
+                  {data.length > 0 ? (
+                    <CategoryTable tableHeader={data_category_table_header} tableBody={data} />
+                  ) : (
+                    <NotFoundData />
+                  )}
+
                   {totalRecord > 10 && (
                     <PaginationUI
                       handlePageChange={handleChangePage}

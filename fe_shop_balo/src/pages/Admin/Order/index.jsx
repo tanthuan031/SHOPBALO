@@ -6,6 +6,7 @@ import { getAllOrder } from '../../../api/order/indexAPI';
 
 import { order_table_header } from '../../../asset/data/order_table_header';
 import { ErrorToast } from '../../../components/Layouts/Alerts';
+import NotFoundData from '../../../components/Layouts/NotFoundData';
 import PaginationUI from '../../../components/Layouts/Pagination';
 import Skeleton from '../../../components/Layouts/Skeleton';
 import { OrderTable } from '../../../components/Order';
@@ -126,7 +127,11 @@ function OrderPage(props) {
               <>
                 {!loading ? (
                   <>
-                    <OrderTable tableHeader={data_order_table_header} tableBody={data} />
+                    {data.length > 0 ? (
+                      <OrderTable tableHeader={data_order_table_header} tableBody={data} />
+                    ) : (
+                      <NotFoundData />
+                    )}
 
                     {totalRecord > 10 && (
                       <PaginationUI

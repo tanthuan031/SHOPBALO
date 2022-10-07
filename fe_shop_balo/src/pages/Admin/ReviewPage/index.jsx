@@ -1,7 +1,6 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import {
-  isAddSelectorReview,
   isEditSelectorReview,
   isSortSelectorReview,
   isStatusSelectorReview,
@@ -19,6 +18,7 @@ import PaginationUI from './../../../components/Layouts/Pagination/index';
 import ReviewDetail from './../../../components/Review/Detail/index';
 import SortPoint from './../../../components/Review/SortPoint/index';
 import FilterStatus from './../../../components/Review/FilterStatus/index';
+import NotFoundData from '../../../components/Layouts/NotFoundData';
 
 const ReviewPage = () => {
   const data_review_table_header = [...review_table_header];
@@ -45,12 +45,12 @@ const ReviewPage = () => {
       setPage(result.meta.current_page);
     }
     setIsLoading(false);
-    console.log(status)
+    console.log(status);
   };
 
   useEffect(() => {
     handleGetAllReview();
-  }, [ isEdit,sort, status]);
+  }, [isEdit, sort, status]);
 
   const handleChangePage = async (page) => {
     setPage(page);
@@ -70,9 +70,8 @@ const ReviewPage = () => {
 
   const handleSearh = async (e) => {
     e.preventDefault();
-    handleGetAllReview({search});
+    handleGetAllReview({ search });
   };
-
 
   return (
     <>
@@ -99,12 +98,7 @@ const ReviewPage = () => {
                           setSearch(e.target.value);
                         }}
                       />
-                      <Button
-                        id="seach-category"
-                        variant="danger"
-                        type="submit"
-                        onClick={handleSearh}
-                      >
+                      <Button id="seach-category" variant="danger" type="submit" onClick={handleSearh}>
                         <FaSearch />
                       </Button>
                     </InputGroup>
@@ -120,7 +114,11 @@ const ReviewPage = () => {
             <div className="row justify-content-center">
               {!isLoading ? (
                 <>
-                  <ReviewTable tableHeader={data_review_table_header} tableBody={data} />
+                  {data.length > 0 ? (
+                    <ReviewTable tableHeader={data_review_table_header} tableBody={data} />
+                  ) : (
+                    <NotFoundData />
+                  )}
                   {totalRecord > 10 && (
                     <PaginationUI
                       handlePageChange={handleChangePage}
@@ -135,7 +133,7 @@ const ReviewPage = () => {
               )}
             </div>
           ) : (
-            <>{isEdit && <ReviewDetail  />}</>
+            <>{isEdit && <ReviewDetail />}</>
           )}
         </div>
       </section>

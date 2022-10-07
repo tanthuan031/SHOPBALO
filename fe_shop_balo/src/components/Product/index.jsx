@@ -8,6 +8,7 @@ import { getStorageImage } from '../../api/StorageImage';
 import { setIsEdit, setProduct } from '../../redux/reducer/product/product.reducer';
 import { formatter } from '../../utils/formatCurrency';
 import { ErrorToast } from '../Layouts/Alerts';
+import ImageCustom from '../Layouts/Image';
 import Modal from '../Layouts/Modal';
 import { BlockUI } from '../Layouts/Notiflix';
 import TableLayout from '../Layouts/Table';
@@ -50,6 +51,9 @@ export function ProductTable(props) {
       ErrorToast('Something went wrong. Please try again', 3000);
     }
   };
+  // const img = checkImage('http://127.0.0.1:8000/storage/ProductSlide/img2022091909564118842500.jpeg');
+  // console.log('s',img);
+
   const renderTableBody = () => {
     return props.tableBody.map((item, index) => {
       return (
@@ -109,13 +113,16 @@ export function ProductTable(props) {
               {dataImageSlide.map((value, index) => {
                 return (
                   <Carousel.Item key={index}>
-                    <img
+                    {/* <img
                       src={`${value}`}
                       // alt={props.urlImage}
                       width="100%"
                       height="70%"
-                      className="d-block w-100 app-border-8px image-product-detail d-flex justify-content-center"
-                    />
+                      
+                    /> */}
+                    <div className="image-product-detail">
+                      <ImageCustom src={`${value}`} className="w-100 " />
+                    </div>
                   </Carousel.Item>
                 );
               })}
