@@ -40,13 +40,14 @@ function CategoryTable(props) {
     if (isCheck !== null) {
       const result = await destroyCategory(isCheck);
       Notiflix.Block.remove('#root');
-      if (result === 200) {
+      console.log(result.status);
+      if (result.status === 200) {
         SuccessToast('Delete category successfully.', 3000);
       } else {
-        ErrorToast('Delete category failed.', 3000);
+        ErrorToast(result.message || 'Delete category failed.', 3000);
       }
       handleSetState();
-      dispatch(setIsReset(''));
+      dispatch(setIsReset(Math.random()));
     }
 
 

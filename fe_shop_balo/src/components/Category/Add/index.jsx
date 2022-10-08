@@ -11,10 +11,13 @@ import { setIsAdd } from '../../../redux/reducer/category/category.reducer';
 import { BlockUI } from '../../Layouts/Notiflix';
 import { ErrorToast, SuccessToast } from '../../Layouts/Alerts';
 import Notiflix from 'notiflix';
+import { useRef } from 'react';
 function CreateCategoryForm(props) {
   const dispatch = useDispatch();
 
   const category = [];
+  const useRefSelect = useRef('');
+
   const {
     register,
     setValue,
@@ -35,6 +38,7 @@ function CreateCategoryForm(props) {
     category.push({
       value: item.id,
       label: item.name,
+      parent_id: item.parent_id
     });
   });
   const backtoManagerUser = () => {
@@ -61,8 +65,8 @@ function CreateCategoryForm(props) {
         image: image
       };
       const result = await addCategory(resultData);
-      console.log(result);
       Notiflix.Block.remove('#root');
+
       if (result.status === 200) {
 
         SuccessToast('Create category successfully', 3000);
@@ -76,6 +80,20 @@ function CreateCategoryForm(props) {
       ErrorToast('Image is invalid', 3000);
     }
   }
+  const categoryTree = (array, cate_id = 0, level = 0) => {
+    var result = [];
+    for (let value of array) {
+      if (value.parent_id === cate_id) {
+        value.level = level;
+        result.push(value);
+        let child = categoryTree(category, value.value, level + 1);
+        result = result.concat(child);
+      }
+    }
+    return result;
+
+  }
+
   return (
     <>
       <div className=" edit_form d-flex justify-content-center">
@@ -99,30 +117,15 @@ function CreateCategoryForm(props) {
                   <p className="font-weight-bold">Category Parent</p>
                 </td>
                 <td width="70%">
-                  <Controller
-                    control={control}
-                    name="parent_id"
-                    render={({ field: { value, onChange } }) => (
-                      <Select
-                        options={category}
-                        onChange={(options) => {
-                          onChange(options?.value);
-                          setValue('parent_id', options.value);
-                        }}
-                        value={category.filter((option) => value === option?.value)}
-                        placeholder=""
-                        theme={(theme) => ({
-                          ...theme,
-                          colors: {
-                            ...theme.colors,
-                            primary25: '#f9d2e4',
-                            primary50: '#f9d2e4',
-                            primary: '#d6001c',
-                          },
-                        })}
-                      />
-                    )}
-                  />
+
+                  <select name='parent_id' ref={useRefSelect} onChange={() => setValue('parent_id', useRefSelect.current.value)} className='select-option'>
+                    <option value="0">----Chose category---</option>
+                    {
+                      categoryTree(category).map((cate, index) => {
+                        return <option key={index} value={cate.value} > {"--".repeat(cate.level)}{cate.label}</option>;
+                      })
+                    }
+                  </select>
                 </td>
               </tr>
 

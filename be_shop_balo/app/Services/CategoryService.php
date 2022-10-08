@@ -7,6 +7,7 @@ use App\Http\Resources\category\ShowResource;
 use App\Repositories\CategoryRepository;
 use App\Helpers\Helper;
 use App\Http\Traits\ApiResponse;
+use App\Repositories\ProductRepository;
 use Exception;
 
 class CategoryService
@@ -128,6 +129,8 @@ class CategoryService
     public function delete(int $id)
     {
         if (is_null($id)) return $this->errorResponse();
+        $result = $this->trigger($id);
+        if ($result['status']) return $this->errorResponse($result['message']);
         $result = $this->categoryRepo->delete(intval($id));
 
         return $result ? $this->apiResponse([], 200, 'Delete category successfully') : $this->apiResponse([], 412, 'Delete category failed,try againt');
@@ -140,5 +143,29 @@ class CategoryService
         $result = $this->categoryRepo->forgot(intval($id));
 
         return $result ? $this->apiResponse([], 200, 'Delete category successfully') : $this->apiResponse([], 412, 'Delete category failed,try againt');
+    }
+
+
+    private function trigger($id)
+    {
+        $productsModel = app(ProductRepository::class);
+        $result = $productsModel->findByIdCategory($id);
+        $isCheckParentId =  $this->categoryRepo->findByIdParent($id);
+
+        if (!is_null($result)) {
+            return [
+                'status' => true,
+                'message' => 'Something went wrong,The list is already attached to the product.'
+            ];
+        } else if (!is_null($isCheckParentId)) {
+            return [
+                'status' => true,
+                'message' => 'Something went wrong,Category is has childrent.'
+            ];
+        }
+        return [
+            'status' => false,
+            'message' => ''
+        ];
     }
 }

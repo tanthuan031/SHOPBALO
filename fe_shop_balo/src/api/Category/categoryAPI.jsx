@@ -62,9 +62,9 @@ export const destroyCategory = async (id) => {
     const url = `/api/admin/category/${id}`;
     const res = await axiosClient.delete(url);
     if (res.status === 200) {
-        return 200;
+        return { status: 200, message: res.message };
     }
-    return 401;
+    return { status: 401, message: res.message };
 }
 export const forgotCategory = async (id) => {
     const url = `/api/admin/category/${id}/forgot`;
