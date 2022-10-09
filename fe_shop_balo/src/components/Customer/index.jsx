@@ -56,7 +56,7 @@ export function CustomerTable(props) {
   const renderTableBody = () => {
     return props.tableBody.map((item) => {
       return (
-        <tr key={item.id} className="row-data" onClick={() => showDetail({ item })}>
+        <tr key={item.id} className="row-data cursor-pointer" onClick={() => showDetail({ item })}>
           <td>
             {/* <img className="img-avatar " src={`${URL_SERVER}/storage/customer/${item.avatar} `} /> */}
             <div className="img-avatar ">

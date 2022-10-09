@@ -55,7 +55,7 @@ const PromotionTable = (props) => {
   const renderTableBody = (body) => {
     return body.length > 0 ? (
       body.map((item, index) => (
-        <tr key={index} className=" font-weight-bold ">
+        <tr key={index} className="font-weight-bold  ">
           <td>{++index}</td>
           <td>{item.name}</td>
           <td>{item.value} %</td>

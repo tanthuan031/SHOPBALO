@@ -62,7 +62,7 @@ export function StaffTable(props) {
   const renderTableBody = () => {
     return props.tableBody.map((item) => {
       return (
-        <tr key={item.id} className="row-data" onClick={() => showDetail({ item })}>
+        <tr key={item.id} className="row-data cursor-pointer" onClick={() => showDetail({ item })}>
           <td>
             {/* {' '}
             <img  src={`${URL_SERVER}/storage/staff/${item.avatar} `} /> */}

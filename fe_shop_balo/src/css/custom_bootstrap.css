@@ -59,3 +59,12 @@ input::-ms-clear {
 .border-radius-2px {
   border-radius: 5px;
 }
+.row-data {
+  overflow: hidden;
+}
+.row-data:hover {
+  transform: scale(1.01);
+  background-color: var(--bs-white);
+  box-shadow: 1px 3px 3px rgba(139, 142, 142, 0.3);
+  border-radius: 4px;
+}

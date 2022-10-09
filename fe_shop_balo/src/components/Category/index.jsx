@@ -69,7 +69,7 @@ function CategoryTable(props) {
     return (
       body.length > 0 &&
       body.map((item, index) => (
-        <tr key={index} className=" font-weight-bold ">
+        <tr key={index} className="  font-weight-bold  ">
           <td>{++index}</td>
           <td>
             <div className="category_parrent">
