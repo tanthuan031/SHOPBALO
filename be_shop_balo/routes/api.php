@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\RatingController;
 use App\Http\Controllers\Admin\StaffController;
 use App\Http\Controllers\Admin\StorageImageController;
+use App\Models\Role;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 

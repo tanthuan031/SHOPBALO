@@ -45,7 +45,6 @@ const ReviewPage = () => {
       setPage(result.meta.current_page);
     }
     setIsLoading(false);
-    console.log(status);
   };
 
   useEffect(() => {

@@ -36,6 +36,7 @@ function PromotionEdit(props) {
     defaultValues: {
       name: promotionSelect.name,
       value: promotionSelect.value,
+      point: promotionSelect.point,
       status: promotionSelect.status,
       description: promotionSelect.description,
     },
@@ -46,27 +47,6 @@ function PromotionEdit(props) {
     name: 'description',
   });
 
-  const name = useWatch({
-    control,
-    name: 'name',
-  });
-
-  const value = useWatch({
-    control,
-    value: 'value',
-  });
-
-  const status = useWatch({
-    control,
-    status: 'status',
-  });
-
-  useEffect(() => {
-    register('description', { required: true });
-    register('name');
-    register('value');
-    register('status');
-  }, [register]);
 
   const editorDescription = (value) => {
     setValue('description', value, { shouldDirty: true });
@@ -83,14 +63,15 @@ function PromotionEdit(props) {
     Object.keys(temDirtyFields).map((key) => {
       temDirtyFields[key] = data[key];
     });
-    
-    const resultData = { 
+
+    const resultData = {
       name: data.name,
       value: data.value,
+      point: data.point,
       status: data.status,
-      description: data.description
+      description: data.description,
       // ...temDirtyFields
-    }
+    };
 
     const result = await editDiscount(promotionSelect.id, resultData);
 
@@ -150,6 +131,19 @@ function PromotionEdit(props) {
                 }
               >
                 Value
+              </TableRow>
+
+              <TableRow
+                control={
+                  <>
+                    <Form.Control id="point" type="text" {...register('point')} />
+                    <div className="d-flex justify-content-between">
+                      <small className="text-red font-weight-semi">{errors?.point?.message}</small>
+                    </div>
+                  </>
+                }
+              >
+                Point
               </TableRow>
 
               <TableRow

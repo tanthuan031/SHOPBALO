@@ -1,20 +1,19 @@
-import React, {  useState } from 'react';
+import { yupResolver } from '@hookform/resolvers/yup';
+import Notiflix from 'notiflix';
 import PropTypes from 'prop-types';
+import React, { useState } from 'react';
 import { Button, Col, Form, Row } from 'react-bootstrap';
 import { Controller, useForm } from 'react-hook-form';
-import Select from 'react-select';
-import { yupResolver } from '@hookform/resolvers/yup';
-import { addSchema } from '../../../adapter/staff';
-import { useDispatch } from 'react-redux';
-import { BlockUI } from '../../Layouts/Notiflix';
-import Notiflix from 'notiflix';
-import { ErrorToast, SuccessToast } from '../../Layouts/Alerts';
-import { setIsAdd } from '../../../redux/reducer/staff/staff.reducer';
-import './style.css';
-import { addStaff } from '../../../api/Staff/staffAPI';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
-import { URL_SERVER } from '../../../utils/urlPath';
+import { useDispatch } from 'react-redux';
+import Select from 'react-select';
+import { addSchema } from '../../../adapter/staff';
+import { addStaff } from '../../../api/Staff/staffAPI';
+import { setIsAdd } from '../../../redux/reducer/staff/staff.reducer';
 import { formatDate } from '../../../utils/formatDate';
+import { ErrorToast, SuccessToast } from '../../Layouts/Alerts';
+import { BlockUI } from '../../Layouts/Notiflix';
+import './style.css';
 
 const StaffAdd = (props) => {
   const data_roles = [
@@ -51,7 +50,6 @@ const StaffAdd = (props) => {
     });
   const onSubmit = async (data) => {
     BlockUI('#root', 'fixed');
-    //console.log('Date:', data.created_date);
     if (data.created_date) data.created_date = formatDate(data.created_date, 'YYYY-MM-DD');
     const image = await toBase64(data.avatar[0]);
     const resultData = {
@@ -67,9 +65,7 @@ const StaffAdd = (props) => {
       address: data.address,
       created_date: data.created_date,
     };
-    //console.log('data:', resultData);
     const result = await addStaff(resultData);
-   // console.log('Result:', result);
     Notiflix.Block.remove('#root');
     if (result === 200) {
       SuccessToast('Create staff successfully', 3000);
