@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('name');
             $table->float('value');
             $table->boolean('status')->default(true);
+            $table->integer('point')->default(false);
             $table->string('description');
             $table->softDeletes();
             $table->timestamps();

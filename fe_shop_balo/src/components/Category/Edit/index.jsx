@@ -1,6 +1,6 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import Notiflix from 'notiflix';
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import { Button, Form } from 'react-bootstrap';
 import { Controller, useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
@@ -18,6 +18,7 @@ function EditCategory(props) {
   const categorySelector = useSelector(isCategorySelector);
   const [imageCategory, setImageCategory] = useState(categorySelector.image);
   const category = [];
+  const useRefSelect = useRef('');
   const {
     register,
     setValue,
@@ -53,6 +54,14 @@ function EditCategory(props) {
       reader.onload = () => resolve(reader.result);
       reader.onerror = (error) => reject(error);
     });
+  props.data.map((item) => {
+    category.push({
+      value: item.id,
+      label: item.name,
+      parent_id: item.parent_id,
+    });
+  });
+
   const onSubmit = async (data) => {
     if (typeof data.image === typeof 'string') {
       BlockUI('#root', 'fixed');
@@ -98,6 +107,18 @@ function EditCategory(props) {
       setImageCategory(URL.createObjectURL(image));
     }
   };
+  const categoryTree = (array, cate_id = 0, level = 0) => {
+    var result = [];
+    for (let value of array) {
+      if (value.parent_id === cate_id) {
+        value.level = level;
+        result.push(value);
+        let child = categoryTree(category, value.value, level + 1);
+        result = result.concat(child);
+      }
+    }
+    return result;
+  };
   return (
     <>
       <div className=" edit_form d-flex justify-content-center">
@@ -121,30 +142,28 @@ function EditCategory(props) {
                   <p className="font-weight-bold">Category Parent</p>
                 </td>
                 <td width="70%">
-                  <Controller
-                    control={control}
+                  <select
                     name="parent_id"
-                    render={({ field: { value, onChange } }) => (
-                      <Select
-                        options={category}
-                        onChange={(options) => {
-                          onChange(options?.value);
-                          setValue('parent_id', options.value);
-                        }}
-                        value={category.filter((option) => value === option?.value)}
-                        placeholder=""
-                        theme={(theme) => ({
-                          ...theme,
-                          colors: {
-                            ...theme.colors,
-                            primary25: '#f9d2e4',
-                            primary50: '#f9d2e4',
-                            primary: '#d6001c',
-                          },
-                        })}
-                      />
-                    )}
-                  />
+                    ref={useRefSelect}
+                    defaultValue={categorySelector.parent_id}
+                    onChange={() => setValue('parent_id', useRefSelect.current.value)}
+                    className="select-option"
+                  >
+                    <option value="0">---- Chose category----</option>
+                    {categoryTree(category).map((cate, index) => {
+                      return (
+                        <option
+                          key={index}
+                          value={cate.value}
+                          disabled={cate.value === categorySelector.id ? true : null}
+                        >
+                          {' '}
+                          {'--'.repeat(cate.level)}
+                          {cate.label}
+                        </option>
+                      );
+                    })}
+                  </select>
                 </td>
               </tr>
 

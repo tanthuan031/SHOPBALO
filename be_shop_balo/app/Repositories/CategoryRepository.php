@@ -36,7 +36,7 @@ class CategoryRepository extends BaseRepository
     public function getAll($search = [])
     {
 
-        return $this->model->status($search['status'])->search($search['key'])
+        return $this->category->status($search['status'])->search($search['key'])
             ->sort($search['sort_id'])->paginate($search['per_page']);
     }
 
@@ -72,5 +72,18 @@ class CategoryRepository extends BaseRepository
             return false;
         }
         return true;
+    }
+
+
+
+    /**
+     * findByIdParent
+     *@author tranvannghia021
+     * @param  mixed $id
+     * @return response 
+     */
+    public function findByIdParent($id)
+    {
+        return $this->category->where('parent_id', $id)->first();
     }
 }

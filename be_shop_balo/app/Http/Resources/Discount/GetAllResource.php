@@ -19,6 +19,7 @@ class GetAllResource extends JsonResource
             'name' => $this->name,
             'value' => (float)$this->value,
             'status' => $this->status == true ? 'Active' : 'InActive',
+            'point' => (int)$this->point === 0 ? null : (int)$this->point,
             'description' => $this->description,
             'created_date' => $this->created_at,
         ];

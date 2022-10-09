@@ -72,4 +72,10 @@ class ProductRepository extends BaseRepository
         $product->delete();
         return $product;
     }
+
+
+    public function findByIdCategory($id)
+    {
+        return $this->product->where('category_id', $id)->first();
+    }
 }
