@@ -1,17 +1,15 @@
 <?php
 
-use App\Http\Controllers\CategoryController;
-
-use App\Http\Controllers\CustomerController;
-use App\Http\Controllers\OrderController;
-use App\Http\Controllers\DiscountController;
-use App\Http\Controllers\ProductController;
-use App\Http\Controllers\RatingController;
-use App\Http\Controllers\StaffController;
-use App\Http\Controllers\StorageImageController;
+use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Admin\CustomerController;
+use App\Http\Controllers\Admin\DiscountController;
+use App\Http\Controllers\Admin\OrderController;
+use App\Http\Controllers\Admin\ProductController;
+use App\Http\Controllers\Admin\RatingController;
+use App\Http\Controllers\Admin\StaffController;
+use App\Http\Controllers\Admin\StorageImageController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-
 
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
