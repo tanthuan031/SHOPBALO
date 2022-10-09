@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Repositories;
+namespace App\Repositories\Admin;
 
 use App\Models\Slider;
 use App\Repositories\BaseRepository;
@@ -24,6 +24,6 @@ class SliderRepository extends BaseRepository
     {
 
         return $this->model->status($search['status'])->search($search['key'])
-            ->sort($search['sort_id'])->paginate($search['per_page']);
+            ->sort($search['sort'])->paginate($search['per_page']);
     }
 }

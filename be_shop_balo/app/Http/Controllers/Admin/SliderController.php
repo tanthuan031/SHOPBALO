@@ -1,8 +1,10 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
-use App\Services\SliderService;
+use App\Http\Controllers\Controller;
+use App\Http\Requests\Admin\Slider\CreateSliderRequest;
+use App\Services\Admin\SliderService;
 use Illuminate\Http\Request;
 
 class SliderController extends Controller
@@ -38,7 +40,7 @@ class SliderController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CreateSliderRequest $request)
     {
         return $this->sliderService->create($request);
     }

@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\DiscountController;
 use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\RatingController;
+use App\Http\Controllers\Admin\SliderController;
 use App\Http\Controllers\Admin\StaffController;
 use App\Http\Controllers\Admin\StorageImageController;
 use Illuminate\Http\Request;
@@ -23,7 +24,7 @@ Route::group([
 
     Route::resource('staff', StaffController::class);
 
-    Route::resource('customer',CustomerController::class);
+    Route::resource('customer', CustomerController::class);
     // api resource category
     Route::resource('category', CategoryController::class);
     Route::resource('order', OrderController::class);
@@ -32,5 +33,7 @@ Route::group([
     Route::resource('discount', DiscountController::class);
     // api rating
     Route::resource('rating', RatingController::class);
+    // api slider
+    Route::resource('slider', SliderController::class);
 });
 Route::get('/storage/{filename}', [StorageImageController::class, 'index']);

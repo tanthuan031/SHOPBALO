@@ -17,8 +17,8 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('description');
-            $table->string('image-slider');
-            $table->enum('status', ['Active', 'Inactive'])->default('Active');
+            $table->string('image_slider');
+            $table->enum('status', ['Active', 'InActive'])->default('Active');
             $table->string('url');
             $table->softDeletes();
             $table->timestamps();
