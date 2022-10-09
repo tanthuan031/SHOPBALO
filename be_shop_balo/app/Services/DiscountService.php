@@ -59,7 +59,8 @@ class DiscountService
             'name' => $request->name,
             'value' => (float)$request->value,
             'status' => $request->status == 'Active' ? true : false,
-            'description' => $request->description
+            'description' => $request->description,
+            'point' => empty($request->point) && is_null($request->point) && $request->point < 0 ? false : (int)$request->point,
         ];
         $discount = $this->discountRepo->create($payload);
         $data = [];
@@ -99,13 +100,12 @@ class DiscountService
     {
         if (is_null($id) || $request->value > 100) return $this->errorResponse();
 
-        $payload = [
-            'name' => $request->name,
-            'value' => (float)$request->value,
-            'status' => $request->status == 'Active' ? true : false,
-            'description' => $request->description
-        ];
-        $result = $this->discountRepo->update($id, $payload);
+        if ($request->status) {
+            $request['status'] = $request->status == 'Active' ? true : false;
+        }
+
+
+        $result = $this->discountRepo->update($id, $request->toArray());
 
 
         return $result ? $this->apiResponse([], 200, 'Update discount successfully') : $this->apiResponse([], 401, 'Update discount failed');

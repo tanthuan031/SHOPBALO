@@ -25,7 +25,7 @@ export const promotion_table_header = [
   },
   {
     id: 4,
-    name: 'Status',
+    name: 'Point',
     isSortAsc: false,
     isSortDesc: false,
     isSort: true,
@@ -33,6 +33,14 @@ export const promotion_table_header = [
   },
   {
     id: 5,
+    name: 'Status',
+    isSortAsc: false,
+    isSortDesc: false,
+    isSort: true,
+    cursor: true,
+  },
+  {
+    id: 6,
     name: 'Action',
     isSortAsc: false,
     isSortDesc: false,

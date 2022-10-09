@@ -13,6 +13,7 @@ class Discount extends Model
     protected $fillable = [
         'name',
         'value',
+        'point',
         'status',
         'description',
     ];
@@ -50,7 +51,7 @@ class Discount extends Model
     public function scopeSearch($query, $key)
     {
         if (is_null($key)) return $query;
-        return $query->whereLike(['name', 'description'], $key);
+        return $query->whereLike(['name', 'description', 'point'], $key);
     }
 
 

@@ -59,6 +59,7 @@ const PromotionTable = (props) => {
           <td>{++index}</td>
           <td>{item.name}</td>
           <td>{item.value} %</td>
+          <td>{item.point}</td>
           <td>
             <p
               className={`text-center border-radius-2px ${
