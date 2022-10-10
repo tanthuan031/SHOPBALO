@@ -6,11 +6,15 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use App\Models\Role;
+use Illuminate\Notifications\Notifiable;
+use Laravel\Sanctum\HasApiTokens;
 
 class Staff extends Model
 {
+    use Notifiable;
     use HasFactory;
-    protected  $table='staff';
+    use HasApiTokens;
+    protected  $table = 'staff';
 
     /**
      * The attributes that are mass assignable.
@@ -32,10 +36,9 @@ class Staff extends Model
         'created_date'
 
     ];
-   public function roles():BelongsTo
+    public function roles(): BelongsTo
     {
-        return $this->belongsTo(Role::class,'role_id');
-
+        return $this->belongsTo(Role::class, 'role_id');
     }
     public function scopeSort($query, $request)
     {
@@ -71,7 +74,7 @@ class Staff extends Model
                 $search = $request->query('fullname');
                 $query
                     ->where("first_name", "LIKE", "%{$search}%")
-                ->orWhere("last_name", "LIKE", "%{$search}%");
+                    ->orWhere("last_name", "LIKE", "%{$search}%");
             })
             ->when($request->has('email'), function ($query) use ($request) {
                 $search = $request->query('email');
@@ -79,10 +82,10 @@ class Staff extends Model
                     ->where("email", "LIKE", "%{$search}%");
             })
             ->when($request->has('phone'), function ($query) use ($request) {
-            $search = $request->query('phone');
-            $query
-                ->orWhere("phone", "LIKE", "%{$search}%");
-    });
+                $search = $request->query('phone');
+                $query
+                    ->orWhere("phone", "LIKE", "%{$search}%");
+            });
     }
     public function scopeUnique($query, $request)
     {
