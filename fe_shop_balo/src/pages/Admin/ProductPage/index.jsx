@@ -36,14 +36,14 @@ export function ProductPage(props) {
   const [sort, setCurrentSort] = useState([
     {
       key: 'id',
-      value: 'asc',
+      value: 'desc',
     },
   ]);
   const [search, setSearch] = useState('');
   const dispatch = useDispatch();
   React.useEffect(() => {
     const handleGetAllProducts = async () => {
-      const result = await getAllProducts({});
+      const result = await getAllProducts({ sort });
       if (result === 401) {
         return false;
       } else if (result === 500) {

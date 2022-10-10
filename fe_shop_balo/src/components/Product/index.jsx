@@ -62,7 +62,7 @@ export function ProductTable(props) {
           className="cursor-pointer font-weight-bold row-data"
           onClick={() => handleShowDetail(item.id, item.image_slide)}
         >
-          <td>{item.id}</td>
+          <td>{index + 1}</td>
           <td>{item.category_name}</td>
           <td>{item.name}</td>
           {/* <td>{item.description}</td> */}
