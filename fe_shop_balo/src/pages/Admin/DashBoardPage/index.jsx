@@ -1,39 +1,14 @@
 import React from "react";
-import { FaArtstation } from "react-icons/fa";
-import InfoTile from "../../../components/Layouts/Widget";
+import ChartLineOrders from '../../../components/Statistic/Order';
+import PieChartCategory from '../../../components/Statistic/Category';
 export function DashBoardPage(props) {
+
   return (
     <>
       <div className="container-fluid mt-5">
         <div className="row justify-content-center">
-          <InfoTile
-            iconInfo={<FaArtstation />}
-            titleInfo="Likes"
-            numberInfo="41,30330"
-            dateInfo="2022-09-09"
-            backgroundInfo="#00a65a"
-          />
-          <InfoTile
-            iconInfo={<FaArtstation />}
-            titleInfo="Likes"
-            numberInfo="41,30330"
-            dateInfo="2022-09-09"
-            backgroundInfo="#dbcb0d"
-          />
-          <InfoTile
-            iconInfo={<FaArtstation />}
-            titleInfo="Likes"
-            numberInfo="41,30330"
-            dateInfo="2022-09-09"
-            backgroundInfo="#0dc145"
-          />
-          <InfoTile
-            iconInfo={<FaArtstation />}
-            titleInfo="Likes"
-            numberInfo="41,30330"
-            dateInfo="2022-09-09"
-            backgroundInfo="#c10d92"
-          />
+          <ChartLineOrders />
+          <PieChartCategory />
         </div>
       </div>
     </>
