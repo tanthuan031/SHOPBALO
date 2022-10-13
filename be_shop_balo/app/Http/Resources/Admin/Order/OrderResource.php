@@ -32,4 +32,5 @@ class OrderResource extends JsonResource
         ];
         return $arrayOrder;
     }
+
 }

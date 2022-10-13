@@ -4,14 +4,14 @@ namespace App\Services\Admin;
 
 use App\Helpers\Helper;
 use App\Http\Traits\ApiResponse;
-use App\Repositories\Admin\StaffRepository;
+use App\Repositories\Admin\StatictisRepository;
 
 class StaffService
 {
     use apiResponse;
-    protected StaffRepository $staffRepository;
+    protected StatictisRepository $staffRepository;
 
-    public function __construct(StaffRepository $staffRepository)
+    public function __construct(StatictisRepository $staffRepository)
     {
         $this->staffRepository = $staffRepository;
     }
@@ -20,6 +20,7 @@ class StaffService
     {
 
         $result = $this->staffRepository->getAllStaff($request);
+
         if($result){
             return $this->apiResponse($result,'success','Get all staff success');
 
