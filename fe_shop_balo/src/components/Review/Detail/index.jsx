@@ -1,14 +1,11 @@
-import { Button, Form } from 'react-bootstrap';
-import { Controller } from 'react-hook-form';
-import Select from 'react-select';
-import CustomEditor from './../../Layouts/Edittor/index';
-import './style.css';
+import { Button } from 'react-bootstrap';
+import { FaStar } from 'react-icons/fa';
 import { useDispatch, useSelector } from 'react-redux';
 import { setIsEdit } from '../../../redux/reducer/review/review.reducer';
-import { isSelectorReview } from './../../../redux/selectors/review/review.selector';
-import { FaStar } from 'react-icons/fa';
-import { URL_SERVER } from './../../../utils/urlPath';
 import ImageCustom from '../../Layouts/Image';
+import { isSelectorReview } from './../../../redux/selectors/review/review.selector';
+import { URL_SERVER } from './../../../utils/urlPath';
+import './style.css';
 
 const ReviewDetail = () => {
   const dispatch = useDispatch();
@@ -80,7 +77,7 @@ const ReviewDetail = () => {
           {/* <img style={{ width: '150px', height: '150px' }} src={`${reviewData.image} `} /> */}
           {/* <div className="image-review"> */}
           <ImageCustom
-            src={`${reviewData.image} `}
+            src={`${URL_SERVER}/storage/Rating/${reviewData.image} `}
             className="image-review"
             style={{ width: '150px', height: '150px' }}
           />

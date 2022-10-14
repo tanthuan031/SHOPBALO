@@ -10,7 +10,6 @@ import NotFoundData from '../../../components/Layouts/NotFoundData';
 import PaginationUI from '../../../components/Layouts/Pagination';
 import Skeleton from '../../../components/Layouts/Skeleton';
 import { OrderTable } from '../../../components/Order';
-import FilterOrder from '../../../components/Order/FilterOrder';
 import OrderDetail from '../../../components/Order/OrderDetail';
 import UpdateStatusOrder from '../../../components/Order/UpdateStatusOrder';
 import { isEditStatusOrderSelector, isOrderDetailSelector } from '../../../redux/selectors/order/order.selector';

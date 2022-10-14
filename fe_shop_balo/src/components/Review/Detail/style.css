@@ -1,5 +1,6 @@
 .detail-review {
   background: #fff;
+  box-shadow: 0 0 20px var(--bootstrap-border-color);
 }
 .image-review {
   width: 150px !important;
