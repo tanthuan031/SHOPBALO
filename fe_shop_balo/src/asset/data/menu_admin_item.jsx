@@ -78,9 +78,9 @@ export const menu_admin_item = [
   },
   {
     id: 10,
-    name: 'Slide',
+    name: 'Slider',
     active: false,
-    link: '/admin/slide',
+    link: '/admin/slider',
     icon: <FaImages />,
   },
   // {

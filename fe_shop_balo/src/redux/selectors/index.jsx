@@ -5,4 +5,4 @@ export * from './promotion/promotion.selector';
 export * from './staff/staff.selector';
 export * from './customer/customer.selector';
 export * from './review/review.selector';
-export * from './slide/slide.selector';
+export * from './slider/slider.selector';

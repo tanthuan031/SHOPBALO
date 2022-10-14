@@ -1,14 +1,14 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-export const slideReducer = createSlice({
-  name: 'slide',
+export const sliderReducer = createSlice({
+  name: 'slider',
   initialState: {
     isAdd: false,
     isEdit: false,
     isReset: 'reset-page',
     status: 'All',
     sort: 'asc',
-    slide: {},
+    slider: {},
   },
   reducers: {
     setIsAdd: (state, action) => {
@@ -26,12 +26,12 @@ export const slideReducer = createSlice({
     setSort: (state, action) => {
       state.sort = action.payload;
     },
-    setSlide: (state, action) => {
-      state.slide = { ...action.payload };
+    setSlider: (state, action) => {
+      state.slider = { ...action.payload };
     },
   },
 });
 
-export const { setIsAdd, setIsEdit, setIsReset, setStatus, setSort, setSlide } = slideReducer.actions;
+export const { setIsAdd, setIsEdit, setIsReset, setStatus, setSort, setSlider } = sliderReducer.actions;
 
-export default slideReducer.reducer;
+export default sliderReducer.reducer;

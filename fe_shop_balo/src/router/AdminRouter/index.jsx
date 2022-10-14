@@ -11,7 +11,7 @@ import { StaffPage } from '../../pages/Admin/StaffPage';
 import { ProtectedRoutes } from '../ProtectedRouters';
 import PromotionPage from './../../pages/Admin/PromotionPage';
 import { CustomerPage } from '../../pages/Admin/CustomerPage';
-import SlidePage from '../../pages/Admin/SlidePage';
+import SliderPage from '../../pages/Admin/SliderPage';
 export default function AdminRouter() {
   return (
     <Routes>
@@ -27,7 +27,7 @@ export default function AdminRouter() {
       <Route path="/admin/customer" element={<AdminLayout slot={<CustomerPage key={'a'} />} />} />
       <Route path="/admin/review" element={<AdminLayout slot={<ReviewPage key={'a'} />} />} />
       <Route path="/admin/decentralization" element={<AdminLayout slot={<DashBoardPage key={'a'} />} />} />
-      <Route path="/admin/slide" element={<AdminLayout slot={<SlidePage key={'a'} />} />} />
+      <Route path="/admin/slider" element={<AdminLayout slot={<SliderPage key={'a'} />} />} />
     </Routes>
   );
 }
