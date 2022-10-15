@@ -63,14 +63,33 @@ class OrderRepository extends BaseRepository
 //        FROM orders
 //        GROUP BY created_order_date
 //        HAVING created_order_date BETWEEN '2022-10-10' AND '2022-10-20'
+        switch ($request->filter){
+            case 'Today':
+                $start = date('Y-m-d', strtotime('-1 day'));
+                $end = date("Y-m-d");
+                break;
+                case 'Weekly':
+                    $start = date('Y-m-d', strtotime('-7 day'));
+                    $end = date("Y-m-d");
+                    break;
+                    case 'Monthly':
+                        $start = date('Y-m-01');;
+                        $end = date("Y-m-d");
+                        break;
+                        default:
+                            break;
+        }
+        try{
+            $result= Order::query()
+                ->select(DB::raw('DATE(created_order_date) as date'), DB::raw('COUNT(*)AS amount_order'))
+                ->groupBy('date')
+                ->havingRaw("date BETWEEN  '".$start."' AND '".$end."'")
+                ->get();
 
-      $result= Order::query()
-            ->select(DB::raw('DATE(created_order_date) as date'), DB::raw('COUNT(*)AS amount_order'))
-            ->groupBy('date')
-            // ->havingRaw('date BETWEEN  2022-10-10 AND 2022-10-20')
-            ->get();
-//      dd($result);
-//
+        }
+        catch(Exception $e){
+            dd($e);
+        }
         return response()->json( $result)->getData();
 
 
