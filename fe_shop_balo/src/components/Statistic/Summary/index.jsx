@@ -5,7 +5,7 @@ import { FaCoins, FaPeopleArrows, FaShoppingCart } from 'react-icons/fa';
 function SummaryStatisTic(props) {
   return (
     <Row className="summary-container">
-      <Col  lg="3" className=" small-box st-orders">
+      <Col  className=" small-box st-orders">
           <div className="inner">
             <h3>150</h3>
 
@@ -15,7 +15,7 @@ function SummaryStatisTic(props) {
             <FaShoppingCart />
           </div>
       </Col>
-      <Col  lg="3" className=" small-box st-revenue">
+      <Col   className=" small-box st-revenue">
         <div className="inner">
           <h3>150</h3>
 
@@ -25,7 +25,17 @@ function SummaryStatisTic(props) {
           <FaCoins />
         </div>
       </Col>
-      <Col  lg="3" className=" small-box  st-customers">
+      <Col  className=" small-box  st-customers">
+        <div className="inner">
+          <h3>150</h3>
+
+          <p>New Customers</p>
+        </div>
+        <div className="icon">
+          <FaPeopleArrows />
+        </div>
+      </Col>
+      <Col  className=" small-box  st-customers">
         <div className="inner">
           <h3>150</h3>
 

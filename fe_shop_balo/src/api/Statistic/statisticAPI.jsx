@@ -18,7 +18,42 @@ export const getStatistisOrder = async ({filter, search } = {}) => {
   if (filter) {
     queryString.push(`filter=${filter}`);
   }
+  const final_url = concatQueryString(queryString, url);
+  console.log(final_url);
+  const reponse = await axiosClient.get(final_url);
+  if (reponse.status === 401) {
+    return 401;
+  } else if (reponse.status === 'success') {
+    return reponse.data;
+  } else {
+    return 500;
+  }
+};
+export const getStatistisRevenue = async ({filter, search } = {}) => {
+  const url = '/api/admin/statistics/revenue';
+  const queryString = [];
 
+  if (filter) {
+    queryString.push(`filter=${filter}`);
+  }
+  const final_url = concatQueryString(queryString, url);
+  console.log(final_url);
+  const reponse = await axiosClient.get(final_url);
+  if (reponse.status === 401) {
+    return 401;
+  } else if (reponse.status === 'success') {
+    return reponse.data;
+  } else {
+    return 500;
+  }
+};
+export const getStatistisStaff = async ({filter, search } = {}) => {
+  const url = '/api/admin/statistics/staff';
+  const queryString = [];
+
+  if (filter) {
+    queryString.push(`filter=${filter}`);
+  }
   const final_url = concatQueryString(queryString, url);
   console.log(final_url);
   const reponse = await axiosClient.get(final_url);
