@@ -11,16 +11,14 @@ export const configHeadersAuthenticate = () => {
   };
 };
 
-export const getStatistisOrder = async ({filterStatus,filter, search } = {}) => {
+export const getStatistisOrder = async ({filter, search } = {}) => {
   const url = '/api/admin/statistics/order';
   const queryString = [];
 
-  if (search) {
-    queryString.push(`${filter}=${search}`);
+  if (filter) {
+    queryString.push(`filter=${filter}`);
   }
-  if (filterStatus===1 || filterStatus===0) {
-    queryString.push(`filter[status]=${filterStatus}`);
-  }
+
   const final_url = concatQueryString(queryString, url);
   console.log(final_url);
   const reponse = await axiosClient.get(final_url);

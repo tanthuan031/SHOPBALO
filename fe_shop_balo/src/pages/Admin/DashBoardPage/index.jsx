@@ -1,14 +1,16 @@
 import React from "react";
-import ChartLineOrders from '../../../components/Statistic/Order';
-import PieChartCategory from '../../../components/Statistic/Category';
+import ChartLineOrders from '../../../components/Statistic/Selling/order';
+import PieChartCategory from '../../../components/Statistic/Selling/category';
+import SummaryStatisTic from '../../../components/Statistic/Summary';
 export function DashBoardPage(props) {
 
   return (
     <>
       <div className="container-fluid mt-5">
-        <div className="row justify-content-center">
+        <SummaryStatisTic />
+        <div className=" justify-content-center">
           <ChartLineOrders />
-          <PieChartCategory />
+          {/* <PieChartCategory />*/}
         </div>
       </div>
     </>

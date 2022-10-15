@@ -1,0 +1,28 @@
+.summary-container:first-child {
+    margin-left: 0 !important;
+}
+.small-box{
+    border-radius: .5rem;
+    box-shadow: 0 2px 3px rgb(0 0 0 / 13%), 1px 2px 3px rgb(0 0 0 / 20%);
+    display: block;
+    position: relative;
+    margin: 20px 35px;
+    padding: 35px;
+    background-color:var(--bs-white);
+}
+.small-box .inner{
+    padding-left: 1rem;
+}
+.small-box .inner h3{
+    font-weight: bold;
+    font-size:2rem;
+}
+.small-box .inner p {
+    font-size:1.2rem;
+}
+.small-box .icon{
+   position: absolute;
+    right: 15%;
+    top:24%;
+    font-size: 3.2rem;
+}
