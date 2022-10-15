@@ -2,30 +2,31 @@ import Notiflix from 'notiflix';
 import React, { useState } from 'react';
 import { FaPen, FaTimesCircle } from 'react-icons/fa';
 import { useDispatch } from 'react-redux';
-// import { deletePromotion, getDiscountById } from '../../api/Promotion/promotionAPI';
-// import { setIsAdd, setIsEdit, setIsReset, setPromotion } from '../../redux/reducer/promotion/promotion.reducer';
-import { BlockUI } from './../Layouts/Notiflix/index';
-import TableLayout from './../Layouts/Table/index';
+import { setIsAdd, setIsEdit, setIsReset, setSlider } from '../../redux/reducer/slider/slider.reducer';
+import ImageCustom from '../Layouts/Image';
 import Modal from '../Layouts/Modal';
-import { ErrorToast, SuccessToast } from './../Layouts/Alerts/index';
+import { deleteSlider, getSliderById } from './../../api/Slider/sliderAPI';
+import { BlockUI } from './../Layouts/Notiflix';
+import TableLayout from './../Layouts/Table';
+import { ErrorToast, SuccessToast } from '../Layouts/Alerts';
 
 const SliderTable = (props) => {
   const dispatch = useDispatch();
   const [show, setShow] = useState(false);
   const [isCheck, setIsCheck] = useState(null);
 
-  // const handleEditPromotion = async (e, id) => {
-  //   e.stopPropagation();
-  //   BlockUI('#root', 'fixed');
-  //   const result = await getDiscountById(id);
-  //   Notiflix.Block.remove('#root');
-  //   if (result !== 401) {
-  //     dispatch(setIsEdit(true));
-  //     dispatch(setPromotion(result));
-  //     dispatch(setIsAdd(true));
-  //   }
-  //   return;
-  // };
+  const handleEditSlider = async (e, id) => {
+    e.stopPropagation();
+    BlockUI('#root', 'fixed');
+    const result = await getSliderById(id);
+    Notiflix.Block.remove('#root');
+    if (result !== 401) {
+      dispatch(setIsEdit(true));
+      dispatch(setSlider(result));
+      dispatch(setIsAdd(true));
+    }
+    return;
+  };
 
   const handleShowModal = (id) => {
     setShow(true);
@@ -37,29 +38,32 @@ const SliderTable = (props) => {
     setIsCheck(null);
   };
 
-  // const handleDelete = async () => {
-  //   BlockUI('#root', 'fixed');
-  //   if (isCheck !== null) {
-  //     const result = await deletePromotion(isCheck);
-  //     Notiflix.Block.remove('#root');
-  //     if (result === 200) {
-  //       SuccessToast('Delete category successfully.', 3000);
-  //     } else {
-  //       ErrorToast('Delete category failed.', 3000);
-  //     }
-  //     handleSetState();
-  //     dispatch(setIsReset(''));
-  //   }
-  // };
+  const handleDelete = async () => {
+    BlockUI('#root', 'fixed');
+    if (isCheck !== null) {
+      const result = await deleteSlider(isCheck);
+      Notiflix.Block.remove('#root');
+      if (result === 200) {
+        SuccessToast('Delete slider successfully.', 3000);
+      } else {
+        ErrorToast('Delete slider failed.', 3000);
+      }
+      handleSetState();
+      dispatch(setIsReset(Math.random()));
+    }
+  };
 
   const renderTableBody = (body) => {
     return body.length > 0 ? (
       body.map((item, index) => (
         <tr key={index} className="font-weight-bold row-data">
           <td>{++index}</td>
+          <td>
+            <div style={{ verticalAlign: 'middle', width: '20rem', height: '8rem'}}>
+              <ImageCustom src={item.image} className="w-100 h-100 rounded" />
+            </div>
+          </td>
           <td>{item.name}</td>
-          <td>{item.value} %</td>
-          <td>{item.point}</td>
           <td>
             <p
               className={`text-center border-radius-2px ${
@@ -73,7 +77,7 @@ const SliderTable = (props) => {
             <div className="d-flex">
               <button
                 id="edit-product"
-                // onClick={(e) => handleEditPromotion(e, item.id)}
+                onClick={(e) => handleEditSlider(e, item.id)}
                 className="cursor-pointer br-6px p-2 bg-gray-100 text-black w-48px h-48px d-flex align-items-center justify-content-center border-none"
               >
                 <FaPen className="font-20px" />
@@ -105,8 +109,10 @@ const SliderTable = (props) => {
           <h5>Are you sure delete this item {isCheck} ?</h5>
         </div>
         <div className="modal-footer">
-          <button type="button" className="btn btn-danger"
-            // onClick={() => handleDelete()}
+          <button
+            type="button"
+            className="btn btn-danger"
+            onClick={() => handleDelete()}
           >
             Delete
           </button>

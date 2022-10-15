@@ -43,9 +43,9 @@ const PromotionTable = (props) => {
       const result = await deletePromotion(isCheck);
       Notiflix.Block.remove('#root');
       if (result === 200) {
-        SuccessToast('Delete category successfully.', 3000);
+        SuccessToast('Delete promotion successfully.', 3000);
       } else {
-        ErrorToast('Delete category failed.', 3000);
+        ErrorToast('Delete promotion failed.', 3000);
       }
       handleSetState();
       dispatch(setIsReset(''));

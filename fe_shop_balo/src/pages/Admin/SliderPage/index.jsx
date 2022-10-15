@@ -15,17 +15,20 @@ import { setIsAdd } from '../../../redux/reducer/slider/slider.reducer';
 import {
   isAddSelectorSlider,
   isEditSelectorSlider,
+  isResetSelectorSlider,
   isSortSelectorSlider,
   isStatusSelectorSlider,
 } from '../../../redux/selectors/slider/slider.selector';
 import SliderAdd from '../../../components/Slider/Add';
 import SliderEdit from '../../../components/Slider/Edit';
+import FilterStatus from '../../../components/Slider/FilterStatus';
 
 
 const SliderPage = () => {
   const data_slider_table_header = [...slider_table_header];
   const isAdd = useSelector(isAddSelectorSlider);
   const isEdit = useSelector(isEditSelectorSlider);
+  const isReset = useSelector(isResetSelectorSlider);
   const dispatch = useDispatch();
   const [isLoading, setIsLoading] = useState(true);
   const [data, setData] = useState([]);
@@ -52,7 +55,7 @@ const SliderPage = () => {
 
   useEffect(() => {
     handleGetAllSlider();
-  }, [status, sort, isEdit, isAdd]);
+  }, [status, sort, isEdit, isAdd, isReset]);
 
   const handleChangePage = async (page) => {
     setPage(page);
@@ -86,7 +89,8 @@ const goToPageAddSlider = () => {
   const backToSliderList = async (value) => {
     setIsLoading(true);
 
-    const result = await getAllSlider({ sort: value });
+    // const result = await getAllSlider({ sort: value });
+    const result = await getAllSlider();
 
     setData(result.data);
     setTotalRecords(result.meta.total);
@@ -97,16 +101,15 @@ const goToPageAddSlider = () => {
     <>
       <section>
         <div className="container-fluid mt-5">
-          {!isAdd && !isEdit && <h5 className="text-danger font-weight-bold mb-3">Slide List</h5>}
-          {isAdd && !isEdit && <h5 className="text-danger font-weight-bold mb-3">Add slide</h5>}
-          {isEdit && <h5 className="text-danger font-weight-bold mb-3">Edit slide</h5>}
+          {!isAdd && !isEdit && <h5 className="text-danger font-weight-bold mb-3">Slider List</h5>}
+          {isAdd && !isEdit && <h5 className="text-danger font-weight-bold mb-3">Add slider</h5>}
+          {isEdit && <h5 className="text-danger font-weight-bold mb-3">Edit slider</h5>}
 
           {!isAdd && !isEdit ? (
             <div className="row">
               <div className="mb-3 d-flex justify-content-between">
                 <div className="d-flex justify-content-between ">
-                  {/* <SortValue />
-                  <FilterStatus /> */}
+                  <FilterStatus />
                 </div>
                 <div className="d-flex justify-content-between ">
                   <Form>

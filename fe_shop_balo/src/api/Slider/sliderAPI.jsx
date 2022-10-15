@@ -41,10 +41,10 @@ export const getSliderById = async (id) => {
 export const addSlider = async (data) => {
   const url = `/api/admin/slider`;
   const response = await axiosClient.post(url, data);
-  if (response.status === 401) {
-    return 401;
-  } else {
+  if (response.status === 200) {
     return response;
+  } else {
+    return 401;
   }
 };
 
@@ -60,8 +60,8 @@ export const editSlider = async (id, data) => {
   }
 };
 
-export const deletePromotion = async (id) => {
-  const url = `/api/admin/discount/${id}`;
+export const deleteSlider = async (id) => {
+  const url = `/api/admin/slider/${id}`;
   const res = await axiosClient.delete(url);
   if (res.status === 200) {
     return 200;
