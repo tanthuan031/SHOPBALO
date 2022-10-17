@@ -24,7 +24,7 @@ class AuthService
         } else {
             return response()->json([
                 "data" => $result
-            ], 400);
+            ], $result['status']);
         }
     }
     public function getMe(): JsonResponse

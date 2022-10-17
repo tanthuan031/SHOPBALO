@@ -15,6 +15,8 @@ import { getAllCustomers } from '../../../api/Customer/customerAPI';
 import CustomerAdd from '../../../components/Customer/Add';
 import CustomerEdit from '../../../components/Customer/Edit';
 import NotFoundData from '../../../components/Layouts/NotFoundData';
+import { setExpiredToken, setIsLogin } from '../../../redux/reducer/auth/auth.reducer';
+import { deleteCookie, getCookies } from '../../../api/Auth';
 
 export function CustomerPage(props) {
   const data_customer_table_header = [...customer_table_header];
@@ -49,6 +51,7 @@ export function CustomerPage(props) {
     const handleGetAllCustomers = async () => {
       const result = await getAllCustomers(params);
       if (result === 401) {
+        handleSetUnthorization();
         return false;
       } else if (result === 500) {
         return false;
@@ -99,7 +102,14 @@ export function CustomerPage(props) {
       Notiflix.Block.remove('#root');
     }, 300);
   };
+  const handleSetUnthorization = () => {
+    dispatch(setExpiredToken(true));
+    const token = getCookies('token');
 
+    if (token) {
+      deleteCookie('token');
+    }
+  };
   return (
     <section>
       <div className="container-fluid mt-5">

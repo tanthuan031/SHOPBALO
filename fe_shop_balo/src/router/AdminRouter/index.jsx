@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { useEffect } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import { AdminLayout } from '../../layouts/Admin';
 import { CategoryPage } from '../../pages/Admin/CategoryPage';
@@ -11,12 +11,34 @@ import { StaffPage } from '../../pages/Admin/StaffPage';
 import { ProtectedRoutes } from '../ProtectedRouters';
 import PromotionPage from './../../pages/Admin/PromotionPage';
 import { CustomerPage } from '../../pages/Admin/CustomerPage';
+// import { checkLogin, handleGetInformation } from '../../api/Auth';
+import { setIsLogin } from '../../redux/reducer/auth/auth.reducer';
+import { useDispatch, useSelector } from 'react-redux';
+import { isLoginSelector } from '../../redux/selectors/auth/auth.reducer';
+import { checkLogin, handleGetMe } from '../../adapter/auth';
+import { deleteCookie, getCookies } from '../../api/Auth';
+
 export default function AdminRouter() {
+  const dispatch = useDispatch();
+  const isAuthenticate = useSelector(isLoginSelector);
+  useEffect(() => {
+    handleGetMe().then((result) => {
+      if (result === 401) {
+        const token = getCookies('token');
+        dispatch(setIsLogin(false));
+        if (token) {
+          deleteCookie('token');
+        }
+      } else {
+        dispatch(setIsLogin(true));
+      }
+    });
+  }, [dispatch]);
   return (
     <Routes>
       <Route path="/admin/login" element={<LoginPage />} />
       <Route path="/admin/register" element={<div>Register</div>} />
-      <Route element={<ProtectedRoutes isAuthenticate={true} /* isAuthenticated}*/ />}/>
+      <Route element={<ProtectedRoutes isAuthenticate={isAuthenticate} />}>
         <Route path="/admin/" element={<AdminLayout slot={<DashBoardPage key={'a'} />} />} />
         <Route path="/admin/product" element={<AdminLayout slot={<ProductPage key={'1'} />} />} />
         <Route path="/admin/category" element={<AdminLayout slot={<CategoryPage key={'a'} />} />} />
@@ -26,7 +48,7 @@ export default function AdminRouter() {
         <Route path="/admin/customer" element={<AdminLayout slot={<CustomerPage key={'a'} />} />} />
         <Route path="/admin/review" element={<AdminLayout slot={<ReviewPage key={'a'} />} />} />
         <Route path="/admin/decentralization" element={<AdminLayout slot={<DashBoardPage key={'a'} />} />} />
-
+      </Route>
     </Routes>
   );
 }

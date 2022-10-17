@@ -1,9 +1,10 @@
 import { concatQueryString } from '../../utils/concatQueryString';
 import { titleToSlug } from '../../utils/titleToSlug';
+import { getCookies } from '../Auth';
 import axiosClient from '../axiosClient';
 
 export const configHeadersAuthenticate = () => {
-  const token = localStorage.getItem('token');
+  const token = getCookies('token');
   return {
     headers: {
       Authorization: `Bearer ${token}`,
@@ -26,7 +27,6 @@ export const getAllProducts = async ({ sort, filterStatus, filterCategory, searc
     queryString.push(`page=${page}`);
   }
   if (filterStatus) {
-    // console.log(`filterStatus:`, filterStatus);
     queryString.push(`filter[status]=${filterStatus}`);
   }
   if (filterCategory) {
@@ -34,7 +34,7 @@ export const getAllProducts = async ({ sort, filterStatus, filterCategory, searc
   }
   const final_url = concatQueryString(queryString, url);
   console.log(final_url);
-  const reponse = await axiosClient.get(final_url);
+  const reponse = await axiosClient.get(final_url, configHeadersAuthenticate());
   if (reponse.status === 401) {
     return 401;
   } else if (reponse.status === 'success') {
@@ -46,7 +46,7 @@ export const getAllProducts = async ({ sort, filterStatus, filterCategory, searc
 
 export const getProductById = async (id) => {
   const url = `/api/admin/product/${id}`;
-  const response = await axiosClient.get(url);
+  const response = await axiosClient.get(url, configHeadersAuthenticate());
   if (response.status === 'success') {
     return response.data;
   } else if (response.status === 401) {
@@ -57,7 +57,7 @@ export const getProductById = async (id) => {
 };
 export const addProduct = async (body) => {
   const url = '/api/admin/product';
-  const response = await axiosClient.post(url, body);
+  const response = await axiosClient.post(url, body, configHeadersAuthenticate());
   if (response.status === 401) {
     return 401;
   } else if (response.status === 'success') {
@@ -71,7 +71,7 @@ export const addProduct = async (body) => {
 
 export const editProduct = async (id, body) => {
   const url = `/api/admin/product/${id}`;
-  const response = await axiosClient.put(url, body);
+  const response = await axiosClient.put(url, body, configHeadersAuthenticate());
   if (response.status === 401) {
     return 401;
   } else if (response.status === 'Success') {

@@ -87,7 +87,7 @@ export function StaffTable(props) {
                 item.status === 1 ? 'bg-success-100 text-success' : 'bg-red-100 text-red '
               }`}
             >
-              {item.status ? 'active' : 'disabled'}
+              {item.status === 1 ? 'Active' : 'Disabled'}
             </p>
           </td>
           <td>
@@ -148,7 +148,7 @@ export function StaffTable(props) {
           </p>
           <p className="card-txt-content">
             {' '}
-            <GrStatusUnknown className="icon" /> {item.status ? 'active' : 'disabled'}
+            <GrStatusUnknown className="icon" /> {item.status === 1 ? 'Active' : 'Disabled'}
           </p>
           <p className="card-txt-content">
             {' '}

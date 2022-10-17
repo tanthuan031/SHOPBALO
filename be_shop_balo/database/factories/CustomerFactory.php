@@ -4,13 +4,14 @@ namespace Database\Factories;
 
 use App\Models\Customer;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Facades\Hash;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Customer>
  */
 class CustomerFactory extends Factory
 {
-    protected $model=Customer::class;
+    protected $model = Customer::class;
     /**
      * Define the model's default state.
      *
@@ -21,12 +22,12 @@ class CustomerFactory extends Factory
         return [
             'first_name' => $this->faker->firstName,
             'last_name' => $this->faker->lastName,
-            'gender'=>$this->faker->randomElements(['male', 'female'])[0],
+            'gender' => $this->faker->randomElements(['male', 'female'])[0],
             'phone' => $this->faker->phoneNumber,
-            'email' =>$this->faker->unique()->safeEmail(),
-            'password' => bcrypt('123456'),
-            'point' => $this->faker->randomElements([10,5,25,12])[0],
-            'avatar'=> $this->faker->imageUrl,
+            'email' => $this->faker->unique()->safeEmail(),
+            'password' => Hash::make('12345678910'),
+            'point' => $this->faker->randomElements([10, 5, 25, 12])[0],
+            'avatar' => $this->faker->imageUrl,
             'status' => 1,
             'address' => $this->faker->address,
             'created_date' => date('Y-m-d H:i:s'),

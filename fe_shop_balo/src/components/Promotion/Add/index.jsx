@@ -1,18 +1,18 @@
-import { Button, Form } from 'react-bootstrap';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { Controller, useForm } from 'react-hook-form';
-import Select from 'react-select';
-import './style.css';
-import { useDispatch } from 'react-redux';
-import { setIsAdd } from '../../../redux/reducer/promotion/promotion.reducer';
-import { BlockUI } from '../../Layouts/Notiflix';
-import { ErrorToast, SuccessToast } from '../../Layouts/Alerts';
 import Notiflix from 'notiflix';
-import CustomEditor from './../../Layouts/Edittor/index';
+import { Button, Form } from 'react-bootstrap';
+import { Controller, useForm } from 'react-hook-form';
+import { useDispatch } from 'react-redux';
+import Select from 'react-select';
 import { addSchemaPromotion } from '../../../adapter/promotion';
+import { deleteCookie, getCookies } from '../../../api/Auth';
 import { addDiscount } from '../../../api/Promotion/promotionAPI';
-import { useEffect } from 'react';
-import { FaRegRegistered } from 'react-icons/fa';
+import { setExpiredToken } from '../../../redux/reducer/auth/auth.reducer';
+import { setIsAdd } from '../../../redux/reducer/promotion/promotion.reducer';
+import { ErrorToast, SuccessToast } from '../../Layouts/Alerts';
+import { BlockUI } from '../../Layouts/Notiflix';
+import CustomEditor from './../../Layouts/Edittor/index';
+import './style.css';
 
 function PromotionAdd(props) {
   const dispatch = useDispatch();
@@ -65,6 +65,8 @@ function PromotionAdd(props) {
           value: 'desc',
         },
       ]);
+    } else if (result.status === 401) {
+      handleSetUnthorization();
     } else {
       ErrorToast('Something went wrong. Please try again', 3000);
     }
@@ -74,7 +76,15 @@ function PromotionAdd(props) {
     setValue('description', value);
     console.log('editorDescription', value);
   };
-
+  const handleSetUnthorization = () => {
+    dispatch(setExpiredToken(true));
+    const token = getCookies('token');
+    // dispatch(setIsLogin(false));
+    dispatch(setExpiredToken(true));
+    if (token) {
+      deleteCookie('token');
+    }
+  };
   const TableRow = (props) => {
     return (
       <tr>

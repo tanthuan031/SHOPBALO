@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { Button, Form, InputGroup } from 'react-bootstrap';
 import { FaSearch } from 'react-icons/fa';
 import { useDispatch, useSelector } from 'react-redux';
+import { deleteCookie, getCookies } from '../../../api/Auth';
 import { getAll } from '../../../api/Category/categoryAPI';
 import { category_table_header } from '../../../asset/data/category_table_header';
 import CategoryTable from '../../../components/Category';
@@ -14,6 +15,7 @@ import NotFoundData from '../../../components/Layouts/NotFoundData';
 import { BlockUI } from '../../../components/Layouts/Notiflix';
 import PaginationUI from '../../../components/Layouts/Pagination';
 import Skeleton from '../../../components/Layouts/Skeleton';
+import { setExpiredToken, setIsLogin } from '../../../redux/reducer/auth/auth.reducer';
 import { setIsAdd } from '../../../redux/reducer/category/category.reducer';
 import {
   isAddCategorySelector,
@@ -42,7 +44,7 @@ export function CategoryPage(props) {
     const result = await getAll({ search, status, sort_id });
 
     if (result === 401) {
-      ErrorToast('Something went wrong. Please try again', 3000);
+      handleSetUnthorization();
       return false;
     } else {
       setData(result.data);
@@ -53,6 +55,7 @@ export function CategoryPage(props) {
     }
     setLoading(false);
   };
+
   useEffect(() => {
     handleCallApiCategory();
   }, [dispatch, isAdd, isReset, status, sort_id]);
@@ -90,7 +93,15 @@ export function CategoryPage(props) {
     }
     setLoading(false);
   };
-
+  const handleSetUnthorization = () => {
+    dispatch(setExpiredToken(true));
+    const token = getCookies('token');
+    // dispatch(setIsLogin(false));
+    dispatch(setExpiredToken(true));
+    if (token) {
+      deleteCookie('token');
+    }
+  };
   return (
     <>
       <section>

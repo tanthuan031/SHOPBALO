@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { Button, Form, InputGroup } from 'react-bootstrap';
 import { FaSearch } from 'react-icons/fa';
 import { useDispatch, useSelector } from 'react-redux';
+import { deleteCookie, getCookies } from '../../../api/Auth';
 import { getAllNotPage } from '../../../api/Category/categoryAPI';
 import { getAllProducts } from '../../../api/Product/productAPI';
 import { product_table_header } from '../../../asset/data/product_table_header';
@@ -16,6 +17,7 @@ import ProductAdd from '../../../components/Product/Add';
 import ProductEdit from '../../../components/Product/Edit';
 import FilterCategory from '../../../components/Product/FilterCategory';
 import FilterStatus from '../../../components/Product/FilterStatus';
+import { setExpiredToken } from '../../../redux/reducer/auth/auth.reducer';
 import { setIsAdd } from '../../../redux/reducer/product/product.reducer';
 import { isAddSelector, isEditSelector } from '../../../redux/selectors';
 
@@ -45,6 +47,7 @@ export function ProductPage(props) {
     const handleGetAllProducts = async () => {
       const result = await getAllProducts({ sort });
       if (result === 401) {
+        handleSetUnthorization();
         return false;
       } else if (result === 500) {
         return false;
@@ -204,6 +207,13 @@ export function ProductPage(props) {
     }
     setTotalRecords(result.meta.total);
     // setTotalPage(result.meta.last_page);
+  };
+  const handleSetUnthorization = () => {
+    dispatch(setExpiredToken(true));
+    const token = getCookies('token');
+    if (token) {
+      deleteCookie('token');
+    }
   };
   return (
     <>

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Button, Form, InputGroup } from 'react-bootstrap';
 import { FaSearch } from 'react-icons/fa';
 import { useDispatch, useSelector } from 'react-redux';
+import { deleteCookie, getCookies } from '../../../api/Auth';
 import { getAllOrder } from '../../../api/order/indexAPI';
 
 import { order_table_header } from '../../../asset/data/order_table_header';
@@ -13,6 +14,7 @@ import { OrderTable } from '../../../components/Order';
 import FilterOrder from '../../../components/Order/FilterOrder';
 import OrderDetail from '../../../components/Order/OrderDetail';
 import UpdateStatusOrder from '../../../components/Order/UpdateStatusOrder';
+import { setExpiredToken } from '../../../redux/reducer/auth/auth.reducer';
 import { isEditStatusOrderSelector, isOrderDetailSelector } from '../../../redux/selectors/order/order.selector';
 
 function OrderPage(props) {
@@ -32,6 +34,7 @@ function OrderPage(props) {
     const handleGetAllOrder = async () => {
       const result = await getAllOrder({});
       if (result === 401) {
+        handleSetUnthorization();
         return false;
       } else if (result === 500) {
         return false;
@@ -88,6 +91,13 @@ function OrderPage(props) {
       ErrorToast('Something went wrong. Please try again', 3000);
     } else {
       setOrder(result, 'page');
+    }
+  };
+  const handleSetUnthorization = () => {
+    dispatch(setExpiredToken(true));
+    const token = getCookies('token');
+    if (token) {
+      deleteCookie('token');
     }
   };
   return (

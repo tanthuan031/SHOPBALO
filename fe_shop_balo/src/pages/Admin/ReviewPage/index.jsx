@@ -19,6 +19,8 @@ import ReviewDetail from './../../../components/Review/Detail/index';
 import SortPoint from './../../../components/Review/SortPoint/index';
 import FilterStatus from './../../../components/Review/FilterStatus/index';
 import NotFoundData from '../../../components/Layouts/NotFoundData';
+import { setExpiredToken } from '../../../redux/reducer/auth/auth.reducer';
+import { deleteCookie, getCookies } from '../../../api/Auth';
 
 const ReviewPage = () => {
   const data_review_table_header = [...review_table_header];
@@ -37,7 +39,8 @@ const ReviewPage = () => {
 
     const result = await getAllReviews({ sortPoint: sort, sortStatus: status, search, page });
     if (result.status === 401) {
-      ErrorToast('Something went wrong. Please try again', 3000);
+      // ErrorToast('Something went wrong. Please try again', 3000);
+      handleSetUnthorization();
       return false;
     } else {
       setData(result.data);
@@ -72,7 +75,13 @@ const ReviewPage = () => {
     e.preventDefault();
     handleGetAllReview({ search });
   };
-
+  const handleSetUnthorization = () => {
+    dispatch(setExpiredToken(true));
+    const token = getCookies('token');
+    if (token) {
+      deleteCookie('token');
+    }
+  };
   return (
     <>
       <section>

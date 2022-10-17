@@ -1,4 +1,4 @@
-import React, {  useState } from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { Button, Col, Form, Row } from 'react-bootstrap';
 import { Controller, useForm } from 'react-hook-form';
@@ -15,6 +15,8 @@ import { addStaff } from '../../../api/Staff/staffAPI';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import { URL_SERVER } from '../../../utils/urlPath';
 import { formatDate } from '../../../utils/formatDate';
+import { setExpiredToken } from '../../../redux/reducer/auth/auth.reducer';
+import { deleteCookie, getCookies } from '../../../api/Auth';
 
 const StaffAdd = (props) => {
   const data_roles = [
@@ -69,7 +71,7 @@ const StaffAdd = (props) => {
     };
     //console.log('data:', resultData);
     const result = await addStaff(resultData);
-   // console.log('Result:', result);
+    // console.log('Result:', result);
     Notiflix.Block.remove('#root');
     if (result === 200) {
       SuccessToast('Create staff successfully', 3000);
@@ -85,8 +87,8 @@ const StaffAdd = (props) => {
       Notiflix.Block.remove('#root');
     } else if (result === 401) {
       Notiflix.Block.remove('#root');
-    } else if (result ===402)
-      ErrorToast('Email or phone numbers have existed!', 3000);
+      handleSetUnthorization();
+    } else if (result === 402) ErrorToast('Email or phone numbers have existed!', 3000);
     else {
       Notiflix.Block.remove('#root');
       ErrorToast('Something went wrong. Please try again', 4000);
@@ -98,7 +100,15 @@ const StaffAdd = (props) => {
       setImageAvatarStaffShow(URL.createObjectURL(image));
     }
   };
-
+  const handleSetUnthorization = () => {
+    dispatch(setExpiredToken(true));
+    const token = getCookies('token');
+    // dispatch(setIsLogin(false));
+    dispatch(setExpiredToken(true));
+    if (token) {
+      deleteCookie('token');
+    }
+  };
   return (
     <div className=" edit_form d-flex justify-content-center">
       <Form className="font_add_edit_prduct" onSubmit={handleSubmit(onSubmit)} encType="multipart/form-data">

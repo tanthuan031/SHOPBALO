@@ -13,15 +13,16 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
-});
+// Route::middleware('auth:api')->get('/user', function (Request $request) {
+//     return $request->user();
+// });
 Route::post('admin/login', [AuthController::class, 'login']);
 
 Route::group([
     'prefix' => 'admin',
     'middleware' => ['auth:sanctum'],
 ], function () {
+    Route::get('/me', [AuthController::class, 'getMe']);
     Route::resource('product', ProductController::class);
 
     Route::resource('staff', StaffController::class);

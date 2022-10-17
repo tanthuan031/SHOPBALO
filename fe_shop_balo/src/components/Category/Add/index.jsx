@@ -11,6 +11,8 @@ import { setIsAdd } from '../../../redux/reducer/category/category.reducer';
 import { BlockUI } from '../../Layouts/Notiflix';
 import { ErrorToast, SuccessToast } from '../../Layouts/Alerts';
 import Notiflix from 'notiflix';
+import { setExpiredToken } from '../../../redux/reducer/auth/auth.reducer';
+import { deleteCookie, getCookies } from '../../../api/Auth';
 function CreateCategoryForm(props) {
   const dispatch = useDispatch();
   const [imageCategory, setImageCategory] = useState();
@@ -67,6 +69,8 @@ function CreateCategoryForm(props) {
         SuccessToast('Create category successfully', 3000);
 
         backtoManagerUser();
+      } else if (result.status === 401) {
+        handleSetUnthorization();
       } else {
         ErrorToast('Something went wrong. Please try again', 3000);
       }
@@ -93,7 +97,15 @@ function CreateCategoryForm(props) {
     }
     return result;
   };
-
+  const handleSetUnthorization = () => {
+    dispatch(setExpiredToken(true));
+    const token = getCookies('token');
+    // dispatch(setIsLogin(false));
+    dispatch(setExpiredToken(true));
+    if (token) {
+      deleteCookie('token');
+    }
+  };
   return (
     <>
       <div className=" edit_form d-flex justify-content-center">

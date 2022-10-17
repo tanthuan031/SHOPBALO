@@ -14,6 +14,8 @@ import Notiflix from 'notiflix';
 import { ErrorToast, SuccessToast } from '../../Layouts/Alerts';
 import { editCustomer } from '../../../api/Customer/customerAPI';
 import ImageCustom from '../../Layouts/Image';
+import { setExpiredToken } from '../../../redux/reducer/auth/auth.reducer';
+import { deleteCookie, getCookies } from '../../../api/Auth';
 
 const CustomerEdit = (props) => {
   const customerSelector = useSelector(customerByIdSelector);
@@ -96,6 +98,7 @@ const CustomerEdit = (props) => {
       ErrorToast('Update customers unsuccessfully', 3000);
       Notiflix.Block.remove('#root');
     } else if (result === 401) {
+      handleSetUnthorization();
       Notiflix.Block.remove('#root');
     } else if (result === 402) ErrorToast('Email or phone numbers have existed!', 3000);
     else {
@@ -107,6 +110,15 @@ const CustomerEdit = (props) => {
     let image = e.target.files[0];
     if (e.target.files.length > 0) {
       setImageAvatarCustomerShow(URL.createObjectURL(image));
+    }
+  };
+  const handleSetUnthorization = () => {
+    dispatch(setExpiredToken(true));
+    const token = getCookies('token');
+    // dispatch(setIsLogin(false));
+    dispatch(setExpiredToken(true));
+    if (token) {
+      deleteCookie('token');
     }
   };
   return (

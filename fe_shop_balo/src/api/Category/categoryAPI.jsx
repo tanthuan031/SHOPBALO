@@ -1,9 +1,10 @@
 import { concatQueryString } from '../../utils/concatQueryString';
+import { getCookies } from '../Auth';
 
 import axiosClient from '../axiosClient';
 
 export const configHeadersAuthenticate = () => {
-  const token = localStorage.getItem('token');
+  const token = getCookies('token');
   return {
     headers: {
       Authorization: `Bearer ${token}`,
@@ -20,7 +21,7 @@ export const getAll = async ({ sort_id, search, status, page } = {}) => {
   if (page) queryString.push(`page=${page}`);
 
   const final_url = concatQueryString(queryString, url);
-  const reponse = await axiosClient.get(final_url);
+  const reponse = await axiosClient.get(final_url, configHeadersAuthenticate());
 
   if (reponse.status === 200) {
     return reponse.data;

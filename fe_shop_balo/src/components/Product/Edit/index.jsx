@@ -17,6 +17,8 @@ import { FaTimesCircle } from 'react-icons/fa';
 import { productByIdSelector } from '../../../redux/selectors/product/product.selector';
 import { getAll } from '../../../api/Category/categoryAPI';
 import ImageCustom from '../../Layouts/Image';
+import { setExpiredToken } from '../../../redux/reducer/auth/auth.reducer';
+import { deleteCookie, getCookies } from '../../../api/Auth';
 function ProductEdit(props) {
   const dispatch = useDispatch();
   const productDetailById = useSelector(productByIdSelector);
@@ -58,34 +60,9 @@ function ProductEdit(props) {
       setValue('image_slide', fileImageSlide, { shouldDirty: true });
     }
   }, [register, fileImageSlide]);
-
-  const name = useWatch({
-    control,
-    name: 'name',
-  });
-  const category_id = useWatch({
-    control,
-    name: 'category_id',
-  });
-  const code_color = useWatch({
-    control,
-    name: 'code_color',
-  });
-  const amount = useWatch({
-    control,
-    name: 'amount',
-  });
-  const price = useWatch({
-    control,
-    name: 'price',
-  });
   const description = useWatch({
     control,
     name: 'description',
-  });
-  const image = useWatch({
-    control,
-    name: 'image',
   });
   const image_slide = useWatch({
     control,
@@ -148,6 +125,7 @@ function ProductEdit(props) {
       ErrorToast('Update product unsuccessfully', 3000);
       Notiflix.Block.remove('#root');
     } else if (result === 401) {
+      handleSetUnthorization();
       Notiflix.Block.remove('#root');
     } else {
       Notiflix.Block.remove('#root');
@@ -178,6 +156,15 @@ function ProductEdit(props) {
     let image = e.target.files[0];
     if (e.target.files.length > 0) {
       setImageOne(URL.createObjectURL(image));
+    }
+  };
+  const handleSetUnthorization = () => {
+    dispatch(setExpiredToken(true));
+    const token = getCookies('token');
+    // dispatch(setIsLogin(false));
+    dispatch(setExpiredToken(true));
+    if (token) {
+      deleteCookie('token');
     }
   };
   return (

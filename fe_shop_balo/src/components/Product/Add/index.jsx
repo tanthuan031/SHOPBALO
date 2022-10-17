@@ -7,7 +7,9 @@ import { FaTimesCircle } from 'react-icons/fa';
 import { useDispatch } from 'react-redux';
 import Select from 'react-select';
 import { addSchema } from '../../../adapter/product';
+import { deleteCookie, getCookies } from '../../../api/Auth';
 import { addProduct } from '../../../api/Product/productAPI';
+import { setExpiredToken } from '../../../redux/reducer/auth/auth.reducer';
 import { setIsAdd } from '../../../redux/reducer/product/product.reducer';
 import { ErrorToast, SuccessToast } from '../../Layouts/Alerts';
 import CustomEditor from '../../Layouts/Edittor';
@@ -119,6 +121,7 @@ function ProductAdd(props) {
         ErrorToast('Create product unsuccessfully', 3000);
         Notiflix.Block.remove('#root');
       } else if (result === 401) {
+        handleSetUnthorization();
         Notiflix.Block.remove('#root');
       } else {
         Notiflix.Block.remove('#root');
@@ -158,6 +161,15 @@ function ProductAdd(props) {
     });
     setValue('image_slide', image_slide);
     fileImageSlideShow.file.splice(id, 1);
+  };
+  const handleSetUnthorization = () => {
+    dispatch(setExpiredToken(true));
+    const token = getCookies('token');
+    // dispatch(setIsLogin(false));
+    dispatch(setExpiredToken(true));
+    if (token) {
+      deleteCookie('token');
+    }
   };
   return (
     <>

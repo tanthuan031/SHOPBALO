@@ -6,7 +6,9 @@ import { Controller, useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 import Select from 'react-select';
 import { addSchemaCategory } from '../../../adapter/category';
+import { deleteCookie, getCookies } from '../../../api/Auth';
 import { updateCategory } from '../../../api/Category/categoryAPI';
+import { setExpiredToken } from '../../../redux/reducer/auth/auth.reducer';
 import { setCategory, setIsAdd, setIsEdit } from '../../../redux/reducer/category/category.reducer';
 import { isCategorySelector } from '../../../redux/selectors/category/category.selector';
 import { ErrorToast, SuccessToast } from '../../Layouts/Alerts';
@@ -75,6 +77,8 @@ function EditCategory(props) {
         SuccessToast('Update category successfully', 3000);
 
         backtoManagerUser();
+      } else if (result === 401) {
+        handleSetUnthorization();
       } else {
         ErrorToast('Something went wrong. Please try again', 3000);
       }
@@ -118,6 +122,15 @@ function EditCategory(props) {
       }
     }
     return result;
+  };
+  const handleSetUnthorization = () => {
+    dispatch(setExpiredToken(true));
+    const token = getCookies('token');
+    // dispatch(setIsLogin(false));
+    dispatch(setExpiredToken(true));
+    if (token) {
+      deleteCookie('token');
+    }
   };
   return (
     <>

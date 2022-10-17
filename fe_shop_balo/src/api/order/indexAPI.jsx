@@ -1,10 +1,11 @@
 // import React from 'react';
 import { concatQueryString } from '../../utils/concatQueryString';
 import { titleToSlug } from '../../utils/titleToSlug';
+import { getCookies } from '../Auth';
 import axiosClient from '../axiosClient';
 
 export const configHeadersAuthenticate = () => {
-  const token = localStorage.getItem('token');
+  const token = getCookies('token');
   return {
     headers: {
       Authorization: `Bearer ${token}`,
@@ -33,7 +34,7 @@ export const getAllOrder = async ({ sort, filterStatus, filterCategory, search, 
     queryString.push(`filter[category_id]=${filterCategory}`);
   }
   const final_url = concatQueryString(queryString, url);
-  const reponse = await axiosClient.get(final_url);
+  const reponse = await axiosClient.get(final_url, configHeadersAuthenticate());
   if (reponse.status === 401) {
     return 401;
   } else if (reponse.status === 'success') {
@@ -69,7 +70,7 @@ export const getAllOrder = async ({ sort, filterStatus, filterCategory, search, 
 // };
 export const getOrderById = async (id) => {
   const url = `/api/admin/order/${id}`;
-  const response = await axiosClient.get(url);
+  const response = await axiosClient.get(url, configHeadersAuthenticate());
   if (response.status === 'success') {
     return response.data;
   } else if (response.status === 401) {
@@ -80,7 +81,7 @@ export const getOrderById = async (id) => {
 };
 export const getOrderDetailById = async (id) => {
   const url = `/api/admin/order/${id}?order_details`;
-  const response = await axiosClient.get(url);
+  const response = await axiosClient.get(url, configHeadersAuthenticate());
   if (response.status === 'success') {
     return response.data;
   } else if (response.status === 401) {
@@ -91,7 +92,7 @@ export const getOrderDetailById = async (id) => {
 };
 export const updateStatusOrder = async (id, body) => {
   const url = `/api/admin/order/${id}`;
-  const response = await axiosClient.put(url, body);
+  const response = await axiosClient.put(url, body, configHeadersAuthenticate());
   if (response.status === 401) {
     return 401;
   } else if (response.status === 'success') {

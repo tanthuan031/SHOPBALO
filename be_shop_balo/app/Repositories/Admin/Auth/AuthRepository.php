@@ -21,23 +21,30 @@ class AuthRepository extends BaseRepository
     {
         $staff = Staff::query()->where('email', $request->email)->first();
         if ($staff) {
-            if (Hash::check($request->password, $staff->password)) {
-                $token = $staff->createToken($staff->email)->plainTextToken;
-                $data = [
-                    'token' => $token,
-                    'message' => "Login successfully",
-                    'status' => 200,
-                ];
+            if ($staff->status === 1) {
+                if (Hash::check($request->password, $staff->password)) {
+                    $token = $staff->createToken($staff->email)->plainTextToken;
+                    $data = [
+                        'token' => $token,
+                        'message' => "Login successfully",
+                        'status' => 200,
+                    ];
+                } else {
+                    $data = [
+                        'message' => "Password is incorrect",
+                        'status' => 403,
+                    ];
+                }
             } else {
                 $data = [
-                    'message' => "Login failed",
-                    'status' => 403,
+                    'message' => "Your account has been locked",
+                    'status' => 401,
                 ];
             }
         } else {
             $data = [
                 'message' => "Email does not exits",
-                'status' => 400,
+                'status' => 403,
             ];
         }
         return $data;

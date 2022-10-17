@@ -8,10 +8,16 @@ import Drawer from '../../components/Layouts/Drawer';
 import { FaUsers } from 'react-icons/fa';
 import './style.css';
 import { Button } from 'react-bootstrap';
+import { useSelector } from 'react-redux';
+
+import ExpiredToken from '../../components/Auth/ExpiredToken';
+import { exPiredTokenSelector } from '../../redux/selectors';
 
 export function AdminLayout(props) {
   const { slot } = props;
   const menu_admin_item_data = [...menu_admin_item];
+  const expiredToken = useSelector(exPiredTokenSelector);
+  console.log(`Expired token: ${expiredToken}`);
   return (
     <>
       <Header />
@@ -37,6 +43,7 @@ export function AdminLayout(props) {
       <main id="main" className="main p-5">
         {slot}
       </main>
+      {expiredToken && <ExpiredToken show={expiredToken} setStateModal={() => true} />}
     </>
   );
 }

@@ -1,7 +1,8 @@
+import { getCookies } from '../Auth';
 import { concatQueryString } from './../../utils/concatQueryString';
 import axiosClient from './../axiosClient';
 export const configHeadersAuthenticate = () => {
-  const token = localStorage.getItem('token');
+  const token = getCookies('token');
   return {
     headers: {
       Authorization: `Bearer ${token}`,
@@ -18,7 +19,7 @@ export const getAllReviews = async ({ sortPoint, sortStatus, search, page } = {}
   if (page) queryString.push(`page=${page}`);
 
   const final_url = concatQueryString(queryString, url);
-  const response = await axiosClient.get(final_url);
+  const response = await axiosClient.get(final_url, configHeadersAuthenticate());
   if (response.status === 200) return response.data;
   else if (response.status === 404) return 404;
   else if (response.status === 401) return 401;
@@ -27,7 +28,7 @@ export const getAllReviews = async ({ sortPoint, sortStatus, search, page } = {}
 
 export const getReviewById = async (id) => {
   const url = `/api/admin/rating/${id}`;
-  const response = await axiosClient.get(url);
+  const response = await axiosClient.get(url, configHeadersAuthenticate());
   if (response.status === 200) return response.data;
   else if (response.status === 404) return 404;
   else if (response.status === 401) return 401;
@@ -36,7 +37,7 @@ export const getReviewById = async (id) => {
 
 export const addReview = async (data) => {
   const url = `/api/admin/rating`;
-  const response = await axiosClient.post(url, data);
+  const response = await axiosClient.post(url, data, configHeadersAuthenticate());
   if (response.status === 200) return response.data;
   else if (response.status === 404) return 404;
   else if (response.status === 401) return 401;
@@ -45,7 +46,7 @@ export const addReview = async (data) => {
 
 export const editReview = async (id, data) => {
   const url = `/api/admin/rating/${id}`;
-  const response = await axiosClient.put(url, data);
+  const response = await axiosClient.put(url, data, configHeadersAuthenticate());
   if (response.status === 200) return response.data;
   else if (response.status === 404) return 404;
   else if (response.status === 401) return 401;
@@ -54,7 +55,7 @@ export const editReview = async (id, data) => {
 
 export const deleteReview = async (id) => {
   const url = `/api/admin/rating/${id}`;
-  const response = await axiosClient.delete(url);
+  const response = await axiosClient.delete(url, configHeadersAuthenticate());
   if (response.status === 200) return 200;
   else if (response.status === 404) return 404;
   else if (response.status === 401) return 401;

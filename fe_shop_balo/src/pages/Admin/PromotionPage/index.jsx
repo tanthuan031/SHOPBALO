@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { Button, Form, InputGroup } from 'react-bootstrap';
 import { FaSearch } from 'react-icons/fa';
 import { useDispatch, useSelector } from 'react-redux';
+import { deleteCookie, getCookies } from '../../../api/Auth';
 import { getAllDisount } from '../../../api/Promotion/promotionAPI';
 import { promotion_table_header } from '../../../asset/data/promotion_table_header';
 import { ErrorToast } from '../../../components/Layouts/Alerts';
@@ -10,6 +11,7 @@ import NotFoundData from '../../../components/Layouts/NotFoundData';
 import { BlockUI } from '../../../components/Layouts/Notiflix';
 import PaginationUI from '../../../components/Layouts/Pagination';
 import SortValue from '../../../components/Promotion/SortValue';
+import { setExpiredToken } from '../../../redux/reducer/auth/auth.reducer';
 import { setIsAdd } from '../../../redux/reducer/promotion/promotion.reducer';
 import Skeleton from './../../../components/Layouts/Skeleton/index';
 import PromotionAdd from './../../../components/Promotion/Add/index';
@@ -41,7 +43,8 @@ const PromotionPage = () => {
 
     const result = await getAllDisount({ sort, status, search, page });
     if (result === 401) {
-      ErrorToast('Something went wrong. Please try again', 3000);
+      // ErrorToast('Something went wrong. Please try again', 3000);
+      handleSetUnthorization();
       return false;
     } else {
       setData(result.data);
@@ -94,7 +97,13 @@ const PromotionPage = () => {
     setTotalRecords(result.meta.total);
     setIsLoading(false);
   };
-
+  const handleSetUnthorization = () => {
+    dispatch(setExpiredToken(true));
+    const token = getCookies('token');
+    if (token) {
+      deleteCookie('token');
+    }
+  };
   return (
     <>
       <section>

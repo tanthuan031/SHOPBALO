@@ -2,11 +2,11 @@ import { combineReducers } from '@reduxjs/toolkit';
 import categoryReducer from './category/category.reducer';
 import orderReducer from './order/order.reducer';
 import productReducer from './product/product.reducer';
-import  customerReducer  from './customer/customer.reducer';
+import customerReducer from './customer/customer.reducer';
 import promotionReducer from './promotion/promotion.reducer';
 import staffReducer from './staff/staff.reducer';
 import reviewReducer from './review/review.reducer';
-
+import authReducer from './auth/auth.reducer';
 
 const rootReducer = combineReducers({
   product: productReducer,
@@ -16,6 +16,6 @@ const rootReducer = combineReducers({
   promotion: promotionReducer,
   staff: staffReducer,
   review: reviewReducer,
-
+  auth: authReducer,
 });
 export default rootReducer;

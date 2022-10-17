@@ -14,6 +14,8 @@ import { addDiscount, editDiscount } from '../../../api/Promotion/promotionAPI';
 import { useEffect } from 'react';
 import { FaRegRegistered } from 'react-icons/fa';
 import { isPromotionSelector } from '../../../redux/selectors/promotion/promotion.selector';
+import { setExpiredToken } from '../../../redux/reducer/auth/auth.reducer';
+import { deleteCookie, getCookies } from '../../../api/Auth';
 
 function PromotionEdit(props) {
   const dispatch = useDispatch();
@@ -83,14 +85,14 @@ function PromotionEdit(props) {
     Object.keys(temDirtyFields).map((key) => {
       temDirtyFields[key] = data[key];
     });
-    
-    const resultData = { 
+
+    const resultData = {
       name: data.name,
       value: data.value,
       status: data.status,
-      description: data.description
+      description: data.description,
       // ...temDirtyFields
-    }
+    };
 
     const result = await editDiscount(promotionSelect.id, resultData);
 
@@ -104,11 +106,21 @@ function PromotionEdit(props) {
           value: 'desc',
         },
       ]);
+    } else if (result === 401) {
+      handleSetUnthorization();
     } else {
       ErrorToast('Something went wrong. Please try again', 3000);
     }
   };
-
+  const handleSetUnthorization = () => {
+    dispatch(setExpiredToken(true));
+    const token = getCookies('token');
+    // dispatch(setIsLogin(false));
+    dispatch(setExpiredToken(true));
+    if (token) {
+      deleteCookie('token');
+    }
+  };
   const TableRow = (props) => {
     return (
       <tr>

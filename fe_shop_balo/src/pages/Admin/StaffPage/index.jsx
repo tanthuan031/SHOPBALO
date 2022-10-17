@@ -2,6 +2,7 @@ import Notiflix from 'notiflix';
 import React from 'react';
 import { Button } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
+import { deleteCookie, getCookies } from '../../../api/Auth';
 import { getAllStaffs } from '../../../api/Staff/staffAPI';
 import { staff_table_header } from '../../../asset/data/staff/staff_table_header';
 import NotFoundData from '../../../components/Layouts/NotFoundData';
@@ -13,6 +14,7 @@ import { StaffTable } from '../../../components/Staff';
 import StaffAdd from '../../../components/Staff/Add';
 import StaffEdit from '../../../components/Staff/Edit';
 import FilterStatus from '../../../components/Staff/FilterStatus';
+import { setExpiredToken } from '../../../redux/reducer/auth/auth.reducer';
 import { setIsAdd } from '../../../redux/reducer/staff/staff.reducer';
 import { isAddStaffSelector, isEditStaffSelector } from '../../../redux/selectors';
 
@@ -57,6 +59,7 @@ export function StaffPage(props) {
     const handleGetAllStaffs = async () => {
       const result = await getAllStaffs(params);
       if (result === 401) {
+        handleSetUnthorization();
         return false;
       } else if (result === 500) {
         return false;
@@ -110,7 +113,13 @@ export function StaffPage(props) {
       Notiflix.Block.remove('#root');
     }, 300);
   };
-
+  const handleSetUnthorization = () => {
+    dispatch(setExpiredToken(true));
+    const token = getCookies('token');
+    if (token) {
+      deleteCookie('token');
+    }
+  };
   return (
     <section>
       <div className="container-fluid mt-5">

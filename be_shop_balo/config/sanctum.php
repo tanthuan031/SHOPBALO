@@ -45,8 +45,8 @@ return [
     | not expire. This won't tweak the lifetime of first-party sessions.
     |
     */
-    // setTimeout token
-    'expiration' => 5,
+    // setTimeout token 5 minute
+    'expiration' => 60,
 
     /*
     |--------------------------------------------------------------------------
