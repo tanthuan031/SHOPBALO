@@ -31,7 +31,7 @@ export const getAll = async ({ sort_id, search, status, page } = {}) => {
 };
 export const getAllNotPage = async () => {
   const url = '/api/admin/category?get_all';
-  const reponse = await axiosClient.get(url);
+  const reponse = await axiosClient.get(url, configHeadersAuthenticate());
 
   if (reponse.status === 200) {
     return reponse.data;
@@ -42,7 +42,7 @@ export const getAllNotPage = async () => {
 export const addCategory = async (data) => {
   const url = '/api/admin/category';
 
-  const reponse = await axiosClient.post(url, data);
+  const reponse = await axiosClient.post(url, data, configHeadersAuthenticate());
 
   if (reponse.status === 200) {
     return reponse;
@@ -52,7 +52,7 @@ export const addCategory = async (data) => {
 };
 export const showCategory = async (id) => {
   const url = `/api/admin/category/${id}`;
-  const res = await axiosClient.get(url);
+  const res = await axiosClient.get(url, configHeadersAuthenticate());
   if (res.status === 200) {
     return res.data;
   }
@@ -60,7 +60,7 @@ export const showCategory = async (id) => {
 };
 export const updateCategory = async (id, data) => {
   const url = `/api/admin/category/${id}`;
-  const res = await axiosClient.put(url, data);
+  const res = await axiosClient.put(url, data, configHeadersAuthenticate());
   if (res.status === 200) {
     return 200;
   }
@@ -68,7 +68,7 @@ export const updateCategory = async (id, data) => {
 };
 export const destroyCategory = async (id) => {
   const url = `/api/admin/category/${id}`;
-  const res = await axiosClient.delete(url);
+  const res = await axiosClient.delete(url, configHeadersAuthenticate());
   if (res.status === 200) {
     return { status: 200, message: res.message };
   }
@@ -76,7 +76,7 @@ export const destroyCategory = async (id) => {
 };
 export const forgotCategory = async (id) => {
   const url = `/api/admin/category/${id}/forgot`;
-  const res = await axiosClient.delete(url);
+  const res = await axiosClient.delete(url, configHeadersAuthenticate());
   if (res.status === 200) {
     return 200;
   }

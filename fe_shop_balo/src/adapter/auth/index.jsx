@@ -7,7 +7,11 @@ export const schemaLogin = yup
     password: yup.string().required(),
   })
   .required();
-
+export const schemaForgotPW = yup
+  .object({
+    email: yup.string().required(),
+  })
+  .required();
 export const checkLogin = () => {
   const token = getCookies('token');
   // const getMe = handleGetMe();

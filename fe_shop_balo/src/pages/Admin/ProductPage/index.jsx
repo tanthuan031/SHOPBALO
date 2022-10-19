@@ -59,7 +59,6 @@ export function ProductPage(props) {
     const handleGetListCategory = async () => {
       const result = await getAllNotPage();
       if (result === 401) {
-        console.log('error cate');
         return false;
       } else {
         setDataCategory(result.data);

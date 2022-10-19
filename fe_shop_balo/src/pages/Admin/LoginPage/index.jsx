@@ -1,21 +1,37 @@
 // @flow
 import * as React from 'react';
+import { useSelector } from 'react-redux';
+import { Navigate } from 'react-router-dom';
+import { checkLogin } from '../../../adapter/auth';
+import FormForgotPW from '../../../components/Auth/ForgotPassword';
 import FormLogin from '../../../components/Auth/Login';
+import { isForgotPasswordSelector } from '../../../redux/selectors';
 import './style.css';
 export function LoginPage(props) {
+  const isAuthenticated = checkLogin();
+  const isForgotPassword = useSelector(isForgotPasswordSelector);
   return (
     <>
-      <section className="section-login">
-        <div className="sl-box">
-          <h4 className="mt-2 font-weight-bold text-center">Welcome back</h4>
-          <h6 className="mt-2">
-            Login to your&nbsp;<span className="font-weight-bold">account</span>
-          </h6>
-          <div className="mt-4">
-            <FormLogin />
+      {!isAuthenticated ? (
+        <section className="section-login">
+          <div className="sl-box">
+            <h4 className="mt-2 font-weight-bold text-center">
+              {isForgotPassword ? 'Forgot Password' : 'Welcome back'}
+            </h4>
+            {!isForgotPassword ? (
+              <h6 className="mt-2">
+                Login to your&nbsp;<span className="font-weight-bold">account</span>
+              </h6>
+            ) : (
+              <h6 className="mt-2 p-0">Please enter your email</h6>
+            )}
+
+            <div className="mt-3">{isForgotPassword ? <FormForgotPW /> : <FormLogin />}</div>
           </div>
-        </div>
-      </section>
+        </section>
+      ) : (
+        <Navigate to="/admin/" />
+      )}
     </>
   );
 }

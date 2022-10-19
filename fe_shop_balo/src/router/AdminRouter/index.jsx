@@ -12,7 +12,7 @@ import { ProtectedRoutes } from '../ProtectedRouters';
 import PromotionPage from './../../pages/Admin/PromotionPage';
 import { CustomerPage } from '../../pages/Admin/CustomerPage';
 // import { checkLogin, handleGetInformation } from '../../api/Auth';
-import { setIsLogin } from '../../redux/reducer/auth/auth.reducer';
+import { setIsLogin, setUser } from '../../redux/reducer/auth/auth.reducer';
 import { useDispatch, useSelector } from 'react-redux';
 import { isLoginSelector } from '../../redux/selectors/auth/auth.reducer';
 import { checkLogin, handleGetMe } from '../../adapter/auth';
@@ -31,6 +31,8 @@ export default function AdminRouter() {
         }
       } else {
         dispatch(setIsLogin(true));
+        dispatch(setUser(result));
+        console.log('fwh', result);
       }
     });
   }, [dispatch]);

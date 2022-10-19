@@ -11,13 +11,16 @@ import { Button } from 'react-bootstrap';
 import { useSelector } from 'react-redux';
 
 import ExpiredToken from '../../components/Auth/ExpiredToken';
-import { exPiredTokenSelector } from '../../redux/selectors';
+import { exPiredTokenSelector, getUserSelector } from '../../redux/selectors';
+import Logout from '../../components/Auth/Logout';
+import { useState } from 'react';
 
 export function AdminLayout(props) {
   const { slot } = props;
   const menu_admin_item_data = [...menu_admin_item];
   const expiredToken = useSelector(exPiredTokenSelector);
-  console.log(`Expired token: ${expiredToken}`);
+  const [showLogout, setStateModalLogout] = useState(false);
+  const user = useSelector(getUserSelector);
   return (
     <>
       <Header />
@@ -27,7 +30,7 @@ export function AdminLayout(props) {
             {/* <img src={Logo} alt="Logo" width="80" height="80" /> */}
 
             <h5 className="font-weight-black text-center text-white mt-4">
-              <FaUsers /> Admin: Nguyen Van A
+              <FaUsers /> Admin: {user != undefined && user.first_name + ' ' + user.last_name}
             </h5>
             <div className="py-5">
               {/* {user?.type === "Admin" && <ListGroup data={menu_item_admin} />} */}
@@ -35,7 +38,9 @@ export function AdminLayout(props) {
               <ListGroup data={menu_admin_item_data} />
             </div>
             <div className="d-flex justify-content-center ">
-              <Button className="btn-danger">Logout</Button>
+              <Button className="btn-danger" onClick={() => setStateModalLogout(true)}>
+                Logout
+              </Button>
             </div>
           </>
         }
@@ -44,6 +49,7 @@ export function AdminLayout(props) {
         {slot}
       </main>
       {expiredToken && <ExpiredToken show={expiredToken} setStateModal={() => true} />}
+      <Logout show={showLogout} setStateModal={() => setStateModalLogout(false)} />
     </>
   );
 }

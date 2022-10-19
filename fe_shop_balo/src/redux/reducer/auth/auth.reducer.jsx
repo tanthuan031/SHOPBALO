@@ -6,6 +6,8 @@ export const authReducer = createSlice({
     key: 0,
     isLogin: false,
     expiredToken: false,
+    isForgotPassword: false,
+    user: {},
   },
   reducers: {
     setKey: (state, action) => {
@@ -17,9 +19,15 @@ export const authReducer = createSlice({
     setExpiredToken: (state, action) => {
       state.expiredToken = action.payload;
     },
+    setUser: (state, action) => {
+      state.user = action.payload;
+    },
+    setIsForgotPassword: (state, action) => {
+      state.isForgotPassword = action.payload;
+    },
   },
 });
 
-export const { setIsLogin, setExpiredToken } = authReducer.actions;
+export const { setIsLogin, setExpiredToken, setUser, setIsForgotPassword } = authReducer.actions;
 
 export default authReducer.reducer;

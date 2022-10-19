@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use App\Models\Role;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 
@@ -34,6 +35,10 @@ class Staff extends Model
         'status',
         'address',
         'created_date'
+
+    ];
+    protected $hidden = [
+        'password',
 
     ];
     public function roles(): BelongsTo
@@ -100,5 +105,15 @@ class Staff extends Model
                 $query
                     ->where("phone", "LIKE", "%{$search}%");
             });
+    }
+
+    public function fullName(): Attribute
+    {
+        $fullName = $this->first_name . ' ' . $this->last_name;
+
+        return Attribute::make(
+            get: fn () => $fullName,
+            set: fn () => $fullName,
+        );
     }
 }

@@ -55,3 +55,27 @@ export const handleGetInformation = async () => {
     return response.data;
   }
 };
+
+export const logout = async () => {
+  const response = await axiosClient.post('api/admin/logout', {}, configHeadersAuthenticate());
+
+  const { status } = response;
+
+  switch (status) {
+    case 'success':
+      SuccessToast('Logout successfully', 1000);
+      // localStorage.removeItem('token');
+      // setTimeout(() => {
+      //   window.location.href = '/admin/login';
+      // }, 1000);
+      return 200;
+      break;
+    case 401:
+      Notiflix.Block.remove('.modal-content');
+      return 401;
+    default:
+      ErrorToast(3500, 'Server error. Please try again');
+      Notiflix.Block.remove('.modal-content');
+      return 500;
+  }
+};

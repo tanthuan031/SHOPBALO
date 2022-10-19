@@ -9,7 +9,7 @@ import { BlockUI } from '../../Layouts/Notiflix';
 import { ErrorToast, SuccessToast } from '../../Layouts/Alerts';
 import Notiflix from 'notiflix';
 import { useDispatch } from 'react-redux';
-import { setIsLogin } from '../../../redux/reducer/auth/auth.reducer';
+import { setIsForgotPassword, setIsLogin } from '../../../redux/reducer/auth/auth.reducer';
 
 export default function FormLogin() {
   const [typePassword, setShowPassword] = useState('password');
@@ -48,6 +48,9 @@ export default function FormLogin() {
       return;
     }
   };
+  const handleForgorPW = () => {
+    dispatch(setIsForgotPassword(true));
+  };
   return (
     <>
       <Form onSubmit={handleSubmit(onSubmit)}>
@@ -72,7 +75,9 @@ export default function FormLogin() {
           </div>
         </Form.Group>
         <Form.Group className="mb-3 text-end ">
-          <span className="text-danger font-weight-bold text-end cursor-pointer "> Fogot password ?</span>
+          <span className="text-danger font-weight-bold text-end cursor-pointer " onClick={handleForgorPW}>
+            Fogot password ?
+          </span>
         </Form.Group>
         <div className="d-grid gap-2">
           <Button variant="danger" disabled={!isValid} className="font-weight-bold" type="submit">

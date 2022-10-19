@@ -89,10 +89,7 @@ const PromotionPage = () => {
 
   const backToPromotionList = async (value) => {
     setIsLoading(true);
-    console.log('value: ', value);
-
     const result = await getAllDisount({ sort: value });
-
     setData(result.data);
     setTotalRecords(result.meta.total);
     setIsLoading(false);

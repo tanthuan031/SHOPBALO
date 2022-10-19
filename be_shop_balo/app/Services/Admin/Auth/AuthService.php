@@ -27,10 +27,28 @@ class AuthService
             ], $result['status']);
         }
     }
-    public function getMe(): JsonResponse
+    public function getMe()
     {
         $result = $this->authRepository->getMe();
-
+        // dd($result);
         return $this->apiResponse($result, 'success', 'Get Information Successfully');
+    }
+
+    public function logout($request)
+    {
+
+        $result = $this->authRepository->logout($request);
+        if ($result['status'] === 200) {
+            return $this->apiResponse([], 'success', $result['message'], $result['status']);
+        }
+    }
+    public function forGotPassword($request)
+    {
+        $result = $this->authRepository->forgotPassword($request);
+        if ($result['status'] == 200) {
+            return $this->apiResponse($result, $result['status'], $result['message']);
+        } else {
+            return $this->apiResponse([], $result['status'],  $result['message']);
+        }
     }
 }

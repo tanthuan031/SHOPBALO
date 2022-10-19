@@ -50,8 +50,35 @@ class AuthRepository extends BaseRepository
         return $data;
     }
 
-    public function getMe(): ?Authenticatable
+    public function getMe()
     {
+        // dd(Auth::user()->fullname);
         return Auth::user();
+    }
+    public function logout($request)
+    {
+        $request->user()->currentAccessToken()->delete();
+        return  $result = [
+            'status' => 200,
+            'message' => 'Log out Successfully'
+        ];
+    }
+
+    public function forGotPassword($request)
+    {
+
+        $data = Staff::query()->where('email', '=', $request->get('email'))->first();
+        if ($data) {
+            return [
+                'status' => 200,
+                'message' => 'Forgot Password Successfully'
+            ];
+        } else {
+            return [
+                'status' => 403,
+                'message' => 'Email Not Found',
+                'data' => $request->get('email')
+            ];
+        }
     }
 }

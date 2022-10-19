@@ -16,7 +16,7 @@ class StaffController extends Controller
     protected  StaffService $staffService;
     public function __construct(StaffService $staffService)
     {
-       $this->staffService=$staffService;
+        $this->staffService = $staffService;
     }
     public function index(Request $request)
     {
@@ -30,7 +30,6 @@ class StaffController extends Controller
      */
     public function create(Request $request)
     {
-
     }
 
     /**
@@ -64,7 +63,6 @@ class StaffController extends Controller
      */
     public function edit($id)
     {
-
     }
 
     /**
@@ -76,7 +74,7 @@ class StaffController extends Controller
      */
     public function update(Request $request, int $id): \Illuminate\Http\JsonResponse
     {
-        return $this->staffService->updateStaff($request,$id );
+        return $this->staffService->updateStaff($request, $id);
     }
 
     /**
@@ -89,7 +87,4 @@ class StaffController extends Controller
     {
         return $this->staffService->deleteStaff($id);
     }
-
-
-
 }

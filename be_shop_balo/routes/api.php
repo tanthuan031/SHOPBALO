@@ -17,24 +17,21 @@ use Illuminate\Support\Facades\Route;
 //     return $request->user();
 // });
 Route::post('admin/login', [AuthController::class, 'login']);
-
+Route::post('admin/forgot-password', [AuthController::class, 'forgotpassword']);
 Route::group([
     'prefix' => 'admin',
     'middleware' => ['auth:sanctum'],
 ], function () {
-    Route::get('/me', [AuthController::class, 'getMe']);
+    Route::get('me', [AuthController::class, 'getMe']);
     Route::resource('product', ProductController::class);
-
     Route::resource('staff', StaffController::class);
 
     Route::resource('customer', CustomerController::class);
-    // api resource category
     Route::resource('category', CategoryController::class);
     Route::resource('order', OrderController::class);
     Route::delete('category/{category}/forgot', [CategoryController::class, 'forgot']);
-    // api discounts
     Route::resource('discount', DiscountController::class);
-    // api rating
     Route::resource('rating', RatingController::class);
+    Route::post('logout', [AuthController::class, 'logout']);
 });
 Route::get('/storage/{filename}', [StorageImageController::class, 'index']);
