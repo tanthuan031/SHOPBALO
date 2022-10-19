@@ -36,6 +36,9 @@ Route::group([
     Route::resource('rating', RatingController::class);
     // api statistics
     Route::prefix('statistics')->group(function(){
+        Route::get('order-today', [StatisticController::class,'figureOrderToday']);
+        Route::get('revenue-today', [StatisticController::class,'figureRevenueToday']);
+        Route::get('newcustomer', [StatisticController::class,'figureNewCustomer']);
         Route::get('order', [StatisticController::class,'figureOrders']);
         Route::get('revenue', [StatisticController::class,'figureRevenue']);
         Route::get('staff', [StatisticController::class,'getTopStaffSelling']);

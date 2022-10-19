@@ -8,6 +8,7 @@ use App\Services\Admin\CustomerService;
 use App\Services\Admin\OrderService;
 use App\Services\Admin\ProductService;
 use App\Services\Admin\StaffService;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
 class StatisticController extends Controller
@@ -36,9 +37,9 @@ class StatisticController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\JsonResponse
+     * @return JsonResponse
      */
-    public function figureOrders(Request $request): \Illuminate\Http\JsonResponse
+    public function figureOrders(Request $request): JsonResponse
     {
             return $this->orderService->getFigureOrders($request);
     }
@@ -46,7 +47,7 @@ class StatisticController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\JsonResponse
+     * @return JsonResponse
      */
     public function figureRevenue(Request $request)
     {
@@ -55,9 +56,36 @@ class StatisticController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\JsonResponse
+     * @return JsonResponse
      */
-    public function getTopStaffSelling(Request $request): \Illuminate\Http\JsonResponse
+    public function figureOrderToday(): JsonResponse
+    {
+        return $this->orderService->getFigureOrderToday();
+    }
+    /**
+     * Display a listing of the resource.
+     *
+     * @return JsonResponse
+     */
+    public function figureRevenueToday(Request $request): JsonResponse
+    {
+        return $this->orderService->getFigureRevenueToday();
+    }
+    /**
+     * Display a listing of the resource.
+     *
+     * @return JsonResponse
+     */
+    public function figureNewCustomer(): JsonResponse
+    {
+        return $this->customerService->getFigureNewCustomer();
+    }
+    /**
+     * Display a listing of the resource.
+     *
+     * @return JsonResponse
+     */
+    public function getTopStaffSelling(Request $request): JsonResponse
     {
         return $this->orderService->getTopStaffSelling($request);
     }
@@ -65,14 +93,12 @@ class StatisticController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\JsonResponse
+     * @return JsonResponse
      */
-    public function getFigureCategorySelling(Request $request): \Illuminate\Http\JsonResponse
+    public function getFigureCategorySelling(Request $request): JsonResponse
     {
         return $this->orderService->getFigureCategorySelling($request);
     }
-
-
     /**
      * Show the form for creating a new resource.
      *

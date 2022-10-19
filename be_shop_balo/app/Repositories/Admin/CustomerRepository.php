@@ -5,6 +5,7 @@ namespace App\Repositories\Admin;
 use App\Http\Resources\Admin\Customer\CustomerResource;
 use App\Models\Customer;
 use App\Repositories\BaseRepository;
+use Illuminate\Support\Facades\DB;
 
 class CustomerRepository extends BaseRepository
 {
@@ -24,6 +25,19 @@ class CustomerRepository extends BaseRepository
             ->paginate($this->paginate);
         return CustomerResource::collection($data)->response()->getData();
 
+    }
+    public  function getNewCustomerToday(){
+        try{
+            $today=  date("Y-m-d");
+            $result= Customer::query()
+                ->select( DB::raw('COUNT(id) AS amount_customer') )
+                ->where('created_date',$today)
+                ->get();
+        }
+        catch(Exception $e){
+            dd($e);
+        }
+        return response()->json( $result)->getData();
     }
     public function getCustomer(int $id)
     {

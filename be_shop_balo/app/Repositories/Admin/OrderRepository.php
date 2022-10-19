@@ -57,6 +57,33 @@ class OrderRepository extends BaseRepository
             return false;
         }
     }
+
+    public  function getOrderToday(){
+        try{
+            $today=  date("Y-m-d");
+            $result= Order::query()
+                ->select( DB::raw('COUNT(*)AS amount_order'))
+                ->where('created_order_date',$today)
+                ->get();
+        }
+        catch(Exception $e){
+            dd($e);
+        }
+        return response()->json( $result)->getData();
+    }
+    public  function getRevenueToday(){
+        try{
+            $today=  date("Y-m-d");
+            $result= Order::query()
+                ->select( DB::raw('SUM(total_price) AS revenue'))
+                ->where('created_order_date',$today)
+                ->get();
+        }
+        catch(Exception $e){
+            dd($e);
+        }
+        return response()->json( $result)->getData();
+    }
     public function getFigureOrders($request)
     {
 //        SELECT DATE(created_order_date) as date,COUNT(*)AS amount_order
@@ -82,6 +109,7 @@ class OrderRepository extends BaseRepository
         try{
             $result= Order::query()
                 ->select(DB::raw('DATE(created_order_date) as date'), DB::raw('COUNT(*)AS amount_order'))
+                //  ->where('status',2)
                 ->groupBy('date')
                 ->havingRaw("date BETWEEN  '".$start."' AND '".$end."'")
                 ->get();
@@ -96,14 +124,29 @@ class OrderRepository extends BaseRepository
     }
     public function getFigureRevenue($request)
     {
+        switch ($request->filter){
+            case 'Today':
+                $start = date('Y-m-d', strtotime('-1 day'));
+                $end = date("Y-m-d");
+                break;
+            case 'Weekly':
+                $start = date('Y-m-d', strtotime('-7 day'));
+                $end = date("Y-m-d");
+                break;
+            case 'Monthly':
+                $start = date('Y-m-01');;
+                $end = date("Y-m-d");
+                break;
+            default:
+                break;
+        }
         $result= Order::query()
             ->select(DB::raw('DATE(created_order_date) as date'), DB::raw('SUM(total_price) AS revenue'))
           //  ->where('status',2)
             ->groupBy('date')
-            // ->havingRaw('date BETWEEN  2022-10-10 AND 2022-10-20')
+            ->havingRaw("date BETWEEN  '".$start."' AND '".$end."'")
             ->get();
-//      dd($result);
-//
+
         return response()->json( $result)->getData();
 
 
@@ -118,7 +161,7 @@ class OrderRepository extends BaseRepository
             $result=Order::query()
                 ->join('staff','staff.id','=','orders.staff_id')
                 ->select('orders.staff_id','staff.first_name','staff.last_name',DB::raw('COUNT(orders.staff_id) as amount_order'))
-                ->where('orders.status','2')
+              //  ->where('orders.status','2')
                 ->groupBy('orders.staff_id','staff.first_name','staff.last_name')
                 ->skip(0)->take(5)
 
