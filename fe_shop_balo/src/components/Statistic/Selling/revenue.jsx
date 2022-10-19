@@ -57,21 +57,6 @@ function LineChartRevenue(props) {
       }
     }
   }
-  const toBase64 = (file) =>
-    new Promise((resolve, reject) => {
-      const reader = new FileReader();
-      reader.readAsDataURL(file);
-      reader.onload = () => resolve(reader.result);
-      reader.onerror = (error) => reject(error);
-    });
-  const handleDownloadChart=useCallback(() =>{
-    const link=document.createElement('a')
-    link.download='chart_revenue.png'
-
-    link.href=inputRef.current.toBas64Image();
-
-    //link.click()
-  },[])
   return (
     <div className=" container_chart_order">
       <div className="chart-header">
@@ -102,13 +87,7 @@ function LineChartRevenue(props) {
       </div>
       <Chart type="line" data={data} options={options} ref={inputRef} className="m-lg-3" id='chart'/>
       <div className="chart-footer">
-        <Button
-          variant="outline-dark"
-          className="font-weight-bold ms-2"
-          onClick={handleDownloadChart}
-        >
-          Print
-        </Button>
+
       </div>
     </div>
   );

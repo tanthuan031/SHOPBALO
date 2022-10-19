@@ -7,7 +7,7 @@ function SummaryStatisTic(props) {
     <Row className="summary-container">
       <Col  className=" small-box st-orders">
           <div className="inner">
-            <h3>150</h3>
+            <h3>{props.order}</h3>
 
             <p>New Orders</p>
           </div>
@@ -17,7 +17,7 @@ function SummaryStatisTic(props) {
       </Col>
       <Col   className=" small-box st-revenue">
         <div className="inner">
-          <h3>150</h3>
+          <h3>{props.revenue}VNĐ</h3>
 
           <p>Revenue Today</p>
         </div>
@@ -27,7 +27,7 @@ function SummaryStatisTic(props) {
       </Col>
       <Col  className=" small-box  st-customers">
         <div className="inner">
-          <h3>150</h3>
+          <h3>{props.customer}</h3>
 
           <p>New Customers</p>
         </div>

@@ -11,7 +11,7 @@ export const configHeadersAuthenticate = () => {
   };
 };
 
-export const getStatistisOrder = async ({filter, search } = {}) => {
+export const getStatistisOrder = async ({filter} = {}) => {
   const url = '/api/admin/statistics/order';
   const queryString = [];
 
@@ -79,6 +79,40 @@ export const getStatistisCategory = async ({filterStatus,filter, search } = {}) 
   const final_url = concatQueryString(queryString, url);
   console.log(final_url);
   const reponse = await axiosClient.get(final_url);
+  if (reponse.status === 401) {
+    return 401;
+  } else if (reponse.status === 'success') {
+    return reponse.data;
+  } else {
+    return 500;
+  }
+};
+
+export const getFigureNewOrderToday = async () => {
+  const url = '/api/admin/statistics/order-today';
+  const reponse = await axiosClient.get(url);
+  if (reponse.status === 401) {
+    return 401;
+  } else if (reponse.status === 'success') {
+    return reponse.data;
+  } else {
+    return 500;
+  }
+};
+export const getFigureRevenueToday = async () => {
+  const url = '/api/admin/statistics/revenue-today';
+  const reponse = await axiosClient.get(url);
+  if (reponse.status === 401) {
+    return 401;
+  } else if (reponse.status === 'success') {
+    return reponse.data;
+  } else {
+    return 500;
+  }
+};
+export const getFigureNewCustomer = async () => {
+  const url = '/api/admin/statistics/newcustomer';
+  const reponse = await axiosClient.get(url);
   if (reponse.status === 401) {
     return 401;
   } else if (reponse.status === 'success') {
