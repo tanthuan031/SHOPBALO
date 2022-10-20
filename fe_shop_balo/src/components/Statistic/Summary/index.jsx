@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { memo } from 'react';
 import "./index.css"
 import { Col, Row } from 'react-bootstrap';
 import { FaCoins, FaPeopleArrows, FaShoppingCart } from 'react-icons/fa';
 function SummaryStatisTic(props) {
+  console.log('render SummaryStatisTic')
   return (
     <Row className="summary-container">
       <Col  className=" small-box st-orders">
@@ -17,7 +18,7 @@ function SummaryStatisTic(props) {
       </Col>
       <Col   className=" small-box st-revenue">
         <div className="inner">
-          <h3>{props.revenue}VNĐ</h3>
+          <h3>{!!props.revenue?props.revenue:0}VNĐ</h3>
 
           <p>Revenue Today</p>
         </div>
@@ -52,4 +53,4 @@ function SummaryStatisTic(props) {
   );
 }
 
-export default SummaryStatisTic;
+export default memo(SummaryStatisTic);

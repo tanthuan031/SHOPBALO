@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { memo, useEffect, useState } from 'react';
 import { Chart } from 'primereact';
 import { getStatistisCategory } from '../../../../api/Statistic/statisticAPI';
 import { color_Category_PieChart } from '../../../../asset/data/statistic_color';
@@ -38,7 +38,6 @@ function PieChartCategory(props) {
       },
     },
   };
-  // console.log(dataBackgroundColor.map(item=>item.backgroundColor))
   const chartData = {
     labels: dataLabel,
     datasets: [
@@ -59,4 +58,4 @@ function PieChartCategory(props) {
   );
 }
 
-export default PieChartCategory;
+export default memo(PieChartCategory);

@@ -1,46 +1,72 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react';
+import React, { memo, useCallback, useEffect, useRef, useState } from 'react';
 import { Chart } from 'primereact';
 import { getStatistisOrder } from '../../../api/Statistic/statisticAPI';
 import "./index.css"
 import { Button } from 'react-bootstrap';
 
 
-function ChartLineOrders({ type,options,data,handleFilter }) {
+function ChartLineOrders({ type,label,data,onFilter }) {
+  console.log('chartline orders rerendered');
+  const optionFilter=[
+    {id:1,name:'Monthly'},
+    {id:2,name:'Weekly'},
+    {id:3,name:'Today'},
+  ]
+  const [filter,setFilter]= useState('Weekly')
 
-
+  const dataOrder = {
+    labels: label,
+    datasets: [
+      {
+        label: 'Amount of orders',
+        data: data,
+        fill: false,
+        borderColor: '#4bc0c0'
+      }
+    ]
+  };
+  const optionsOrder = {
+    plugins: {
+      title: {
+        display: true,
+        text: 'The chart shows the order for sale',
+        font: {
+          size: 16
+        }
+      },
+      legend: {
+        position: 'bottom'
+      }
+    }
+  }
   return (
     <div className=" container_chart_order">
       <div className="chart-header">
         Orders
         <div className="chart-button">
-          <Button
-            variant="outline-dark"
-            className="font-weight-bold"
-            onClick={()=>handleFilter('Monthly')}
-          >
-           Monthly
-          </Button>
-          <Button
-            variant="outline-dark"
-            className="font-weight-bold ms-2"
-            onClick={()=>handleFilter('Weekly')}
-          >
-            Weekly
-          </Button>
-          <Button
-            variant="outline-dark"
-            className="font-weight-bold ms-2"
-            onClick={()=>handleFilter('Today')}
-          >
-            Today
-          </Button>
+          {
+            optionFilter.map(option=>(
+              <Button
+                key={option.id}
+                variant="outline-dark"
+                checked={filter===option.name}
+                className="font-weight-bold margin-left-8px"
+                onClick={()=>{
+                  onFilter(option.name)
+                  setFilter(option.name)
+                }}
+              >
+                {option.name}
+              </Button>
+            ))
+          }
         </div>
       </div>
-      <Chart type={type} data={data} options={options}  className="m-lg-3" id='chart'/>
+      <Chart type={type} data={dataOrder} options={optionsOrder}  className="m-lg-3" id='chart'/>
       <div className="chart-footer">
       </div>
     </div>
   );
 }
 
-export default ChartLineOrders;
+export default memo(ChartLineOrders);

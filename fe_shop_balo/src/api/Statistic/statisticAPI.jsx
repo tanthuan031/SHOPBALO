@@ -19,7 +19,7 @@ export const getStatistisOrder = async ({filter} = {}) => {
     queryString.push(`filter=${filter}`);
   }
   const final_url = concatQueryString(queryString, url);
-  console.log(final_url);
+  //console.log(final_url);
   const reponse = await axiosClient.get(final_url);
   if (reponse.status === 401) {
     return 401;
@@ -37,7 +37,7 @@ export const getStatistisRevenue = async ({filter, search } = {}) => {
     queryString.push(`filter=${filter}`);
   }
   const final_url = concatQueryString(queryString, url);
-  console.log(final_url);
+  //console.log(final_url);
   const reponse = await axiosClient.get(final_url);
   if (reponse.status === 401) {
     return 401;
@@ -47,7 +47,7 @@ export const getStatistisRevenue = async ({filter, search } = {}) => {
     return 500;
   }
 };
-export const getStatistisStaff = async ({filter, search } = {}) => {
+export const getStatisticStaff = async ({filter } = {}) => {
   const url = '/api/admin/statistics/staff';
   const queryString = [];
 
@@ -55,7 +55,6 @@ export const getStatistisStaff = async ({filter, search } = {}) => {
     queryString.push(`filter=${filter}`);
   }
   const final_url = concatQueryString(queryString, url);
-  console.log(final_url);
   const reponse = await axiosClient.get(final_url);
   if (reponse.status === 401) {
     return 401;
@@ -65,7 +64,23 @@ export const getStatistisStaff = async ({filter, search } = {}) => {
     return 500;
   }
 };
+export const getStatisticCustomer = async ({filter } = {}) => {
+  const url = '/api/admin/statistics/customer';
+  const queryString = [];
 
+  if (filter) {
+    queryString.push(`filter=${filter}`);
+  }
+  const final_url = concatQueryString(queryString, url);
+  const reponse = await axiosClient.get(final_url);
+  if (reponse.status === 401) {
+    return 401;
+  } else if (reponse.status === 'success') {
+    return reponse.data;
+  } else {
+    return 500;
+  }
+};
 export const getStatistisCategory = async ({filterStatus,filter, search } = {}) => {
   const url = '/api/admin/statistics/category-sell';
   const queryString = [];
@@ -77,7 +92,7 @@ export const getStatistisCategory = async ({filterStatus,filter, search } = {}) 
     queryString.push(`filter[status]=${filterStatus}`);
   }
   const final_url = concatQueryString(queryString, url);
-  console.log(final_url);
+ // console.log(final_url);
   const reponse = await axiosClient.get(final_url);
   if (reponse.status === 401) {
     return 401;

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import ChartLineOrders from '../../../components/Statistic/Selling/order';
 import PieChartCategory from '../../../components/Statistic/Selling/Category/category';
 import SummaryStatisTic from '../../../components/Statistic/Summary';
@@ -8,19 +8,93 @@ import BarChartStaff from '../../../components/Statistic/Selling/Staff/staff';
 import {
   getFigureNewCustomer,
   getFigureNewOrderToday,
-  getFigureRevenueToday,
-  getStatistisOrder,
+  getFigureRevenueToday, getStatisticCustomer, getStatisticStaff, getStatistisCategory,
+  getStatistisOrder, getStatistisRevenue,
 } from '../../../api/Statistic/statisticAPI';
+import BarChartCustomer from '../../../components/Statistic/Selling/Customer';
 
 export function DashBoardPage(props) {
   const [loading, setLoading] = useState(true);
   const [summaryData, setSummaryData] = useState({});
   const [chartOrder, setChartOrder]= useState([])
-  const [filterOrder,setFilterOrder]=useState('Weekly')
+  const [chartRevenue, setChartRevenue] = useState([])
+  const [chartCategory, setChartCategory] = useState([])
+  const [chartStaff, setChartStaff] = useState([])
+  const [chartCustomer, setChartCustomer] = useState([])
+
+  const [filter,setFilter] = useState('Weekly');
   const checkResultAPI = (result) => {
     if (result === 401 || result === 500) return false;
     else return result.data;
   };
+  /* call API */
+  console.log('RENDER')
+  const handleGetStatistisOrders = async (filter) => {
+    const result = await getStatistisOrder({ filter })
+    if (result === 401) {
+      return false;
+    } else if (result === 500) {
+      return false;
+    } else {
+      setChartOrder({
+        label:result.data.map(item=>item.date),
+        data:result.data.map(item=>item.amount_order)
+      })
+    }
+  };
+  const handleGetStatistisRevenue = async (filter) => {
+    const result = await getStatistisRevenue({ filter })
+    if (result === 401) {
+      return false;
+    } else if (result === 500) {
+      return false;
+    } else {
+      setChartRevenue({
+        label:result.data.map(item=>item.date),
+        data:result.data.map(item=>item.revenue)
+      });
+    }
+    setLoading(false);
+  };
+  const handleGetStatistisCategory = async () => {
+    const result = await getStatistisCategory();
+    if (result === 401) {
+      return false;
+    } else if (result === 500) {
+      return false;
+    } else {
+      setChartCategory(result.data);
+    }
+    setLoading(false);
+  };
+  const handleGetStatistisStaff = async () => {
+    const result = await getStatisticStaff()
+    if (result === 401) {
+      return false;
+    } else if (result === 500) {
+      return false;
+    } else {
+      setChartStaff({
+       data: result.data.map(item => item.amount_order),
+        label: result.data.map(item => `${item.first_name} ${item.last_name}`)
+      });
+    }
+    setLoading(false);
+  };
+  const handleGetStatistisCustomer = async () => {
+    const result = await getStatisticCustomer()
+    if (result === 401) {
+      return false;
+    } else if (result === 500) {
+      return false;
+    } else {
+      setChartCustomer({
+        data: result.data.map(item => item.amount_order),
+        label: result.data.map(item => `${item.first_name} ${item.last_name}`)
+      });
+    }
+  };
+
   useEffect(() => {
       const handleGetSummaryData = async () => {
         const resultOrder = checkResultAPI(await getFigureNewOrderToday());
@@ -33,37 +107,41 @@ export function DashBoardPage(props) {
         });
       };
       handleGetSummaryData();
-      const handleGetStatistisOrders = async () => {
-        const result = await getStatistisOrder({ filter:filterOrder })
-        if (result === 401) {
-          return false;
-        } else if (result === 500) {
-          return false;
-        } else {
-          setChartOrder(result.data)
-        }
-      };
-      handleGetStatistisOrders();
+      handleGetStatistisOrders('Weekly');
+      handleGetStatistisRevenue('Weekly')
+
+      handleGetStatistisStaff();
+      handleGetStatistisCustomer();
     },
-    [filterOrder]);
-  console.log(filterOrder)
+    []);
+  /* handle Func */
+  const handleFilterOrder=useCallback( (filterOrder) => {
+      handleGetStatistisOrders(filterOrder);
+    //  console.log(filterOrder);
+    //setFilter(filterOrder);
+  },[])
+  const handleFilterRevenue=useCallback((filterRevenue) => {
+    handleGetStatistisRevenue(filterRevenue);
+  },[])
+
   /* config chart */
-  const dataOrder = {
-    labels: chartOrder.map(item=>item.date),
+
+  const dataRevenue = {
+    labels: chartRevenue.label,
     datasets: [
       {
-        label: 'Amount of orders',
-        data: chartOrder.map(item=>item.amount_order),
+        label: 'Amount of revenues',
+        data:  chartRevenue.data,
         fill: false,
-        borderColor: '#4bc0c0'
-      }
+        borderColor: '#b70544'
+      },
     ]
   };
-  const optionsOrder = {
+  const optionsRevenue = {
     plugins: {
       title: {
         display: true,
-        text: 'The chart shows the order for sale',
+        text: 'The chart shows revenue of store',
         font: {
           size: 16
         }
@@ -73,7 +151,6 @@ export function DashBoardPage(props) {
       }
     }
   }
-
   return (
     <>
       <div className='container-fluid mt-5'>
@@ -83,11 +160,20 @@ export function DashBoardPage(props) {
           customer={summaryData.customer}
         />
         <div className=' justify-content-center'>
-          <ChartLineOrders type='line' data={dataOrder} options={optionsOrder} handleFilter={setFilterOrder} />
-          <LineChartRevenue />
+          <ChartLineOrders type='line' data={chartOrder.data} label={chartOrder.label} onFilter={handleFilterOrder} />
+          <LineChartRevenue type='line' data={dataRevenue} options={optionsRevenue} onFilter={handleFilterRevenue} />
           <Row>
-            <Col><BarChartStaff /></Col>
             <Col> <PieChartCategory /></Col>
+            <Col> <PieChartCategory /></Col>
+          </Row>
+          <Row>
+            <Col><BarChartStaff
+              data={chartStaff.data}
+              label={chartStaff.label}/></Col>
+            <Col><BarChartCustomer
+              data={chartCustomer.data}
+              label={chartCustomer.label}
+            /></Col>
           </Row>
           {/**/}
         </div>

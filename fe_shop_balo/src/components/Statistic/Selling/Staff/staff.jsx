@@ -1,32 +1,16 @@
-import React, { useEffect, useState } from 'react';
+import React, { memo, useEffect, useState } from 'react';
 import { Chart } from 'primereact';
 import "./index.css"
-import { getStatistisOrder, getStatistisStaff } from '../../../../api/Statistic/statisticAPI';
-function BarChartStaff(props) {
-  const [loading,setLoading] = useState(true)
-  const [chart,setChart] = useState([])
-  useEffect(() => {
-    const handleGetStatistisStaff = async () => {
-      const result = await getStatistisStaff({  })
-      if (result === 401) {
-        return false;
-      } else if (result === 500) {
-        return false;
-      } else {
-        setChart(result.data);
-      }
-      setLoading(false);
-    };
-    handleGetStatistisStaff();
-  },[])
-  const data=chart.map(item => item.amount_order)
-  const label=chart.map(item => `${item.first_name} ${item.last_name}`)
+import {  getStatisticStaff } from '../../../../api/Statistic/statisticAPI';
+function BarChartStaff({data,label}) {
+  console.log('render staff')
+
   const basicData ={
     labels:label,
     datasets: [
       {
         label: 'Amount of orders',
-        backgroundColor: '#42A5F5',
+        backgroundColor: '#1fc087',
         data: data
       },
 
@@ -69,4 +53,4 @@ function BarChartStaff(props) {
   );
 }
 
-export default BarChartStaff;
+export default memo(BarChartStaff);
