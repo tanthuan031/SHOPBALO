@@ -42,6 +42,7 @@ Route::group([
         Route::get('order', [StatisticController::class,'figureOrders']);
         Route::get('revenue', [StatisticController::class,'figureRevenue']);
         Route::get('staff', [StatisticController::class,'getTopStaffSelling']);
+        Route::get('customer', [StatisticController::class,'getTopCustomerBuying']);
         Route::get('category-sell', [StatisticController::class,'getFigureCategorySelling']);
     });
 

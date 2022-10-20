@@ -119,6 +119,19 @@ class OrderService
         }else
         { return $this->apiResponse([], 'fail', 'Figure order unsuccessfully'); }
     }
+    public function getTopCustomerBuying($request): \Illuminate\Http\JsonResponse
+    {
+
+        $result = $this->orderRepository->getFigureCustomerBuying($request);
+        $data=[
+
+            'data'=>$result
+        ];
+        if ($result) {
+            return $this->apiResponse($data, 'success', 'Figure order successfully');
+        }else
+        { return $this->apiResponse([], 'fail', 'Figure order unsuccessfully'); }
+    }
     public function getFigureCategorySelling($request): \Illuminate\Http\JsonResponse
     {
 
