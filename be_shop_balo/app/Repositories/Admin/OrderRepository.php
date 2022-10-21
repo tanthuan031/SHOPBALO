@@ -220,7 +220,6 @@ class OrderRepository extends BaseRepository
 //FROM `orders` as o, order_details as od, products as pd,categories as ct
 //WHERE o.id=od.order_id AND od.product_id=pd.id AND pd.category_id=ct.id
 //GROUP BY ct.id,ct.name;
-
         try {
             $result = Order::query()
                 ->join('order_details', 'order_details.order_id', '=', 'orders.id')

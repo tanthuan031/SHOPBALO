@@ -32,6 +32,10 @@ class Staff extends Model
         'created_date'
 
     ];
+    protected $hidden = [
+        'password',
+        'remember_token',
+    ];
    public function roles():BelongsTo
     {
         return $this->belongsTo(Role::class,'role_id');
