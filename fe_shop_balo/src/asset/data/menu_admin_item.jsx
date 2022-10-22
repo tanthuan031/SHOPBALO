@@ -9,6 +9,7 @@ import {
   FaUsers,
   FaUsersCog,
   FaUserTie,
+  FaImages,
 } from 'react-icons/fa';
 
 export const menu_admin_item = [
@@ -21,7 +22,7 @@ export const menu_admin_item = [
   },
   {
     id: 2,
-    name: 'Category Product',
+    name: 'Category',
     active: false,
     link: '/admin/category',
     icon: <FaThLarge />,
@@ -75,8 +76,15 @@ export const menu_admin_item = [
     link: '/admin/decentralization',
     icon: <FaUsersCog />,
   },
+  {
+    id: 10,
+    name: 'Slider',
+    active: false,
+    link: '/admin/slider',
+    icon: <FaImages />,
+  },
   // {
-  //   id: 10,
+  //   id: 11,
   //   name: "Report",
   //   active: false,
   //   link: "/report",

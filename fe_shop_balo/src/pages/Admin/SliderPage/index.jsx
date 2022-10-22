@@ -3,45 +3,45 @@ import React, { useEffect, useState } from 'react';
 import { Button, Form, InputGroup } from 'react-bootstrap';
 import { FaSearch } from 'react-icons/fa';
 import { useDispatch, useSelector } from 'react-redux';
-import { getAllDisount } from '../../../api/Promotion/promotionAPI';
-import { promotion_table_header } from '../../../asset/data/promotion_table_header';
-import { ErrorToast } from '../../../components/Layouts/Alerts';
-import NotFoundData from '../../../components/Layouts/NotFoundData';
-import { BlockUI } from '../../../components/Layouts/Notiflix';
+import Skeleton from '../../../components/Layouts/Skeleton/index';
+import { slider_table_header } from '../../../asset/data/slider_table_header';
+import SliderTable from '../../../components/Slider';
+import NotFoundData from './../../../components/Layouts/NotFoundData/index';
 import PaginationUI from '../../../components/Layouts/Pagination';
-import SortValue from '../../../components/Promotion/SortValue';
-import { setIsAdd } from '../../../redux/reducer/promotion/promotion.reducer';
-import Skeleton from './../../../components/Layouts/Skeleton/index';
-import PromotionAdd from './../../../components/Promotion/Add/index';
-import PromotionEdit from './../../../components/Promotion/Edit/index';
-import FilterStatus from './../../../components/Promotion/FilterStatus/index';
-import PromotionTable from './../../../components/Promotion/index';
+import { getAllSlider } from '../../../api/Slider/sliderAPI';
+import { ErrorToast } from '../../../components/Layouts/Alerts';
+import { BlockUI } from '../../../components/Layouts/Notiflix';
+import { setIsAdd } from '../../../redux/reducer/slider/slider.reducer';
 import {
-  isAddSelectorPromotion,
-  isEditSelectorPromotion,
-  isResetSelectorPromotion,
-  isSortSelectorPromotion,
-  isStatusSelectorPromotion,
-} from './../../../redux/selectors/promotion/promotion.selector';
+  isAddSelectorSlider,
+  isEditSelectorSlider,
+  isResetSelectorSlider,
+  isSortSelectorSlider,
+  isStatusSelectorSlider,
+} from '../../../redux/selectors/slider/slider.selector';
+import SliderAdd from '../../../components/Slider/Add';
+import SliderEdit from '../../../components/Slider/Edit';
+import FilterStatus from '../../../components/Slider/FilterStatus';
 
-const PromotionPage = () => {
-  const data_promotion_table_header = [...promotion_table_header];
-  const [data, setData] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
-  const [totalRecord, setTotalRecords] = useState(0);
-  const isAdd = useSelector(isAddSelectorPromotion);
-  const isEdit = useSelector(isEditSelectorPromotion);
-  const isReset = useSelector(isResetSelectorPromotion);
-  const [search, setSearch] = useState('');
-  const status = useSelector(isStatusSelectorPromotion);
-  const sort = useSelector(isSortSelectorPromotion);
-  const [page, setPage] = useState(1);
+
+const SliderPage = () => {
+  const data_slider_table_header = [...slider_table_header];
+  const isAdd = useSelector(isAddSelectorSlider);
+  const isEdit = useSelector(isEditSelectorSlider);
+  const isReset = useSelector(isResetSelectorSlider);
   const dispatch = useDispatch();
+  const [isLoading, setIsLoading] = useState(true);
+  const [data, setData] = useState([]);
+  const [totalRecord, setTotalRecords] = useState(0);
+  const [page, setPage] = useState(1);
+  const [search, setSearch] = useState('');
+  const status = useSelector(isStatusSelectorSlider);
+  const sort = useSelector(isSortSelectorSlider);
 
-  const handleGetAllPromotion = async () => {
+  const handleGetAllSlider = async () => {
     setIsLoading(true);
 
-    const result = await getAllDisount({ sort, status, search, page });
+    const result = await getAllSlider({ sort, status, search, page });
     if (result === 401) {
       ErrorToast('Something went wrong. Please try again', 3000);
       return false;
@@ -54,13 +54,13 @@ const PromotionPage = () => {
   };
 
   useEffect(() => {
-    handleGetAllPromotion();
+    handleGetAllSlider();
   }, [status, sort, isEdit, isAdd, isReset]);
 
   const handleChangePage = async (page) => {
     setPage(page);
     setIsLoading(true);
-    const result = await getAllDisount({ page });
+    const result = await getAllSlider({ page });
 
     if (result === 401) {
       ErrorToast('Something went wrong. Please try again', 3000);
@@ -73,24 +73,24 @@ const PromotionPage = () => {
     setIsLoading(false);
   };
 
-  const goToPageAddPromotion = () => {
-    BlockUI('#root', 'fixed');
-    setTimeout(function () {
-      dispatch(setIsAdd(true));
-      Notiflix.Block.remove('#root');
-    }, 500);
+const goToPageAddSlider = () => {
+  BlockUI('#root', 'fixed');
+  setTimeout(function () {
+    dispatch(setIsAdd(true));
+    Notiflix.Block.remove('#root');
+  }, 500);
   };
-
+  
   const handleSearh = async (e) => {
     e.preventDefault();
-    handleGetAllPromotion();
+    handleGetAllSlider();
   };
 
-  const backToPromotionList = async (value) => {
+  const backToSliderList = async (value) => {
     setIsLoading(true);
 
-    // const result = await getAllDisount({ sort: value });
-    const result = await getAllDisount();
+    // const result = await getAllSlider({ sort: value });
+    const result = await getAllSlider();
 
     setData(result.data);
     setTotalRecords(result.meta.total);
@@ -101,15 +101,14 @@ const PromotionPage = () => {
     <>
       <section>
         <div className="container-fluid mt-5">
-          {!isAdd && !isEdit && <h5 className="text-danger font-weight-bold mb-3">Promotion List</h5>}
-          {isAdd && !isEdit && <h5 className="text-danger font-weight-bold mb-3">Add promotion</h5>}
-          {isEdit && <h5 className="text-danger font-weight-bold mb-3">Edit promotion</h5>}
+          {!isAdd && !isEdit && <h5 className="text-danger font-weight-bold mb-3">Slider List</h5>}
+          {isAdd && !isEdit && <h5 className="text-danger font-weight-bold mb-3">Add slider</h5>}
+          {isEdit && <h5 className="text-danger font-weight-bold mb-3">Edit slider</h5>}
 
           {!isAdd && !isEdit ? (
             <div className="row">
               <div className="mb-3 d-flex justify-content-between">
                 <div className="d-flex justify-content-between ">
-                  <SortValue />
                   <FilterStatus />
                 </div>
                 <div className="d-flex justify-content-between ">
@@ -117,13 +116,18 @@ const PromotionPage = () => {
                     <InputGroup>
                       <Form.Control
                         id="seach-category"
-                        placeholder="Search name promotion"
+                        placeholder="Search name slider"
                         value={search}
                         onChange={(e) => {
                           setSearch(e.target.value);
                         }}
                       />
-                      <Button id="seach-category" variant="danger" type="submit" onClick={handleSearh}>
+                      <Button
+                        id="seach-category"
+                        variant="danger"
+                        type="submit"
+                        onClick={handleSearh}
+                      >
                         <FaSearch />
                       </Button>
                     </InputGroup>
@@ -132,9 +136,9 @@ const PromotionPage = () => {
                     id="create-new-category"
                     variant="danger"
                     className="font-weight-bold ms-3"
-                    onClick={goToPageAddPromotion}
+                    onClick={goToPageAddSlider}
                   >
-                    Create new promotion
+                    Create new slider
                   </Button>
                 </div>
               </div>
@@ -148,7 +152,7 @@ const PromotionPage = () => {
               {!isLoading ? (
                 <>
                   {data.length > 0 ? (
-                    <PromotionTable tableHeader={data_promotion_table_header} tableBody={data} />
+                    <SliderTable tableHeader={data_slider_table_header} tableBody={data} />
                   ) : (
                     <NotFoundData />
                   )}
@@ -167,8 +171,12 @@ const PromotionPage = () => {
             </div>
           ) : (
             <>
-              {isAdd && !isEdit && <PromotionAdd backToPromotionList={backToPromotionList} />}
-              {isEdit && <PromotionEdit backToPromotionList={backToPromotionList} />}
+                {isAdd && !isEdit && <SliderAdd
+                  // backToPromotionList={backToPromotionList}
+                />}
+                {isEdit && <SliderEdit
+                  // backToPromotionList={backToPromotionList}
+                />}
             </>
           )}
         </div>
@@ -177,4 +185,4 @@ const PromotionPage = () => {
   );
 };
 
-export default PromotionPage;
+export default SliderPage;
