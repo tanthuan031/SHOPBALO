@@ -87,7 +87,6 @@ function ProductAdd(props) {
     });
 
   const onSubmit = async (data) => {
-    console.log('color', data.color);
     BlockUI('#root', 'fixed');
     if (data.image.length !== 0 && data.description != '') {
       const image1 = await toBase64(data.image[0]);

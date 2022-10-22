@@ -2,6 +2,8 @@
 
 namespace App\Repositories\Admin\Auth;
 
+use App\Mail\SendMail;
+use App\Models\EmailOtp;
 use App\Models\Staff;
 use App\Repositories\BaseRepository;
 use Exception;
@@ -9,6 +11,7 @@ use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
 
 class AuthRepository extends BaseRepository
 {
@@ -64,20 +67,55 @@ class AuthRepository extends BaseRepository
         ];
     }
 
-    public function forGotPassword($request)
+    public function otpSendMail($request)
+    {
+        $data = Staff::query()->where('email', '=', $request->get('email'))->first();
+        // dd($data->id);
+        if ($data) {
+            $otp = rand(100000, 999999);
+            // dd(Mail::to('tanthuan031@gmail.com')->send(new SendMail($otp)));
+            if (Mail::to($request->get('email'))->send(new SendMail($otp))) {
+                EmailOtp::query()->create([
+                    'user_id' => $data->id,
+                    'otp' => $otp
+                ]);
+                return [
+                    'status' => 200,
+                    'message' => 'Verification code send to your email....'
+                ];
+            } else {
+                return [
+                    'status' => 404,
+                    'message' => 'Not Found....'
+                ];
+            }
+        } else {
+            return [
+                'status' => 400,
+                'message' => 'Email Not Found',
+                'data' => $request->get('email')
+            ];
+        }
+    }
+
+    public function forgotPassword($request)
     {
 
-        $data = Staff::query()->where('email', '=', $request->get('email'))->first();
-        if ($data) {
+        $data = Staff::query()->where('email', '=', $request['email'])->first();
+        $otp = EmailOtp::query()->where('user_id', '=', $data->id)->where('otp', '=', $request['otp'])->first();
+        if ($otp !== null) {
+            $data->update([
+                'password' => $request['password'],
+            ]);
+            $otp->delete();
             return [
                 'status' => 200,
-                'message' => 'Forgot Password Successfully'
+                'message' => 'Forgot Password Successfully',
             ];
         } else {
             return [
                 'status' => 403,
-                'message' => 'Email Not Found',
-                'data' => $request->get('email')
+                'message' => 'OTP not found',
             ];
         }
     }

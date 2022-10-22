@@ -30,8 +30,13 @@ class AuthController extends Controller
     {
         return $this->authService->logout($request);
     }
-    public function forgotpassword(Request $request)
+    public function otpSendMail(Request $request)
     {
+        return $this->authService->otpSendMail($request);
+    }
+    public function forgotPassword(Request $request)
+    {
+
         return $this->authService->forgotPassword($request);
     }
 }

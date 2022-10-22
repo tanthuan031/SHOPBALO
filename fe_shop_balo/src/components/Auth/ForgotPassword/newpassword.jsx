@@ -3,20 +3,20 @@ import { Button, Form } from 'react-bootstrap';
 import { useForm } from 'react-hook-form';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { schemaForgotPW, schemaLogin } from '../../../adapter/auth';
-import { handleLogin, senMailOTP, setCookies } from '../../../api/Auth';
+import { schemaForgotNewPW, schemaForgotPW, schemaLogin } from '../../../adapter/auth';
+import { forgotPassword, handleLogin, senMailOTP, setCookies } from '../../../api/Auth';
 import { BlockUI } from '../../Layouts/Notiflix';
 import { ErrorToast, SuccessToast } from '../../Layouts/Alerts';
 import Notiflix from 'notiflix';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import {
-  setEmailForgot,
   setIsForgotPassword,
   setIsForgotPasswordVerification,
   setIsLogin,
 } from '../../../redux/reducer/auth/auth.reducer';
+import { emailForgotSelector } from '../../../redux/selectors';
 
-export default function FormForgotPW() {
+export default function FormNewPassword() {
   const [typePassword, setShowPassword] = useState('password');
   const dispatch = useDispatch();
   const {
@@ -25,36 +25,47 @@ export default function FormForgotPW() {
     formState: { isValid },
   } = useForm({
     mode: 'onChange',
-    resolver: yupResolver(schemaForgotPW),
+    resolver: yupResolver(schemaForgotNewPW),
   });
-
+  const emailFG = useSelector(emailForgotSelector);
   const onSubmit = async (data) => {
-    BlockUI('.sl-box');
-    const result = await senMailOTP(data);
-    if (result === 400 || result === 404) {
-      ErrorToast('Email not found. Please check again ', 3500);
+    // BlockUI('.sl-box');
+    const resultData = {
+      password: data.password,
+      otp: data.otp,
+      email: emailFG,
+    };
+    const result = await forgotPassword(resultData);
+    if (result === 403) {
+      ErrorToast('OTP is not correct . Please try again', 3500);
       Notiflix.Block.remove('.sl-box');
       return;
     }
     if (result === 200) {
-      SuccessToast('Verification code send to your email', 5000);
-      dispatch(setIsForgotPasswordVerification(true));
-      dispatch(setEmailForgot(data.email));
-      Notiflix.Block.remove('.sl-box');
+      SuccessToast('Forgot Password Successfully', 2000);
+      dispatch(setIsForgotPasswordVerification(false));
+      dispatch(setIsForgotPassword(false));
       return;
     }
   };
   const handleBack = () => {
-    dispatch(setIsForgotPassword(false));
+    dispatch(setIsForgotPasswordVerification(false));
   };
   return (
     <>
       <Form onSubmit={handleSubmit(onSubmit)}>
         <Form.Group className="mb-3 form-user">
           <Form.Label className="font-weight-bold">
-            Email&nbsp;<span className="text-danger">*</span>
+            OTP&nbsp;<span className="text-danger">*</span>
           </Form.Label>
-          <Form.Control {...register('email')} type="text" />
+          <Form.Control {...register('otp')} type="number" />
+        </Form.Group>
+
+        <Form.Group className="mb-3 form-user">
+          <Form.Label className="font-weight-bold">
+            New Password&nbsp;<span className="text-danger">*</span>
+          </Form.Label>
+          <Form.Control {...register('password')} type="text" />
         </Form.Group>
         <div className="d-flex gap-2 justify-content-end ">
           <Button variant="danger" className="font-weight-bold" onClick={handleBack}>

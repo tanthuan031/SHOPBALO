@@ -17,7 +17,8 @@ use Illuminate\Support\Facades\Route;
 //     return $request->user();
 // });
 Route::post('admin/login', [AuthController::class, 'login']);
-Route::post('admin/forgot-password', [AuthController::class, 'forgotpassword']);
+Route::post('admin/otp-sendmail', [AuthController::class, 'otpSendMail']);
+Route::put('admin/forgot-password', [AuthController::class, 'forgotPassword']);
 Route::group([
     'prefix' => 'admin',
     'middleware' => ['auth:sanctum'],

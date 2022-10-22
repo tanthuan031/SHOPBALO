@@ -58,16 +58,10 @@ export const handleGetInformation = async () => {
 
 export const logout = async () => {
   const response = await axiosClient.post('api/admin/logout', {}, configHeadersAuthenticate());
-
   const { status } = response;
-
   switch (status) {
     case 'success':
       SuccessToast('Logout successfully', 1000);
-      // localStorage.removeItem('token');
-      // setTimeout(() => {
-      //   window.location.href = '/admin/login';
-      // }, 1000);
       return 200;
       break;
     case 401:
@@ -77,5 +71,25 @@ export const logout = async () => {
       ErrorToast(3500, 'Server error. Please try again');
       Notiflix.Block.remove('.modal-content');
       return 500;
+  }
+};
+
+export const senMailOTP = async (body) => {
+  const response = await axiosClient.post('api/admin/otp-sendmail', body);
+  if (response.status === 200) {
+    return 200;
+  } else if (response.status === 404) {
+    return 404;
+  } else if (response.status === 400) {
+    return 400;
+  }
+};
+
+export const forgotPassword = async (body) => {
+  const response = await axiosClient.put('api/admin/forgot-password', body);
+  if (response.status === 'success') {
+    return 200;
+  } else {
+    return 403;
   }
 };

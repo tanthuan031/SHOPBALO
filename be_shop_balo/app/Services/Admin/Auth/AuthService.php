@@ -5,6 +5,7 @@ namespace App\Services\Admin\Auth;
 use App\Http\Traits\ApiResponse;
 use App\Repositories\Admin\Auth\AuthRepository;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Facades\Hash;
 
 class AuthService
 {
@@ -42,13 +43,37 @@ class AuthService
             return $this->apiResponse([], 'success', $result['message'], $result['status']);
         }
     }
-    public function forGotPassword($request)
+    public function otpSendMail($request)
     {
-        $result = $this->authRepository->forgotPassword($request);
+        $result = $this->authRepository->otpSendMail($request);
         if ($result['status'] == 200) {
-            return $this->apiResponse($result, $result['status'], $result['message']);
+            return $this->apiResponse([], $result['status'], $result['message']);
         } else {
             return $this->apiResponse([], $result['status'],  $result['message']);
+        }
+    }
+    public function forgotPassword($request)
+    {
+
+        if (!empty($request->get('email')) && !empty($request->get('otp')) && !empty($request->get('password'))) {
+            $dataRequest = [
+                'email' => $request->get('email'),
+                'password' => Hash::make($request->password),
+                'otp' => $request->get('otp')
+            ];
+            $result = $this->authRepository->forgotPassword($dataRequest);
+        } else {
+            $result = [
+                'status' => 403,
+                'message' => 'Field not found',
+            ];
+        }
+
+        // dd($result);
+        if ($result['status'] === 200) {
+            return $this->apiResponse([], 'success', $result['message']);
+        } else {
+            return $this->apiResponse([], $result['status'], $result['message']);
         }
     }
 }
