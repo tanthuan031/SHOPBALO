@@ -65,7 +65,7 @@ export default function FormNewPassword() {
           <Form.Label className="font-weight-bold">
             New Password&nbsp;<span className="text-danger">*</span>
           </Form.Label>
-          <Form.Control {...register('password')} type="text" />
+          <Form.Control {...register('password')} type="password" />
         </Form.Group>
         <div className="d-flex gap-2 justify-content-end ">
           <Button variant="danger" className="font-weight-bold" onClick={handleBack}>
