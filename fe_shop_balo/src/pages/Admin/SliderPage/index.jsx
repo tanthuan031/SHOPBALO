@@ -22,7 +22,8 @@ import {
 import SliderAdd from '../../../components/Slider/Add';
 import SliderEdit from '../../../components/Slider/Edit';
 import FilterStatus from '../../../components/Slider/FilterStatus';
-
+import { setExpiredToken } from '../../../redux/reducer/auth/auth.reducer';
+import { deleteCookie, getCookies } from '../../../api/Auth';
 
 const SliderPage = () => {
   const data_slider_table_header = [...slider_table_header];
@@ -43,7 +44,7 @@ const SliderPage = () => {
 
     const result = await getAllSlider({ sort, status, search, page });
     if (result === 401) {
-      ErrorToast('Something went wrong. Please try again', 3000);
+      handleSetUnthorization();
       return false;
     } else {
       setData(result.data);
@@ -73,14 +74,14 @@ const SliderPage = () => {
     setIsLoading(false);
   };
 
-const goToPageAddSlider = () => {
-  BlockUI('#root', 'fixed');
-  setTimeout(function () {
-    dispatch(setIsAdd(true));
-    Notiflix.Block.remove('#root');
-  }, 500);
+  const goToPageAddSlider = () => {
+    BlockUI('#root', 'fixed');
+    setTimeout(function () {
+      dispatch(setIsAdd(true));
+      Notiflix.Block.remove('#root');
+    }, 500);
   };
-  
+
   const handleSearh = async (e) => {
     e.preventDefault();
     handleGetAllSlider();
@@ -96,7 +97,13 @@ const goToPageAddSlider = () => {
     setTotalRecords(result.meta.total);
     setIsLoading(false);
   };
-
+  const handleSetUnthorization = () => {
+    dispatch(setExpiredToken(true));
+    const token = getCookies('token');
+    if (token) {
+      deleteCookie('token');
+    }
+  };
   return (
     <>
       <section>
@@ -122,12 +129,7 @@ const goToPageAddSlider = () => {
                           setSearch(e.target.value);
                         }}
                       />
-                      <Button
-                        id="seach-category"
-                        variant="danger"
-                        type="submit"
-                        onClick={handleSearh}
-                      >
+                      <Button id="seach-category" variant="danger" type="submit" onClick={handleSearh}>
                         <FaSearch />
                       </Button>
                     </InputGroup>
@@ -171,12 +173,16 @@ const goToPageAddSlider = () => {
             </div>
           ) : (
             <>
-                {isAdd && !isEdit && <SliderAdd
-                  // backToPromotionList={backToPromotionList}
-                />}
-                {isEdit && <SliderEdit
-                  // backToPromotionList={backToPromotionList}
-                />}
+              {isAdd && !isEdit && (
+                <SliderAdd
+                // backToPromotionList={backToPromotionList}
+                />
+              )}
+              {isEdit && (
+                <SliderEdit
+                // backToPromotionList={backToPromotionList}
+                />
+              )}
             </>
           )}
         </div>

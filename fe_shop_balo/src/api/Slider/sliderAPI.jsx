@@ -1,8 +1,9 @@
 import axiosClient from '../axiosClient';
 import { concatQueryString } from '../../utils/concatQueryString';
+import { getCookies } from '../Auth';
 
 export const configHeadersAuthenticate = () => {
-  const token = localStorage.getItem('token');
+  const token = getCookies('token');
   return {
     headers: {
       Authorization: `Bearer ${token}`,
@@ -19,7 +20,7 @@ export const getAllSlider = async ({ sort, status, search, page } = {}) => {
   if (page) queryString.push(`page=${page}`);
 
   const final_url = concatQueryString(queryString, url);
-  const response = await axiosClient.get(final_url);
+  const response = await axiosClient.get(final_url, configHeadersAuthenticate());
 
   if (response.status === 200) {
     return response.data;
@@ -30,7 +31,7 @@ export const getAllSlider = async ({ sort, status, search, page } = {}) => {
 
 export const getSliderById = async (id) => {
   const url = `/api/admin/slider/${id}`;
-  const response = await axiosClient.get(url);
+  const response = await axiosClient.get(url, configHeadersAuthenticate());
   if (response.status === 200) {
     return response.data;
   } else {
@@ -40,7 +41,7 @@ export const getSliderById = async (id) => {
 
 export const addSlider = async (data) => {
   const url = `/api/admin/slider`;
-  const response = await axiosClient.post(url, data);
+  const response = await axiosClient.post(url, data, configHeadersAuthenticate());
   if (response.status === 200) {
     return response;
   } else {
@@ -50,7 +51,7 @@ export const addSlider = async (data) => {
 
 export const editSlider = async (id, data) => {
   const url = `/api/admin/slider/${id}`;
-  const response = await axiosClient.put(url, data);
+  const response = await axiosClient.put(url, data, configHeadersAuthenticate());
   if (response.status === 200) {
     return 200;
   } else if (response.status === 500) {
@@ -62,7 +63,7 @@ export const editSlider = async (id, data) => {
 
 export const deleteSlider = async (id) => {
   const url = `/api/admin/slider/${id}`;
-  const res = await axiosClient.delete(url);
+  const res = await axiosClient.delete(url, configHeadersAuthenticate());
   if (res.status === 200) {
     return 200;
   }
