@@ -73,6 +73,10 @@ function ProductEdit(props) {
     props.dataCategory.map((item) => {
       typeOptionsCategory.push({ value: item.id, label: item.name });
     });
+  const typeOptionsColor = [
+    { value: '1', label: 'Green' },
+    { value: '2', label: 'Blue' },
+  ];
   const typeOptionsSatus = [
     { value: '0', label: 'Active' },
     { value: '1', label: 'Out of stock' },

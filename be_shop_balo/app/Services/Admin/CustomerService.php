@@ -28,6 +28,18 @@ class CustomerService
             return $this->apiResponse([],'fail','Get Customer unsuccessful');
         }
     }
+    public function getFigureNewCustomer(): \Illuminate\Http\JsonResponse
+    {
+        $result = $this->CustomerRepository->getNewCustomerToday();
+        $data=[
+
+            'data'=>$result
+        ];
+        if ($result) {
+            return $this->apiResponse($data, 'success', 'Figure order today successfully');
+        }else
+        { return $this->apiResponse([], 'fail', 'Figure order today unsuccessfully'); }
+    }
 
     public function  showCustomer($id){
         $result=$this->CustomerRepository->getCustomer($id);

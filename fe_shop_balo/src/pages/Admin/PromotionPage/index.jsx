@@ -21,6 +21,7 @@ import PromotionTable from './../../../components/Promotion/index';
 import {
   isAddSelectorPromotion,
   isEditSelectorPromotion,
+  isResetSelectorPromotion,
   isSortSelectorPromotion,
   isStatusSelectorPromotion,
 } from './../../../redux/selectors/promotion/promotion.selector';
@@ -32,6 +33,7 @@ const PromotionPage = () => {
   const [totalRecord, setTotalRecords] = useState(0);
   const isAdd = useSelector(isAddSelectorPromotion);
   const isEdit = useSelector(isEditSelectorPromotion);
+  const isReset = useSelector(isResetSelectorPromotion);
   const [search, setSearch] = useState('');
   const status = useSelector(isStatusSelectorPromotion);
   const sort = useSelector(isSortSelectorPromotion);
@@ -56,7 +58,7 @@ const PromotionPage = () => {
 
   useEffect(() => {
     handleGetAllPromotion();
-  }, [status, sort, isEdit, isAdd]);
+  }, [status, sort, isEdit, isAdd, isReset]);
 
   const handleChangePage = async (page) => {
     setPage(page);
@@ -89,7 +91,10 @@ const PromotionPage = () => {
 
   const backToPromotionList = async (value) => {
     setIsLoading(true);
-    const result = await getAllDisount({ sort: value });
+
+    // const result = await getAllDisount({ sort: value });
+    const result = await getAllDisount();
+
     setData(result.data);
     setTotalRecords(result.meta.total);
     setIsLoading(false);

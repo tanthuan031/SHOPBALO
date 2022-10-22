@@ -4,6 +4,12 @@ import { Button, Form } from 'react-bootstrap';
 import { Controller, useForm } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
 import Select from 'react-select';
+import { Button, Form } from 'react-bootstrap';
+import { Controller, useForm } from 'react-hook-form';
+import Select from 'react-select';
+import './style.css';
+import Notiflix from 'notiflix';
+import { useDispatch } from 'react-redux';
 import { addSchemaPromotion } from '../../../adapter/promotion';
 import { deleteCookie, getCookies } from '../../../api/Auth';
 import { addDiscount } from '../../../api/Promotion/promotionAPI';
@@ -34,6 +40,7 @@ function PromotionAdd(props) {
     defaultValues: {
       name: '',
       value: '',
+      point: '',
       status: '',
       description: '',
     },
@@ -49,6 +56,7 @@ function PromotionAdd(props) {
     const resultData = {
       name: data.name,
       value: data.value,
+      point: data.point,
       status: data.status,
       description: data.description,
     };
@@ -74,7 +82,6 @@ function PromotionAdd(props) {
 
   const editorDescription = (value) => {
     setValue('description', value);
-    console.log('editorDescription', value);
   };
   const handleSetUnthorization = () => {
     dispatch(setExpiredToken(true));
@@ -126,6 +133,19 @@ function PromotionAdd(props) {
                 }
               >
                 Value
+              </TableRow>
+
+              <TableRow
+                control={
+                  <>
+                    <Form.Control id="point" type="text" {...register('point')} />
+                    <div className="d-flex justify-content-between">
+                      <small className="text-red font-weight-semi">{errors?.point?.message}</small>
+                    </div>
+                  </>
+                }
+              >
+                Point
               </TableRow>
 
               <TableRow

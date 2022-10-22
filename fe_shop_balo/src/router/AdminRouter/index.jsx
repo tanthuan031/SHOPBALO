@@ -18,6 +18,7 @@ import { isLoginSelector } from '../../redux/selectors/auth/auth.reducer';
 import { checkLogin, handleGetMe } from '../../adapter/auth';
 import { deleteCookie, getCookies } from '../../api/Auth';
 
+import SliderPage from '../../pages/Admin/SliderPage';
 export default function AdminRouter() {
   const dispatch = useDispatch();
   const isAuthenticate = useSelector(isLoginSelector);
@@ -50,6 +51,7 @@ export default function AdminRouter() {
         <Route path="/admin/customer" element={<AdminLayout slot={<CustomerPage key={'a'} />} />} />
         <Route path="/admin/review" element={<AdminLayout slot={<ReviewPage key={'a'} />} />} />
         <Route path="/admin/decentralization" element={<AdminLayout slot={<DashBoardPage key={'a'} />} />} />
+        <Route path="/admin/slider" element={<AdminLayout slot={<SliderPage key={'a'} />} />} />
       </Route>
     </Routes>
   );

@@ -43,9 +43,9 @@ const PromotionTable = (props) => {
       const result = await deletePromotion(isCheck);
       Notiflix.Block.remove('#root');
       if (result === 200) {
-        SuccessToast('Delete category successfully.', 3000);
+        SuccessToast('Delete promotion successfully.', 3000);
       } else {
-        ErrorToast('Delete category failed.', 3000);
+        ErrorToast('Delete promotion failed.', 3000);
       }
       handleSetState();
       dispatch(setIsReset(''));
@@ -55,10 +55,11 @@ const PromotionTable = (props) => {
   const renderTableBody = (body) => {
     return body.length > 0 ? (
       body.map((item, index) => (
-        <tr key={index} className="font-weight-bold  ">
+        <tr key={index} className="font-weight-bold row-data">
           <td>{++index}</td>
           <td>{item.name}</td>
           <td>{item.value} %</td>
+          <td>{item.point}</td>
           <td>
             <p
               className={`text-center border-radius-2px ${

@@ -52,4 +52,98 @@ class OrderService
             return $this->apiResponse([], 'fail', 'Update order unsuccessfully');
         }
     }
+    /*----------------------------------------------------------------Summary----------------------------------------------------------------*/
+    public function getFigureOrderToday(): \Illuminate\Http\JsonResponse
+    {
+        $result = $this->orderRepository->getOrderToday();
+        $data=[
+
+            'data'=>$result
+        ];
+        if ($result) {
+            return $this->apiResponse($data, 'success', 'Figure order today successfully');
+        }else
+        { return $this->apiResponse([], 'fail', 'Figure order today unsuccessfully'); }
+    }
+    public function getFigureRevenueToday(): \Illuminate\Http\JsonResponse
+    {
+        $result = $this->orderRepository->getRevenueToday();
+        $data=[
+
+            'data'=>$result
+        ];
+        if ($result) {
+            return $this->apiResponse($data, 'success', 'Figure order today successfully');
+        }else
+        { return $this->apiResponse([], 'fail', 'Figure order today unsuccessfully'); }
+    }
+
+
+    /*----------------------------------------------------------------Chart----------------------------------------------------------------*/
+    public function getFigureOrders($request): \Illuminate\Http\JsonResponse
+    {
+
+        $result = $this->orderRepository->getFigureOrders($request);
+        $data=[
+
+            'data'=>$result
+        ];
+        if ($result) {
+            return $this->apiResponse($data, 'success', 'Figure order successfully');
+        }else
+        { return $this->apiResponse([], 'fail', 'Figure order unsuccessfully'); }
+    }
+    public function getFigureRevenue($request): \Illuminate\Http\JsonResponse
+    {
+
+        $result = $this->orderRepository->getFigureRevenue($request);
+        $data=[
+
+            'data'=>$result
+        ];
+        if ($result) {
+            return $this->apiResponse($data, 'success', 'Figure order successfully');
+        }else
+        { return $this->apiResponse([], 'fail', 'Figure order unsuccessfully'); }
+    }
+    public function getTopStaffSelling($request): \Illuminate\Http\JsonResponse
+    {
+
+        $result = $this->orderRepository->getFigureStaffSelling($request);
+        $data=[
+
+            'data'=>$result
+        ];
+        if ($result) {
+            return $this->apiResponse($data, 'success', 'Figure order successfully');
+        }else
+        { return $this->apiResponse([], 'fail', 'Figure order unsuccessfully'); }
+    }
+    public function getTopCustomerBuying($request): \Illuminate\Http\JsonResponse
+    {
+
+        $result = $this->orderRepository->getFigureCustomerBuying($request);
+        $data=[
+
+            'data'=>$result
+        ];
+        if ($result) {
+            return $this->apiResponse($data, 'success', 'Figure order successfully');
+        }else
+        { return $this->apiResponse([], 'fail', 'Figure order unsuccessfully'); }
+    }
+    public function getFigureCategorySelling($request): \Illuminate\Http\JsonResponse
+    {
+
+        $result = $this->orderRepository->getFigureCategorySelling($request);
+        $data=[
+
+            'data'=>$result
+        ];
+        if ($result) {
+            return $this->apiResponse($data, 'success', 'Figure order successfully');
+        }else
+        { return $this->apiResponse([], 'fail', 'Figure order unsuccessfully'); }
+    }
+
 }

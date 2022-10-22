@@ -107,6 +107,7 @@ class RatingService
             $request['image'] = Helper::saveImgBase64v1($request->image, 'Rating');
         }
 
+        // $result = $this->ratingRepo->update($id, $request);
         $result = $this->ratingRepo->update($id, $request->toArray());
 
         return $result ? $this->apiResponse([], 200, 'Update rating successfully') : $this->apiResponse([], 401, 'Update rating failed');

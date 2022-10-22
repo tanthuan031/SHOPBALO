@@ -22,7 +22,7 @@ export default function SortValue(props) {
         id="user-type-filter-btn"
         className="btn-danger filter-button d-flex align-items-center justity-content-center mr-2"
       >
-        <p className="flex-grow-1 font-weight-bold">Sort</p>
+        <p className="flex-grow-1 font-weight-bold">Sort Value</p>
         <div className="fb-icon">
           <HiFilter />
         </div>
