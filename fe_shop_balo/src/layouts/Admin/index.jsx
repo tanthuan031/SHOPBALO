@@ -1,18 +1,18 @@
 // @flow
 import * as React from 'react';
-import Header from '../../components/Layouts/Header';
+import Header from '../../components/commons/Layouts/Header';
 import PropTypes from 'prop-types';
-import ListGroup from '../../components/Layouts/ListGroup';
+import ListGroup from '../../components/commons/Layouts/ListGroup';
 import { menu_admin_item } from '../../asset/data/menu_admin_item';
-import Drawer from '../../components/Layouts/Drawer';
+import Drawer from '../../components/commons/Layouts/Drawer';
 import { FaUsers } from 'react-icons/fa';
 import './style.css';
 import { Button } from 'react-bootstrap';
 import { useSelector } from 'react-redux';
 
-import ExpiredToken from '../../components/Auth/ExpiredToken';
+import ExpiredToken from '../../components/commons/Auth/ExpiredToken';
 import { exPiredTokenSelector, getUserSelector } from '../../redux/selectors';
-import Logout from '../../components/Auth/Logout';
+import Logout from '../../components/commons/Auth/Logout';
 import { useState } from 'react';
 
 export function AdminLayout(props) {
@@ -33,7 +33,7 @@ export function AdminLayout(props) {
               <FaUsers /> Admin: {user != undefined && user.first_name + ' ' + user.last_name}
             </h5>
             <div className="py-5">
-              {/* {user?.type === "Admin" && <ListGroup data={menu_item_admin} />} */}
+              {/* {user?.type === "admin" && <ListGroup data={menu_item_admin} />} */}
               {/* {user?.type === "Staff" && <ListGroup data={menu_item_staff} />} */}
               <ListGroup data={menu_admin_item_data} />
             </div>

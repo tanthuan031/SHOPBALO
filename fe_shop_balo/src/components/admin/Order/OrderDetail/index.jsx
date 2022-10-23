@@ -1,9 +1,9 @@
 import React from 'react';
 import { Button } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
-import { setIsDetail } from '../../../redux/reducer/order/order.reducer';
-import { orderByIdSelector, orderDetailByIdSelector } from '../../../redux/selectors/order/order.selector';
-import { formatter } from '../../../utils/formatCurrency';
+import { setIsDetail } from '../../../../redux/reducer/order/order.reducer';
+import { orderByIdSelector, orderDetailByIdSelector } from '../../../../redux/selectors/order/order.selector';
+import { formatter } from '../../../../utils/formatCurrency';
 import './style.css';
 
 const OrderDetail = () => {

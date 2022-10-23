@@ -3,8 +3,8 @@ import { Button, Form } from 'react-bootstrap';
 import { useForm } from 'react-hook-form';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { schemaForgotPW, schemaLogin } from '../../../adapter/auth';
-import { handleLogin, senMailOTP, setCookies } from '../../../api/Auth';
+import { schemaForgotPW, schemaLogin } from '../../../../adapter/auth';
+import { handleLogin, senMailOTP, setCookies } from '../../../../api/Auth';
 import { BlockUI } from '../../Layouts/Notiflix';
 import { ErrorToast, SuccessToast } from '../../Layouts/Alerts';
 import Notiflix from 'notiflix';
@@ -14,7 +14,7 @@ import {
   setIsForgotPassword,
   setIsForgotPasswordVerification,
   setIsLogin,
-} from '../../../redux/reducer/auth/auth.reducer';
+} from '../../../../redux/reducer/auth/auth.reducer';
 
 export default function FormForgotPW() {
   const [typePassword, setShowPassword] = useState('password');

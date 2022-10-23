@@ -1,7 +1,7 @@
 import React, { memo, useEffect, useState } from 'react';
 import { Chart } from 'primereact';
 import "./index.css"
-import {  getStatisticStaff } from '../../../../api/Statistic/statisticAPI';
+import {  getStatisticStaff } from '../../../../../api/Statistic/statisticAPI';
 function BarChartStaff({data,label}) {
   console.log('render staff')
 

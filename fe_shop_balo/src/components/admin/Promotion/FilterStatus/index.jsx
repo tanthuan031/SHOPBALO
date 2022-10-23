@@ -2,8 +2,8 @@ import React from 'react';
 import { Dropdown, Form } from 'react-bootstrap';
 import { HiFilter } from 'react-icons/hi';
 import { useDispatch, useSelector } from 'react-redux';
-import { setStatus } from '../../../redux/reducer/promotion/promotion.reducer';
-import { isStatusSelectorPromotion } from './../../../redux/selectors/promotion/promotion.selector';
+import { setStatus } from '../../../../redux/reducer/promotion/promotion.reducer';
+import { isStatusSelectorPromotion } from '../../../../redux/selectors/promotion/promotion.selector';
 import './style.css';
 
 const FilterStatus = () => {

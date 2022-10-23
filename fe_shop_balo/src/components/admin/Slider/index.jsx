@@ -2,13 +2,13 @@ import Notiflix from 'notiflix';
 import React, { useState } from 'react';
 import { FaPen, FaTimesCircle } from 'react-icons/fa';
 import { useDispatch } from 'react-redux';
-import { setIsAdd, setIsEdit, setIsReset, setSlider } from '../../redux/reducer/slider/slider.reducer';
-import ImageCustom from '../Layouts/Image';
-import Modal from '../Layouts/Modal';
-import { deleteSlider, getSliderById } from './../../api/Slider/sliderAPI';
-import { BlockUI } from './../Layouts/Notiflix';
-import TableLayout from './../Layouts/Table';
-import { ErrorToast, SuccessToast } from '../Layouts/Alerts';
+import { setIsAdd, setIsEdit, setIsReset, setSlider } from '../../../redux/reducer/slider/slider.reducer';
+import ImageCustom from '../../commons/Layouts/Image';
+import Modal from '../../commons/Layouts/Modal';
+import { deleteSlider, getSliderById } from '../../../api/Slider/sliderAPI';
+import { BlockUI } from '../../commons/Layouts/Notiflix';
+import TableLayout from '../../commons/Layouts/Table';
+import { ErrorToast, SuccessToast } from '../../commons/Layouts/Alerts';
 
 const SliderTable = (props) => {
   const dispatch = useDispatch();

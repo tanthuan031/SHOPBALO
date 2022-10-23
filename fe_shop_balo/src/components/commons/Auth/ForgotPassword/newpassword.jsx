@@ -3,8 +3,8 @@ import { Button, Form } from 'react-bootstrap';
 import { useForm } from 'react-hook-form';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { schemaForgotNewPW, schemaForgotPW, schemaLogin } from '../../../adapter/auth';
-import { forgotPassword, handleLogin, senMailOTP, setCookies } from '../../../api/Auth';
+import { schemaForgotNewPW, schemaForgotPW, schemaLogin } from '../../../../adapter/auth';
+import { forgotPassword, handleLogin, senMailOTP, setCookies } from '../../../../api/Auth';
 import { BlockUI } from '../../Layouts/Notiflix';
 import { ErrorToast, SuccessToast } from '../../Layouts/Alerts';
 import Notiflix from 'notiflix';
@@ -13,8 +13,8 @@ import {
   setIsForgotPassword,
   setIsForgotPasswordVerification,
   setIsLogin,
-} from '../../../redux/reducer/auth/auth.reducer';
-import { emailForgotSelector } from '../../../redux/selectors';
+} from '../../../../redux/reducer/auth/auth.reducer';
+import { emailForgotSelector } from '../../../../redux/selectors';
 
 export default function FormNewPassword() {
   const [typePassword, setShowPassword] = useState('password');

@@ -1,10 +1,10 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import ChartLineOrders from '../../../components/Statistic/Selling/order';
-import PieChartCategory from '../../../components/Statistic/Selling/Category/category';
-import SummaryStatisTic from '../../../components/Statistic/Summary';
-import LineChartRevenue from '../../../components/Statistic/Selling/revenue';
+import ChartLineOrders from '../../../components/admin/Statistic/Selling/order';
+import PieChartCategory from '../../../components/admin/Statistic/Selling/Category/category';
+import SummaryStatisTic from '../../../components/admin/Statistic/Summary';
+import LineChartRevenue from '../../../components/admin/Statistic/Selling/revenue';
 import { Col, Row } from 'react-bootstrap';
-import BarChartStaff from '../../../components/Statistic/Selling/Staff/staff';
+import BarChartStaff from '../../../components/admin/Statistic/Selling/Staff/staff';
 import {
   getFigureNewCustomer,
   getFigureNewOrderToday,
@@ -15,7 +15,7 @@ import {
   getStatistisOrder,
   getStatistisRevenue,
 } from '../../../api/Statistic/statisticAPI';
-import BarChartCustomer from '../../../components/Statistic/Selling/Customer';
+import BarChartCustomer from '../../../components/admin/Statistic/Selling/Customer';
 import { setExpiredToken } from '../../../redux/reducer/auth/auth.reducer';
 import { deleteCookie, getCookies } from '../../../api/Auth';
 import { useDispatch } from 'react-redux';

@@ -1,20 +1,20 @@
 import React, { useState } from 'react';
 import { FaAward, FaFemale, FaMale, FaMapMarkerAlt, FaPen, FaPhoneAlt, FaTimesCircle } from 'react-icons/fa';
-import Modal from '../Layouts/Modal';
-import TableLayout from '../Layouts/Table';
+import Modal from '../../commons/Layouts/Modal';
+import TableLayout from '../../commons/Layouts/Table';
 import './style.css';
-import { URL_SERVER } from '../../utils/urlPath';
-import AutoSendMail from '../Layouts/AutoSendMail';
+import { URL_SERVER } from '../../../utils/urlPath';
+import AutoSendMail from '../../commons/Layouts/AutoSendMail';
 import { HiMail } from 'react-icons/hi';
 import { GrStatusUnknown } from 'react-icons/gr';
-import AutoCallPhone from '../Layouts/AutoCallPhone';
-import { setIsEdit } from '../../redux/reducer/customer/customer.reducer';
+import AutoCallPhone from '../../commons/Layouts/AutoCallPhone';
+import { setIsEdit } from '../../../redux/reducer/customer/customer.reducer';
 import Notiflix from 'notiflix';
-import { ErrorToast, SuccessToast } from '../Layouts/Alerts';
-import { setCustomer } from '../../redux/reducer/customer/customer.reducer';
+import { ErrorToast, SuccessToast } from '../../commons/Layouts/Alerts';
+import { setCustomer } from '../../../redux/reducer/customer/customer.reducer';
 import { useDispatch } from 'react-redux';
-import { deleteCustomer, getCustomerById } from '../../api/Customer/customerAPI';
-import ImageCustom from '../Layouts/Image';
+import { deleteCustomer, getCustomerById } from '../../../api/Customer/customerAPI';
+import ImageCustom from '../../commons/Layouts/Image';
 
 export function CustomerTable(props) {
   const [show, setShowDetail] = useState(false);

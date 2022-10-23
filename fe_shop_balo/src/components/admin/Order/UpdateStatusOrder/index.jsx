@@ -5,14 +5,14 @@ import { Button, Form } from 'react-bootstrap';
 import { Controller, useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 import Select from 'react-select';
-import { deleteCookie, getCookies } from '../../../api/Auth';
-import { updateStatusOrder } from '../../../api/order/indexAPI';
-import { setExpiredToken } from '../../../redux/reducer/auth/auth.reducer';
-import { setIsEdit } from '../../../redux/reducer/order/order.reducer';
-import { orderByIdSelector } from '../../../redux/selectors/order/order.selector';
-import { ErrorToast, SuccessToast } from '../../Layouts/Alerts';
+import { deleteCookie, getCookies } from '../../../../api/Auth';
+import { updateStatusOrder } from '../../../../api/order/indexAPI';
+import { setExpiredToken } from '../../../../redux/reducer/auth/auth.reducer';
+import { setIsEdit } from '../../../../redux/reducer/order/order.reducer';
+import { orderByIdSelector } from '../../../../redux/selectors/order/order.selector';
+import { ErrorToast, SuccessToast } from '../../../commons/Layouts/Alerts';
 
-import { BlockUI } from '../../Layouts/Notiflix';
+import { BlockUI } from '../../../commons/Layouts/Notiflix';
 // import './style.css';
 function UpdateStatusOrder(props) {
   const idStatusUpdate = useSelector(orderByIdSelector);

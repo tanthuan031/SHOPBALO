@@ -7,19 +7,19 @@ import { Controller, useForm } from 'react-hook-form';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import { useDispatch } from 'react-redux';
 import Select from 'react-select';
-import { addSchema } from '../../../adapter/staff';
-import { deleteCookie, getCookies } from '../../../api/Auth';
-import { addStaff } from '../../../api/Staff/staffAPI';
-import { setExpiredToken } from '../../../redux/reducer/auth/auth.reducer';
-import { setIsAdd } from '../../../redux/reducer/staff/staff.reducer';
-import { formatDate } from '../../../utils/formatDate';
-import { ErrorToast, SuccessToast } from '../../Layouts/Alerts';
-import { BlockUI } from '../../Layouts/Notiflix';
+import { addSchema } from '../../../../adapter/staff';
+import { deleteCookie, getCookies } from '../../../../api/Auth';
+import { addStaff } from '../../../../api/Staff/staffAPI';
+import { setExpiredToken } from '../../../../redux/reducer/auth/auth.reducer';
+import { setIsAdd } from '../../../../redux/reducer/staff/staff.reducer';
+import { formatDate } from '../../../../utils/formatDate';
+import { ErrorToast, SuccessToast } from '../../../commons/Layouts/Alerts';
+import { BlockUI } from '../../../commons/Layouts/Notiflix';
 import './style.css';
 
 const StaffAdd = (props) => {
   const data_roles = [
-    { value: 1, label: 'Admin' },
+    { value: 1, label: 'admin' },
     { value: 2, label: 'CTO' },
   ];
   const data_gender = [

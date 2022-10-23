@@ -4,20 +4,20 @@ import { Button, Col, Form, Row } from 'react-bootstrap';
 import { Controller, useForm } from 'react-hook-form';
 import Select from 'react-select';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { addSchema } from '../../../adapter/customer';
+import { addSchema } from '../../../../adapter/customer';
 import { useDispatch } from 'react-redux';
-import { BlockUI } from '../../Layouts/Notiflix';
+import { BlockUI } from '../../../commons/Layouts/Notiflix';
 import Notiflix from 'notiflix';
-import { ErrorToast, SuccessToast } from '../../Layouts/Alerts';
-import { setIsAdd } from '../../../redux/reducer/customer/customer.reducer';
+import { ErrorToast, SuccessToast } from '../../../commons/Layouts/Alerts';
+import { setIsAdd } from '../../../../redux/reducer/customer/customer.reducer';
 import './style.css';
-import { addCustomer } from '../../../api/Customer/customerAPI';
+import { addCustomer } from '../../../../api/Customer/customerAPI';
 import { AiFillEye, AiFillEyeInvisible } from 'react-icons/ai';
-import { URL_SERVER } from '../../../utils/urlPath';
-import { formatDate } from '../../../utils/formatDate';
+import { URL_SERVER } from '../../../../utils/urlPath';
+import { formatDate } from '../../../../utils/formatDate';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
-import { setExpiredToken } from '../../../redux/reducer/auth/auth.reducer';
-import { deleteCookie, getCookies } from '../../../api/Auth';
+import { setExpiredToken } from '../../../../redux/reducer/auth/auth.reducer';
+import { deleteCookie, getCookies } from '../../../../api/Auth';
 
 const CustomerAdd = (props) => {
   const data_gender = [

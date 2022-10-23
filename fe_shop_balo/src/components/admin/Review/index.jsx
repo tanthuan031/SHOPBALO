@@ -3,14 +3,14 @@ import React, { useState } from 'react';
 import { FaRegEye, FaStar, FaTimesCircle } from 'react-icons/fa';
 import { TiTick } from 'react-icons/ti';
 import { useDispatch } from 'react-redux';
-import { deleteReview, getReviewById } from '../../api/Review/reviewAPI';
-import { setIsEdit, setIsReset, setReview } from '../../redux/reducer/review/review.reducer';
-import ImageCustom from '../Layouts/Image';
-import { URL_SERVER } from './../../utils/urlPath';
-import { ErrorToast, SuccessToast } from './../Layouts/Alerts/index';
-import Modal from './../Layouts/Modal/index';
-import { BlockUI } from './../Layouts/Notiflix/index';
-import TableLayout from './../Layouts/Table/index';
+import { deleteReview, getReviewById } from '../../../api/Review/reviewAPI';
+import { setIsEdit, setIsReset, setReview } from '../../../redux/reducer/review/review.reducer';
+import ImageCustom from '../../commons/Layouts/Image';
+import { URL_SERVER } from '../../../utils/urlPath';
+import { ErrorToast, SuccessToast } from '../../commons/Layouts/Alerts';
+import Modal from '../../commons/Layouts/Modal';
+import { BlockUI } from '../../commons/Layouts/Notiflix';
+import TableLayout from '../../commons/Layouts/Table';
 import './style.css';
 
 const ReviewTable = (props) => {

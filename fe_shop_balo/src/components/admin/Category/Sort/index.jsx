@@ -2,8 +2,8 @@ import React from 'react';
 import { Dropdown, Form } from 'react-bootstrap';
 import { HiFilter } from 'react-icons/hi';
 import { useDispatch, useSelector } from 'react-redux';
-import { setSort } from '../../../redux/reducer/category/category.reducer';
-import { isSortCategorySelector } from '../../../redux/selectors/category/category.selector';
+import { setSort } from '../../../../redux/reducer/category/category.reducer';
+import { isSortCategorySelector } from '../../../../redux/selectors/category/category.selector';
 
 import './sort.css';
 

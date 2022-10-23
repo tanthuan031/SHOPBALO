@@ -1,7 +1,7 @@
 import React, { memo, useEffect, useState } from 'react';
 import { Chart } from 'primereact';
-import { getStatistisCategory } from '../../../../api/Statistic/statisticAPI';
-import { color_Category_PieChart } from '../../../../asset/data/statistic_color';
+import { getStatistisCategory } from '../../../../../api/Statistic/statisticAPI';
+import { color_Category_PieChart } from '../../../../../asset/data/statistic_color';
 
 function PieChartCategory(props) {
   const [loading, setLoading] = useState(true);

@@ -5,13 +5,13 @@ import { Button, Form } from 'react-bootstrap';
 import { Controller, useForm } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
 import Select from 'react-select';
-import { addSlider } from '../../../api/Slider/sliderAPI';
-import { setIsAdd } from '../../../redux/reducer/slider/slider.reducer';
-import { ErrorToast, SuccessToast } from '../../Layouts/Alerts';
-import { BlockUI } from '../../Layouts/Notiflix';
-import { addSchemaSlider } from './../../../adapter/slider';
-import CustomEditor from './../../Layouts/Edittor';
-import ImageCustom from './../../Layouts/Image';
+import { addSlider } from '../../../../api/Slider/sliderAPI';
+import { setIsAdd } from '../../../../redux/reducer/slider/slider.reducer';
+import { ErrorToast, SuccessToast } from '../../../commons/Layouts/Alerts';
+import { BlockUI } from '../../../commons/Layouts/Notiflix';
+import { addSchemaSlider } from '../../../../adapter/slider';
+import CustomEditor from '../../../commons/Layouts/Edittor';
+import ImageCustom from '../../../commons/Layouts/Image';
 
 function SliderAdd(props) {
  const dispatch = useDispatch();

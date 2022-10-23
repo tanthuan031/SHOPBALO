@@ -3,9 +3,9 @@ import * as React from 'react';
 import { useSelector } from 'react-redux';
 import { Navigate } from 'react-router-dom';
 import { checkLogin } from '../../../adapter/auth';
-import FormForgotPW from '../../../components/Auth/ForgotPassword';
-import FormNewPassword from '../../../components/Auth/ForgotPassword/newpassword';
-import FormLogin from '../../../components/Auth/Login';
+import FormForgotPW from '../../../components/commons/Auth/ForgotPassword';
+import FormNewPassword from '../../../components/commons/Auth/ForgotPassword/newpassword';
+import FormLogin from '../../../components/commons/Auth/Login';
 import { isForgotPasswordSelector, isForgotPasswordVerifiedSelector } from '../../../redux/selectors';
 import './style.css';
 export function LoginPage(props) {

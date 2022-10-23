@@ -1,6 +1,6 @@
 import React, { memo, useCallback, useEffect, useRef, useState } from 'react';
 import { Chart } from 'primereact';
-import { getStatistisOrder } from '../../../api/Statistic/statisticAPI';
+import { getStatistisOrder } from '../../../../api/Statistic/statisticAPI';
 import "./index.css"
 import { Button } from 'react-bootstrap';
 

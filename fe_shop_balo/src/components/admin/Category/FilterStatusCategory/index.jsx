@@ -3,8 +3,8 @@ import React from 'react';
 import { Dropdown, Form } from 'react-bootstrap';
 import { HiFilter } from 'react-icons/hi';
 import { useDispatch, useSelector } from 'react-redux';
-import { setStatus } from '../../../redux/reducer/category/category.reducer';
-import { isStatusSelector } from '../../../redux/selectors/category/category.selector';
+import { setStatus } from '../../../../redux/reducer/category/category.reducer';
+import { isStatusSelector } from '../../../../redux/selectors/category/category.selector';
 
 
 

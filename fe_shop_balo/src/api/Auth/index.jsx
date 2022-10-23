@@ -1,6 +1,6 @@
 import Notiflix from 'notiflix';
 import { useDispatch } from 'react-redux';
-import { ErrorToast, SuccessToast } from '../../components/Layouts/Alerts';
+import { ErrorToast, SuccessToast } from '../../components/commons/Layouts/Alerts';
 import { setIsLogin } from '../../redux/reducer/auth/auth.reducer';
 import axiosClient from '../axiosClient';
 export const setCookies = (cname, cvalue, exdays) => {

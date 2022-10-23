@@ -4,19 +4,19 @@ import { Button, Col, Form, Row } from 'react-bootstrap';
 import { Controller, useForm } from 'react-hook-form';
 import Select from 'react-select';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { editSchema } from '../../../adapter/staff';
+import { editSchema } from '../../../../adapter/staff';
 import { useDispatch, useSelector } from 'react-redux';
-import { BlockUI } from '../../Layouts/Notiflix';
+import { BlockUI } from '../../../commons/Layouts/Notiflix';
 import Notiflix from 'notiflix';
-import { ErrorToast, SuccessToast } from '../../Layouts/Alerts';
-import { setIsEdit } from '../../../redux/reducer/staff/staff.reducer';
-import { staffByIdSelector } from '../../../redux/selectors/';
-import { editStaff } from '../../../api/Staff/staffAPI';
-import { URL_SERVER } from '../../../utils/urlPath';
+import { ErrorToast, SuccessToast } from '../../../commons/Layouts/Alerts';
+import { setIsEdit } from '../../../../redux/reducer/staff/staff.reducer';
+import { staffByIdSelector } from '../../../../redux/selectors';
+import { editStaff } from '../../../../api/Staff/staffAPI';
+import { URL_SERVER } from '../../../../utils/urlPath';
 import './style.css';
-import { formatDate } from '../../../utils/formatDate';
-import { setExpiredToken } from '../../../redux/reducer/auth/auth.reducer';
-import { deleteCookie, getCookies } from '../../../api/Auth';
+import { formatDate } from '../../../../utils/formatDate';
+import { setExpiredToken } from '../../../../redux/reducer/auth/auth.reducer';
+import { deleteCookie, getCookies } from '../../../../api/Auth';
 
 const StaffEdit = (props) => {
   const staffSelector = useSelector(staffByIdSelector);
@@ -24,7 +24,7 @@ const StaffEdit = (props) => {
   const [imageAvatarStaffShow, setImageAvatarStaffShow] = useState(false);
   const [status, setStatus] = useState(dataStaff.status);
   const data_roles = [
-    { value: 1, label: 'Admin' },
+    { value: 1, label: 'admin' },
     { value: 2, label: 'CTO' },
   ];
   const data_gender = [

@@ -2,7 +2,7 @@ import React, { memo } from 'react';
 import "./index.css"
 import { Col, Row } from 'react-bootstrap';
 import { FaCoins, FaPeopleArrows, FaShoppingCart } from 'react-icons/fa';
-import { formatter } from '../../../utils/formatCurrency';
+import { formatter } from '../../../../utils/formatCurrency';
 function SummaryStatisTic(props) {
   console.log('render SummaryStatisTic')
   return (

@@ -3,13 +3,13 @@ import { Button, Form } from 'react-bootstrap';
 import { useForm } from 'react-hook-form';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { schemaLogin } from '../../../adapter/auth';
-import { handleLogin, setCookies } from '../../../api/Auth';
+import { schemaLogin } from '../../../../adapter/auth';
+import { handleLogin, setCookies } from '../../../../api/Auth';
 import { BlockUI } from '../../Layouts/Notiflix';
 import { ErrorToast, SuccessToast } from '../../Layouts/Alerts';
 import Notiflix from 'notiflix';
 import { useDispatch } from 'react-redux';
-import { setIsForgotPassword, setIsLogin } from '../../../redux/reducer/auth/auth.reducer';
+import { setIsForgotPassword, setIsLogin } from '../../../../redux/reducer/auth/auth.reducer';
 
 export default function FormLogin() {
   const [typePassword, setShowPassword] = useState('password');

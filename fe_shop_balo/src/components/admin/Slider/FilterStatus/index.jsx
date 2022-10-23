@@ -2,8 +2,8 @@ import React from 'react';
 import { Dropdown, Form } from 'react-bootstrap';
 import { HiFilter } from 'react-icons/hi';
 import { useDispatch, useSelector } from 'react-redux';
-import { setStatus } from '../../../redux/reducer/slider/slider.reducer';
-import { isStatusSelectorSlider } from './../../../redux/selectors/slider/slider.selector';
+import { setStatus } from '../../../../redux/reducer/slider/slider.reducer';
+import { isStatusSelectorSlider } from '../../../../redux/selectors/slider/slider.selector';
 
 const FilterStatus = () => {
   const status = useSelector(isStatusSelectorSlider);

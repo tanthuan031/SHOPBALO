@@ -1,10 +1,10 @@
 import { Button } from 'react-bootstrap';
 import { FaStar } from 'react-icons/fa';
 import { useDispatch, useSelector } from 'react-redux';
-import { setIsEdit } from '../../../redux/reducer/review/review.reducer';
-import ImageCustom from '../../Layouts/Image';
-import { isSelectorReview } from './../../../redux/selectors/review/review.selector';
-import { URL_SERVER } from './../../../utils/urlPath';
+import { setIsEdit } from '../../../../redux/reducer/review/review.reducer';
+import ImageCustom from '../../../commons/Layouts/Image';
+import { isSelectorReview } from '../../../../redux/selectors/review/review.selector';
+import { URL_SERVER } from '../../../../utils/urlPath';
 import './style.css';
 
 const ReviewDetail = () => {

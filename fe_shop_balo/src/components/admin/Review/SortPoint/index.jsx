@@ -2,8 +2,8 @@ import React from 'react';
 import { Dropdown, Form } from 'react-bootstrap';
 import { HiFilter } from 'react-icons/hi';
 import { useDispatch, useSelector } from 'react-redux';
-import { setSort } from '../../../redux/reducer/review/review.reducer';
-import { isSortSelectorReview } from '../../../redux/selectors/review/review.selector';
+import { setSort } from '../../../../redux/reducer/review/review.reducer';
+import { isSortSelectorReview } from '../../../../redux/selectors/review/review.selector';
 
 const SortPoint = () => {
   const sort = useSelector(isSortSelectorReview);

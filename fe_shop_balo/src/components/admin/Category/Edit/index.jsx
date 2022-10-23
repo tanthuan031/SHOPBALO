@@ -5,15 +5,15 @@ import { Button, Form } from 'react-bootstrap';
 import { Controller, useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 import Select from 'react-select';
-import { addSchemaCategory } from '../../../adapter/category';
-import { deleteCookie, getCookies } from '../../../api/Auth';
-import { updateCategory } from '../../../api/Category/categoryAPI';
-import { setExpiredToken } from '../../../redux/reducer/auth/auth.reducer';
-import { setCategory, setIsAdd, setIsEdit } from '../../../redux/reducer/category/category.reducer';
-import { isCategorySelector } from '../../../redux/selectors/category/category.selector';
-import { ErrorToast, SuccessToast } from '../../Layouts/Alerts';
-import ImageCustom from '../../Layouts/Image';
-import { BlockUI } from '../../Layouts/Notiflix';
+import { addSchemaCategory } from '../../../../adapter/category';
+import { deleteCookie, getCookies } from '../../../../api/Auth';
+import { updateCategory } from '../../../../api/Category/categoryAPI';
+import { setExpiredToken } from '../../../../redux/reducer/auth/auth.reducer';
+import { setCategory, setIsAdd, setIsEdit } from '../../../../redux/reducer/category/category.reducer';
+import { isCategorySelector } from '../../../../redux/selectors/category/category.selector';
+import { ErrorToast, SuccessToast } from '../../../commons/Layouts/Alerts';
+import ImageCustom from '../../../commons/Layouts/Image';
+import { BlockUI } from '../../../commons/Layouts/Notiflix';
 
 function EditCategory(props) {
   const dispatch = useDispatch();

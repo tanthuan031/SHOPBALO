@@ -1,5 +1,12 @@
-import React from "react";
-import AdminRouter from "./router/AdminRouter";
+import React from 'react';
+import AdminRouter from './router/AdminRouter';
+import ClientRouter from './router/ClientRouter';
 export default function App() {
-  return <AdminRouter />;
+  const checkLayout = false;
+  return (
+    <>
+      <AdminRouter />
+      <ClientRouter />
+    </>
+  );
 }

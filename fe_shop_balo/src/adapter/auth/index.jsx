@@ -1,6 +1,6 @@
 import * as yup from 'yup';
 import { deleteCookie, getCookies, handleGetInformation, handleLogin1 } from '../../api/Auth';
-import { BlockUI } from '../../components/Layouts/Notiflix';
+import { BlockUI } from '../../components/commons/Layouts/Notiflix';
 export const schemaLogin = yup
   .object({
     email: yup.string().required(),

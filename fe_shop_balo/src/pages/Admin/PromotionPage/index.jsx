@@ -6,18 +6,18 @@ import { useDispatch, useSelector } from 'react-redux';
 import { deleteCookie, getCookies } from '../../../api/Auth';
 import { getAllDisount } from '../../../api/Promotion/promotionAPI';
 import { promotion_table_header } from '../../../asset/data/promotion_table_header';
-import { ErrorToast } from '../../../components/Layouts/Alerts';
-import NotFoundData from '../../../components/Layouts/NotFoundData';
-import { BlockUI } from '../../../components/Layouts/Notiflix';
-import PaginationUI from '../../../components/Layouts/Pagination';
-import SortValue from '../../../components/Promotion/SortValue';
+import { ErrorToast } from '../../../components/commons/Layouts/Alerts';
+import NotFoundData from '../../../components/commons/Layouts/NotFoundData';
+import { BlockUI } from '../../../components/commons/Layouts/Notiflix';
+import PaginationUI from '../../../components/commons/Layouts/Pagination';
+import SortValue from '../../../components/admin/Promotion/SortValue';
 import { setExpiredToken } from '../../../redux/reducer/auth/auth.reducer';
 import { setIsAdd } from '../../../redux/reducer/promotion/promotion.reducer';
-import Skeleton from './../../../components/Layouts/Skeleton/index';
-import PromotionAdd from './../../../components/Promotion/Add/index';
-import PromotionEdit from './../../../components/Promotion/Edit/index';
-import FilterStatus from './../../../components/Promotion/FilterStatus/index';
-import PromotionTable from './../../../components/Promotion/index';
+import Skeleton from '../../../components/commons/Layouts/Skeleton/index';
+import PromotionAdd from '../../../components/admin/Promotion/Add/index';
+import PromotionEdit from '../../../components/admin/Promotion/Edit/index';
+import FilterStatus from '../../../components/admin/Promotion/FilterStatus/index';
+import PromotionTable from '../../../components/admin/Promotion/index';
 import {
   isAddSelectorPromotion,
   isEditSelectorPromotion,

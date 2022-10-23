@@ -2,12 +2,12 @@ import Notiflix from 'notiflix';
 import React, { useState } from 'react';
 import { FaPen, FaTimesCircle } from 'react-icons/fa';
 import { useDispatch } from 'react-redux';
-import { deletePromotion, getDiscountById } from '../../api/Promotion/promotionAPI';
-import { setIsAdd, setIsEdit, setIsReset, setPromotion } from '../../redux/reducer/promotion/promotion.reducer';
-import { BlockUI } from './../Layouts/Notiflix/index';
-import TableLayout from './../Layouts/Table/index';
-import Modal from '../Layouts/Modal';
-import { ErrorToast, SuccessToast } from './../Layouts/Alerts/index';
+import { deletePromotion, getDiscountById } from '../../../api/Promotion/promotionAPI';
+import { setIsAdd, setIsEdit, setIsReset, setPromotion } from '../../../redux/reducer/promotion/promotion.reducer';
+import { BlockUI } from '../../commons/Layouts/Notiflix';
+import TableLayout from '../../commons/Layouts/Table';
+import Modal from '../../commons/Layouts/Modal';
+import { ErrorToast, SuccessToast } from '../../commons/Layouts/Alerts';
 
 const PromotionTable = (props) => {
   const dispatch = useDispatch();

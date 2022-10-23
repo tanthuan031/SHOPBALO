@@ -2,11 +2,11 @@ import Notiflix from 'notiflix';
 import React from 'react';
 import { FaPen, FaRegEye } from 'react-icons/fa';
 import { useDispatch } from 'react-redux';
-import { getOrderById, getOrderDetailById } from '../../api/order/indexAPI';
-import { setIsDetail, setIsEdit, setOrder, setOrderDetail } from '../../redux/reducer/order/order.reducer';
-import { ErrorToast } from '../Layouts/Alerts';
-import { BlockUI } from '../Layouts/Notiflix';
-import TableLayout from '../Layouts/Table';
+import { getOrderById, getOrderDetailById } from '../../../api/order/indexAPI';
+import { setIsDetail, setIsEdit, setOrder, setOrderDetail } from '../../../redux/reducer/order/order.reducer';
+import { ErrorToast } from '../../commons/Layouts/Alerts';
+import { BlockUI } from '../../commons/Layouts/Notiflix';
+import TableLayout from '../../commons/Layouts/Table';
 // import './style.css';
 export function OrderTable(props) {
   const dispatch = useDispatch();

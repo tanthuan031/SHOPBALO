@@ -1,25 +1,25 @@
 import React, { useState, useRef } from 'react';
 import { FaFemale, FaMale, FaPen, FaTimesCircle } from 'react-icons/fa';
-import Modal from '../Layouts/Modal';
-import TableLayout from '../Layouts/Table';
+import Modal from '../../commons/Layouts/Modal';
+import TableLayout from '../../commons/Layouts/Table';
 import './style.css';
-import { URL_SERVER } from '../../utils/urlPath';
-import AutoSendMail from '../Layouts/AutoSendMail';
+import { URL_SERVER } from '../../../utils/urlPath';
+import AutoSendMail from '../../commons/Layouts/AutoSendMail';
 import { BsFillTelephoneFill } from 'react-icons/bs';
 import { HiMail } from 'react-icons/hi';
 import { MdOutlineManageAccounts } from 'react-icons/md';
 import { FiMapPin } from 'react-icons/fi';
 import { GrStatusUnknown } from 'react-icons/gr';
-import AutoCallPhone from '../Layouts/AutoCallPhone';
-import { setIsEdit } from '../../redux/reducer/staff/staff.reducer';
+import AutoCallPhone from '../../commons/Layouts/AutoCallPhone';
+import { setIsEdit } from '../../../redux/reducer/staff/staff.reducer';
 import Notiflix from 'notiflix';
-import { ErrorToast, SuccessToast } from '../Layouts/Alerts';
-import { deleteStaff, getStaffById } from '../../api/Staff/staffAPI';
-import { setStaff } from '../../redux/reducer/staff/staff.reducer';
+import { ErrorToast, SuccessToast } from '../../commons/Layouts/Alerts';
+import { deleteStaff, getStaffById } from '../../../api/Staff/staffAPI';
+import { setStaff } from '../../../redux/reducer/staff/staff.reducer';
 import { useDispatch } from 'react-redux';
 import async from 'async';
-import Image from '../Layouts/Image';
-import ImageCustom from '../Layouts/Image';
+import Image from '../../commons/Layouts/Image';
+import ImageCustom from '../../commons/Layouts/Image';
 
 export function StaffTable(props) {
   const [show, setShowDetail] = useState(false);

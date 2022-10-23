@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import NotFound from '../../../asset/images/not_found.jpg';
+import NotFound from '../../../../asset/images/not_found.jpg';
 export default function NotFoundData(props) {
   return (
     <div className="mt-5 d-flex flex-column align-items-center justify-content-center">

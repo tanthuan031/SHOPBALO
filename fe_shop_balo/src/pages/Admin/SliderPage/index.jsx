@@ -3,14 +3,14 @@ import React, { useEffect, useState } from 'react';
 import { Button, Form, InputGroup } from 'react-bootstrap';
 import { FaSearch } from 'react-icons/fa';
 import { useDispatch, useSelector } from 'react-redux';
-import Skeleton from '../../../components/Layouts/Skeleton/index';
+import Skeleton from '../../../components/commons/Layouts/Skeleton/index';
 import { slider_table_header } from '../../../asset/data/slider_table_header';
-import SliderTable from '../../../components/Slider';
-import NotFoundData from './../../../components/Layouts/NotFoundData/index';
-import PaginationUI from '../../../components/Layouts/Pagination';
+import SliderTable from '../../../components/admin/Slider';
+import NotFoundData from '../../../components/commons/Layouts/NotFoundData/index';
+import PaginationUI from '../../../components/commons/Layouts/Pagination';
 import { getAllSlider } from '../../../api/Slider/sliderAPI';
-import { ErrorToast } from '../../../components/Layouts/Alerts';
-import { BlockUI } from '../../../components/Layouts/Notiflix';
+import { ErrorToast } from '../../../components/commons/Layouts/Alerts';
+import { BlockUI } from '../../../components/commons/Layouts/Notiflix';
 import { setIsAdd } from '../../../redux/reducer/slider/slider.reducer';
 import {
   isAddSelectorSlider,
@@ -19,9 +19,9 @@ import {
   isSortSelectorSlider,
   isStatusSelectorSlider,
 } from '../../../redux/selectors/slider/slider.selector';
-import SliderAdd from '../../../components/Slider/Add';
-import SliderEdit from '../../../components/Slider/Edit';
-import FilterStatus from '../../../components/Slider/FilterStatus';
+import SliderAdd from '../../../components/admin/Slider/Add';
+import SliderEdit from '../../../components/admin/Slider/Edit';
+import FilterStatus from '../../../components/admin/Slider/FilterStatus';
 import { setExpiredToken } from '../../../redux/reducer/auth/auth.reducer';
 import { deleteCookie, getCookies } from '../../../api/Auth';
 

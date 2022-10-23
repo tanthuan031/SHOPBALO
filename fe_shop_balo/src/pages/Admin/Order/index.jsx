@@ -6,13 +6,13 @@ import { deleteCookie, getCookies } from '../../../api/Auth';
 import { getAllOrder } from '../../../api/order/indexAPI';
 
 import { order_table_header } from '../../../asset/data/order_table_header';
-import { ErrorToast } from '../../../components/Layouts/Alerts';
-import NotFoundData from '../../../components/Layouts/NotFoundData';
-import PaginationUI from '../../../components/Layouts/Pagination';
-import Skeleton from '../../../components/Layouts/Skeleton';
-import { OrderTable } from '../../../components/Order';
-import OrderDetail from '../../../components/Order/OrderDetail';
-import UpdateStatusOrder from '../../../components/Order/UpdateStatusOrder';
+import { ErrorToast } from '../../../components/commons/Layouts/Alerts';
+import NotFoundData from '../../../components/commons/Layouts/NotFoundData';
+import PaginationUI from '../../../components/commons/Layouts/Pagination';
+import Skeleton from '../../../components/commons/Layouts/Skeleton';
+import { OrderTable } from '../../../components/admin/Order';
+import OrderDetail from '../../../components/admin/Order/OrderDetail';
+import UpdateStatusOrder from '../../../components/admin/Order/UpdateStatusOrder';
 import { setExpiredToken } from '../../../redux/reducer/auth/auth.reducer';
 import { isEditStatusOrderSelector, isOrderDetailSelector } from '../../../redux/selectors/order/order.selector';
 

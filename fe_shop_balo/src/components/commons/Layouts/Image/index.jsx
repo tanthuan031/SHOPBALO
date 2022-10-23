@@ -1,6 +1,6 @@
 // @flow
 import * as React from 'react';
-import imageDefault from '../../../asset/images/imagedefault.jpg';
+import imageDefault from '../../../../asset/images/imagedefault.jpg';
 export default function ImageCustom(props) {
   const [image, setImage] = React.useState();
   const [error, setError] = React.useState();

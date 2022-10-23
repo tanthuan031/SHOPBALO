@@ -5,14 +5,14 @@ import { Button, Form } from 'react-bootstrap';
 import { Controller, useForm, useWatch } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 import Select from 'react-select';
-import { setIsAdd, setIsEdit } from '../../../redux/reducer/slider/slider.reducer';
-import { ErrorToast, SuccessToast } from '../../Layouts/Alerts';
-import { BlockUI } from '../../Layouts/Notiflix';
-import { addSchemaSlider } from './../../../adapter/slider';
-import { editSlider } from './../../../api/Slider/sliderAPI';
-import { isSliderSelector } from './../../../redux/selectors/slider/slider.selector';
-import CustomEditor from './../../Layouts/Edittor';
-import ImageCustom from './../../Layouts/Image';
+import { setIsAdd, setIsEdit } from '../../../../redux/reducer/slider/slider.reducer';
+import { ErrorToast, SuccessToast } from '../../../commons/Layouts/Alerts';
+import { BlockUI } from '../../../commons/Layouts/Notiflix';
+import { addSchemaSlider } from '../../../../adapter/slider';
+import { editSlider } from '../../../../api/Slider/sliderAPI';
+import { isSliderSelector } from '../../../../redux/selectors/slider/slider.selector';
+import CustomEditor from '../../../commons/Layouts/Edittor';
+import ImageCustom from '../../../commons/Layouts/Image';
 
 function SliderEdit(props) {
   const dispatch = useDispatch();

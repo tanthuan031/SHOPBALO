@@ -2,13 +2,13 @@ import Notiflix from 'notiflix';
 import { useState } from 'react';
 import { FaPen, FaTimesCircle } from 'react-icons/fa';
 import { useDispatch } from 'react-redux';
-import { destroyCategory, showCategory } from '../../api/Category/categoryAPI';
-import { setCategory, setIsAdd, setIsEdit, setIsReset } from '../../redux/reducer/category/category.reducer';
-import { ErrorToast, SuccessToast } from '../Layouts/Alerts';
-import ImageCustom from '../Layouts/Image';
-import Modal from '../Layouts/Modal';
-import { BlockUI } from '../Layouts/Notiflix';
-import TableLayout from '../Layouts/Table';
+import { destroyCategory, showCategory } from '../../../api/Category/categoryAPI';
+import { setCategory, setIsAdd, setIsEdit, setIsReset } from '../../../redux/reducer/category/category.reducer';
+import { ErrorToast, SuccessToast } from '../../commons/Layouts/Alerts';
+import ImageCustom from '../../commons/Layouts/Image';
+import Modal from '../../commons/Layouts/Modal';
+import { BlockUI } from '../../commons/Layouts/Notiflix';
+import TableLayout from '../../commons/Layouts/Table';
 import './style.css';
 
 function CategoryTable(props) {
