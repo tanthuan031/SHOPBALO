@@ -11,14 +11,12 @@ use App\Http\Controllers\Admin\SliderController;
 use App\Http\Controllers\Admin\StaffController;
 use App\Http\Controllers\Admin\StatisticController;
 use App\Http\Controllers\Admin\StorageImageController;
+use App\Http\Controllers\Client\AuthClientController;
 use App\Models\Role;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 
-// Route::middleware('auth:api')->get('/user', function (Request $request) {
-//     return $request->user();
-// });
 Route::post('admin/login', [AuthController::class, 'login']);
 Route::post('admin/otp-sendmail', [AuthController::class, 'otpSendMail']);
 Route::put('admin/forgot-password', [AuthController::class, 'forgotPassword']);
@@ -52,3 +50,9 @@ Route::group([
     Route::resource('slider', SliderController::class);
 });
 Route::get('/storage/{filename}', [StorageImageController::class, 'index']);
+
+
+// Client
+Route::post('/register', [AuthClientController::class, 'register']);
+// Route::post('/otp-sendmail', [AuthController::class, 'otpSendMail']);
+// Route::put('/forgot-password', [AuthController::class, 'forgotPassword']);
