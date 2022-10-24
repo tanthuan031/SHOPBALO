@@ -24,7 +24,7 @@ export function ClientLayout(props) {
   return (
     <>
       <Header />
-      <main id="main" className="main p-5">
+      <main id="main-client" className="main p-5">
         {slot}
       </main>
       {/* {expiredToken && <ExpiredToken show={expiredToken} setStateModal={() => true} />} */}

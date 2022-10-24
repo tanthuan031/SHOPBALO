@@ -1,0 +1,12 @@
+.img-slide{
+    width:20%;
+
+    cursor:pointer;
+}
+.img-slide:hover{
+    border:1px solid #b0b0b0;
+    box-shadow:0 0 2px 3px rgba(0,0,0,.2    );
+}
+.image-product{
+
+}
