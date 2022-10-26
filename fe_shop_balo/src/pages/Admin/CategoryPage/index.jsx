@@ -85,7 +85,7 @@ export function CategoryPage(props) {
       return false;
     } else {
       setData(result.data);
-      console.log('🚀 ~ file: order.jsx ~ line 85 ~ handleChangePage ~ data', data);
+      console.log('🚀 ~ file: Order.jsx ~ line 85 ~ handleChangePage ~ data', data);
 
       setTotalRecords(result.meta.total);
 

@@ -14,7 +14,7 @@ export const configHeadersAuthenticate = () => {
 };
 
 export const getAllOrder = async ({ sort, filterStatus, filterCategory, search, page } = {}) => {
-  const url = '/api/admin/order';
+  const url = '/api/admin/Order';
   const queryString = [];
   if (sort && sort.length > 0) {
     sort.forEach((item) => {
