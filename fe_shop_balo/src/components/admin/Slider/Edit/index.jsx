@@ -9,7 +9,7 @@ import { setIsAdd, setIsEdit } from '../../../../redux/reducer/slider/slider.red
 import { ErrorToast, SuccessToast } from '../../../commons/Layouts/Alerts';
 import { BlockUI } from '../../../commons/Layouts/Notiflix';
 import { addSchemaSlider } from '../../../../adapter/slider';
-import { editSlider } from '../../../../api/Slider/sliderAPI';
+import { editSlider } from '../../../../api/Admin/Slider/sliderAPI';
 import { isSliderSelector } from '../../../../redux/selectors/slider/slider.selector';
 import CustomEditor from '../../../commons/Layouts/Edittor';
 import ImageCustom from '../../../commons/Layouts/Image';

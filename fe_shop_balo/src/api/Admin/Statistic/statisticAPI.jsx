@@ -1,6 +1,6 @@
-import { titleToSlug } from '../../utils/titleToSlug';
-import { concatQueryString } from '../../utils/concatQueryString';
-import axiosClient from '../axiosClient';
+import { titleToSlug } from '../../../utils/titleToSlug';
+import { concatQueryString } from '../../../utils/concatQueryString';
+import axiosClient from '../../axiosClient';
 import { getCookies } from '../Auth';
 
 export const configHeadersAuthenticate = () => {

@@ -1,7 +1,7 @@
 import React, { memo, useEffect, useState } from 'react';
 import { Chart } from 'primereact';
 
-import { getStatisticCstomer, getStatisticCustomer } from '../../../../../api/Statistic/statisticAPI';
+import { getStatisticCstomer, getStatisticCustomer } from '../../../../../api/Admin/Statistic/statisticAPI';
 function BarChartCustomer({ data,label }) {
   console.log('render customer')
   const basicData ={

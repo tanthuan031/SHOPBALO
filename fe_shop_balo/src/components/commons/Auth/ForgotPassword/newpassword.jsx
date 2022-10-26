@@ -4,7 +4,7 @@ import { useForm } from 'react-hook-form';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { schemaForgotNewPW, schemaForgotPW, schemaLogin } from '../../../../adapter/auth';
-import { forgotPassword, handleLogin, senMailOTP, setCookies } from '../../../../api/Auth';
+import { forgotPassword, handleLogin, senMailOTP, setCookies } from '../../../../api/Admin/Auth';
 import { BlockUI } from '../../Layouts/Notiflix';
 import { ErrorToast, SuccessToast } from '../../Layouts/Alerts';
 import Notiflix from 'notiflix';

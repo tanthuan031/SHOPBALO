@@ -1,5 +1,5 @@
-import axiosClient from '../axiosClient';
-import { concatQueryString } from '../../utils/concatQueryString';
+import axiosClient from '../../axiosClient';
+import { concatQueryString } from '../../../utils/concatQueryString';
 import { getCookies } from '../Auth';
 
 export const configHeadersAuthenticate = () => {

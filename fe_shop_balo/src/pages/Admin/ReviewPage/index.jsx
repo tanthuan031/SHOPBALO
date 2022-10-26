@@ -12,7 +12,7 @@ import { Button, Form, InputGroup } from 'react-bootstrap';
 import { FaSearch } from 'react-icons/fa';
 import Skeleton from '../../../components/commons/Layouts/Skeleton/index';
 import ReviewTable from '../../../components/admin/Review';
-import { getAllReviews } from '../../../api/Review/reviewAPI';
+import { getAllReviews } from '../../../api/Admin/Review/reviewAPI';
 import { ErrorToast } from '../../../components/commons/Layouts/Alerts';
 import PaginationUI from '../../../components/commons/Layouts/Pagination/index';
 import ReviewDetail from '../../../components/admin/Review/Detail/index';
@@ -20,7 +20,7 @@ import SortPoint from '../../../components/admin/Review/SortPoint/index';
 import FilterStatus from '../../../components/admin/Review/FilterStatus/index';
 import NotFoundData from '../../../components/commons/Layouts/NotFoundData';
 import { setExpiredToken } from '../../../redux/reducer/auth/auth.reducer';
-import { deleteCookie, getCookies } from '../../../api/Auth';
+import { deleteCookie, getCookies } from '../../../api/Admin/Auth';
 
 const ReviewPage = () => {
   const data_review_table_header = [...review_table_header];

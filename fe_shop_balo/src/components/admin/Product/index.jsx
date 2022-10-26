@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { Carousel, Form } from 'react-bootstrap';
 import { FaPen, FaTimesCircle } from 'react-icons/fa';
 import { useDispatch } from 'react-redux';
-import { getProductById } from '../../../api/Product/productAPI';
+import { getProductById } from '../../../api/Admin/Product/productAPI';
 import { getStorageImage } from '../../../api/StorageImage';
 import { setIsEdit, setProduct } from '../../../redux/reducer/product/product.reducer';
 import { formatter } from '../../../utils/formatCurrency';

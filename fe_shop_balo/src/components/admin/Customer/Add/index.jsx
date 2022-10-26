@@ -11,13 +11,13 @@ import Notiflix from 'notiflix';
 import { ErrorToast, SuccessToast } from '../../../commons/Layouts/Alerts';
 import { setIsAdd } from '../../../../redux/reducer/customer/customer.reducer';
 import './style.css';
-import { addCustomer } from '../../../../api/Customer/customerAPI';
+import { addCustomer } from '../../../../api/Admin/Customer/customerAPI';
 import { AiFillEye, AiFillEyeInvisible } from 'react-icons/ai';
 import { URL_SERVER } from '../../../../utils/urlPath';
 import { formatDate } from '../../../../utils/formatDate';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import { setExpiredToken } from '../../../../redux/reducer/auth/auth.reducer';
-import { deleteCookie, getCookies } from '../../../../api/Auth';
+import { deleteCookie, getCookies } from '../../../../api/Admin/Auth';
 
 const CustomerAdd = (props) => {
   const data_gender = [

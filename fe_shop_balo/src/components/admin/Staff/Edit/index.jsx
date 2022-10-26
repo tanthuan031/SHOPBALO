@@ -11,12 +11,12 @@ import Notiflix from 'notiflix';
 import { ErrorToast, SuccessToast } from '../../../commons/Layouts/Alerts';
 import { setIsEdit } from '../../../../redux/reducer/staff/staff.reducer';
 import { staffByIdSelector } from '../../../../redux/selectors';
-import { editStaff } from '../../../../api/Staff/staffAPI';
+import { editStaff } from '../../../../api/Admin/Staff/staffAPI';
 import { URL_SERVER } from '../../../../utils/urlPath';
 import './style.css';
 import { formatDate } from '../../../../utils/formatDate';
 import { setExpiredToken } from '../../../../redux/reducer/auth/auth.reducer';
-import { deleteCookie, getCookies } from '../../../../api/Auth';
+import { deleteCookie, getCookies } from '../../../../api/Admin/Auth';
 
 const StaffEdit = (props) => {
   const staffSelector = useSelector(staffByIdSelector);
