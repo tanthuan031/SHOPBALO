@@ -69,7 +69,8 @@ class OrderRepository extends BaseRepository
             $result = Order::query()
                 ->select(DB::raw('COUNT(*)AS amount_order'))
                 ->where('created_order_date', $today)
-                ->get();
+               ->toSql();// ->get();
+            dd($result);
         } catch (Exception $e) {
             dd($e);
         }
