@@ -28,7 +28,6 @@ export function OrderTable(props) {
   const handleOrderDetail = async (e, id, dataOrderByID) => {
     BlockUI('#root', 'fixed');
     e.stopPropagation();
-    console.log('data', dataOrderByID);
     const dataDetailOrderId = await getOrderDetailById(id);
 
     Notiflix.Block.remove('#root');

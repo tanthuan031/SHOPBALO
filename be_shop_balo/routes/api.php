@@ -30,17 +30,17 @@ Route::group([
     Route::resource('customer', CustomerController::class);
     // api resource category
     Route::resource('category', CategoryController::class);
-    Route::resource('Order', OrderController::class);
+    Route::resource('order', OrderController::class);
     Route::delete('category/{category}/forgot', [CategoryController::class, 'forgot']);
     Route::resource('discount', DiscountController::class);
     Route::resource('rating', RatingController::class);
     Route::post('logout', [AuthController::class, 'logout']);
     // api statistics
     Route::prefix('statistics')->group(function () {
-        Route::get('Order-today', [StatisticController::class, 'figureOrderToday']);
+        Route::get('order-today', [StatisticController::class, 'figureOrderToday']);
         Route::get('revenue-today', [StatisticController::class, 'figureRevenueToday']);
         Route::get('newcustomer', [StatisticController::class, 'figureNewCustomer']);
-        Route::get('Order', [StatisticController::class, 'figureOrders']);
+        Route::get('order', [StatisticController::class, 'figureOrders']);
         Route::get('revenue', [StatisticController::class, 'figureRevenue']);
         Route::get('staff', [StatisticController::class, 'getTopStaffSelling']);
         Route::get('customer', [StatisticController::class, 'getTopCustomerBuying']);
