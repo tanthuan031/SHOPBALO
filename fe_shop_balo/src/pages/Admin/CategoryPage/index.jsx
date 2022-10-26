@@ -3,8 +3,8 @@ import React, { useEffect, useState } from 'react';
 import { Button, Form, InputGroup } from 'react-bootstrap';
 import { FaSearch } from 'react-icons/fa';
 import { useDispatch, useSelector } from 'react-redux';
-import { deleteCookie, getCookies } from '../../../api/Auth';
-import { getAll } from '../../../api/Category/categoryAPI';
+import { deleteCookie, getCookies } from '../../../api/Admin/Auth';
+import { getAll } from '../../../api/Admin/Category/categoryAPI';
 import { category_table_header } from '../../../asset/data/category_table_header';
 import CategoryTable from '../../../components/admin/Category';
 import CreateCategoryForm from '../../../components/admin/Category/Add';
@@ -85,7 +85,7 @@ export function CategoryPage(props) {
       return false;
     } else {
       setData(result.data);
-      console.log('🚀 ~ file: order.jsx ~ line 85 ~ handleChangePage ~ data', data);
+      console.log('🚀 ~ file: Order.jsx ~ line 85 ~ handleChangePage ~ data', data);
 
       setTotalRecords(result.meta.total);
 

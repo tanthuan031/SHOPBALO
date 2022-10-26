@@ -5,7 +5,7 @@ import { useDispatch } from 'react-redux';
 import { setIsAdd, setIsEdit, setIsReset, setSlider } from '../../../redux/reducer/slider/slider.reducer';
 import ImageCustom from '../../commons/Layouts/Image';
 import Modal from '../../commons/Layouts/Modal';
-import { deleteSlider, getSliderById } from '../../../api/Slider/sliderAPI';
+import { deleteSlider, getSliderById } from '../../../api/Admin/Slider/sliderAPI';
 import { BlockUI } from '../../commons/Layouts/Notiflix';
 import TableLayout from '../../commons/Layouts/Table';
 import { ErrorToast, SuccessToast } from '../../commons/Layouts/Alerts';

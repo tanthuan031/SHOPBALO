@@ -11,12 +11,12 @@ import { isAddCustomerSelector, isEditCustomerSelector } from '../../../redux/se
 import SearchWithDropdownOptions from '../../../components/commons/Layouts/SearchWithDropdownOptions/SearchWithDropdownOptions';
 import { CustomerTable } from '../../../components/admin/Customer';
 import { customer_table_header } from '../../../asset/data/customer_table_header';
-import { getAllCustomers } from '../../../api/Customer/customerAPI';
+import { getAllCustomers } from '../../../api/Admin/Customer/customerAPI';
 import CustomerAdd from '../../../components/admin/Customer/Add';
 import CustomerEdit from '../../../components/admin/Customer/Edit';
 import NotFoundData from '../../../components/commons/Layouts/NotFoundData';
 import { setExpiredToken, setIsLogin } from '../../../redux/reducer/auth/auth.reducer';
-import { deleteCookie, getCookies } from '../../../api/Auth';
+import { deleteCookie, getCookies } from '../../../api/Admin/Auth';
 
 export function CustomerPage(props) {
   const data_customer_table_header = [...customer_table_header];

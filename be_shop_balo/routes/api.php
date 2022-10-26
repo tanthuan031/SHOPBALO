@@ -30,17 +30,17 @@ Route::group([
     Route::resource('customer', CustomerController::class);
     // api resource category
     Route::resource('category', CategoryController::class);
-    Route::resource('order', OrderController::class);
+    Route::resource('Order', OrderController::class);
     Route::delete('category/{category}/forgot', [CategoryController::class, 'forgot']);
     Route::resource('discount', DiscountController::class);
     Route::resource('rating', RatingController::class);
     Route::post('logout', [AuthController::class, 'logout']);
     // api statistics
     Route::prefix('statistics')->group(function () {
-        Route::get('order-today', [StatisticController::class, 'figureOrderToday']);
+        Route::get('Order-today', [StatisticController::class, 'figureOrderToday']);
         Route::get('revenue-today', [StatisticController::class, 'figureRevenueToday']);
         Route::get('newcustomer', [StatisticController::class, 'figureNewCustomer']);
-        Route::get('order', [StatisticController::class, 'figureOrders']);
+        Route::get('Order', [StatisticController::class, 'figureOrders']);
         Route::get('revenue', [StatisticController::class, 'figureRevenue']);
         Route::get('staff', [StatisticController::class, 'getTopStaffSelling']);
         Route::get('customer', [StatisticController::class, 'getTopCustomerBuying']);
@@ -53,6 +53,11 @@ Route::get('/storage/{filename}', [StorageImageController::class, 'index']);
 
 
 // Client
-Route::post('/register', [AuthClientController::class, 'register']);
+
+Route::post('client/register', [AuthClientController::class, 'register']);
+Route::post('client/login', [AuthClientController::class, 'login']);
+
+
+
 // Route::post('/otp-sendmail', [AuthController::class, 'otpSendMail']);
 // Route::put('/forgot-password', [AuthController::class, 'forgotPassword']);

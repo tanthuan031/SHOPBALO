@@ -2,8 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { Button, Form, InputGroup } from 'react-bootstrap';
 import { FaSearch } from 'react-icons/fa';
 import { useDispatch, useSelector } from 'react-redux';
-import { deleteCookie, getCookies } from '../../../api/Auth';
-import { getAllOrder } from '../../../api/order/indexAPI';
+import { deleteCookie, getCookies } from '../../../api/Admin/Auth';
+import { getAllOrder } from '../../../api/Admin/Order/indexAPI';
 
 import { order_table_header } from '../../../asset/data/order_table_header';
 import { ErrorToast } from '../../../components/commons/Layouts/Alerts';

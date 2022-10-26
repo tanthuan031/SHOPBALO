@@ -10,12 +10,12 @@ import { ErrorToast, SuccessToast } from '../../../commons/Layouts/Alerts';
 import Notiflix from 'notiflix';
 import CustomEditor from '../../../commons/Layouts/Edittor';
 import { addSchemaPromotion } from '../../../../adapter/promotion';
-import { addDiscount, editDiscount } from '../../../../api/Promotion/promotionAPI';
+import { addDiscount, editDiscount } from '../../../../api/Admin/Promotion/promotionAPI';
 import { useEffect } from 'react';
 import { FaRegRegistered } from 'react-icons/fa';
 import { isPromotionSelector } from '../../../../redux/selectors/promotion/promotion.selector';
 import { setExpiredToken } from '../../../../redux/reducer/auth/auth.reducer';
-import { deleteCookie, getCookies } from '../../../../api/Auth';
+import { deleteCookie, getCookies } from '../../../../api/Admin/Auth';
 
 function PromotionEdit(props) {
   const dispatch = useDispatch();

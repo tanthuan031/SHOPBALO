@@ -16,7 +16,7 @@ import { setIsLogin, setUser } from '../../redux/reducer/auth/auth.reducer';
 import { useDispatch, useSelector } from 'react-redux';
 import { isLoginSelector } from '../../redux/selectors/auth/auth.reducer';
 import { checkLogin, handleGetMe } from '../../adapter/auth';
-import { deleteCookie, getCookies } from '../../api/Auth';
+import { deleteCookie, getCookies } from '../../api/Admin/Auth';
 
 import SliderPage from '../../pages/Admin/SliderPage';
 export default function AdminRouter() {

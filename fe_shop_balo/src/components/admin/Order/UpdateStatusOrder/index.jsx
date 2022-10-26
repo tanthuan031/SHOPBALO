@@ -5,8 +5,8 @@ import { Button, Form } from 'react-bootstrap';
 import { Controller, useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 import Select from 'react-select';
-import { deleteCookie, getCookies } from '../../../../api/Auth';
-import { updateStatusOrder } from '../../../../api/order/indexAPI';
+import { deleteCookie, getCookies } from '../../../../api/Admin/Auth';
+import { updateStatusOrder } from '../../../../api/Admin/Order/indexAPI';
 import { setExpiredToken } from '../../../../redux/reducer/auth/auth.reducer';
 import { setIsEdit } from '../../../../redux/reducer/order/order.reducer';
 import { orderByIdSelector } from '../../../../redux/selectors/order/order.selector';
@@ -52,7 +52,7 @@ function UpdateStatusOrder(props) {
     const result = await updateStatusOrder(idStatusUpdate.order_id, temDirtyFields);
     Notiflix.Block.remove('#root');
     if (result === 200) {
-      SuccessToast('Update status order successfully', 3000);
+      SuccessToast('Update status Order successfully', 3000);
       props.backToOrderList([
         {
           key: 'updated_at',
@@ -61,7 +61,7 @@ function UpdateStatusOrder(props) {
       ]);
       backtoOrder();
     } else if (result === 404) {
-      ErrorToast('Update status order unsuccessfully', 3000);
+      ErrorToast('Update status Order unsuccessfully', 3000);
       Notiflix.Block.remove('#root');
     } else if (result === 401) {
       handleSetUnthorization();

@@ -45,7 +45,7 @@ export const menu_admin_item = [
     id: 5,
     name: 'Order',
     active: false,
-    link: '/admin/order',
+    link: '/admin/Order',
     icon: <FaFirstOrderAlt />,
   },
   {

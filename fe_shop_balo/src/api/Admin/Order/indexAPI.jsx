@@ -1,8 +1,8 @@
 // import React from 'react';
-import { concatQueryString } from '../../utils/concatQueryString';
-import { titleToSlug } from '../../utils/titleToSlug';
+import { concatQueryString } from '../../../utils/concatQueryString';
+import { titleToSlug } from '../../../utils/titleToSlug';
 import { getCookies } from '../Auth';
-import axiosClient from '../axiosClient';
+import axiosClient from '../../axiosClient';
 
 export const configHeadersAuthenticate = () => {
   const token = getCookies('token');
@@ -14,7 +14,7 @@ export const configHeadersAuthenticate = () => {
 };
 
 export const getAllOrder = async ({ sort, filterStatus, filterCategory, search, page } = {}) => {
-  const url = '/api/admin/order';
+  const url = '/api/admin/Order';
   const queryString = [];
   if (sort && sort.length > 0) {
     sort.forEach((item) => {

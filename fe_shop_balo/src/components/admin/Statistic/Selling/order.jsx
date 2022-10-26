@@ -1,6 +1,6 @@
 import React, { memo, useCallback, useEffect, useRef, useState } from 'react';
 import { Chart } from 'primereact';
-import { getStatistisOrder } from '../../../../api/Statistic/statisticAPI';
+import { getStatistisOrder } from '../../../../api/Admin/Statistic/statisticAPI';
 import "./index.css"
 import { Button } from 'react-bootstrap';
 
@@ -29,7 +29,7 @@ function ChartLineOrders({ type,label,data,onFilter }) {
     plugins: {
       title: {
         display: true,
-        text: 'The chart shows the order for sale',
+        text: 'The chart shows the Order for sale',
         font: {
           size: 16
         }

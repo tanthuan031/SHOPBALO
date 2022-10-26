@@ -14,10 +14,10 @@ import {
   getStatistisCategory,
   getStatistisOrder,
   getStatistisRevenue,
-} from '../../../api/Statistic/statisticAPI';
+} from '../../../api/Admin/Statistic/statisticAPI';
 import BarChartCustomer from '../../../components/admin/Statistic/Selling/Customer';
 import { setExpiredToken } from '../../../redux/reducer/auth/auth.reducer';
-import { deleteCookie, getCookies } from '../../../api/Auth';
+import { deleteCookie, getCookies } from '../../../api/Admin/Auth';
 import { useDispatch } from 'react-redux';
 
 export function DashBoardPage(props) {

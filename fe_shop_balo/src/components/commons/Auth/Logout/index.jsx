@@ -3,7 +3,7 @@ import { Button } from 'react-bootstrap';
 import { useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
 import Modal from '../../Layouts/Modal';
-import { deleteCookie, getCookies, logout } from '../../../../api/Auth';
+import { deleteCookie, getCookies, logout } from '../../../../api/Admin/Auth';
 import { setExpiredToken, setIsLogin } from '../../../../redux/reducer/auth/auth.reducer';
 
 export default function Logout(props) {

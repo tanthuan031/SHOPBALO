@@ -12,10 +12,10 @@ import { setIsEdit } from '../../../../redux/reducer/customer/customer.reducer';
 import { formatDate } from '../../../../utils/formatDate';
 import Notiflix from 'notiflix';
 import { ErrorToast, SuccessToast } from '../../../commons/Layouts/Alerts';
-import { editCustomer } from '../../../../api/Customer/customerAPI';
+import { editCustomer } from '../../../../api/Admin/Customer/customerAPI';
 import ImageCustom from '../../../commons/Layouts/Image';
 import { setExpiredToken } from '../../../../redux/reducer/auth/auth.reducer';
-import { deleteCookie, getCookies } from '../../../../api/Auth';
+import { deleteCookie, getCookies } from '../../../../api/Admin/Auth';
 
 const CustomerEdit = (props) => {
   const customerSelector = useSelector(customerByIdSelector);

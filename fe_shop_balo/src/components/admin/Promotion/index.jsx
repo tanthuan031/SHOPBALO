@@ -2,7 +2,7 @@ import Notiflix from 'notiflix';
 import React, { useState } from 'react';
 import { FaPen, FaTimesCircle } from 'react-icons/fa';
 import { useDispatch } from 'react-redux';
-import { deletePromotion, getDiscountById } from '../../../api/Promotion/promotionAPI';
+import { deletePromotion, getDiscountById } from '../../../api/Admin/Promotion/promotionAPI';
 import { setIsAdd, setIsEdit, setIsReset, setPromotion } from '../../../redux/reducer/promotion/promotion.reducer';
 import { BlockUI } from '../../commons/Layouts/Notiflix';
 import TableLayout from '../../commons/Layouts/Table';

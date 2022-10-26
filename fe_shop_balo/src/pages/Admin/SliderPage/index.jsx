@@ -8,7 +8,7 @@ import { slider_table_header } from '../../../asset/data/slider_table_header';
 import SliderTable from '../../../components/admin/Slider';
 import NotFoundData from '../../../components/commons/Layouts/NotFoundData/index';
 import PaginationUI from '../../../components/commons/Layouts/Pagination';
-import { getAllSlider } from '../../../api/Slider/sliderAPI';
+import { getAllSlider } from '../../../api/Admin/Slider/sliderAPI';
 import { ErrorToast } from '../../../components/commons/Layouts/Alerts';
 import { BlockUI } from '../../../components/commons/Layouts/Notiflix';
 import { setIsAdd } from '../../../redux/reducer/slider/slider.reducer';
@@ -23,7 +23,7 @@ import SliderAdd from '../../../components/admin/Slider/Add';
 import SliderEdit from '../../../components/admin/Slider/Edit';
 import FilterStatus from '../../../components/admin/Slider/FilterStatus';
 import { setExpiredToken } from '../../../redux/reducer/auth/auth.reducer';
-import { deleteCookie, getCookies } from '../../../api/Auth';
+import { deleteCookie, getCookies } from '../../../api/Admin/Auth';
 
 const SliderPage = () => {
   const data_slider_table_header = [...slider_table_header];

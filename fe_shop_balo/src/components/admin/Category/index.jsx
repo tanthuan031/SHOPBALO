@@ -2,7 +2,7 @@ import Notiflix from 'notiflix';
 import { useState } from 'react';
 import { FaPen, FaTimesCircle } from 'react-icons/fa';
 import { useDispatch } from 'react-redux';
-import { destroyCategory, showCategory } from '../../../api/Category/categoryAPI';
+import { destroyCategory, showCategory } from '../../../api/Admin/Category/categoryAPI';
 import { setCategory, setIsAdd, setIsEdit, setIsReset } from '../../../redux/reducer/category/category.reducer';
 import { ErrorToast, SuccessToast } from '../../commons/Layouts/Alerts';
 import ImageCustom from '../../commons/Layouts/Image';
