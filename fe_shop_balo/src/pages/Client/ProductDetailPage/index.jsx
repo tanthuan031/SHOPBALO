@@ -21,7 +21,7 @@ function ProductDetailPage(props) {
               <Gallery />
             </Col>
             <Col md='6' lg='5'>
-              <InfoProduct />
+              <InfoProduct price={85000} description={'Án ngủ chơi'} name={'BackPack 4444'} color={'#b61395'} />
             </Col>
           </Row>
 

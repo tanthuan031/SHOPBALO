@@ -1,6 +1,8 @@
 import React from 'react';
+import { FaMinus, FaPlus } from 'react-icons/fa';
 
-function InfoProduct(props) {
+function InfoProduct({name,description,price, color }) {
+  console.log(color);
   return (
     <div className="p-r-50 p-t-5 p-lr-0-lg">
       <h4 className="mtext-105 cl2 js-name-detail p-b-14">
@@ -16,24 +18,6 @@ function InfoProduct(props) {
       </p>
 
       <div className="p-t-33">
-        <div className="flex-w flex-r-m p-b-10">
-          <div className="size-203 flex-c-m respon6">
-            Size
-          </div>
-
-          <div className="size-204 respon6-next">
-            <div className="rs1-select2 bor8 bg0">
-              <select className="js-select2" name="time">
-                <option>Choose an option</option>
-                <option>Size S</option>
-                <option>Size M</option>
-                <option>Size L</option>
-                <option>Size XL</option>
-              </select>
-              <div className="dropDownSelect2"></div>
-            </div>
-          </div>
-        </div>
 
         <div className="flex-w flex-r-m p-b-10">
           <div className="size-203 flex-c-m respon6">
@@ -41,15 +25,9 @@ function InfoProduct(props) {
           </div>
 
           <div className="size-204 respon6-next">
-            <div className="rs1-select2 bor8 bg0">
-              <select className="js-select2" name="time">
-                <option>Choose an option</option>
-                <option>Red</option>
-                <option>Blue</option>
-                <option>White</option>
-                <option>Grey</option>
-              </select>
-              <div className="dropDownSelect2"></div>
+            <div className="rs1-select2 bor8 bg0" style={{backgroundColor:`${color}`, width: '3rem',
+              height: '3rem'}}>
+
             </div>
           </div>
         </div>
@@ -58,14 +36,14 @@ function InfoProduct(props) {
           <div className="size-204 flex-w flex-m respon6-next">
             <div className="wrap-num-product flex-w m-r-20 m-tb-10">
               <div className="btn-num-product-down cl8 hov-btn3 trans-04 flex-c-m">
-                <i className="fs-16 zmdi zmdi-minus"></i>
+               <FaMinus/>
               </div>
 
               <input className="mtext-104 cl3 txt-center num-product" type="number" name="num-product"
                      value="1"/>
 
                 <div className="btn-num-product-up cl8 hov-btn3 trans-04 flex-c-m">
-                  <i className="fs-16 zmdi zmdi-plus"></i>
+                  <FaPlus/>
                 </div>
             </div>
 
