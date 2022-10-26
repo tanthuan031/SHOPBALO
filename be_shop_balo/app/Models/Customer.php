@@ -6,10 +6,12 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Laravel\Sanctum\HasApiTokens;
 
 class Customer extends Model
 {
     use HasFactory;
+    use HasApiTokens;
     protected $fillable = [
         'first_name',
         'last_name',
@@ -85,7 +87,4 @@ class Customer extends Model
                     ->where("phone", "LIKE", "%{$search}%");
             });
     }
-
-
-
 }
