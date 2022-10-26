@@ -53,6 +53,11 @@ Route::get('/storage/{filename}', [StorageImageController::class, 'index']);
 
 
 // Client
-Route::post('/register', [AuthClientController::class, 'register']);
+
+Route::post('client/register', [AuthClientController::class, 'register']);
+Route::post('client/login', [AuthClientController::class, 'login']);
+
+
+
 // Route::post('/otp-sendmail', [AuthController::class, 'otpSendMail']);
 // Route::put('/forgot-password', [AuthController::class, 'forgotPassword']);

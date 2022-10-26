@@ -2,7 +2,7 @@ import Notiflix from 'notiflix';
 import React from 'react';
 import { FaPen, FaRegEye } from 'react-icons/fa';
 import { useDispatch } from 'react-redux';
-import { getOrderById, getOrderDetailById } from '../../../api/order/indexAPI';
+import { getOrderById, getOrderDetailById } from '../../../api/Admin/Order/indexAPI';
 import { setIsDetail, setIsEdit, setOrder, setOrderDetail } from '../../../redux/reducer/order/order.reducer';
 import { ErrorToast } from '../../commons/Layouts/Alerts';
 import { BlockUI } from '../../commons/Layouts/Notiflix';
@@ -28,7 +28,6 @@ export function OrderTable(props) {
   const handleOrderDetail = async (e, id, dataOrderByID) => {
     BlockUI('#root', 'fixed');
     e.stopPropagation();
-    console.log('data', dataOrderByID);
     const dataDetailOrderId = await getOrderDetailById(id);
 
     Notiflix.Block.remove('#root');

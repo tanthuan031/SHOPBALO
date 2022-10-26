@@ -5,16 +5,17 @@ namespace App\Repositories\Admin;
 use App\Http\Resources\Admin\Customer\CustomerResource;
 use App\Models\Customer;
 use App\Repositories\BaseRepository;
+use Exception;
 use Illuminate\Support\Facades\DB;
 
 class CustomerRepository extends BaseRepository
 {
     protected $customer;
-    protected int $paginate=8;
+    protected int $paginate = 8;
     public function __construct(Customer $Customer)
     {
         $this->customer =  $Customer;
-        parent::__construct( $Customer);
+        parent::__construct($Customer);
     }
     public function getAllCustomer($request)
     {
@@ -24,20 +25,19 @@ class CustomerRepository extends BaseRepository
             ->filter($request)
             ->paginate($this->paginate);
         return CustomerResource::collection($data)->response()->getData();
-
     }
-    public  function getNewCustomerToday(){
-        try{
-            $today=  date("Y-m-d");
-            $result= Customer::query()
-                ->select( DB::raw('COUNT(id) AS amount_customer') )
-                ->where('created_date',$today)
+    public  function getNewCustomerToday()
+    {
+        try {
+            $today =  date("Y-m-d");
+            $result = Customer::query()
+                ->select(DB::raw('COUNT(id) AS amount_customer'))
+                ->where('created_date', $today)
                 ->get();
-        }
-        catch(Exception $e){
+        } catch (Exception $e) {
             dd($e);
         }
-        return response()->json( $result)->getData();
+        return response()->json($result)->getData();
     }
     public function getCustomer(int $id)
     {
@@ -49,34 +49,30 @@ class CustomerRepository extends BaseRepository
 
         try {
             $Customer = Customer::query()->create($request);
-
-        }catch (\Exception $e){
+        } catch (\Exception $e) {
             return false;
         }
         return $Customer;
     }
-    public function updateCustomer($request,$id)
+    public function updateCustomer($request, $id)
     {
-        try{
+        try {
 
-            $Customer=  Customer::query()->where('id','=',$id)->first();
+            $Customer =  Customer::query()->where('id', '=', $id)->first();
             $Customer->update($request->all());
-        }
-        catch (\Exception $e){
+        } catch (\Exception $e) {
             return false;
         }
         return $Customer;
     }
-    public function deleteCustomer($id){
-        try{
-            $Customer=  Customer::query()->where('id','=',$id)->first();
+    public function deleteCustomer($id)
+    {
+        try {
+            $Customer =  Customer::query()->where('id', '=', $id)->first();
             $Customer->delete();
-        }
-        catch (\Exception $e) {
+        } catch (\Exception $e) {
             return false;
         }
         return $Customer;
     }
-
-
 }

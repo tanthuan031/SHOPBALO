@@ -1,5 +1,5 @@
 import * as yup from 'yup';
-import { deleteCookie, getCookies, handleGetInformation, handleLogin1 } from '../../api/Auth';
+import { deleteCookie, getCookies, handleGetInformation, handleLogin1 } from '../../api/Admin/Auth';
 import { BlockUI } from '../../components/commons/Layouts/Notiflix';
 export const schemaLogin = yup
   .object({

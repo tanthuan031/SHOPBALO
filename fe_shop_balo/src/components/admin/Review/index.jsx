@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { FaRegEye, FaStar, FaTimesCircle } from 'react-icons/fa';
 import { TiTick } from 'react-icons/ti';
 import { useDispatch } from 'react-redux';
-import { deleteReview, getReviewById } from '../../../api/Review/reviewAPI';
+import { deleteReview, getReviewById } from '../../../api/Admin/Review/reviewAPI';
 import { setIsEdit, setIsReset, setReview } from '../../../redux/reducer/review/review.reducer';
 import ImageCustom from '../../commons/Layouts/Image';
 import { URL_SERVER } from '../../../utils/urlPath';

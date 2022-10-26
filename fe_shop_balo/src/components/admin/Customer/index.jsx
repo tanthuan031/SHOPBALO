@@ -13,7 +13,7 @@ import Notiflix from 'notiflix';
 import { ErrorToast, SuccessToast } from '../../commons/Layouts/Alerts';
 import { setCustomer } from '../../../redux/reducer/customer/customer.reducer';
 import { useDispatch } from 'react-redux';
-import { deleteCustomer, getCustomerById } from '../../../api/Customer/customerAPI';
+import { deleteCustomer, getCustomerById } from '../../../api/Admin/Customer/customerAPI';
 import ImageCustom from '../../commons/Layouts/Image';
 
 export function CustomerTable(props) {

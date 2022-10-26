@@ -1,6 +1,6 @@
 import { getCookies } from '../Auth';
-import { concatQueryString } from './../../utils/concatQueryString';
-import axiosClient from './../axiosClient';
+import { concatQueryString } from '../../../utils/concatQueryString';
+import axiosClient from '../../axiosClient';
 export const configHeadersAuthenticate = () => {
   const token = getCookies('token');
   return {

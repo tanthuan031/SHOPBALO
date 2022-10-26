@@ -5,7 +5,7 @@ import { Button, Form } from 'react-bootstrap';
 import { Controller, useForm } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
 import Select from 'react-select';
-import { addSlider } from '../../../../api/Slider/sliderAPI';
+import { addSlider } from '../../../../api/Admin/Slider/sliderAPI';
 import { setIsAdd } from '../../../../redux/reducer/slider/slider.reducer';
 import { ErrorToast, SuccessToast } from '../../../commons/Layouts/Alerts';
 import { BlockUI } from '../../../commons/Layouts/Notiflix';

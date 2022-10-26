@@ -1,8 +1,8 @@
 import React from 'react';
-import { concatQueryString } from '../../utils/concatQueryString';
-import { titleToSlug } from '../../utils/titleToSlug';
+import { concatQueryString } from '../../../utils/concatQueryString';
+import { titleToSlug } from '../../../utils/titleToSlug';
 import { getCookies } from '../Auth';
-import axiosClient from '../axiosClient';
+import axiosClient from '../../axiosClient';
 import { getAllProducts } from '../Product/productAPI';
 
 export const configHeadersAuthenticate = () => {

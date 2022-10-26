@@ -14,7 +14,7 @@ import AutoCallPhone from '../../commons/Layouts/AutoCallPhone';
 import { setIsEdit } from '../../../redux/reducer/staff/staff.reducer';
 import Notiflix from 'notiflix';
 import { ErrorToast, SuccessToast } from '../../commons/Layouts/Alerts';
-import { deleteStaff, getStaffById } from '../../../api/Staff/staffAPI';
+import { deleteStaff, getStaffById } from '../../../api/Admin/Staff/staffAPI';
 import { setStaff } from '../../../redux/reducer/staff/staff.reducer';
 import { useDispatch } from 'react-redux';
 import async from 'async';
