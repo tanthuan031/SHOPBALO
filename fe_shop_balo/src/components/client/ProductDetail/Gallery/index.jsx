@@ -39,7 +39,7 @@ function Gallery({ mainImage,listImage }) {
           <ul className='slick3-dots'>
             {
               data_image.map(item=>(
-                <li className={item.id===imageMain.id&&'img-slide-active'} onClick={()=>setImageMain(item)} key={item.id}>
+                <li className={item.id===imageMain.id?'img-slide-active':''} onClick={()=>setImageMain(item)} key={item.id}>
                   <img src={item.url} className='img-slide' alt={item.alt} />
                 </li>
               ))
@@ -51,7 +51,7 @@ function Gallery({ mainImage,listImage }) {
         <div className='slick3 gallery-lb'>
           <div className='item-slick3' data-thumb='images/product-detail-01.jpg'>
             <div className='wrap-pic-w pos-relative'>
-              <img src={imageMain.url} alt={imageMain.alt} id='imgMainProduct'  ref={imgMainProduct}/>
+              <img src={imageMain.url} alt={imageMain.alt} id='imgMainProduct' className= 'image-main-product '  ref={imgMainProduct}/>
               <span className='flex-c-m size-108 how-pos1 bor0 fs-16 cl10 bg0 hov-btn3 trans-04' ref={imgBtnOpenExpandModal} >
                   <FaExpand/>
               </span>

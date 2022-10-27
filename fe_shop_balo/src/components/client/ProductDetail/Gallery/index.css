@@ -20,7 +20,15 @@
     width: 100%;
     margin-bottom: 27px;
 }
-
+.image-main-product{
+    border:1px solid #f3f3f3;
+    border-radius: 0.2rem;
+    overflow: hidden;
+    background-color: #eeeeee;
+}
+.warning{
+    color: #de6827;
+}
 
 
 
@@ -47,7 +55,13 @@
     background-color: rgb(0,0,0); /* Fallback color */
     background-color: rgba(0,0,0,0.9); /* Black w/ opacity */
 }
-
+.disabled {
+    pointer-events: none;  /* <----------- */
+    opacity: 0.2;
+}
+.color-detail{
+    border-radius:50%;
+}
 /* Modal Content (image) */
 .modal-content {
     margin: auto;

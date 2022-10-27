@@ -2673,7 +2673,9 @@ input.num-product::-webkit-inner-spin-button {
        BORDER BORDER  BORDER  BORDER  BORDER  BORDER  BORDER  BORDER
 ==================================================================*/
 .bor0 {border-radius: 50%;}
-
+.bor{
+    border:1px solid rgba(119, 119, 119, 0.9);
+}
 .bor1 {
     border-radius: 23px;
 }
