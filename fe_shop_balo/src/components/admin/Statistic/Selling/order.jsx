@@ -29,7 +29,7 @@ function ChartLineOrders({ type,label,data,onFilter }) {
     plugins: {
       title: {
         display: true,
-        text: 'The chart shows the order for sale',
+        text: 'The chart shows the Order for sale',
         font: {
           size: 16
         }

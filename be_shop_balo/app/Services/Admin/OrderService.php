@@ -19,9 +19,9 @@ class OrderService
     {
         $result = $this->orderRepository->getAllOrder($request);
         if ($result) {
-            return $this->apiResponse($result, 'success', 'Get order successfully');
+            return $this->apiResponse($result, 'success', 'Get Order successfully');
         } else {
-            return $this->apiResponse([], 'failed', 'Get order unsuccessfully');
+            return $this->apiResponse([], 'failed', 'Get Order unsuccessfully');
         }
     }
     public function getOrderDetailById($request, $id)
@@ -29,16 +29,16 @@ class OrderService
         if ($request->has('order_details')) {
             $result = $this->orderRepository->getOrderDetailById($id);
             if ($result) {
-                return $this->apiResponse($result, 'success', 'Get order detail by id successfully');
+                return $this->apiResponse($result, 'success', 'Get Order detail by id successfully');
             } else {
-                return $this->apiResponse([], 'failed', 'Get order detail by id unsuccessfully');
+                return $this->apiResponse([], 'failed', 'Get Order detail by id unsuccessfully');
             }
         } else {
             $result = $this->orderRepository->getOrderById($id);
             if ($result) {
-                return $this->apiResponse($result, 'success', 'Get order by id successfully');
+                return $this->apiResponse($result, 'success', 'Get Order by id successfully');
             } else {
-                return $this->apiResponse([], 'failed', 'Get order by id unsuccessfully');
+                return $this->apiResponse([], 'failed', 'Get Order by id unsuccessfully');
             }
         }
     }
@@ -49,7 +49,7 @@ class OrderService
         if ($result) {
             return $this->apiResponse($result, 'success', 'Order updated successfully');
         } else {
-            return $this->apiResponse([], 'fail', 'Update order unsuccessfully');
+            return $this->apiResponse([], 'fail', 'Update Order unsuccessfully');
         }
     }
     /*----------------------------------------------------------------Summary----------------------------------------------------------------*/
@@ -61,9 +61,9 @@ class OrderService
             'data'=>$result
         ];
         if ($result) {
-            return $this->apiResponse($data, 'success', 'Figure order today successfully');
+            return $this->apiResponse($data, 'success', 'Figure Order today successfully');
         }else
-        { return $this->apiResponse([], 'fail', 'Figure order today unsuccessfully'); }
+        { return $this->apiResponse([], 'fail', 'Figure Order today unsuccessfully'); }
     }
     public function getFigureRevenueToday(): \Illuminate\Http\JsonResponse
     {
@@ -73,9 +73,9 @@ class OrderService
             'data'=>$result
         ];
         if ($result) {
-            return $this->apiResponse($data, 'success', 'Figure order today successfully');
+            return $this->apiResponse($data, 'success', 'Figure Order today successfully');
         }else
-        { return $this->apiResponse([], 'fail', 'Figure order today unsuccessfully'); }
+        { return $this->apiResponse([], 'fail', 'Figure Order today unsuccessfully'); }
     }
 
 
@@ -89,9 +89,9 @@ class OrderService
             'data'=>$result
         ];
         if ($result) {
-            return $this->apiResponse($data, 'success', 'Figure order successfully');
+            return $this->apiResponse($data, 'success', 'Figure Order successfully');
         }else
-        { return $this->apiResponse([], 'fail', 'Figure order unsuccessfully'); }
+        { return $this->apiResponse([], 'fail', 'Figure Order unsuccessfully'); }
     }
     public function getFigureRevenue($request): \Illuminate\Http\JsonResponse
     {
@@ -102,9 +102,9 @@ class OrderService
             'data'=>$result
         ];
         if ($result) {
-            return $this->apiResponse($data, 'success', 'Figure order successfully');
+            return $this->apiResponse($data, 'success', 'Figure Order successfully');
         }else
-        { return $this->apiResponse([], 'fail', 'Figure order unsuccessfully'); }
+        { return $this->apiResponse([], 'fail', 'Figure Order unsuccessfully'); }
     }
     public function getTopStaffSelling($request): \Illuminate\Http\JsonResponse
     {
@@ -115,9 +115,9 @@ class OrderService
             'data'=>$result
         ];
         if ($result) {
-            return $this->apiResponse($data, 'success', 'Figure order successfully');
+            return $this->apiResponse($data, 'success', 'Figure Order successfully');
         }else
-        { return $this->apiResponse([], 'fail', 'Figure order unsuccessfully'); }
+        { return $this->apiResponse([], 'fail', 'Figure Order unsuccessfully'); }
     }
     public function getTopCustomerBuying($request): \Illuminate\Http\JsonResponse
     {
@@ -128,9 +128,9 @@ class OrderService
             'data'=>$result
         ];
         if ($result) {
-            return $this->apiResponse($data, 'success', 'Figure order successfully');
+            return $this->apiResponse($data, 'success', 'Figure Order successfully');
         }else
-        { return $this->apiResponse([], 'fail', 'Figure order unsuccessfully'); }
+        { return $this->apiResponse([], 'fail', 'Figure Order unsuccessfully'); }
     }
     public function getFigureCategorySelling($request): \Illuminate\Http\JsonResponse
     {
@@ -141,9 +141,9 @@ class OrderService
             'data'=>$result
         ];
         if ($result) {
-            return $this->apiResponse($data, 'success', 'Figure order successfully');
+            return $this->apiResponse($data, 'success', 'Figure Order successfully');
         }else
-        { return $this->apiResponse([], 'fail', 'Figure order unsuccessfully'); }
+        { return $this->apiResponse([], 'fail', 'Figure Order unsuccessfully'); }
     }
 
 }

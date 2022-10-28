@@ -36,9 +36,9 @@ class CustomerService
             'data' => $result
         ];
         if ($result) {
-            return $this->apiResponse($data, 'success', 'Figure order today successfully');
+            return $this->apiResponse($data, 'success', 'Figure Order today successfully');
         } else {
-            return $this->apiResponse([], 'fail', 'Figure order today unsuccessfully');
+            return $this->apiResponse([], 'fail', 'Figure Order today unsuccessfully');
         }
     }
 

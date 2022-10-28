@@ -61,11 +61,19 @@ export default function FormNewPassword() {
           <Form.Control {...register('otp')} type="number" />
         </Form.Group>
 
-        <Form.Group className="mb-3 form-user">
+        <Form.Group className="mb-2 form-password">
           <Form.Label className="font-weight-bold">
             New Password&nbsp;<span className="text-danger">*</span>
           </Form.Label>
-          <Form.Control {...register('password')} type="password" />
+          {/* <Form.Control {...register('password')} type="password" /> */}
+          <div className="fp-input">
+            <Form.Control {...register('password')} type={typePassword} />
+            {typePassword === 'text' ? (
+              <FaEye onClick={() => setShowPassword('password')} />
+            ) : (
+              <FaEyeSlash onClick={() => setShowPassword('text')} />
+            )}
+          </div>
         </Form.Group>
         <div className="d-flex gap-2 justify-content-end ">
           <Button variant="danger" className="font-weight-bold" onClick={handleBack}>
