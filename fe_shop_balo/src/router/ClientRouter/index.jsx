@@ -7,12 +7,13 @@ import { HomePage } from '../../pages/Client/HomePage';
 import { ProductPage } from '../../pages/Client/ProductPage';
 import { ProfilePage } from '../../pages/Client/ProfilePage';
 import ProductDetailPage from '../../pages/Client/ProductDetailPage';
+import { LoginPage } from '../../pages/Client/AuthPage/Login';
 
 function ClientRouter(props) {
   return (
     <Routes>
-      {/* <Route path="/login" element={<LoginPage />} />
-      <Route path="/register" element={<div>Register</div>} /> */}
+      <Route path="/login" element={<LoginPage />} />
+      <Route path="/register" element={<div>Register</div>} />
       {/* <Route element={<ProtectedRoutes isAuthenticate={isAuthenticate} />}> */}
       <Route path="/" element={<ClientLayout slot={<HomePage key={'a'} />} />} />
       <Route path="/product" element={<ClientLayout slot={<ProductPage key={'1'} />} />} />

@@ -1,0 +1,25 @@
+.section-root-login {
+  background-image: linear-gradient(to right, #fb8817, #ff4b01, #e02aff);
+  height: 100vh;
+}
+.section-root-login .sl-box {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 400px;
+  border-radius: var(--6px);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(14.5px);
+  -webkit-backdrop-filter: blur(14.5px);
+  /* */
+}
+.sl-box-header {
+  background-image: linear-gradient(to right, #cc1212, #e91f71, #8414f5);
+  padding: var(--18px);
+  height: 150px;
+}
+.sl-box-body {
+  background: #fff;
+  padding: var(--18px);
+}
