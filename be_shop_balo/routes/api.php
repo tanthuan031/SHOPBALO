@@ -12,6 +12,10 @@ use App\Http\Controllers\Admin\StaffController;
 use App\Http\Controllers\Admin\StatisticController;
 use App\Http\Controllers\Admin\StorageImageController;
 use App\Http\Controllers\Client\AuthClientController;
+use App\Http\Controllers\Client\CategoryController as ClientCategoryController;
+use App\Http\Controllers\Client\ProductController as ClientProductController;
+use App\Http\Controllers\Client\RatingController as ClientRatingController;
+use App\Http\Controllers\Client\SliderController as ClientSliderController;
 use App\Models\Role;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -56,15 +60,17 @@ Route::get('/storage/{filename}', [StorageImageController::class, 'index']);
 Route::post('/register', [AuthClientController::class, 'register']);
 // Route::post('/otp-sendmail', [AuthController::class, 'otpSendMail']);
 // Route::put('/forgot-password', [AuthController::class, 'forgotPassword']);
-Route::resource('product', ProductController::class)->only([
-    'index', 'show'
-]);
-Route::resource('category', CategoryController::class)->only([
-    'index', 'show'
-]);
-Route::resource('rating', RatingController::class)->only([
-    'index', 'show'
-]);
-Route::resource('slider', SliderController::class)->only([
-    'index', 'show'
-]);
+Route::prefix('client')->group(static function () {
+    Route::resource('product', ClientProductController::class)->only([
+        'index', 'show'
+    ]);
+    Route::resource('category', ClientCategoryController::class)->only([
+        'index', 'show'
+    ]);
+    Route::resource('rating', ClientRatingController::class)->only([
+        'index', 'show'
+    ]);
+    Route::resource('slider', ClientSliderController::class)->only([
+        'index', 'show'
+    ]);
+});

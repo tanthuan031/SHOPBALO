@@ -34,7 +34,7 @@ class Product extends Model
     }
     public function product_details(): HasOne
     {
-        return $this->hasOne(ProductDetail::class,'product_id');
+        return $this->hasOne(ProductDetail::class, 'product_id');
     }
 
     public function  ratings(): HasMany
@@ -85,5 +85,16 @@ class Product extends Model
                 $query
                     ->where("name", "LIKE", "%{$search}%");
             });
+    }
+
+
+    public function scopeSelling($query, $request)
+    {
+        if (!$request->has('sell')) return $query;
+        return $query->whereIn('id', $request['idProductSell']);
+    }
+    public function scopeStatus($query, $status = 1)
+    {
+        return $query->where('status', $status);
     }
 }
