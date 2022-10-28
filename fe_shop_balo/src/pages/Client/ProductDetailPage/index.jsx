@@ -49,7 +49,7 @@ function ProductDetailPage(props) {
             </Col>
             <Col md='6' lg='5'>
               <InfoProduct price={85000} description={'<p>Tresor với những người thợ thủ công trên 20 năm kinh nghiệm, chúng tôi nghiên cứu, am hiểu sâu sắc về các loại balo. Chúng tôi hiểu từng chi tiết của balo như thế nào để mang lại cảm giác thoải mái nhất cho người sử dụng, ngăn chia khoa học ra sao để phù hợp nhất với từng mục đích sử dụng khác nhau. Từ thiết kế đến chất lượng nguyên phụ liệu, từng đường chỉ may được đầu tư rất kỹ lưỡng nhằm mang đến những sản phẩm hoàn thiện nhất với chất lượng cao nhất.\n</p>'}
-                    star={point_average_product}       name={'BackPack 4444'} color={'#b61395'} amount={10}/>
+                    star={point_average_product}       name={'BackPack 4444'} color={'#b61395'} amount={20}/>
             </Col>
           </Row>
 
