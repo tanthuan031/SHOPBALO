@@ -91,7 +91,7 @@ const Header = () => {
                 <div className="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 js-show-modal-search d-flex align-items-center">
                   <input
                     type="email"
-                    class="form-control"
+                    className="form-control"
                     id="exampleFormControlInput1"
                     placeholder="name@example.com"
                   ></input>

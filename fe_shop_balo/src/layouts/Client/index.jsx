@@ -7,6 +7,8 @@ import './style.css';
 
 import { useState } from 'react';
 import { exPiredTokenSelector, getUserSelector } from '../../redux/selectors';
+import Footer from '../../components/client/Home/Footer';
+import { AiOutlineArrowUp } from 'react-icons/ai';
 
 export function ClientLayout(props) {
   const { slot } = props;
@@ -21,6 +23,15 @@ export function ClientLayout(props) {
       </main>
       {/* {expiredToken && <ExpiredToken show={expiredToken} setStateModal={() => true} />} */}
       {/* <Logout show={showLogout} setStateModal={() => setStateModalLogout(false)} /> */}
+
+      <Footer />
+
+      {/* <!-- Back to top --> */}
+      <div className="btn-back-to-top" id="myBtn">
+        <span className="symbol-btn-back-to-top">
+          <AiOutlineArrowUp />
+        </span>
+      </div>
     </>
   );
 }

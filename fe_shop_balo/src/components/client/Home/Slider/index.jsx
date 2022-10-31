@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import '../../../../asset/js/slick-custom';
 
 // Import Swiper React components
@@ -11,10 +11,30 @@ import 'swiper/css/pagination';
 
 // import required modules
 import { Autoplay, Navigation, Pagination, Mousewheel } from 'swiper';
+import { getAllSlider } from '../../../../api/Client/Home/homeAPI';
 
-const images = ['https://wallpapershome.com/images/pages/ico_h/24116.jpg', 'https://picsum.photos/seed/picsum/200/300'];
+const images = [
+  'https://wallpapershome.com/images/pages/ico_h/24116.jpg',
+  'https://wallpapershome.com/images/pages/ico_h/24116.jpg',
+];
 
 const Slider = () => {
+  // const [data, setData] = useState([]);
+  // const [isLoading, setIsLoading] = useState(true);
+
+  // const handleGetAllSlider = async () => {
+  //   setIsLoading(true);
+
+  //   const result = await getAllSlider();
+  //   setData(result);
+  //   setIsLoading(false);
+  // };
+
+  // useEffect(() => {
+  //   handleGetAllSlider();
+  // }, []);
+  // console.log('33 ne: ', data);
+
   return (
     <>
       <Swiper
@@ -29,11 +49,18 @@ const Slider = () => {
         modules={[Autoplay, Navigation, Pagination, Mousewheel]}
         className="mySwiper"
       >
-        {images.map((item, index) => (
-          <SwiperSlide>
-            <img src={item} alt="PHOTO" />
-          </SwiperSlide>
-        ))}
+        {
+          // data.length > 0 &&
+          images.map((item, index) => (
+            <SwiperSlide key={index}>
+              <img
+                // src={item.image.split('http://127.0.0.1:8000/storage/Slider/')[1]}
+                src={item}
+                alt="PHOTO"
+                style={{ objectFit: 'cover' }}
+              />
+            </SwiperSlide>
+          ))}
       </Swiper>
     </>
   );
