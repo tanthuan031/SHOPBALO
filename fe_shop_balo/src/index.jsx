@@ -4,6 +4,7 @@ import { BrowserRouter } from "react-router-dom";
 import App from "./app";
 import store from "./redux/store";
 import "./css/style.css";
+import "./App.css"
 import { createRoot } from "react-dom/client";
 const container = document.getElementById("root");
 const root = createRoot(container);
