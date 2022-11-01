@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import './style.css';
 
 export default function Skeleton(props) {
-  const { column } = props;
+  const { column, lengthItem=14 } = props;
 
   return (
     <Table id="skeleton" responsive>
@@ -19,7 +19,7 @@ export default function Skeleton(props) {
         </tr>
       </thead>
       <tbody>
-        {Array.from({ length: 14 }).map((_, index) => (
+        {Array.from({ length: lengthItem }).map((_, index) => (
           <tr key={index}>
             {Array.from({ length: column }).map((_, index) => (
               <td key={index}>

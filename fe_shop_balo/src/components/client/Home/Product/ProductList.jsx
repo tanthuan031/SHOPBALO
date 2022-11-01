@@ -13,10 +13,8 @@ import 'swiper/css/navigation';
 // import required modules
 import { Navigation } from 'swiper';
 
-
-
 const ProductList = (props) => {
-  const {item} = props;
+  const { item } = props;
   return (
     <>
       <Swiper
@@ -24,12 +22,12 @@ const ProductList = (props) => {
         spaceBetween={30}
         slidesPerGroup={4}
         loop={true}
-        loopFillGroupWithBlank={true}
+        // loopFillGroupWithBlank={true}
         navigation={true}
         modules={[Navigation]}
         className="mySwiper"
       >
-        {item.map((item) => (
+        {item.length>0 && item.map((item) => (
           <SwiperSlide key={item.id}>
             <ProductItem item={item} />
           </SwiperSlide>
