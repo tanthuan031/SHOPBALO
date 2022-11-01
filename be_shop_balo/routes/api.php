@@ -26,7 +26,7 @@ Route::post('admin/otp-sendmail', [AuthController::class, 'otpSendMail']);
 Route::put('admin/forgot-password', [AuthController::class, 'forgotPassword']);
 Route::group([
     'prefix' => 'admin',
-    'middleware' => ['auth:sanctum'],
+    // 'middleware' => ['auth:sanctum'],
 ], function () {
     Route::get('me', [AuthController::class, 'getMe']);
     Route::resource('product', ProductController::class);
@@ -68,7 +68,7 @@ Route::prefix('client')->group(static function () {
         'index', 'show'
     ]);
     Route::resource('rating', ClientRatingController::class)->only([
-        'index', 'show'
+        'index', 'show', 'store'
     ]);
     Route::resource('slider', ClientSliderController::class)->only([
         'index', 'show'

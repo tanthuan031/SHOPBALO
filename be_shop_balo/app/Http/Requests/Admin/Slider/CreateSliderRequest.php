@@ -29,7 +29,7 @@ class CreateSliderRequest extends FormRequest
     {
         return [
             'name' => 'required',
-            'image_slider' => 'required',
+            'image' => 'required',
 
         ];
     }
@@ -40,7 +40,7 @@ class CreateSliderRequest extends FormRequest
     {
         return [
             'name.required' => 'Name slider is required!',
-            'image_slider.required' => 'Image slider is required!',
+            'image.required' => 'Image slider is required!',
         ];
     }
 
