@@ -30,7 +30,7 @@ class CreateRequest extends FormRequest
         return [
             'customer_id' => 'required',
             'product_id' => 'required',
-            'point' => 'required',
+            'point' => 'required|max:5|integer',
             'content' => 'required',
             'image' => 'required',
         ];

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Client;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Admin\Rating\CreateRequest;
 use App\Services\Client\RatingService;
 use Illuminate\Http\Request;
 
@@ -39,9 +40,9 @@ class RatingController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CreateRequest $request)
     {
-        //
+        return $this->ratingService->create($request);
     }
 
     /**

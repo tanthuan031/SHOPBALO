@@ -6,6 +6,7 @@ use App\Http\Resources\Admin\Rating\GetAllresource;
 use App\Http\Resources\Admin\Rating\ShowResource;
 use App\Http\Traits\ApiResponse;
 use App\Repositories\Client\RatingRepository;
+use App\Services\Admin\RatingService as AdminRatingService;
 
 class RatingService
 {
@@ -46,5 +47,12 @@ class RatingService
         }
 
         return $this->apiResponse($data, 200, 'Show rating.');
+    }
+
+
+    public function create($request)
+    {
+        $ratingAdmin = app(AdminRatingService::class);
+        return $ratingAdmin->create($request);
     }
 }
