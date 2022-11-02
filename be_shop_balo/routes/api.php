@@ -61,13 +61,13 @@ Route::post('client/login', [AuthClientController::class, 'login']);
 
 // Route::post('/otp-sendmail', [AuthController::class, 'otpSendMail']);
 // Route::put('/forgot-password', [AuthController::class, 'forgotPassword']);
-Route::resource('product', ProductController::class)->only([
+Route::resource('client/product', ProductController::class)->only([
     'index', 'show'
 ]);
 Route::resource('category', CategoryController::class)->only([
     'index', 'show'
 ]);
-Route::resource('rating', RatingController::class)->only([
+Route::resource('client/rating', RatingController::class)->only([
     'index', 'show'
 ]);
 Route::resource('slider', SliderController::class)->only([
