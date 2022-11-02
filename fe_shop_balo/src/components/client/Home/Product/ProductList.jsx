@@ -27,11 +27,13 @@ const ProductList = (props) => {
         modules={[Navigation]}
         className="mySwiper"
       >
-        {item.length>0 && item.map((item) => (
-          <SwiperSlide key={item.id}>
-            <ProductItem item={item} />
-          </SwiperSlide>
-        ))}
+        {item !== undefined &&
+          item.length > 0 &&
+          item.map((item) => (
+            <SwiperSlide key={item.id}>
+              <ProductItem item={item} />
+            </SwiperSlide>
+          ))}
       </Swiper>
     </>
   );
