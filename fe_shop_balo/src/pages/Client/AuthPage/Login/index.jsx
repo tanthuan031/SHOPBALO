@@ -1,21 +1,29 @@
 // @flow
 import * as React from 'react';
 import { FaRegUserCircle } from 'react-icons/fa';
+import { useSelector } from 'react-redux';
+import FormForgotPWClient from '../../../../components/client/Auth/ForgotPassword';
+import FormNewPasswordClient from '../../../../components/client/Auth/ForgotPassword/newpassword';
 import FormLogin from '../../../../components/client/Auth/Login';
+import { isForgotPasswordSelectorClient, isForgotPasswordVerifiedSelectorClient } from '../../../../redux/selectors';
 import './style.css';
 export function LoginPage() {
+  const isForgotPasswordClient = useSelector(isForgotPasswordSelectorClient);
+  const isForgotPasswordVerifiedClient = useSelector(isForgotPasswordVerifiedSelectorClient);
   return (
-    <section className="section-root-login">
-      <div className="sl-box">
-        <div className="sl-box-header">
-          <h3>WEBCOME TO MY PAGE</h3>
-          <FaRegUserCircle />
-        </div>
-
-        <div className="sl-box-body">
+    <section>
+      <div className="mt-3">
+        {isForgotPasswordClient ? (
+          isForgotPasswordVerifiedClient ? (
+            <FormNewPasswordClient />
+          ) : (
+            <FormForgotPWClient />
+          )
+        ) : (
           <FormLogin />
-        </div>
+        )}
       </div>
+      {/* <FormLogin />; */}
     </section>
   );
 }

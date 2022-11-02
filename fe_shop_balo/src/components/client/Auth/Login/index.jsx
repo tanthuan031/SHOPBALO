@@ -1,16 +1,23 @@
 import React, { useState } from 'react';
 import { Button, Form } from 'react-bootstrap';
 import { useForm } from 'react-hook-form';
-import { FaEye, FaEyeSlash } from 'react-icons/fa';
+import { FaEye, FaEyeSlash, FaRegUserCircle } from 'react-icons/fa';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { schemaLogin } from '../../../../adapter/auth';
-import { handleLogin, setCookies } from '../../../../api/Admin/Auth';
 
 import Notiflix from 'notiflix';
 import { useDispatch } from 'react-redux';
-import { setIsForgotPassword, setIsLogin } from '../../../../redux/reducer/auth/auth.reducer';
-import { BlockUI } from '../../../commons/Layouts/Notiflix';
+import {
+  setIsForgotPassword,
+  setIsForgotPasswordClient,
+  setIsLogin,
+} from '../../../../redux/reducer/auth/auth.reducer';
+import { BlockUI, BlockUICLIENT } from '../../../commons/Layouts/Notiflix';
 import { ErrorToast, SuccessToast } from '../../../commons/Layouts/Alerts';
+import './style.css';
+import ImageLogin from '../../../../utils/imagelogin.png';
+import { Link } from 'react-router-dom';
+import { handleLoginClientAPI, setCookiesClient } from '../../../../api/Client/Auth/authAPI';
 
 export default function FormLogin() {
   const [typePassword, setShowPassword] = useState('password');
@@ -26,66 +33,86 @@ export default function FormLogin() {
 
   const onSubmit = async (data) => {
     // handleLogin(data);
-    BlockUI('.sl-box');
-    const result = await handleLogin(data);
-
-    if (result.status === 403 || result.status === 422) {
+    BlockUICLIENT('.section-root-login');
+    const result = await handleLoginClientAPI(data);
+    if (result === 403 || result === 422) {
       ErrorToast('Email or password is incorrect. Please try again', 3500);
-      Notiflix.Block.remove('.sl-box');
+      Notiflix.Block.remove('.section-root-login');
       return;
     }
     if (result.status === 401) {
       ErrorToast('Your account has been locked.', 3500);
-      Notiflix.Block.remove('.sl-box');
+      Notiflix.Block.remove('.section-root-login');
       return;
     }
-    if (result.data.status === 200) {
+    if (result.status === 200) {
       SuccessToast('Logged in successfully', 2000);
-      setCookies('token', result.data.token, 1);
+      setCookiesClient('tokenClient', result.data, 1);
       // Notiflix.Block.remove('.sl-box');
       setTimeout(() => {
-        window.location.href = '/admin/';
+        window.location.href = '/';
       }, 1000);
       return;
     }
   };
   const handleForgorPW = () => {
-    dispatch(setIsForgotPassword(true));
+    dispatch(setIsForgotPasswordClient(true));
   };
   return (
     <>
-      <Form onSubmit={handleSubmit(onSubmit)}>
-        <Form.Group className="mb-3 form-user">
-          <Form.Label className="font-weight-bold">
-            Email&nbsp;<span className="text-danger">*</span>
-          </Form.Label>
-          <Form.Control {...register('email')} type="text" />
-        </Form.Group>
-
-        <Form.Group className="mb-2 form-password">
-          <Form.Label className="font-weight-bold">
-            Password&nbsp;<span className="text-danger">*</span>
-          </Form.Label>
-          <div className="fp-input">
-            <Form.Control {...register('password')} type={typePassword} />
-            {typePassword === 'text' ? (
-              <FaEye onClick={() => setShowPassword('password')} />
-            ) : (
-              <FaEyeSlash onClick={() => setShowPassword('text')} />
-            )}
+      <div className="row section-root-login">
+        <div className="col-md-6 d-flex sl-box-image ">
+          <div className="sl-box-image-content">
+            <img src={ImageLogin} alt="" className="sl-box-image-item" />
+            <h3 className="title-login">WEBCOME TO MY PAGE</h3>
+            <h3 className="text-center">TRESOR</h3>
           </div>
-        </Form.Group>
-        <Form.Group className="mb-3 text-end ">
-          <span className="text-danger font-weight-bold text-end cursor-pointer " onClick={handleForgorPW}>
-            Fogot password ?
-          </span>
-        </Form.Group>
-        <div className="d-grid gap-2">
-          <Button variant="danger" disabled={!isValid} className="font-weight-bold" type="submit">
-            Login
-          </Button>
         </div>
-      </Form>
+        <div className="col-md-6 d-flex ">
+          <div className="sl-box-content">
+            <Form onSubmit={handleSubmit(onSubmit)}>
+              <Form.Group className="mb-3 form-user">
+                <Form.Label className="font-weight-bold">
+                  Email&nbsp;<span className="text-danger">*</span>
+                </Form.Label>
+                <Form.Control {...register('email')} type="text" />
+              </Form.Group>
+
+              <Form.Group className="mb-2 form-password">
+                <Form.Label className="font-weight-bold">
+                  Password&nbsp;<span className="text-danger">*</span>
+                </Form.Label>
+                <div className="fp-input">
+                  <Form.Control {...register('password')} type={typePassword} />
+                  {typePassword === 'text' ? (
+                    <FaEye onClick={() => setShowPassword('password')} />
+                  ) : (
+                    <FaEyeSlash onClick={() => setShowPassword('text')} />
+                  )}
+                </div>
+              </Form.Group>
+              <Form.Group className="mb-3 text-end ">
+                <span className="text-primary  text-end cursor-pointer " onClick={handleForgorPW}>
+                  Fogot password ?
+                </span>
+              </Form.Group>
+              <div className="d-grid">
+                <Button className="font-weight-bold btn-login-client" type="submit" disabled={!isValid}>
+                  Login
+                </Button>
+              </div>
+            </Form>
+            <div className="text-center mt-5">
+              <span>
+                You don't have an account ?
+                <span className="text-primary cursor-pointer  ">
+                  <Link to={'/register'}> Register</Link>
+                </span>
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
     </>
   );
 }

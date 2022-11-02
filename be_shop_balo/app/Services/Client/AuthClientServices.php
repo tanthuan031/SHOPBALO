@@ -6,6 +6,7 @@ use App\Helpers\Helper;
 use App\Http\Traits\ApiResponse;
 use App\Repositories\Client\AuthClientRepositories;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Facades\Hash;
 
 class AuthClientServices
 {
@@ -47,6 +48,40 @@ class AuthClientServices
         $result = $this->authRepository->login($request);
         if ($result['status'] == 200) {
             return $this->apiResponse($result['token'], $result['status'], $result['message']);
+        } else {
+            return $this->apiResponse([], $result['status'], $result['message']);
+        }
+    }
+
+    public function otpSendMailClient($request)
+    {
+        $result = $this->authRepository->otpSendMailClient($request);
+        if ($result['status'] == 200) {
+            return $this->apiResponse([], $result['status'], $result['message']);
+        } else {
+            return $this->apiResponse([], $result['status'],  $result['message']);
+        }
+    }
+    public function forgotPasswordClient($request)
+    {
+
+        if (!empty($request->get('email')) && !empty($request->get('otp')) && !empty($request->get('password'))) {
+            $dataRequest = [
+                'email' => $request->get('email'),
+                'password' => Hash::make($request->password),
+                'otp' => $request->get('otp')
+            ];
+            $result = $this->authRepository->forgotPasswordClient($dataRequest);
+        } else {
+            $result = [
+                'status' => 403,
+                'message' => 'Field not found',
+            ];
+        }
+
+        // dd($result);
+        if ($result['status'] === 200) {
+            return $this->apiResponse([], 'success', $result['message']);
         } else {
             return $this->apiResponse([], $result['status'], $result['message']);
         }
