@@ -2963,7 +2963,7 @@ input.num-product::-webkit-inner-spin-button {
 }
 
 .how-itemcart1::after {
-    content: '\e870';
+    content: 'remove';
     font-family: Linearicons-Free;
     font-size: 16px;
     display: -webkit-box;
