@@ -1,45 +1,80 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import '../../../../asset/js/slick-custom';
+import { Link } from 'react-router-dom';
 
-const images = 'https://wallpapershome.com/images/pages/ico_h/24116.jpg';
+// Import Swiper React components
+import { Swiper, SwiperSlide } from 'swiper/react';
+
+// Import Swiper styles
+import 'swiper/css';
+import 'swiper/css/navigation';
+import 'swiper/css/pagination';
+
+// import required modules
+import { Autoplay, Navigation, Pagination, Mousewheel } from 'swiper';
+import { getAllSlider } from '../../../../api/Client/Home/homeAPI';
+import Skeleton from '../../../commons/Layouts/Skeleton';
+import './style.css';
+
+const images = [
+  'https://wallpapershome.com/images/pages/ico_h/24116.jpg',
+  'https://wallpapershome.com/images/pages/ico_h/24116.jpg',
+];
 
 const Slider = () => {
+  const [data, setData] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+
+  const handleGetAllSlider = async () => {
+    const result = await getAllSlider();
+    setData(result.data);
+    setIsLoading(false);
+  };
+
+  useEffect(() => {
+    handleGetAllSlider();
+  }, []);
+
   return (
-    <div className="animsition">
-      <section className="section-slide">
-        <div className="wrap-slick1">
-          <div className="slick1">
-            <div
-              className="item-slick1"
-              style={{
-                backgroundImage: `url(${images})`,
-              }}
-            >
-              <div className="container h-full">
-                <div className="flex-col-l-m h-full p-t-100 p-b-30 respon5">
-                  <div className="layer-slick1 animated visible-false" data-appear="fadeInDown" data-delay="0">
-                    <span className="ltext-101 cl2 respon2">Women Collection 2018</span>
-                  </div>
-
-                  <div className="layer-slick1 animated visible-false" data-appear="fadeInUp" data-delay="800">
-                    <h2 className="ltext-201 cl2 p-t-19 p-b-43 respon1">NEW SEASON</h2>
-                  </div>
-
-                  <div className="layer-slick1 animated visible-false" data-appear="zoomIn" data-delay="1600">
-                    <a
-                      href="product.html"
-                      className="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04"
-                    >
-                      Shop Now
-                    </a>
-                  </div>
-                </div>
+    <>
+      <Swiper
+        cssMode={true}
+        navigation={true}
+        pagination={true}
+        mousewheel={true}
+        autoplay={{
+          delay: 2500,
+          disableOnInteraction: false,
+        }}
+        modules={[Autoplay, Navigation, Pagination, Mousewheel]}
+        className="mySwiper"
+      >
+        {!isLoading ? (
+          data.length > 0 &&
+          data.map((item, index) => (
+            <SwiperSlide key={index}>
+              <div className="slider-homepage">
+                <Link to="/product">
+                  <img
+                    src={item.image}
+                    // src={item.image}
+                    alt="PHOTO"
+                    style={{ objectFit: 'cover' }}
+                  />
+                  <summary>
+                    <h2 className="description-homepage" dangerouslySetInnerHTML={{ __html: item.description }}></h2>
+                    <h1 className="name-homepage">{item.name}</h1>
+                    <button className="button-homepage">Shop now</button>
+                  </summary>
+                </Link>
               </div>
-            </div>
-          </div>
-        </div>
-      </section>
-    </div>
+            </SwiperSlide>
+          ))
+        ) : (
+          <Skeleton column={1} lengthItem={9} />
+        )}
+      </Swiper>
+    </>
   );
 };
 

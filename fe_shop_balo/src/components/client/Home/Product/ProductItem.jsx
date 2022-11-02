@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 const ProductItem = (props) => {
   const {item} = props;
   return (
-    <div className="col-sm-6 col-md-4 col-lg-3 p-b-35 isotope-item women">
+    <div className="" style={{width: "20rem"}}>
       <div className="block2">
         <div className="block2-pic hov-img0">
           <img src={item.image} alt="IMG-PRODUCT" style={{ height: '25rem' }} />

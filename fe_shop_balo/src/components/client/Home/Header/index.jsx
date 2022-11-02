@@ -6,40 +6,10 @@ import { Link, NavLink } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { MdShoppingCart, MdSearch } from 'react-icons/md';
 import { HiOutlineHeart } from 'react-icons/hi';
+import { data_header_client } from '../../../../asset/data/data_header_client';
 
 const data_menu_top = ['Help & FAQs', 'My Account', 'EN', 'USD'];
-const data_menu_list = [
-  {
-    id: 1,
-    name: 'Home',
-    active: true,
-    link: '/',
-  },
-  {
-    id: 2,
-    name: 'Product',
-    active: false,
-    link: '/product',
-  },
-  {
-    id: 3,
-    name: 'About',
-    active: false,
-    link: '/about',
-  },
-  {
-    id: 4,
-    name: 'Contact',
-    active: false,
-    link: '/contact',
-  },
-  {
-    id: 5,
-    name: 'Checkout',
-    active: false,
-    link: '/checkout',
-  },
-];
+const data_menu_list = data_header_client;
 
 const Header = () => {
   return (
@@ -48,7 +18,7 @@ const Header = () => {
         {/* <!-- Header desktop --> */}
         <div className="container-menu-desktop">
           {/* <!-- Topbar --> */}
-          <div className="top-bar">
+          {/* <div className="top-bar">
             <div className="content-topbar flex-sb-m h-full container">
               <div className="left-top-bar">Free shipping for standard order over $100</div>
 
@@ -60,10 +30,23 @@ const Header = () => {
                 ))}
               </div>
             </div>
-          </div>
+          </div> */}
 
           <div className="wrap-menu-desktop">
-            <nav className="limiter-menu-desktop container">
+            <nav className="top-bar">
+              <div className="content-topbar flex-sb-m h-full container">
+                <div className="left-top-bar">Free shipping for standard order over $100</div>
+
+                <div className="right-top-bar flex-w h-full">
+                  {data_menu_top.map((item, index) => (
+                    <a href="#" className="flex-c-m trans-04 p-lr-25" key={index}>
+                      {item}
+                    </a>
+                  ))}
+                </div>
+              </div>
+            </nav>
+            <nav className="limiter-menu-desktop container-fluid">
               {/* <!-- Logo desktop --> */}
               <Link to="/" className="me-5">
                 <h4 className="font-weight-black text-black">TRESOR</h4>
@@ -88,7 +71,13 @@ const Header = () => {
 
               {/* <!-- Icon header --> */}
               <div className="wrap-icon-header flex-w flex-r-m">
-                <div className="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 js-show-modal-search">
+                <div className="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 js-show-modal-search d-flex align-items-center">
+                  <input
+                    type="email"
+                    className="form-control"
+                    id="exampleFormControlInput1"
+                    placeholder="name@example.com"
+                  ></input>
                   <MdSearch />
                 </div>
 
@@ -109,22 +98,6 @@ const Header = () => {
                 </a>
               </div>
             </nav>
-          </div>
-        </div>
-
-        {/* <!-- Modal Search --> */}
-        <div className="modal-search-header flex-c-m trans-04 js-hide-modal-search">
-          <div className="container-search-header">
-            <button className="flex-c-m btn-hide-modal-search trans-04 js-hide-modal-search">
-              <img src="images/icons/icon-close2.png" alt="CLOSE" />
-            </button>
-
-            <form className="wrap-search-header flex-w p-l-15">
-              <button className="flex-c-m trans-04">
-                <i className="zmdi zmdi-search"></i>
-              </button>
-              <input className="plh3" type="text" name="search" placeholder="Search..." />
-            </form>
           </div>
         </div>
       </header>

@@ -42,7 +42,7 @@ class SliderService
     public function create($request)
     {
         if (is_null($request)) return $this->errorResponse();
-        $fileName = Helper::saveImgBase64v1($request->image_slider, 'Slider');
+        $fileName = Helper::saveImgBase64v1($request->image, 'Slider');
 
         if ($fileName == false) return $this->apiResponse([], 422, 'Image is invalid.Try againt');
         $data = [
@@ -80,7 +80,7 @@ class SliderService
     {
         if (is_null($id) || is_null($request)) return $this->errorResponse();
         if (!is_null($request->image_slider)) {
-            $fileName = Helper::saveImgBase64v1($request->image_slider, 'Slider');
+            $fileName = Helper::saveImgBase64v1($request->image, 'Slider');
             if ($fileName == false) return $this->apiResponse([], 422, 'Image is invalid.Try againt');
             $request['image_slider'] = $fileName;
         }

@@ -53,12 +53,12 @@ class Category extends Model
      * @param  int $id
      * @return \Illuminate\Database\Eloquent\Builder
      */
-    public function scopeFindCategory($query, $field = 'id', $id)
+    public function scopeFindCategory($query, $id = 0, $field = 'id')
     {
         return $query->withTrashed()->where($field, $id);
     }
 
-    
+
     /**
      * scopeStatus
      *

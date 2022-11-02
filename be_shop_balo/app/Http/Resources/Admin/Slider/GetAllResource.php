@@ -21,7 +21,7 @@ class GetAllResource extends JsonResource
             'status' => $this->status,
             'description' => $this->description,
             'image' => env("APP_URL") . '/storage/Slider/' . $this->image_slider,
-            'url_button' => $this->url,
+            'url' => $this->url,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
         ];
