@@ -38,7 +38,7 @@ function SliderEdit(props) {
       status: sliderSelector.status,
       description: sliderSelector.description,
       url: sliderSelector.url_button,
-      image_slider: sliderSelector.image,
+      image: sliderSelector.image,
     },
   });
 
@@ -89,10 +89,10 @@ function SliderEdit(props) {
         url: data.url,
         image_slider: image1,
       };
-      console.log("🚀 ~ file: index.jsx ~ line 87 ~ onSubmit ~ resultData", resultData)
+      console.log('🚀 ~ file: index.jsx ~ line 87 ~ onSubmit ~ resultData', resultData);
 
       const result = await editSlider(sliderSelector.id, resultData);
-      console.log("🚀 ~ file: index.jsx ~ line 90 ~ onSubmit ~ result", result)
+      console.log('🚀 ~ file: index.jsx ~ line 90 ~ onSubmit ~ result', result);
 
       Notiflix.Block.remove('#root');
       if (result === 200) {
