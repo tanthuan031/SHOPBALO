@@ -9,7 +9,7 @@ import {
 } from '../../../../redux/reducer/cart/cart.reducer';
 import { cartSelector } from '../../../../redux/selectors';
 
-function CartItem({ id,name,price,image,quantity_cart,limit_amount,action }) {
+function CartItem({ id,name,price,image,quantity_cart,limit_amount,action,onSetTotal }) {
   console.log('render');
 const [quantity,setQuantity]=useState(limit_amount<=0?0:quantity_cart);
 const [totalPrice,setTotalPrice ]=useState(quantity_cart*price)
@@ -17,6 +17,7 @@ const [totalPrice,setTotalPrice ]=useState(quantity_cart*price)
   const dispatch=useDispatch();
   useEffect(()=>{
     setTotalPrice(quantity*price)
+   // onSetTotal(prev=>prev+(quantity*price))
   },[quantity])
   const handleIncreaseQuantityCartIem=(id)=>{
     dispatch(increaseQuantityCart({id:id}))
@@ -24,12 +25,14 @@ const [totalPrice,setTotalPrice ]=useState(quantity_cart*price)
     setQuantity(prev => prev === limit_amount ? limit_amount : prev + 1)
     console.log(quantity);
     localStorage.setItem('cart',JSON.stringify({ cart:{cartData:cart}}))
+    onSetTotal(prev => prev+price)
 
   }
   const handleDecreaseQuantityCartIem=(id)=>{
     dispatch(decreaseQuantityCart({id:id}))
     console.log(id);
     setQuantity(prev => prev === 1 ? 1 : prev - 1)
+    onSetTotal(prev => prev-price)
     console.log(quantity);
     localStorage.setItem('cart',JSON.stringify({ cart:{cartData:cart}}))
 

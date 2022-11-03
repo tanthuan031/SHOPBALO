@@ -22,7 +22,6 @@ export const productReducer = createSlice({
     },
     addProductCartWithQuantity: (state, action) => {
       const inCart = state.cartData.find((item) =>{
-       // console.log( item.id===action.payload.id);
         return  item.id === action.payload.id
         }
 

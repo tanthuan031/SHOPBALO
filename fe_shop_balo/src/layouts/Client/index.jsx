@@ -8,6 +8,7 @@ import { useState } from 'react';
 import { exPiredTokenSelector, getUserSelector } from '../../redux/selectors';
 import Footer from '../../components/client/Home/Footer';
 import { AiOutlineArrowUp } from 'react-icons/ai';
+import Header from '../../components/client/Home/Header';
 
 export function ClientLayout(props) {
   const { slot } = props;
@@ -16,7 +17,7 @@ export function ClientLayout(props) {
   const user = useSelector(getUserSelector);
   return (
     <>
-
+      <Header />
       <main id="main-client" className="main">
         {slot}
       </main>

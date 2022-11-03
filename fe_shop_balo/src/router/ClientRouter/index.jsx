@@ -6,6 +6,7 @@ import { CartPage } from '../../pages/Client/CartPage';
 import { ProductPage } from '../../pages/Client/ProductPage';
 import { ProfilePage } from '../../pages/Client/ProfilePage';
 import ProductDetailPage from '../../pages/Client/ProductDetailPage';
+import { HomePage } from '../../pages/Client/HomePage';
 
 function ClientRouter(props) {
   return (
@@ -13,7 +14,7 @@ function ClientRouter(props) {
       {/* <Route path="/login" element={<LoginPage />} />
       <Route path="/register" element={<div>Register</div>} /> */}
       {/* <Route element={<ProtectedRoutes isAuthenticate={isAuthenticate} />}> */}
-      {/* <Route path="/" element={<ClientLayout slot={<HomePage key={'a'} />} />} />*/}
+       <Route path="/" element={<ClientLayout slot={<HomePage key={'a'} />} />} />
       <Route path="/product" element={<ClientLayout slot={<ProductPage key={'1'} />} />} />
       <Route path="/product/:id" element={<ClientLayout slot={<ProductDetailPage key={'1'} />} />} />
       <Route path="/about" element={<ClientLayout slot={<AboutPage key={'a'} />} />} />
