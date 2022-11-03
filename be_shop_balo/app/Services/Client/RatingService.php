@@ -25,6 +25,7 @@ class RatingService
         (is_null($request->per_page) || (empty($request->per_page))) ? $search['per_page'] = $this->limit : $search['per_page'] = $request->per_page;
         (is_null($request->sortPoint) || (empty($request->sortPoint))) ? $search['sortPoint'] = 'asc' : $search['sortPoint'] = $request->sortPoint;
         (is_null($request->sortStatus) || (empty($request->sortStatus))) ? $search['sortStatus'] = 'pushlished' : $search['sortStatus'] = $request->sortStatus;
+        (is_null($request->filter) || (empty($request->filter))) ? $search['filter'] = null : $search['filter'] = $request->filter;
 
         $ratings = $this->ratingRepo->getAll($search);
         $data = [];
