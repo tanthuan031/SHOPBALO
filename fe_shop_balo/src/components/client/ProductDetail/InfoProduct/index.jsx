@@ -3,7 +3,7 @@ import { FaMinus, FaPlus, FaStar, FaStarHalf } from 'react-icons/fa';
 import { formatter } from '../../../../utils/formatCurrency';
 import StarRatings from 'react-star-ratings/build/star-ratings';
 import { useDispatch, useSelector } from 'react-redux';
-import { addProductCart } from '../../../../redux/reducer/cart/cart.reducer';
+import { addProductCart, addProductCartWithQuantity } from '../../../../redux/reducer/cart/cart.reducer';
 import { cartSelector } from '../../../../redux/selectors';
 
 function InfoProduct({ id,name, description, price, color, amount,star }) {
@@ -12,8 +12,9 @@ function InfoProduct({ id,name, description, price, color, amount,star }) {
   const [quantity, setQuantity] = useState(amount<=0?0:1);
   const dispatch=useDispatch()
   const cart=useSelector(cartSelector)
-  const handleAddCartItem=(id) => {
-    dispatch(addProductCart(id))
+  const handleAddCartItem=(id,quantity) => {
+ //  dispatch(addProductCart({id:id}))
+    dispatch(addProductCartWithQuantity({id:id, quantity:quantity}))
     localStorage.setItem('cart',JSON.stringify({ cart:{cartData:cart}}))
   }
   return (
@@ -86,7 +87,7 @@ function InfoProduct({ id,name, description, price, color, amount,star }) {
         </div>
         <button
           disabled={amount<=0}
-          onClick={()=>handleAddCartItem({id:id})}
+          onClick={()=>handleAddCartItem(id,quantity)}
           className={`flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04 js-addcart-detail m-l-10   ${(amount<=0&&'disabled').toString()}`}>
           Add to cart
         </button>
