@@ -1,20 +1,48 @@
 import React, { useContext, useEffect, useMemo, useState } from 'react';
 import { formatter } from '../../../../utils/formatCurrency';
 import { FaMinus, FaPlus } from 'react-icons/fa';
+import { useDispatch, useSelector } from 'react-redux';
+import {
+  decreaseQuantityCart,
+  deleteItemCart,
+  increaseQuantityCart,
+} from '../../../../redux/reducer/cart/cart.reducer';
+import { cartSelector } from '../../../../redux/selectors';
 
-function RowProductCart({ id,name,price,image,quantity_cart,limit_amount,action }) {
+function CartItem({ id,name,price,image,quantity_cart,limit_amount,action }) {
+  console.log('render');
 const [quantity,setQuantity]=useState(limit_amount<=0?0:quantity_cart);
 const [totalPrice,setTotalPrice ]=useState(quantity_cart*price)
-
+  const cart=useSelector(cartSelector)
+  const dispatch=useDispatch();
   useEffect(()=>{
     setTotalPrice(quantity*price)
-   // setTotal()
   },[quantity])
- // const setTotal = useContext(TotalPriceContext);
+  const handleIncreaseQuantityCartIem=(id)=>{
+    dispatch(increaseQuantityCart({id:id}))
+    console.log(id);
+    setQuantity(prev => prev === limit_amount ? limit_amount : prev + 1)
+    console.log(quantity);
+    localStorage.setItem('cart',JSON.stringify({ cart:{cartData:cart}}))
+
+  }
+  const handleDecreaseQuantityCartIem=(id)=>{
+    dispatch(decreaseQuantityCart({id:id}))
+    console.log(id);
+    setQuantity(prev => prev === 1 ? 1 : prev - 1)
+    console.log(quantity);
+    localStorage.setItem('cart',JSON.stringify({ cart:{cartData:cart}}))
+
+  }
+  const handleDeleteCartItem=(id)=>{
+    dispatch(deleteItemCart({id:id}))
+  }
   return (
     <tr className="table_row" key={id}>
       <td className="column-1">
-        <div className="how-itemcart1">
+        <div className="how-itemcart1"
+             onClick={()=>handleDeleteCartItem(id) }
+        >
           <img src={image} alt="IMG"/>
         </div>
       </td>
@@ -24,7 +52,7 @@ const [totalPrice,setTotalPrice ]=useState(quantity_cart*price)
         <div className="wrap-num-product flex-w m-l-auto m-r-0">
           <div className={`btn-num-product-down cl8 hov-btn3 trans-04 flex-c-m ${((quantity===1||limit_amount<=0)&&'disabled').toString()}`}
                onClick={() =>
-                 setQuantity(prev => prev === 1 ? 1 : prev - 1)
+                handleDecreaseQuantityCartIem(id)
                }>
             <FaMinus />
           </div>
@@ -35,8 +63,7 @@ const [totalPrice,setTotalPrice ]=useState(quantity_cart*price)
 
           <div className={`btn-num-product-up cl8 hov-btn3 trans-04 flex-c-m  ${((quantity===limit_amount||limit_amount<=0)&&'disabled').toString()}`}
                onClick={() =>
-                 setQuantity(prev => prev === limit_amount ? limit_amount : prev + 1)
-                  } >
+                handleIncreaseQuantityCartIem(id)} >
             <FaPlus/>
           </div>
         </div>
@@ -46,4 +73,4 @@ const [totalPrice,setTotalPrice ]=useState(quantity_cart*price)
   );
 }
 
-export default RowProductCart;
+export default CartItem;

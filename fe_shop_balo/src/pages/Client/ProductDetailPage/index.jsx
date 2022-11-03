@@ -25,7 +25,7 @@ function ProductDetailPage(props) {
     const handleGetInfoDetailProduct = async (id) => {
 
       const result = await getDetailProductById(id);
-
+      console.log(result);
       if (result === 401) {
         return false;
       } else if (result === 500) {

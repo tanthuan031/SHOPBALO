@@ -1,16 +1,19 @@
-import React from 'react';
+import React, { memo } from 'react';
 import { formatter } from '../../../../utils/formatCurrency';
-import RowProductCart from '../RowProductCart';
+import RowProductCart from '../CartItem';
 
-function TableProductCart({ data,onSetTotal }) {
-  const data_product_cart=[
-    {id:1,name: 'BackPack 2988',limit_amount:25,quantity_cart:2,price:450,image:'https://th.bing.com/th/id/R.e1168e16cd516e419a23bc992e74c20e?rik=QM571JAin9on6A&pid=ImgRaw&r=0'},
-    {id:2,name: 'Superbuu 25',limit_amount:10,quantity_cart:1,price:650,image:'https://th.bing.com/th/id/R.e1168e16cd516e419a23bc992e74c20e?rik=QM571JAin9on6A&pid=ImgRaw&r=0'},
-  ]
+function TableProductCart({ data_product_cart,onSetTotal }) {
+  console.log('table -rerender')
+  // const data_product_cart=[
+  //   {id:1,name: 'BackPack 2988',limit_amount:25,quantity_cart:2,price:450,image:'https://th.bing.com/th/id/R.e1168e16cd516e419a23bc992e74c20e?rik=QM571JAin9on6A&pid=ImgRaw&r=0'},
+  //   {id:2,name: 'Superbuu 25',limit_amount:10,quantity_cart:1,price:650,image:'https://th.bing.com/th/id/R.e1168e16cd516e419a23bc992e74c20e?rik=QM571JAin9on6A&pid=ImgRaw&r=0'},
+  // ]
+
   return (
     <div className="m-l-25 m-r--38 m-lr-0-xl">
       <div className="wrap-table-shopping-cart">
         <table className="table-shopping-cart">
+          <tbody>
           <tr className="table_head">
             <th className="column-1">Product</th>
             <th className="column-2"></th>
@@ -21,13 +24,14 @@ function TableProductCart({ data,onSetTotal }) {
           {
             data_product_cart.map((item)=>(
           <RowProductCart id={item.id} name={item.name}
-                          price={item.price}
+                          price={item.price} key={item.id}
                           quantity_cart={item.quantity_cart}
-              limit_amount={item.limit_amount}
+              limit_amount={item.amount}
               image={item.image}
               />
             ))
           }
+          </tbody>
         </table>
       </div>
 
@@ -51,4 +55,4 @@ function TableProductCart({ data,onSetTotal }) {
   );
 }
 
-export default TableProductCart;
+export default memo(TableProductCart);

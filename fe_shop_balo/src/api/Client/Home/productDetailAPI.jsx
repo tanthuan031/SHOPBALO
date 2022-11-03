@@ -5,7 +5,8 @@ export const getDetailProductById = async (id) => {
   const url = `/api/client/product/${id}`;
   console.log(url)
   const response = await axiosClient.get(url);
-  if (response.status === 'success') {
+
+  if (response.status === 200) {
     return response.data;
   } else if (response.status === 500) {
     return 500;
