@@ -7,11 +7,15 @@ import PropTypes from 'prop-types';
 import { MdShoppingCart, MdSearch } from 'react-icons/md';
 import { HiOutlineHeart } from 'react-icons/hi';
 import { data_header_client } from '../../../../asset/data/data_header_client';
+import { cartSelector } from '../../../../redux/selectors';
+import { useSelector } from 'react-redux';
 
 const data_menu_top = ['Help & FAQs', 'My Account', 'EN', 'USD'];
 const data_menu_list = data_header_client;
 
 const Header = () => {
+  const cart=useSelector(cartSelector)
+
   return (
     <>
       <header>
@@ -83,10 +87,10 @@ const Header = () => {
 
                 <div
                   className="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 icon-header-noti js-show-cart"
-                  data-notify="2"
+                  data-notify={cart.length>0?cart.length:0}
                 >
                   <MdShoppingCart />
-                  <i className="zmdi zmdi-shopping-cart"></i>
+
                 </div>
 
                 <a

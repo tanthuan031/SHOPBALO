@@ -1,12 +1,13 @@
 import React from 'react';
 import StarRatings from 'react-star-ratings/build/star-ratings';
+import ImageCustom from '../../../commons/Layouts/Image';
 
 function ReviewItem({ id,name,avatar,point,comment }) {
 
   return (
     <div className="flex-w flex-t p-b-68">
       <div className="wrap-pic-s size-109 bor0 of-hidden m-r-18 m-t-6">
-        <img src={avatar} alt="AVATAR"/>
+        <ImageCustom src={avatar} alt="AVATAR" className='bor bor0 shadow'/>
       </div>
 
       <div className="size-207">

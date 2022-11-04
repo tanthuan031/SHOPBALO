@@ -18,7 +18,7 @@ function ClientRouter(props) {
       <Route path="/product" element={<ClientLayout slot={<ProductPage key={'1'} />} />} />
       <Route path="/product/:id" element={<ClientLayout slot={<ProductDetailPage key={'1'} />} />} />
       <Route path="/about" element={<ClientLayout slot={<AboutPage key={'a'} />} />} />
-      <Route path="/profile" element={<ClientLayout slot={<ProfilePage key={'a'} />} />} />
+      <Route path="/my-account" element={<ClientLayout slot={<ProfilePage key={'a'} />} />} />
       <Route path="/cart" element={<ClientLayout slot={<CartPage key={'a'} />} />} />
 
       {/* </Route> */}

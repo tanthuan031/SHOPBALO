@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { FaMinus, FaPlus, FaStar, FaStarHalf } from 'react-icons/fa';
 import { formatter } from '../../../../utils/formatCurrency';
 import StarRatings from 'react-star-ratings/build/star-ratings';
@@ -12,10 +12,9 @@ function InfoProduct({ id,name, description, price, color, amount,star }) {
   const [quantity, setQuantity] = useState(amount<=0?0:1);
   const dispatch=useDispatch()
   const cart=useSelector(cartSelector)
-  const handleAddCartItem=(id,quantity) => {
+  const handleAddCartItem=async  (id,quantity) => {
  //  dispatch(addProductCart({id:id}))
-    dispatch(addProductCartWithQuantity({id:id, quantity:quantity}))
-    localStorage.setItem('cart',JSON.stringify({ cart:{cartData:cart}}))
+   await dispatch(addProductCartWithQuantity({id:id, quantity:quantity}))
   }
   return (
     <div className='p-r-50 p-t-5 p-lr-0-lg'>

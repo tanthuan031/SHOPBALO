@@ -20,7 +20,8 @@ const rootReducer = combineReducers({
   review: reviewReducer,
   auth: authReducer,
   slider: sliderReducer,
-  cart: cartReducer
+  cart: cartReducer,
+
 });
 
 export default rootReducer;

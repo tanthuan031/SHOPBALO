@@ -19,26 +19,21 @@ const [totalPrice,setTotalPrice ]=useState(quantity_cart*price)
     setTotalPrice(quantity*price)
    // onSetTotal(prev=>prev+(quantity*price))
   },[quantity])
-  const handleIncreaseQuantityCartIem=(id)=>{
-    dispatch(increaseQuantityCart({id:id}))
-    console.log(id);
+  const handleIncreaseQuantityCartIem=async (id)=>{
+     await dispatch(increaseQuantityCart({id:id}))
     setQuantity(prev => prev === limit_amount ? limit_amount : prev + 1)
-    console.log(quantity);
-    localStorage.setItem('cart',JSON.stringify({ cart:{cartData:cart}}))
     onSetTotal(prev => prev+price)
 
   }
-  const handleDecreaseQuantityCartIem=(id)=>{
-    dispatch(decreaseQuantityCart({id:id}))
-    console.log(id);
+  const handleDecreaseQuantityCartIem=async (id)=>{
+   await dispatch(decreaseQuantityCart({id:id}))
     setQuantity(prev => prev === 1 ? 1 : prev - 1)
     onSetTotal(prev => prev-price)
-    console.log(quantity);
-    localStorage.setItem('cart',JSON.stringify({ cart:{cartData:cart}}))
 
   }
-  const handleDeleteCartItem=(id)=>{
-    dispatch(deleteItemCart({id:id}))
+  const handleDeleteCartItem= async (id)=>{
+   await dispatch(deleteItemCart({id:id}))
+    localStorage.removeItem('cart')
   }
   return (
     <tr className="table_row" key={id}>

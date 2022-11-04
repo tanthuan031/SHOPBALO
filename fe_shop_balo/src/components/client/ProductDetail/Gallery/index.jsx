@@ -4,13 +4,14 @@ import { FaExpand } from 'react-icons/fa';
 import { Col, Row } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 
-function Gallery({ listImage }) {
-
+function Gallery({ listImage,mainImage }) {
   const listImageProduct=(!!listImage) && listImage.map((item,index) =>(
     {
-      id:index, alt: `Picture ${index+1}`, url: item
+      id:index+1, alt: `Picture ${index+2}`, url: item
     }
   ))
+  !!listImage && listImageProduct.unshift({ id:0, alt: `Picture 1`, url: mainImage})
+  console.log(listImageProduct);
   //storage/ProductSlide
   const [imageMain, setImageMain] = useState(0);
   const imgMainProduct=useRef()

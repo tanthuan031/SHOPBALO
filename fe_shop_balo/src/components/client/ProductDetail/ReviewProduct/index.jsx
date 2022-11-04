@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 import StarRatings from 'react-star-ratings/build/star-ratings';
 import ReviewItem from '../ReviewItem';
 import "./index.css"
-function ReviewProduct({ list_review }) {
+function ReviewProduct({ list_review,averageRating }) {
+  console.log(list_review);
   const [pointRatings, setPointRatings] = useState(5)
   const [imgUploadReview,setImgUploadReview] = useState(false)
   const uploadImage = (e) => {
@@ -13,12 +14,24 @@ function ReviewProduct({ list_review }) {
   };
   return (
     <div className="tab01">
+        <div className="nav-item p-b-10 fw-bolder d-flex">
+          <div className="stext-101 m-auto"   >
+            Reviews: {!!list_review && list_review.length}
 
-      <ul className="nav nav-tabs" >
-        <li className="nav-item p-b-10 fw-bolder">
-          <a className="nav-link " data-toggle="tab" href="#reviews" role="tab">Reviews: {list_review.length}</a>
-        </li>
-      </ul>
+          </div><br />
+          <div className="m-auto">
+
+              <StarRatings
+
+                rating={averageRating}
+                starRatedColor='rgb(252,202,25)'
+                starDimension="20px"
+                starSpacing="3px"
+              />
+            {averageRating}/5
+          </div>
+        </div>
+
 
 
       <div className="tab-content p-t-43">
@@ -28,7 +41,7 @@ function ReviewProduct({ list_review }) {
             <div className="col-sm-10 col-md-8 col-lg-6 m-lr-auto">
               <div className="p-b-30 m-lr-15-sm">
                 {
-                  list_review.map((item)=>(<ReviewItem key={item.id} id={item.id} name={item.name} avatar={item.avatar } point={item.point } comment={item.comment} />))
+                 !!list_review && list_review.map((item)=>(<ReviewItem key={item.id} id={item.id} name={item.name} avatar={item.avatar } point={item.point } comment={item.comment} />))
                 }
                 <form className="w-full">
                   <h5 className="mtext-108 cl2 p-b-7">
