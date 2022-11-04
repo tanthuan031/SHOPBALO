@@ -88,14 +88,14 @@ const Header = () => {
 
               {/* <!-- Icon header --> */}
               <div className="wrap-icon-header flex-w flex-r-m">
-                <div className="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 js-show-modal-search d-flex align-items-center">
+                <div className="icon-header-item cl2 hov-cl1 trans-04 js-show-modal-search d-flex align-items-center search-header">
                   <input
                     type="email"
                     className="form-control"
                     id="exampleFormControlInput1"
-                    placeholder="name@example.com"
+                    placeholder="Search..."
                   ></input>
-                  <MdSearch />
+                  <MdSearch className="icon-search" />
                 </div>
 
                 <div

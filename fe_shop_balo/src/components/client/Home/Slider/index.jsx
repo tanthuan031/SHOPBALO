@@ -49,13 +49,11 @@ const Slider = () => {
         modules={[Autoplay, Navigation, Pagination, Mousewheel]}
         className="mySwiper"
       >
-        {!isLoading ? (
-          data.length > 0 &&
+        {!isLoading && data.length > 0 ? (
           data.map((item, index) => (
             <SwiperSlide key={index}>
-             
               <div className="slider-homepage">
-                 <Link to="/product">
+                <Link to="/product">
                   <img
                     src={item.image.split('http://127.0.0.1:8000/storage/Slider/')[1]}
                     // src={item.image}
@@ -66,10 +64,9 @@ const Slider = () => {
                     <h2 className="description-homepage">{item.description}</h2>
                     <h1 className="name-homepage">{item.name}</h1>
                     <button className="button-homepage">Shop now</button>
-                </summary>
-                 </Link>
-                </div>
-             
+                  </summary>
+                </Link>
+              </div>
             </SwiperSlide>
           ))
         ) : (

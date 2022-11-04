@@ -11,7 +11,7 @@ import 'swiper/css/pagination';
 import 'swiper/css/navigation';
 
 // import required modules
-import { Navigation } from 'swiper';
+import { Autoplay, Navigation } from 'swiper';
 
 const ProductList = (props) => {
   const { item } = props;
@@ -24,14 +24,19 @@ const ProductList = (props) => {
         loop={true}
         // loopFillGroupWithBlank={true}
         navigation={true}
-        modules={[Navigation]}
+        autoplay={{
+          delay: 2500,
+          disableOnInteraction: false,
+        }}
+        modules={[Autoplay,Navigation]}
         className="mySwiper"
       >
-        {item.length>0 && item.map((item) => (
-          <SwiperSlide key={item.id}>
-            <ProductItem item={item} />
-          </SwiperSlide>
-        ))}
+        {item.length > 0 &&
+          item.map((item) => (
+            <SwiperSlide key={item.id}>
+              <ProductItem item={item} />
+            </SwiperSlide>
+          ))}
       </Swiper>
     </>
   );

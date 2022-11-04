@@ -15,40 +15,40 @@ import { getAllCategory } from '../../../../api/Client/Home/homeAPI';
 import Skeleton from '../../../commons/Layouts/Skeleton';
 
 const images = 'https://wallpapershome.com/images/pages/ico_h/24116.jpg';
-// const data = [
-//   {
-//     id: 1,
-//     image: images,
-//     name: 'Women',
-//     description: 'Spring 2018',
-//   },
-//   {
-//     id: 2,
-//     image: images,
-//     name: 'Women',
-//     description: 'Spring 2018',
-//   },
-//   {
-//     id: 3,
-//     image: images,
-//     name: 'Women',
-//     description: 'Spring 2018',
-//   },
-// ];
+const data = [
+  {
+    id: 1,
+    image: images,
+    name: 'Women',
+    description: 'Spring 2018',
+  },
+  {
+    id: 2,
+    image: images,
+    name: 'Women',
+    description: 'Spring 2018',
+  },
+  {
+    id: 3,
+    image: images,
+    name: 'Women',
+    description: 'Spring 2018',
+  },
+];
 
 const Banner = () => {
-  const [data, setData] = useState([]);
+  // const [data, setData] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
-  const handleGetAllCategory = async () => {
-    const result = await getAllCategory();
-    setData(result.data);
-    setIsLoading(false);
-  };
+  // const handleGetAllCategory = async () => {
+  //   const result = await getAllCategory();
+  //   setData(result.data);
+  //   setIsLoading(false);
+  // };
 
-  useEffect(() => {
-    handleGetAllCategory();
-  }, []);
+  // useEffect(() => {
+  //   handleGetAllCategory();
+  // }, []);
 
   return (
     <>
@@ -56,8 +56,7 @@ const Banner = () => {
         <div className="container">
           <div className="row">
             <Swiper slidesPerView={3} spaceBetween={30} grabCursor={true} modules={[]} className="mySwiper">
-              {!isLoading ? (
-                data.length > 0 &&
+              {!!isLoading && data.length > 0 ? (
                 data.map((item) => (
                   <SwiperSlide key={item.id}>
                     <BannerItem item={item} />
@@ -79,7 +78,7 @@ const BannerItem = (props) => {
   return (
     <div className="p-b-30 border" key={item.id} style={{ width: '100%', height: '20rem' }}>
       <div className="block1 wrap-pic-w" style={{ width: '100%', height: '20rem' }}>
-        <img src={item.image} alt="IMG-BANNER" style={{ objectFit: 'cover' }} />
+        <img src={item.image} alt="IMG-BANNER" style={{ objectFit: 'fill' }} />
 
         <Link to="/product" className="block1-txt ab-t-l s-full flex-col-l-sb p-lr-38 p-tb-34 trans-03 respon3">
           <div className="block1-txt-child1 flex-col-l">

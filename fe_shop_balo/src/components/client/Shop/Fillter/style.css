@@ -1,0 +1,35 @@
+.filter-homepage {
+  width: 50rem;
+  overflow: auto;
+}
+
+.t-collapse__label {
+  border: 1px solid #ddd;
+  background-color: #fff;
+  border-radius: 0.5rem;
+  padding: 0.5rem 1rem;
+}
+
+.t-collapse__label:hover {
+  background-color: #ddd;
+}
+
+.t-collapse__heading {
+  color: #000;
+  padding: 1rem 0;
+  cursor: pointer;
+}
+
+.t-collapse__title {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.t-collapse__title {
+}
+
+.t-collapse__icon {
+}
+
+.t-collapse__content {
+}

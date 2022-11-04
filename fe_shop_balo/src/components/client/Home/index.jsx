@@ -93,8 +93,10 @@ const Home = () => {
   const [dataNewArrive, setDataNewArrive] = useState([]);
   const [dataOverview, setDataOverview] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-  const [sell, setSell] = useState('bestsale');
-  const [sort, setSort] = useState('desc');
+  // const [sell, setSell] = useState('bestsale');
+  // const [sort, setSort] = useState('desc');
+  const sell = 'bestsale'
+  const sort = 'desc'
 
   const handleGetAllProductBestSale = async () => {
     const result = await getAllProducts({ sell });
@@ -163,7 +165,7 @@ const Product = (props) => {
 
         <div className="flex-w flex-sb-m p-b-52 d-flex justify-content-center">
           <div className="flex-w flex-l-m filter-tope-group m-tb-10">
-            <button className="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5 how-active1" data-filter="*">
+            {/* <button className="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5 how-active1" data-filter="*">
               All Products
             </button>
             {dataCategory.length > 0 &&
@@ -171,7 +173,7 @@ const Product = (props) => {
                 <button className="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5" data-filter=".women">
                   {item.name}
                 </button>
-              ))}
+              ))} */}
           </div>
         </div>
 
