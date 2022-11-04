@@ -73,4 +73,13 @@ class Rating extends Model
     {
         return $query->orderBy('point', $sort);
     }
+
+
+
+    public function scopeFilterProductById($query, $filter)
+    {
+        if (is_null($filter)) return $query;
+        $list = explode(",", $filter);
+        return $query->whereIn('product_id', $list);
+    }
 }
