@@ -47,4 +47,15 @@ class ProductService
         }
         return $this->apiResponse($data, 200, 'Show products');
     }
+    public function showListProduct($id)
+    {
+        if (is_null($id)) return $this->apiResponse([], 401, _('validation.required', ['attribute' => 'id']));
+        $data = [];
+        $product = $this->productRepo->find($id);
+
+        if (!is_null($product)) {
+            $data = new ProductResource($product);
+        }
+        return $this->apiResponse($data, 200, 'Show products');
+    }
 }
