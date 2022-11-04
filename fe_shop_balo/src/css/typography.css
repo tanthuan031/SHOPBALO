@@ -71,10 +71,12 @@ a {
   text-align: justify;
 }
 
+.padding-48px {
+  padding: var(--48px);
+}
 .padding-left-12px {
   padding-left: var(--12px);
 }
-
 .margin-left-12px {
   margin-left: var(--12px);
 }
