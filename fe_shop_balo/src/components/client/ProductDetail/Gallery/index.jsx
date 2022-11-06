@@ -3,6 +3,7 @@ import './index.css';
 import { FaExpand } from 'react-icons/fa';
 import { Col, Row } from 'react-bootstrap';
 import PropTypes from 'prop-types';
+import ImageCustom from '../../../commons/Layouts/Image';
 
 function Gallery({ listImage,mainImage }) {
   const listImageProduct=(!!listImage) && listImage.map((item,index) =>(
@@ -11,7 +12,6 @@ function Gallery({ listImage,mainImage }) {
     }
   ))
   !!listImage && listImageProduct.unshift({ id:0, alt: `Picture 1`, url: mainImage})
-  console.log(listImageProduct);
   //storage/ProductSlide
   const [imageMain, setImageMain] = useState(0);
   const imgMainProduct=useRef()
@@ -37,7 +37,7 @@ function Gallery({ listImage,mainImage }) {
             {
               (!!listImageProduct) &&   listImageProduct.map(item=>(
                 <li className={item.id===imageMain?'img-slide-active':''} onClick={()=>setImageMain(item.id)} key={item.id}>
-                  <img src={item.url} className='img-slide' alt={item.alt} />
+                  <ImageCustom src={item.url} className='img-slide' alt={item.alt} />
                 </li>
               ))
             }
@@ -50,7 +50,7 @@ function Gallery({ listImage,mainImage }) {
             <div className='wrap-pic-w pos-relative'>
               {
                 (!!listImageProduct) &&
-                <img src={listImageProduct[imageMain].url} alt={listImageProduct[imageMain].alt} id='imgMainProduct' className= 'image-main-product '  ref={imgMainProduct}/>
+                <ImageCustom src={listImageProduct[imageMain].url} alt={listImageProduct[imageMain].alt} id='imgMainProduct' className= 'image-main-product '  ref={imgMainProduct}/>
               }
               <span className='flex-c-m size-108 how-pos1 bor0 fs-16 cl10 bg0 hov-btn3 trans-04' ref={imgBtnOpenExpandModal}
               onClick={()=>handleExpandImageProduct()}
@@ -59,7 +59,7 @@ function Gallery({ listImage,mainImage }) {
               </span>
               <div id="myModal" ref={imgModal} className="modal">
                 <span className="close"ref={imgBtnCloseModal} onClick={()=>handleCloseExpandImageProduct()}>&times;</span>
-                <img className="modal-content" id="img01" ref={imgExpand}/>
+                <ImageCustom className="modal-content" id="img01" ref={imgExpand}/>
                 <div id="caption" ref={imgCaption}></div>
               </div>
             </div>

@@ -41,7 +41,10 @@ function ReviewProduct({ list_review,averageRating }) {
             <div className="col-sm-10 col-md-8 col-lg-6 m-lr-auto">
               <div className="p-b-30 m-lr-15-sm">
                 {
-                 !!list_review && list_review.map((item)=>(<ReviewItem key={item.id} id={item.id} name={item.name} avatar={item.avatar } point={item.point } comment={item.comment} />))
+                 !!list_review && list_review.map((item)=>
+                    (<ReviewItem key={item.id} id={item.id} name={item.name}
+                                 avatar={item.avatar } point={item.point }
+                                  image={item.image} comment={item.comment} />))
                 }
                 <form className="w-full">
                   <h5 className="mtext-108 cl2 p-b-7">
