@@ -27,4 +27,13 @@ class AuthClientController extends Controller
     {
         return $this->authService->updateCustomerClient($request, $id);
     }
+    public function otpSendMailClient(Request $request)
+    {
+        return $this->authService->otpSendMailClient($request);
+    }
+    public function forgotPasswordClient(Request $request)
+    {
+
+        return $this->authService->forgotPasswordClient($request);
+    }
 }

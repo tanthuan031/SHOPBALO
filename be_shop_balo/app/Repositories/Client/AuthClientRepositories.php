@@ -2,10 +2,13 @@
 
 namespace App\Repositories\Client;
 
+use App\Mail\SendMail;
 use App\Models\Customer;
+use App\Models\EmailOtp;
 use App\Repositories\BaseRepository;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
 
 class AuthClientRepositories extends BaseRepository
 {
@@ -86,5 +89,57 @@ class AuthClientRepositories extends BaseRepository
     public function getMeClient()
     {
         return Auth::user();
+    }
+    public function otpSendMailClient($request)
+    {
+        $data = Customer::query()->where('email', '=', $request->get('email'))->first();
+        // dd($data->id);
+        if ($data) {
+            $otp = rand(100000, 999999);
+            // dd(Mail::to('tanthuan031@gmail.com')->send(new SendMail($otp)));
+            if (Mail::to($request->get('email'))->send(new SendMail($otp))) {
+                EmailOtp::query()->create([
+                    'user_id' => $data->id,
+                    'otp' => $otp
+                ]);
+                return [
+                    'status' => 200,
+                    'message' => 'Verification code send to your email....'
+                ];
+            } else {
+                return [
+                    'status' => 404,
+                    'message' => 'Not Found....'
+                ];
+            }
+        } else {
+            return [
+                'status' => 400,
+                'message' => 'Email Not Found',
+                'data' => $request->get('email')
+            ];
+        }
+    }
+
+    public function forgotPasswordClient($request)
+    {
+
+        $data = Customer::query()->where('email', '=', $request['email'])->first();
+        $otp = EmailOtp::query()->where('user_id', '=', $data->id)->where('otp', '=', $request['otp'])->first();
+        if ($otp !== null) {
+            $data->update([
+                'password' => $request['password'],
+            ]);
+            $otp->delete();
+            return [
+                'status' => 200,
+                'message' => 'Forgot Password Successfully',
+            ];
+        } else {
+            return [
+                'status' => 403,
+                'message' => 'OTP not found',
+            ];
+        }
     }
 }
