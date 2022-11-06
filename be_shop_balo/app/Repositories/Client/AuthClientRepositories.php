@@ -4,6 +4,7 @@ namespace App\Repositories\Client;
 
 use App\Models\Customer;
 use App\Repositories\BaseRepository;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
 class AuthClientRepositories extends BaseRepository
@@ -80,5 +81,10 @@ class AuthClientRepositories extends BaseRepository
             return false;
         }
         return $Customer;
+    }
+
+    public function getMeClient()
+    {
+        return Auth::user();
     }
 }

@@ -67,4 +67,11 @@ class AuthClientServices
             return $this->apiResponse([], $result['status'], $result['message']);
         }
     }
+
+    public function getMeClient()
+    {
+        $result = $this->authRepository->getMeClient();
+        // dd($result);
+        return $this->apiResponse($result, 'success', 'Get Information Successfully');
+    }
 }
