@@ -23,4 +23,8 @@ class AuthClientController extends Controller
     {
         return $this->authService->login($request);
     }
+    public function updateprofile(Request $request, $id)
+    {
+        return $this->authService->updateCustomerClient($request, $id);
+    }
 }

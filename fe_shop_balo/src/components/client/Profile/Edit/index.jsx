@@ -23,8 +23,8 @@ const ProfileEditClient = (props) => {
   const [imageAvatarCustomerShow, setImageAvatarCustomerShow] = useState(false);
   const [status, setStatus] = useState(dataCustomer.status);
   const data_gender = [
-    { value: 1, label: 'male' },
-    { value: 2, label: 'female' },
+    { value: 1, label: 'Male' },
+    { value: 2, label: 'Female' },
   ];
   const data_status = [
     { value: 1, label: 'Active' },
@@ -122,8 +122,8 @@ const ProfileEditClient = (props) => {
   //   }
   // };
   return (
-    <div className=" edit_form d-flex justify-content-center">
-      <Form className="font_add_edit_prduct" encType="multipart/form-data">
+    <div className="edit_form d-flex justify-content-center">
+      <Form className="font_add_edit_prduct text-black" encType="multipart/form-data">
         <h4 className="text-center font-weight-bold mb-3 text-black">Update Profile</h4>
         <Row>
           <Col>
@@ -227,33 +227,11 @@ const ProfileEditClient = (props) => {
           </Col>
         </Row>
         <Row>
-          <Col>
-            <Form.Group className="mb-3">
-              <Form.Label className="label-input">Point</Form.Label>
-              <Controller
-                control={control}
-                name="point"
-                defaultValue=""
-                {...register('point', { required: true })}
-                ref={null}
-                render={({ field: { onChange, onBlur, value, ref } }) => (
-                  <Form.Control
-                    onChange={onChange}
-                    value={value}
-                    ref={ref}
-                    isInvalid={errors.point}
-                    placeholder="Enter point"
-                  />
-                )}
-              />
-              <div className="d-flex justify-content-between">
-                <small className="text-red font-weight-semi">{errors?.point?.message}</small>
-              </div>
-            </Form.Group>
-          </Col>
-          <Col>
-            <Form.Group className="mb-3">
-              <Form.Label className="label-input">Gender</Form.Label>
+          <div className="col-md-12">
+            <Form.Group className="mb-2">
+              <Form.Label className="label-input">
+                Gender &nbsp;<span className="text-danger">*</span>
+              </Form.Label>
               <Controller
                 name="gender"
                 control={control}
@@ -265,19 +243,19 @@ const ProfileEditClient = (props) => {
                       ...theme,
                       colors: {
                         ...theme.colors,
-                        primary25: '#0d6efd',
-                        primary50: '#0d6efd',
-                        primary: '#d6001c',
+                        primary25: '#ffffff',
+                        primary50: '##3ca9d5',
+                        primary: '#3ca9d5',
                       },
                     })}
                   />
                 )}
               />
-              <div className="d-flex justify-content-between">
-                <small className="text-red font-weight-semi">{errors?.gender?.message}</small>
-              </div>
             </Form.Group>
-          </Col>
+            <div className="d-flex justify-content-between">
+              <small className="text-red font-12px">{errors?.gender?.message}</small>
+            </div>
+          </div>
         </Row>
 
         <Form.Group className="mb-3">

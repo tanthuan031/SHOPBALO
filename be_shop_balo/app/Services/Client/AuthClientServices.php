@@ -4,6 +4,7 @@ namespace App\Services\Client;
 
 use App\Helpers\Helper;
 use App\Http\Traits\ApiResponse;
+use App\Repositories\Admin\CustomerRepository;
 use App\Repositories\Client\AuthClientRepositories;
 use Illuminate\Http\JsonResponse;
 
@@ -41,7 +42,22 @@ class AuthClientServices
             return $this->apiResponse([], $result['status'], $result['message']);
         }
     }
-
+    public function updateCustomerClient($request, $id): JsonResponse
+    {
+        if (!is_null($request->avatar)) {
+            $request['avatar'] = Helper::saveImgBase64($request->avatar, 'Customer');
+        }
+        /*if(!is_null($request->created_date)) {
+            $request['created_date'] = date('Y-m-d' , strtotime($request->created_date));
+        }*/
+        $result = $this->authRepository->updateCustomerClient($request, $id);
+        //return $this->apiResponse([],$result,'ÚUp');
+        if ($result) {
+            return $this->apiResponse($result, 'success', 'Update Customer successfully');
+        } else {
+            return $this->apiResponse([], 'Fail', 'Update Customer unsuccessful');
+        }
+    }
     public function login($request)
     {
         $result = $this->authRepository->login($request);
