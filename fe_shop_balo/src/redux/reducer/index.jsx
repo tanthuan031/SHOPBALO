@@ -8,6 +8,7 @@ import staffReducer from './staff/staff.reducer';
 import reviewReducer from './review/review.reducer';
 import authReducer from './auth/auth.reducer';
 import sliderReducer from './slider/slider.reducer';
+import profileReducer from './profile/profile.reducer';
 
 const rootReducer = combineReducers({
   product: productReducer,
@@ -19,5 +20,6 @@ const rootReducer = combineReducers({
   review: reviewReducer,
   auth: authReducer,
   slider: sliderReducer,
+  profile: profileReducer,
 });
 export default rootReducer;
