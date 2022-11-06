@@ -14,31 +14,31 @@ import CustomEditor from '../../../commons/Layouts/Edittor';
 import ImageCustom from '../../../commons/Layouts/Image';
 
 function SliderAdd(props) {
- const dispatch = useDispatch();
- const [imageOne, setImageOne] = useState('');
+  const dispatch = useDispatch();
+  const [imageOne, setImageOne] = useState('');
 
- const typeOptionsStatus = [
-   { value: 'Active', label: 'Active' },
-   { value: 'InActive', label: 'InActive' },
- ];
+  const typeOptionsStatus = [
+    { value: 'Active', label: 'Active' },
+    { value: 'InActive', label: 'InActive' },
+  ];
 
- const {
-   register,
-   setValue,
-   handleSubmit,
-   control,
-   formState: { isValid, errors },
- } = useForm({
-   mode: 'onChange',
-   resolver: yupResolver(addSchemaSlider),
-   defaultValues: {
-     name: '',
-     url: '',
-     image_slider: '',
-     status: '',
-     description: '',
-   },
- });  
+  const {
+    register,
+    setValue,
+    handleSubmit,
+    control,
+    formState: { isValid, errors },
+  } = useForm({
+    mode: 'onChange',
+    resolver: yupResolver(addSchemaSlider),
+    defaultValues: {
+      name: '',
+      url: '',
+      image_slider: '',
+      status: '',
+      description: '',
+    },
+  });
 
   const editorDescription = (value) => {
     setValue('description', value);
@@ -52,37 +52,37 @@ function SliderAdd(props) {
       reader.onerror = (error) => reject(error);
     });
 
-   const onSubmit = async (data) => {
-     BlockUI('#root', 'fixed');
+  const onSubmit = async (data) => {
+    BlockUI('#root', 'fixed');
 
-     if (data.image_slider.length !== 0) {
-       const image1 = await toBase64(data.image_slider[0]);
+    if (data.image_slider.length !== 0) {
+      const image1 = await toBase64(data.image_slider[0]);
 
-       const resultData = {
-         name: data.name,
-         status: data.status,
-         description: data.description,
-         url: data.url,
-         image_slider: image1,
-       };
+      const resultData = {
+        name: data.name,
+        status: data.status,
+        description: data.description,
+        url: data.url,
+        image: image1,
+      };
 
-       const result = await addSlider(resultData);
+      const result = await addSlider(resultData);
 
-       Notiflix.Block.remove('#root');
-       if (result.status === 200) {
-         SuccessToast('Create a item promotion successfully', 3000);
-         backToManage();
-       } else {
-         ErrorToast('Something went wrong. Please try again', 3000);
-       }
-     } else {
-       ErrorToast('Please, Image can not blank', 3000);
-       setTimeout(function () {
-         Notiflix.Block.remove('#root');
-       }, 1000);
-       return;
-     }
-   };
+      Notiflix.Block.remove('#root');
+      if (result.status === 200) {
+        SuccessToast('Create a item promotion successfully', 3000);
+        backToManage();
+      } else {
+        ErrorToast('Something went wrong. Please try again', 3000);
+      }
+    } else {
+      ErrorToast('Please, Image can not blank', 3000);
+      setTimeout(function () {
+        Notiflix.Block.remove('#root');
+      }, 1000);
+      return;
+    }
+  };
 
   const backToManage = () => {
     dispatch(setIsAdd(false));
@@ -142,7 +142,12 @@ function SliderAdd(props) {
                   <p className="font-weight-bold">Image</p>
                 </td>
                 <td width="70%">
-                  <Form.Control id="image_slider" type="file" {...register('image_slider')} onChange={(e) => uploadImage(e)} />
+                  <Form.Control
+                    id="image_slider"
+                    type="file"
+                    {...register('image_slider')}
+                    onChange={(e) => uploadImage(e)}
+                  />
                   <div className="image-product-slide">
                     {imageOne && (
                       <div className="d-flex image-product-slide ">

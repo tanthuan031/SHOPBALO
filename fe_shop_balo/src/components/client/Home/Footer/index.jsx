@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { FaInstagram, FaPinterestP, FaFacebookF } from 'react-icons/fa';
-import { iconPay01, iconPay02, iconPay03, iconPay04, iconPay05} from '../../../../asset/images/icons';
+import { iconPay01, iconPay02, iconPay03, iconPay04, iconPay05 } from '../../../../asset/images/icons';
 
 const Footer = () => {
   return (
@@ -70,30 +70,28 @@ const Footer = () => {
 
         <div className="p-t-40">
           <div className="flex-c-m flex-w p-b-18 fs-2">
-            
-              <img src={iconPay01} alt="ICON_PAY" />
-              <img src={iconPay02} alt="ICON_PAY" />
-              <img src={iconPay03} alt="ICON_PAY" />
-              <img src={iconPay04} alt="ICON_PAY" />
-              <img src={iconPay05} alt="ICON_PAY" />
-            
+            <img src={iconPay01} alt="ICON_PAY" />
+            <img src={iconPay02} alt="ICON_PAY" />
+            <img src={iconPay03} alt="ICON_PAY" />
+            <img src={iconPay04} alt="ICON_PAY" />
+            <img src={iconPay05} alt="ICON_PAY" />
+
             {/* <a href="#" className="m-all-1">
               <img src="../../../../asset/images/icons/icon-pay-01.png" alt="ICON-PAY" />
             </a> */}
           </div>
 
           <p className="stext-107 cl6 txt-center">
-            {/* <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --> */}
             Copyright &copy;
-            <script>document.write(new Date().getFullYear());</script>
+            {new Date().getFullYear()}
             All rights reserved | Made with
             <i className="fa fa-heart-o" aria-hidden="true"></i> by
-            <Link to="colorlib.com" target={'_blank'}>
+            <Link to="" target={'_blank'}>
               Colorlib
             </Link>
             &amp; distributed by
-            <Link to="themewagon.com" target={'_blank'}>
-              ThemeWagon
+            <Link to="" target={'_blank'}>
+              Tresor
             </Link>
           </p>
         </div>

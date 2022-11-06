@@ -6,40 +6,10 @@ import { Link, NavLink } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { MdShoppingCart, MdSearch } from 'react-icons/md';
 import { HiOutlineHeart } from 'react-icons/hi';
+import { data_header_client } from '../../../../asset/data/data_header_client';
 
 const data_menu_top = ['Help & FAQs', 'My Account', 'EN', 'USD'];
-const data_menu_list = [
-  {
-    id: 1,
-    name: 'Home',
-    active: true,
-    link: '/',
-  },
-  {
-    id: 2,
-    name: 'Product',
-    active: false,
-    link: '/product',
-  },
-  {
-    id: 3,
-    name: 'About',
-    active: false,
-    link: '/about',
-  },
-  {
-    id: 4,
-    name: 'Contact',
-    active: false,
-    link: '/contact',
-  },
-  {
-    id: 5,
-    name: 'Checkout',
-    active: false,
-    link: '/checkout',
-  },
-];
+const data_menu_list = data_header_client;
 
 const Header = () => {
   return (
@@ -48,7 +18,7 @@ const Header = () => {
         {/* <!-- Header desktop --> */}
         <div className="container-menu-desktop">
           {/* <!-- Topbar --> */}
-          <div className="top-bar">
+          {/* <div className="top-bar">
             <div className="content-topbar flex-sb-m h-full container">
               <div className="left-top-bar">Free shipping for standard order over $100</div>
 
@@ -60,10 +30,23 @@ const Header = () => {
                 ))}
               </div>
             </div>
-          </div>
+          </div> */}
 
           <div className="wrap-menu-desktop">
-            <nav className="limiter-menu-desktop container">
+            <nav className="top-bar">
+              <div className="content-topbar flex-sb-m h-full container">
+                <div className="left-top-bar">Free shipping for standard order over $100</div>
+
+                <div className="right-top-bar flex-w h-full">
+                  {data_menu_top.map((item, index) => (
+                    <a href="#" className="flex-c-m trans-04 p-lr-25" key={index}>
+                      {item}
+                    </a>
+                  ))}
+                </div>
+              </div>
+            </nav>
+            <nav className="limiter-menu-desktop container-fluid">
               {/* <!-- Logo desktop --> */}
               <Link to="/" className="me-5">
                 <h4 className="font-weight-black text-black">TRESOR</h4>

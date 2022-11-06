@@ -28,10 +28,11 @@ const ProductList = (props) => {
           delay: 2500,
           disableOnInteraction: false,
         }}
-        modules={[Autoplay,Navigation]}
+        modules={[Autoplay, Navigation]}
         className="mySwiper"
       >
-        {item.length > 0 &&
+        {item !== undefined &&
+          item.length > 0 &&
           item.map((item) => (
             <SwiperSlide key={item.id}>
               <ProductItem item={item} />

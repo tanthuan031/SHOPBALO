@@ -24,11 +24,11 @@ class ProductResource extends JsonResource
             'name' => $this->name,
             'status' => $this->status,
             'description' => $this->description,
-            'image' => env('APP_URL') . '/storage/product/' .  $this->image,
+            'image' =>  $this->image,
             'image_slide' => $this->image_slide,
-            'code_color' => $this->product_details->code_color,
-            'amount' => $this->product_details->amount,
-            'price' => $this->product_details->price,
+            'code_color' => $this->product_details->code_color ?? null,
+            'amount' => $this->product_details->amount ?? null,
+            'price' => $this->product_details->price ?? null,
 
 
         ];
