@@ -47,8 +47,8 @@ export function CartPage(props) {
   };
   const dispatch = useDispatch();
   console.log(listCartProduct);
-  useEffect(async () => {
-    await handleGetDataProduct(dataCart, setListCartProduct, setTotal);
+  useEffect( () => {
+     ( async ()=>await handleGetDataProduct(dataCart, setListCartProduct, setTotal))();
 
   }, [dispatch]);
 
