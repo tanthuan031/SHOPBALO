@@ -2,7 +2,7 @@ import React from 'react';
 import StarRatings from 'react-star-ratings/build/star-ratings';
 import ImageCustom from '../../../commons/Layouts/Image';
 
-function ReviewItem({ id,name,avatar,point,comment,image }) {
+function ReviewItem({ id,name,avatar,point=5,comment,image }) {
 
   return (
     <div className="flex-w flex-t p-b-68 bor12 pt-2">

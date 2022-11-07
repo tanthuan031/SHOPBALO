@@ -3,7 +3,7 @@ import axiosClient from '../../axiosClient';
 
 export const getRatingWithProductID = async (id) => {
   const url = `/api/client/rating?filter=${id}`;
-  console.log(url)
+  //console.log(url)
   const response = await axiosClient.get(url);
 
   if (response.status === 200) {

@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import StarRatings from 'react-star-ratings/build/star-ratings';
 import ReviewItem from '../ReviewItem';
 import "./index.css"
-function ReviewProduct({ list_review,averageRating }) {
-  console.log(list_review);
+function ReviewProduct({ list_review,averageRating=5 }) {
+ // console.log(list_review);
   const [pointRatings, setPointRatings] = useState(5)
   const [imgUploadReview,setImgUploadReview] = useState(false)
   const uploadImage = (e) => {

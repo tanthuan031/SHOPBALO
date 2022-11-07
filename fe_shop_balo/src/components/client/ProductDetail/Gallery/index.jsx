@@ -28,7 +28,7 @@ function Gallery({ listImage,mainImage }) {
   const handleCloseExpandImageProduct=()=>{
     imgModal.current.style.display = "none";
   }
-  console.log(listImageProduct[imageMain])
+ // console.log(listImageProduct[imageMain])
   return (
     <div className='p-l-25 p-r-30 p-lr-0-lg'>
       <div className='wrap-slick3 flex-sb flex-w'>

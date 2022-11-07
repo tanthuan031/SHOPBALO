@@ -50,7 +50,6 @@ function CartCompact(props) {
   };
   const isLoadingCart=useSelector(isOpenCartCompact)
   const dispatch  = useDispatch();
-  console.log(listCart);
   useEffect( () => {
     ( async ()=>await handleGetDataProduct(dataCart, setListCart, setTotal))();
 
