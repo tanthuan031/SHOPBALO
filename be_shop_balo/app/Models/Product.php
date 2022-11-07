@@ -97,4 +97,6 @@ class Product extends Model
     {
         return $query->where('status', $status);
     }
+
+
 }

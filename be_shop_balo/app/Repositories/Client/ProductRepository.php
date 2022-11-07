@@ -22,9 +22,19 @@ class ProductRepository extends BaseRepository
 
     public function getAll($request = [])
     {
-        return $this->product->with('categories')
-            ->with('product_details')
-            ->status()
+
+        return $this->product->with('categories')->with('product_details') ->status()
+                 ->withWhereHas('product_details', function ($query) use($request){
+                            if(!empty(@$request['filter'][0])){
+                            $query->where('price','>=',@$request['filter'][0]);
+                            }if(!empty(@$request['filter'][1])){
+                                $query->where('price','<',@$request['filter'][1]);
+                            }else{
+
+                             }
+
+                })
+
             ->selling($request)
             ->sort($request)
             ->search($request)
