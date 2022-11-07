@@ -9,6 +9,7 @@ import { cartSelector, exPiredTokenSelector, getUserSelector } from '../../redux
 import Footer from '../../components/client/Home/Footer';
 import { AiOutlineArrowUp } from 'react-icons/ai';
 import Header from '../../components/client/Home/Header';
+import CartCompact from '../../components/client/Home/CartCompact';
 
 export function ClientLayout(props) {
   const { slot } = props;
@@ -22,6 +23,7 @@ export function ClientLayout(props) {
   return (
     <>
       <Header />
+      <CartCompact />
       <main id="main-client" className="main">
         {slot}
       </main>

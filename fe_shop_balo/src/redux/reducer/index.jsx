@@ -9,6 +9,7 @@ import reviewReducer from './review/review.reducer';
 import authReducer from './auth/auth.reducer';
 import sliderReducer from './slider/slider.reducer';
 import cartReducer from './cart/cart.reducer';
+import homeClientReducer from './home/home.reducer';
 
 const rootReducer = combineReducers({
   product: productReducer,
@@ -21,6 +22,7 @@ const rootReducer = combineReducers({
   auth: authReducer,
   slider: sliderReducer,
   cart: cartReducer,
+  homeClient:homeClientReducer,
 
 });
 

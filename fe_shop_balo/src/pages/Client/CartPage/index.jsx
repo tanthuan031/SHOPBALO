@@ -11,7 +11,7 @@ export function CartPage(props) {
   const [listCartProduct, setListCartProduct] = useState([]);
   const [total, setTotal] = useState(0);
   const dataCart = useSelector(cartSelector);
-  console.log(dataCart);
+ // console.log(dataCart);
   const getInfoProductWithID = async (id) => {
     const result = await getDetailProductById(id);
     // console.log(result);

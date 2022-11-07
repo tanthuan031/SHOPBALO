@@ -8,6 +8,7 @@ import {
   increaseQuantityCart,
 } from '../../../../redux/reducer/cart/cart.reducer';
 import { cartSelector } from '../../../../redux/selectors';
+import ImageCustom from '../../../commons/Layouts/Image';
 
 function CartItem({ id,name,price,image,quantity_cart,limit_amount,action,onSetTotal }) {
   console.log('render');
@@ -41,7 +42,7 @@ const [totalPrice,setTotalPrice ]=useState(quantity_cart*price)
         <div className="how-itemcart1"
              onClick={()=>handleDeleteCartItem(id) }
         >
-          <img src={image} alt="IMG"/>
+          <ImageCustom src={image} alt="IMG"/>
         </div>
       </td>
       <td className="column-2">{name}</td>
