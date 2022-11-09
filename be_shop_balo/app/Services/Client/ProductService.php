@@ -21,6 +21,11 @@ class ProductService
     {
         $data = [];
         $request['per_page'] = $request['per_page'] === null ? $this->limit : $request['per_page'];
+        $request['filter'] =[
+            @$request->start_price,
+           @$request->end_price,
+        ];
+
         if ($request->has('sell')) {
             $productSell = $this->productRepo->sellProduct();
             $idProducts = array_column($productSell->toArray(), 'product_id');
