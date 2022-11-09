@@ -9,13 +9,11 @@ import '../../../css/util_client.css';
 import { Col, Row } from 'react-bootstrap';
 import { useParams } from 'react-router-dom';
 import { getDetailProductById, getRelateProducts } from '../../../api/Client/Home/productDetailAPI';
-import { BlockUI } from '../../../components/commons/Layouts/Notiflix';
-import { getProductById } from '../../../api/Admin/Product/productAPI';
 import { getStorageImage } from '../../../api/StorageImage';
-import Notiflix from 'notiflix';
-import { useDispatch } from 'react-redux';
 import { getRatingWithProductID } from '../../../api/Client/Raing/ratingAPI';
-import { Skeleton } from 'primereact';
+import Skeleton from '../../../components/commons/Layouts/Skeleton';
+import { SkeletonCart } from '../../../components/commons/Layouts/Skeleton/SkeletonCart';
+
 
 function ProductDetailPage(props) {
   const [loadingProductAndReview, setLoadingProductAndReview] = useState(true);
@@ -98,47 +96,49 @@ function ProductDetailPage(props) {
 
     handleGetRalateProducts(idCategory);
     return () => {
-      setLoadingProductAndReview(false);
+     setLoadingProductAndReview(false);
     };
 
   }, [id, idCategory]);
-  // console.log( 'Relate: ',listRelateProducts);
 
   return (
     <>
       {/*-------------------------------------DetailProduct--------------------------------*/}
       {!loadingProductAndReview ? (
-        <section className='sec-product-detail bg0 p-t-65 p-b-60'>
-          <div className='container'>
-            <Row>
-              <Col md='6' lg='7'>
-                <Gallery listImage={productDetail.image_slide} mainImage={productDetail.image} />
+        <>
+          <section className='sec-product-detail bg0 p-t-65 p-b-60'>
+            <div className='container'>
+              <Row>
+                <Col md='6' lg='7'>
+                  <Gallery listImage={productDetail.image_slide} mainImage={productDetail.image} />
 
-              </Col>
-              <Col md='6' lg='5'>
-                <InfoProduct
-                  id={id}
-                  price={productDetail.price}
-                  description={productDetail.description}
-                  star={averageRating} name={productDetail.name} color={productDetail.code_color}
-                  amount={productDetail.amount} />
-              </Col>
-            </Row>
+                </Col>
+                <Col md='6' lg='5'>
+                  <InfoProduct
+                    id={id}
+                    price={productDetail.price}
+                    description={productDetail.description}
+                    star={averageRating} name={productDetail.name} color={productDetail.code_color}
+                    amount={productDetail.amount} />
+                </Col>
+              </Row>
 
-            <div className='bor10 m-t-50 p-t-43 p-b-40'>
-              <ReviewProduct list_review={listRating} averageRating={averageRating} />
+              <div className='bor10 m-t-50 p-t-43 p-b-40'>
+                <ReviewProduct list_review={listRating} averageRating={averageRating} />
 
+              </div>
             </div>
-          </div>
 
-        </section>
+          </section>
+          <section className='sec-relate-product bg0 p-t-45 p-b-105'>
+            <RelateProduct listRelateProducts={listRelateProducts} />
+          </section>
+        </>
       ) : (
-        <Skeleton column={2} />
+        <SkeletonCart />
       )}
       {/*-------------------------------------RelateProduct--------------------------------*/}
-      <section className='sec-relate-product bg0 p-t-45 p-b-105'>
-        <RelateProduct listRelateProducts={listRelateProducts} />
-      </section>
+
     </>
   );
 }

@@ -17,7 +17,7 @@ function RelateProduct({ listRelateProducts }) {
         slidesPerView={4}
         spaceBetween={30}
         slidesPerGroup={4}
-        loop={true}
+       // loop={true}
         // loopFillGroupWithBlank={true}
         navigation={true}
         modules={[Navigation]}
