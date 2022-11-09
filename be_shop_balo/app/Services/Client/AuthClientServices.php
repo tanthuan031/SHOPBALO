@@ -73,7 +73,25 @@ class AuthClientServices
     {
         $result = $this->authRepository->getMeClient();
         // dd($result);
-        return $this->apiResponse($result, 'success', 'Get Information Successfully');
+        $arrayData = [
+            'id' =>  $result->id,
+            'first_name' =>  $result->first_name,
+            'last_name' =>  $result->last_name,
+            'gender' =>  $result->gender,
+            'phone' =>  $result->phone,
+            'email' =>  $result->email,
+            'password' =>  $result->password,
+            'point' =>  $result->point,
+            'avatar' => env('APP_URL') . '/storage/customer/'  .  $result->avatar,
+            'status' =>  $result->status,
+            'address' =>  $result->address,
+            'created_date' =>  $result->created_date,
+            'created_at' =>  $result->created_at,
+            'updated_at' =>  $result->updated_at,
+
+
+        ];
+        return $this->apiResponse($arrayData, 'success', 'Get Information Successfully');
     }
     public function otpSendMailClient($request)
     {

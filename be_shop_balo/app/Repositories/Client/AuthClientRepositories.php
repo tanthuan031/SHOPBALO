@@ -77,7 +77,6 @@ class AuthClientRepositories extends BaseRepository
     public function updateCustomerClient($request, $id)
     {
         try {
-
             $Customer =  Customer::query()->where('id', '=', $id)->first();
             $Customer->update($request->all());
         } catch (\Exception $e) {

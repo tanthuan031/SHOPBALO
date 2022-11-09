@@ -14,21 +14,21 @@ class CustomerResource extends JsonResource
      */
     public function toArray($request): array|\JsonSerializable|\Illuminate\Contracts\Support\Arrayable
     {
-        $arrayData=[
-            'id'=>$this->id,
-            'first_name'=>$this->first_name,
-            'last_name'=>$this->last_name,
-            'gender'=>$this->gender,
-            'phone'=>$this->phone,
-            'email'=>$this->email,
-            'password'=>$this->password,
-            'point' =>$this->point,
-            'avatar'=>$this->avatar,
-            'status'=>$this->status,
-            'address'=>$this->address,
-            'created_date'=>$this->created_date,
-            'created_at'=>$this->created_at,
-            'updated_at'=>$this->updated_at,
+        $arrayData = [
+            'id' => $this->id,
+            'first_name' => $this->first_name,
+            'last_name' => $this->last_name,
+            'gender' => $this->gender,
+            'phone' => $this->phone,
+            'email' => $this->email,
+            'password' => $this->password,
+            'point' => $this->point,
+            'avatar' => env('APP_URL') . '/storage/customer/'  . $this->avatar,
+            'status' => $this->status,
+            'address' => $this->address,
+            'created_date' => $this->created_date,
+            'created_at' => $this->created_at,
+            'updated_at' => $this->updated_at,
 
 
         ];

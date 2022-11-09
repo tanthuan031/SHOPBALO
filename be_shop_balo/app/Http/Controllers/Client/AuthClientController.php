@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Client;
 use App\Http\Controllers\Controller;
 
 use App\Services\Client\AuthClientServices;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
 class AuthClientController extends Controller
@@ -35,5 +36,9 @@ class AuthClientController extends Controller
     {
 
         return $this->authService->forgotPasswordClient($request);
+    }
+    public function getMeClient(): JsonResponse
+    {
+        return $this->authService->getMeClient();
     }
 }

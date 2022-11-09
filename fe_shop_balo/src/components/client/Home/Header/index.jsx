@@ -8,7 +8,24 @@ import { MdShoppingCart, MdSearch } from 'react-icons/md';
 import { HiOutlineHeart } from 'react-icons/hi';
 import { data_header_client } from '../../../../asset/data/data_header_client';
 
-const data_menu_top = ['Help & FAQs', 'My Account', 'EN', 'USD'];
+// const data_menu_top = ['Help & FAQs', 'My Account', 'EN', 'USD'];
+const data_menu_top = [
+  {
+    id: 1,
+    name: 'Help & FAQs',
+    links: '#',
+  },
+  {
+    id: 2,
+    name: 'My Account',
+    links: '/my-account',
+  },
+  {
+    id: 3,
+    name: 'EN',
+    links: '#',
+  },
+];
 const data_menu_list = data_header_client;
 
 const Header = () => {
@@ -39,9 +56,9 @@ const Header = () => {
 
                 <div className="right-top-bar flex-w h-full">
                   {data_menu_top.map((item, index) => (
-                    <a href="#" className="flex-c-m trans-04 p-lr-25" key={index}>
-                      {item}
-                    </a>
+                    <Link to={item.links} className="flex-c-m trans-04 p-lr-25" key={index}>
+                      {item.name}
+                    </Link>
                   ))}
                 </div>
               </div>

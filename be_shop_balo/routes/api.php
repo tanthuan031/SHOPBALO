@@ -26,7 +26,7 @@ Route::post('admin/otp-sendmail', [AuthController::class, 'otpSendMail']);
 Route::put('admin/forgot-password', [AuthController::class, 'forgotPassword']);
 Route::group([
     'prefix' => 'admin',
-    // 'middleware' => ['auth:sanctum'],
+    'middleware' => ['auth:sanctum'],
 ], function () {
     Route::get('me', [AuthController::class, 'getMe']);
     Route::resource('product', ProductController::class);
@@ -60,12 +60,20 @@ Route::get('/storage/{filename}', [StorageImageController::class, 'index']);
 
 Route::post('client/register', [AuthClientController::class, 'register']);
 Route::post('client/login', [AuthClientController::class, 'login']);
-Route::put('client/updateprofile/{id}', [AuthClientController::class, 'updateprofile']);
+
 Route::post('client/otp-sendmail', [AuthClientController::class, 'otpSendMailClient']);
 Route::put('client/forgot-password', [AuthClientController::class, 'forgotPasswordClient']);
 
-// Route::post('/otp-sendmail', [AuthController::class, 'otpSendMail']);
-// Route::put('/forgot-password', [AuthController::class, 'forgotPassword']);
+
+
+Route::group([
+    'prefix' => 'client',
+    'middleware' => ['auth:sanctum'],
+], function () {
+    Route::get('/getme', [AuthClientController::class, 'getMeClient']);
+    Route::put('/updateprofile/{id}', [AuthClientController::class, 'updateprofile']);
+});
+
 Route::prefix('client')->group(static function () {
     Route::resource('product', ClientProductController::class)->only([
         'index', 'show'

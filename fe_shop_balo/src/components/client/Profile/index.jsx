@@ -1,16 +1,13 @@
 import React from 'react';
 import { FaPhoneAlt, FaRegEdit, FaRegEnvelope } from 'react-icons/fa';
-import { HiMail } from 'react-icons/hi';
 import ImageCustom from '../../commons/Layouts/Image';
 
-import { FaAward, FaFemale, FaMale, FaMapMarkerAlt } from 'react-icons/fa';
-import { GrStatusUnknown } from 'react-icons/gr';
+import { useDispatch } from 'react-redux';
+import { setIsEditProfile } from '../../../redux/reducer/profile/profile.reducer';
 import AutoCallPhone from '../../commons/Layouts/AutoCallPhone';
 import AutoSendMail from '../../commons/Layouts/AutoSendMail';
 import './style.css';
-import { useDispatch } from 'react-redux';
-import { setIsEditProfile } from '../../../redux/reducer/profile/profile.reducer';
-export default function ProfileClient() {
+export default function ProfileClient(props) {
   const dispatch = useDispatch();
   return (
     <>
@@ -18,31 +15,34 @@ export default function ProfileClient() {
         <div className="col-md-8 info-account-header-item">
           <div className="info-account-top"></div>
           <div className="card-txt avatar-account">
-            <ImageCustom src={`$/storage/customer/${'gterhy'}`} className="w-100 avatar-image-account" />
+            <ImageCustom src={props.dataProfile.avatar} className="w-100 h-100 avatar-image-account" />
           </div>
           <div className="info-account-contain">
-            <h3 className="font-weight-black ">admin</h3>
+            <h3 className="font-weight-black ">{props.dataProfile.first_name + ' ' + props.dataProfile.last_name} </h3>
             <p>
               <FaPhoneAlt className="icon" />
-              {<AutoCallPhone phoneNumber="039999999999" />}
+              <AutoCallPhone phoneNumber={props.dataProfile.phone !== undefined && props.dataProfile.phone} />
             </p>
             <p>
               <FaRegEnvelope className="icon" />
-              {<AutoSendMail email={'a@gmail.com'} className="spinner" />}
+              <AutoSendMail
+                email={props.dataProfile.email !== undefined && props.dataProfile.email}
+                className="spinner"
+              />
             </p>
           </div>
         </div>
         <div className="col-md-3 info-account-header-item ml-3">
           <div>
             <h3 className="font-weight-black text-center pt-5 ">POIN</h3>
-            <div className="font-weight-black text-center pt-3">1000</div>
+            <div className="font-weight-black text-center pt-3">{props.dataProfile.point}</div>
           </div>
 
           <hr />
-          <div>
+          {/* <div>
             <h4 className="font-weight-black text-center pt-5 ">Total number orders</h4>
             <div className="font-weight-black text-center pt-3">1000</div>
-          </div>
+          </div> */}
         </div>
         <div className="col-md-5"></div>
       </div>
@@ -66,29 +66,29 @@ export default function ProfileClient() {
             <div className="col-md-6 p-5 info-customer">
               <div className="row p-2">
                 <div className="col-md-3">Fullname: </div>
-                <div className="col-md-9">Ho Tan Thuan</div>
+                <div className="col-md-9">{props.dataProfile.first_name + ' ' + props.dataProfile.last_name}</div>
               </div>
               <div className="row p-2">
                 <div className="col-md-3">Phone: </div>
-                <div className="col-md-9">083450475</div>
+                <div className="col-md-9">{props.dataProfile.phone}</div>
               </div>
               <div className="row p-2">
                 <div className="col-md-3">Email: </div>
-                <div className="col-md-9">tanthuan@gmail.com</div>
+                <div className="col-md-9">{props.dataProfile.email}</div>
               </div>
             </div>
             <div className="col-md-6 p-5">
               <div className="row p-2">
                 <div className="col-md-3">Gender: </div>
-                <div className="col-md-9"></div>
+                <div className="col-md-9">{props.dataProfile.gender}</div>
               </div>
               <div className="row p-2">
                 <div className="col-md-3">Join Date: </div>
-                <div className="col-md-9">083450475</div>
+                <div className="col-md-9">{props.dataProfile.created_date}</div>
               </div>
               <div className="row p-2">
                 <div className="col-md-3">Address: </div>
-                <div className="col-md-9">Ho Tan Thuan</div>
+                <div className="col-md-9">{props.dataProfile.address}</div>
               </div>
             </div>
           </div>

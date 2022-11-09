@@ -61,32 +61,32 @@ export const handleLoginClientAPI = async (body) => {
 };
 
 export const handleGetInformationClient = async () => {
-  const response = await axiosClient.get('api/admin/me', configHeadersAuthenticate());
+  const response = await axiosClient.get('api/client/getme', configHeadersAuthenticate());
   if (response.status === 401) {
     return 401;
   }
-  if (response.status === 200) {
+  if (response.status === 'success') {
     return response.data;
   }
 };
 
-export const logout = async () => {
-  const response = await axiosClient.post('api/admin/logout', {}, configHeadersAuthenticate());
-  const { status } = response;
-  switch (status) {
-    case 'success':
-      SuccessToast('Logout successfully', 1000);
-      return 200;
-      break;
-    case 401:
-      Notiflix.Block.remove('.modal-content');
-      return 401;
-    default:
-      ErrorToast(3500, 'Server error. Please try again');
-      Notiflix.Block.remove('.modal-content');
-      return 500;
-  }
-};
+// export const logout = async () => {
+//   const response = await axiosClient.post('api/admin/logout', {}, configHeadersAuthenticate());
+//   const { status } = response;
+//   switch (status) {
+//     case 'success':
+//       SuccessToast('Logout successfully', 1000);
+//       return 200;
+//       break;
+//     case 401:
+//       Notiflix.Block.remove('.modal-content');
+//       return 401;
+//     default:
+//       ErrorToast(3500, 'Server error. Please try again');
+//       Notiflix.Block.remove('.modal-content');
+//       return 500;
+//   }
+// };
 
 export const senMailOTPClient = async (body) => {
   const response = await axiosClient.post('api/client/otp-sendmail', body);
@@ -108,7 +108,7 @@ export const forgotPasswordClient = async (body) => {
   }
 };
 
-export const editCustomerClient = async (id, body) => {
+export const editProfile = async (id, body) => {
   const url = `/api/client/updateprofile/${id}`;
   const response = await axiosClient.put(url, body, configHeadersAuthenticate());
   if (response.status === 401) {

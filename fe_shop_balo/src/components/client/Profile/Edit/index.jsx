@@ -7,20 +7,15 @@ import { Controller, useForm } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
 import Select from 'react-select';
 import { editSchema } from '../../../../adapter/customer';
-import { deleteCookie, getCookies } from '../../../../api/Admin/Auth';
-import { editCustomer } from '../../../../api/Admin/Customer/customerAPI';
-import { setExpiredToken } from '../../../../redux/reducer/auth/auth.reducer';
-import { setIsEdit } from '../../../../redux/reducer/customer/customer.reducer';
+import { editProfile } from '../../../../api/Client/Auth/authAPI';
 import { setIsEditProfile } from '../../../../redux/reducer/profile/profile.reducer';
-import { formatDate } from '../../../../utils/formatDate';
-import { URL_SERVER } from '../../../../utils/urlPath';
 import { ErrorToast, SuccessToast } from '../../../commons/Layouts/Alerts';
 import ImageCustom from '../../../commons/Layouts/Image';
-
+import { BlockUI, BlockUICLIENT } from '../../../commons/Layouts/Notiflix';
 const ProfileEditClient = (props) => {
   // const customerSelector = useSelector(customerByIdSelector);
   const dataCustomer = 'customerSelector.data;';
-  const [imageAvatarCustomerShow, setImageAvatarCustomerShow] = useState(false);
+  const [imageAvatarCustomerShow, setImageAvatarCustomerShow] = useState(props.dataProfile.avatar);
   const [status, setStatus] = useState(dataCustomer.status);
   const data_gender = [
     { value: 1, label: 'Male' },
@@ -40,17 +35,17 @@ const ProfileEditClient = (props) => {
     mode: 'onChange',
     resolver: yupResolver(editSchema),
     defaultValues: {
-      // first_name: dataCustomer.first_name,
-      // last_name: dataCustomer.last_name,
-      // point: dataCustomer.point,
-      // gender: { value: 1, label: dataCustomer.gender },
-      // phone: dataCustomer.phone,
-      // password: dataCustomer.password,
-      // email: dataCustomer.email,
-      // avatar: dataCustomer.avatar,
-      // address: dataCustomer.address,
-      // created_date: dataCustomer.created_date,
-      // status: dataCustomer.status,
+      first_name: props.dataProfile.first_name,
+      last_name: props.dataProfile.last_name,
+      point: props.dataProfile.point,
+      gender: { value: 1, label: props.dataProfile.gender },
+      phone: props.dataProfile.phone,
+      password: props.dataProfile.password,
+      email: props.dataProfile.email,
+      avatar: props.dataProfile.avatar,
+      address: props.dataProfile.address,
+      created_date: props.dataProfile.created_date,
+      status: props.dataProfile.status,
     },
   });
   const dispatch = useDispatch();
@@ -58,60 +53,50 @@ const ProfileEditClient = (props) => {
   const backtoManageCustomer = () => {
     dispatch(setIsEditProfile(false));
   };
-  // const toBase64 = (file) =>
-  //   new Promise((resolve, reject) => {
-  //     const reader = new FileReader();
-  //     reader.readAsDataURL(file);
-  //     reader.onload = () => resolve(reader.result);
-  //     reader.onerror = (error) => reject(error);
-  //   });
-  // const onSubmit = async (data) => {
-  //   // console.log(data)
-  //   // BlockUI('#root', 'fixed');
-  //   const temDirtyFields = { ...dirtyFields };
-  //   Object.keys(temDirtyFields).map((key) => {
-  //     if (key === 'gender') temDirtyFields[key] = data[key].label;
-  //     else temDirtyFields[key] = data[key];
-  //   });
-  //   // console.log('dataBefore:', temDirtyFields);
-  //   if (temDirtyFields.avatar !== undefined) {
-  //     const image = await toBase64(temDirtyFields.avatar);
-  //     temDirtyFields.avatar = [image];
-  //   }
-  //   if (temDirtyFields.created_date !== undefined)
-  //     temDirtyFields.created_date = formatDate(temDirtyFields.created_date, 'YYYY-MM-DD');
-  //   // console.log('dataAfter:', temDirtyFields);
-
-  //   // const result = await editCustomer(dataCustomer.id, temDirtyFields);
-  //   // console.log('Result:',result);
-  //   Notiflix.Block.remove('#root');
-  //   if (result === 200) {
-  //     SuccessToast('Update customer successfully', 3000);
-  //     props.backToCustomerList([
-  //       {
-  //         key: 'updated_at',
-  //         value: 'desc',
-  //       },
-  //     ]);
-  //     backtoManageCustomer();
-  //   } else if (result === 404) {
-  //     ErrorToast('Update customers unsuccessfully', 3000);
-  //     Notiflix.Block.remove('#root');
-  //   } else if (result === 401) {
-  //     handleSetUnthorization();
-  //     Notiflix.Block.remove('#root');
-  //   } else if (result === 402) ErrorToast('Email or phone numbers have existed!', 3000);
-  //   else {
-  //     Notiflix.Block.remove('#root');
-  //     ErrorToast('Something went wrong. Please try again', 3000);
-  //   }
-  // };
+  const toBase64 = (file) =>
+    new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => resolve(reader.result);
+      reader.onerror = (error) => reject(error);
+    });
+  const onSubmit = async (data) => {
+    BlockUICLIENT('#root', 'fixed');
+    const temDirtyFields = { ...dirtyFields };
+    Object.keys(temDirtyFields).map((key) => {
+      if (key === 'gender') temDirtyFields[key] = data[key].label;
+      else temDirtyFields[key] = data[key];
+    });
+    // console.log('dataBefore:', temDirtyFields);
+    if (temDirtyFields.avatar !== undefined) {
+      const image = await toBase64(temDirtyFields.avatar);
+      temDirtyFields.avatar = [image];
+    }
+    const result = await editProfile(props.dataProfile.id, temDirtyFields);
+    Notiflix.Block.remove('#root');
+    if (result === 200) {
+      SuccessToast('Update customer successfully', 5000);
+      props.backProfile();
+      backtoManageCustomer();
+    } else if (result === 404) {
+      ErrorToast('Update customers unsuccessfully', 3000);
+      Notiflix.Block.remove('#root');
+    } else if (result === 401) {
+      // handleSetUnthorization();
+      Notiflix.Block.remove('#root');
+    } else if (result === 402) ErrorToast('Email or phone numbers have existed!', 3000);
+    else {
+      Notiflix.Block.remove('#root');
+      ErrorToast('Something went wrong. Please try again', 3000);
+    }
+  };
   const uploadImage = (e) => {
     let image = e.target.files[0];
     if (e.target.files.length > 0) {
-      // setImageAvatarCustomerShow(URL.createObjectURL(image));
+      setImageAvatarCustomerShow(URL.createObjectURL(image));
     }
   };
+
   // const handleSetUnthorization = () => {
   //   dispatch(setExpiredToken(true));
   //   const token = getCookies('token');
@@ -121,9 +106,10 @@ const ProfileEditClient = (props) => {
   //     deleteCookie('token');
   //   }
   // };
+
   return (
     <div className="edit_form d-flex justify-content-center">
-      <Form className="font_add_edit_prduct text-black" encType="multipart/form-data">
+      <Form className="font_add_edit_prduct text-black" onSubmit={handleSubmit(onSubmit)} encType="multipart/form-data">
         <h4 className="text-center font-weight-bold mb-3 text-black">Update Profile</h4>
         <Row>
           <Col>
@@ -227,8 +213,8 @@ const ProfileEditClient = (props) => {
           </Col>
         </Row>
         <Row>
-          <div className="col-md-12">
-            <Form.Group className="mb-2">
+          <div className="col-md-12 ">
+            <Form.Group className="mb-2 font-18px">
               <Form.Label className="label-input">
                 Gender &nbsp;<span className="text-danger">*</span>
               </Form.Label>
@@ -285,31 +271,17 @@ const ProfileEditClient = (props) => {
           <Form.Control
             id="avatar"
             type="file"
+            multiple
             onChange={(e) => {
               setValue('avatar', e.target.files[0], { shouldDirty: true });
               uploadImage(e);
             }}
           />
-          <div className="d-flex container-avatar">
-            <ImageCustom
-              src={
-                imageAvatarCustomerShow
-                  ? imageAvatarCustomerShow
-                  : `${URL_SERVER}/storage/customer/${dataCustomer.avatar}`
-              }
-              className="img-responsive image-avatar"
-            />
-
-            {/* <img
-              className="img-responsive image-avatar"
-              src={
-                imageAvatarCustomerShow
-                  ? imageAvatarCustomerShow
-                  : `${URL_SERVER}/storage/customer/${dataCustomer.avatar}`
-              }
-              alt={'avatar'}
-            /> */}
-          </div>
+          {imageAvatarCustomerShow && (
+            <div className="d-flex container-avatar">
+              <ImageCustom src={imageAvatarCustomerShow} className="img-responsive image-avatar" />
+            </div>
+          )}
         </Form.Group>
 
         <div className="d-flex justify-content-end p-2 mt-3">
@@ -337,7 +309,7 @@ const ProfileEditClient = (props) => {
 };
 
 ProfileEditClient.propTypes = {
-  backToCustomerList: PropTypes.func.isRequired,
+  backProfile: PropTypes.func.isRequired,
 };
 
 export default ProfileEditClient;
