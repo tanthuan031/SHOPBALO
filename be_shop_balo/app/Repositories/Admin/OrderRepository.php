@@ -71,7 +71,7 @@ class OrderRepository extends BaseRepository
             $result = Order::query()
                 ->select(DB::raw('COUNT(*)AS amount_order'))
                 ->where('created_order_date', $today)
-                ->get();
+               ->get();
         } catch (Exception $e) {
             dd($e);
         }
@@ -152,13 +152,18 @@ class OrderRepository extends BaseRepository
             default:
                 break;
         }
-        $result = Order::query()
-            ->select(DB::raw('DATE(created_order_date) as date'), DB::raw('SUM(total_price) AS revenue'))
-            //  ->where('status',2)
-            ->groupBy('date')
-            ->havingRaw("date BETWEEN  '" . $start . "' AND '" . $end . "'")
-            ->get();
-
+        try{
+            $result = Order::query()
+                ->select(DB::raw('DATE(created_order_date) as date'), DB::raw('SUM(total_price) AS revenue'))
+                //  ->where('status',2)
+                ->groupBy('date')
+                ->havingRaw("date BETWEEN  '" . $start . "' AND '" . $end . "'")
+                ->get();
+        }
+        catch (\Exception $e){
+            dd($e);
+        }
+       // dd($result);
         return response()->json($result)->getData();
     }
 

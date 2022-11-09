@@ -2,22 +2,28 @@
 import PropTypes from 'prop-types';
 import * as React from 'react';
 import { useSelector } from 'react-redux';
-import Header from '../../components/client/Home/Header';
 import './style.css';
 
-import { useState } from 'react';
-import { exPiredTokenSelector, getUserSelector } from '../../redux/selectors';
+import { useEffect, useState } from 'react';
+import { cartSelector, exPiredTokenSelector, getUserSelector } from '../../redux/selectors';
 import Footer from '../../components/client/Home/Footer';
 import { AiOutlineArrowUp } from 'react-icons/ai';
+import Header from '../../components/client/Home/Header';
+import CartCompact from '../../components/client/Home/CartCompact';
 
 export function ClientLayout(props) {
   const { slot } = props;
   const expiredToken = useSelector(exPiredTokenSelector);
   const [showLogout, setStateModalLogout] = useState(false);
   const user = useSelector(getUserSelector);
+  const cart=useSelector(cartSelector)
+  useEffect(()=>{
+    cart.length !==0 && localStorage.setItem('cart',JSON.stringify({ cart:{cartData:cart}}))
+  },[cart])
   return (
     <>
       <Header />
+      <CartCompact />
       <main id="main-client" className="main">
         {slot}
       </main>

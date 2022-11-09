@@ -3,24 +3,18 @@
 namespace App\Http\Controllers\Client;
 
 use App\Http\Controllers\Controller;
-use App\Services\Client\ProductService;
 use Illuminate\Http\Request;
 
-class ProductController extends Controller
+class ProductClientController extends Controller
 {
-    private $productService;
-    public function __construct(ProductService $productService)
-    {
-        $this->productService = $productService;
-    }
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
+    public function index()
     {
-        return $this->productService->getAll($request);
+        //
     }
 
     /**
@@ -52,19 +46,9 @@ class ProductController extends Controller
      */
     public function show($id)
     {
-        return $this->productService->show($id);
+
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function showListProductWithID($listId)
-    {
-        //
-    }
     /**
      * Show the form for editing the specified resource.
      *

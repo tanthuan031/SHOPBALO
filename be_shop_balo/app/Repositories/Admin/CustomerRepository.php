@@ -48,6 +48,7 @@ class CustomerRepository extends BaseRepository
     {
 
         try {
+
             $Customer = Customer::query()->create($request);
         } catch (\Exception $e) {
             return false;

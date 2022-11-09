@@ -73,7 +73,6 @@ Route::group([
     Route::get('/getme', [AuthClientController::class, 'getMeClient']);
     Route::put('/updateprofile/{id}', [AuthClientController::class, 'updateprofile']);
 });
-
 Route::prefix('client')->group(static function () {
     Route::resource('product', ClientProductController::class)->only([
         'index', 'show'

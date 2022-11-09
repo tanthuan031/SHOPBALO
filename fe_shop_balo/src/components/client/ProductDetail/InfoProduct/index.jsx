@@ -1,104 +1,98 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { FaMinus, FaPlus, FaStar, FaStarHalf } from 'react-icons/fa';
+import { formatter } from '../../../../utils/formatCurrency';
+import StarRatings from 'react-star-ratings/build/star-ratings';
+import { useDispatch, useSelector } from 'react-redux';
+import { addProductCart, addProductCartWithQuantity } from '../../../../redux/reducer/cart/cart.reducer';
+import { cartSelector } from '../../../../redux/selectors';
 
-function InfoProduct(props) {
+function InfoProduct({ id,name, description, price, color, amount,star }) {
+  const [loading, setLoading] = useState(true);
+  const [availableProduct, setAvailableProduct] = useState(!!amount > 0);
+  const [quantity, setQuantity] = useState(amount<=0?0:1);
+  const dispatch=useDispatch()
+  const cart=useSelector(cartSelector)
+  const handleAddCartItem=async  (id,quantity) => {
+ //  dispatch(addProductCart({id:id}))
+   await dispatch(addProductCartWithQuantity({id:id, quantity:quantity}))
+  }
   return (
-    <div className="p-r-50 p-t-5 p-lr-0-lg">
-      <h4 className="mtext-105 cl2 js-name-detail p-b-14">
-        Lightweight Jacket
+    <div className='p-r-50 p-t-5 p-lr-0-lg'>
+      <h4 className='mtext-105 cl2 js-name-detail p-b-14 fw-bolder'>
+        {name}
       </h4>
 
-      <span className="mtext-106 cl2">
-							$58.79
+      <div className='d-flex justify-content-between'>
+        <span className='mtext-106 cl2'>
+						{formatter.format(price)}
 						</span>
 
-      <p className="stext-102 cl3 p-t-23">
-        Nulla eget sem vitae eros pharetra viverra. Nam vitae luctus ligula. Mauris consequat ornare feugiat.
-      </p>
+        <StarRatings
 
-      <div className="p-t-33">
-        <div className="flex-w flex-r-m p-b-10">
-          <div className="size-203 flex-c-m respon6">
-            Size
-          </div>
+          rating={star}
+          starRatedColor='rgb(252,202,25)'
+          starDimension="20px"
+          starSpacing="3px"
+        />
+      </div>
+      <div className='stext-102 cl3 p-t-23 text-justify' dangerouslySetInnerHTML={{ __html: description }}>
 
-          <div className="size-204 respon6-next">
-            <div className="rs1-select2 bor8 bg0">
-              <select className="js-select2" name="time">
-                <option>Choose an option</option>
-                <option>Size S</option>
-                <option>Size M</option>
-                <option>Size L</option>
-                <option>Size XL</option>
-              </select>
-              <div className="dropDownSelect2"></div>
-            </div>
-          </div>
-        </div>
+      </div>
 
-        <div className="flex-w flex-r-m p-b-10">
-          <div className="size-203 flex-c-m respon6">
+      <div className='p-t-33'>
+
+        <div className='flex-w flex-r-m p-b-10'>
+          <div className='size-203  respon6 '>
             Color
           </div>
 
-          <div className="size-204 respon6-next">
-            <div className="rs1-select2 bor8 bg0">
-              <select className="js-select2" name="time">
-                <option>Choose an option</option>
-                <option>Red</option>
-                <option>Blue</option>
-                <option>White</option>
-                <option>Grey</option>
-              </select>
-              <div className="dropDownSelect2"></div>
+          <div className='size-204 respon6-next'>
+            <div className='rs1-select2 bg0 bor bor0' style={{
+              backgroundColor: `${color}`, width: '3rem',
+              height: '3rem',
+            }}>
+
             </div>
           </div>
         </div>
 
-        <div className="flex-w flex-r-m p-b-10">
-          <div className="size-204 flex-w flex-m respon6-next">
-            <div className="wrap-num-product flex-w m-r-20 m-tb-10">
-              <div className="btn-num-product-down cl8 hov-btn3 trans-04 flex-c-m">
-                <i className="fs-16 zmdi zmdi-minus"></i>
+        <div className='flex-w flex-r-m p-b-10'>
+          <div className='size-203  respon6'>
+            Amount:
+          </div>
+          <div className='size-204 flex-w flex-m respon6-next'>
+            <div className='wrap-num-product flex-w m-r-20 m-tb-10'>
+              <div className={`btn-num-product-down cl8 hov-btn3 trans-04 flex-c-m ${((quantity===1||amount<=0)&&'disabled').toString()}`}
+                   onClick={() => {
+                   setQuantity(prev => prev === 1 ? 1 : prev - 1)}
+                   }>
+                <FaMinus />
               </div>
 
-              <input className="mtext-104 cl3 txt-center num-product" type="number" name="num-product"
-                     value="1"/>
-
-                <div className="btn-num-product-up cl8 hov-btn3 trans-04 flex-c-m">
-                  <i className="fs-16 zmdi zmdi-plus"></i>
-                </div>
+              <input className='mtext-104 cl3 txt-center num-product' type='number' name='num-product'
+                     onChange={() => setQuantity(quantity)}
+                     value={amount > 0 ? quantity : 0} />
+              <div className={`btn-num-product-up cl8 hov-btn3 trans-04 flex-c-m  ${((quantity===amount||amount<=0)&&'disabled').toString()}`}
+                   onClick={() => setQuantity(prev => prev === amount ? amount : prev + 1)} >
+                <FaPlus />
+              </div>
             </div>
-
-            <button
-              className="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04 js-addcart-detail">
-              Add to cart
-            </button>
+            <span className={`available-product fst-italic ${amount <= 0 ? 'warning' : ''} `}> {
+              amount > 0 ? `${amount} pieces available` : 'out of stock'
+            }
+            </span>
           </div>
+
         </div>
+        <button
+          disabled={amount<=0}
+          onClick={()=>handleAddCartItem(id,quantity)}
+          className={`flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04 js-addcart-detail m-l-10   ${(amount<=0&&'disabled').toString()}`}>
+          Add to cart
+        </button>
+
       </div>
-      <div className="flex-w flex-m p-l-100 p-t-40 respon7">
-        <div className="flex-m bor9 p-r-10 m-r-11">
-          <a href="#" className="fs-14 cl3 hov-cl1 trans-04 lh-10 p-lr-5 p-tb-2 js-addwish-detail tooltip100"
-             data-tooltip="Add to Wishlist">
-            <i className="zmdi zmdi-favorite"></i>
-          </a>
-        </div>
 
-        <a href="#" className="fs-14 cl3 hov-cl1 trans-04 lh-10 p-lr-5 p-tb-2 m-r-8 tooltip100"
-           data-tooltip="Facebook">
-          <i className="fa fa-facebook"></i>
-        </a>
-
-        <a href="#" className="fs-14 cl3 hov-cl1 trans-04 lh-10 p-lr-5 p-tb-2 m-r-8 tooltip100"
-           data-tooltip="Twitter">
-          <i className="fa fa-twitter"></i>
-        </a>
-
-        <a href="#" className="fs-14 cl3 hov-cl1 trans-04 lh-10 p-lr-5 p-tb-2 m-r-8 tooltip100"
-           data-tooltip="Google Plus">
-          <i className="fa fa-google-plus"></i>
-        </a>
-      </div>
     </div>
   );
 }
