@@ -43,10 +43,8 @@ export function CustomerTable(props) {
   const showConfirmDeleteCustomer = (e, id) => {
     e.stopPropagation();
     setShowPopupDelete({ customer_id: id, show: true });
-    console.log(showPopupDelete);
   };
   const handleRemoveCustomer = async ( id) => {
-    console.log(id);
     const result = await deleteCustomer(id);
     if (result === 200) {
       SuccessToast('Remove customer successfully', 3000);
