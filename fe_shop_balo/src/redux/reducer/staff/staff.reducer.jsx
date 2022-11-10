@@ -7,6 +7,7 @@ export const staffReducer = createSlice({
     key: 0,
     isAdd: false,
     isEdit: false,
+    isReset:'reset-page',
     staff: {},
   },
   reducers: {
@@ -22,9 +23,12 @@ export const staffReducer = createSlice({
     setStaff: (state, action) => {
       state.staff = action.payload;
     },
+    setIsReset: (state, action) => {
+      state.isReset = action.payload;
+    },
   },
 });
 
-export const { setIsAdd,setIsEdit, setStaff } = staffReducer.actions;
+export const { setIsAdd,setIsEdit, setStaff,setIsReset } = staffReducer.actions;
 
 export default staffReducer.reducer;

@@ -11,7 +11,7 @@ import { cartSelector } from '../../../../redux/selectors';
 import ImageCustom from '../../../commons/Layouts/Image';
 
 function CartItem({ id,name,price,image,quantity_cart,limit_amount,action,onSetTotal }) {
-  console.log('render');
+  //console.log('render');
 const [quantity,setQuantity]=useState(limit_amount<=0?0:quantity_cart);
 const [totalPrice,setTotalPrice ]=useState(quantity_cart*price)
   const cart=useSelector(cartSelector)
@@ -34,7 +34,8 @@ const [totalPrice,setTotalPrice ]=useState(quantity_cart*price)
   }
   const handleDeleteCartItem= async (id)=>{
    await dispatch(deleteItemCart({id:id}))
-    localStorage.removeItem('cart')
+   localStorage.removeItem('cart')
+    localStorage.setItem('cart',JSON.stringify({ cart:{cartData:cart}}))
   }
   return (
     <tr className="table_row" key={id}>
