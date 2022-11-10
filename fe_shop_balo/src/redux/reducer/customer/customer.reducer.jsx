@@ -7,6 +7,7 @@ export const customerReducer = createSlice({
     key: 0,
     isAdd: false,
     isEdit: false,
+    isReset: 'reset-page',
     customer: {},
   },
   reducers: {
@@ -19,12 +20,15 @@ export const customerReducer = createSlice({
     setIsEdit: (state, action) => {
       state.isEdit = action.payload;
     },
+    setIsReset: (state, action) => {
+      state.isReset = action.payload;
+    },
     setCustomer: (state, action) => {
       state.customer = action.payload;
     },
   },
 });
 
-export const { setIsAdd,setIsEdit, setCustomer } = customerReducer.actions;
+export const { setIsAdd,setIsEdit, setCustomer,setIsReset } = customerReducer.actions;
 
 export default customerReducer.reducer;

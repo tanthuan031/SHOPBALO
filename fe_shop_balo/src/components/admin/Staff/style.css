@@ -168,13 +168,13 @@
     background: #c1c1c1;
 }
 .modal-confirm .btn-secondary:hover, .modal-confirm .btn-secondary:focus {
-    background: #a8a8a8;
+    background: #818181;
 }
 .modal-confirm .btn-danger {
     background: #f15e5e;
 }
 .modal-confirm .btn-danger:hover, .modal-confirm .btn-danger:focus {
-    background: #ee3535;
+    background: #ef0b0b;
 }
 .trigger-btn {
     display: inline-block;

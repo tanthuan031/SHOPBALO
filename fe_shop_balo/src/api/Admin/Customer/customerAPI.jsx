@@ -107,7 +107,7 @@ export const deleteCustomer = async (id) => {
   const response = await axiosClient.delete(url, configHeadersAuthenticate());
   if (response.status === 401) {
     return 401;
-  } else if (response.status === 'success') {
+  } else if (response.status === 'Success') {
     return 200;
   } else if (response.status === 500) {
     return 500;

@@ -7,7 +7,7 @@ import { Button } from 'react-bootstrap';
 import { BlockUI } from '../../../components/commons/Layouts/Notiflix';
 import { setIsAdd } from '../../../redux/reducer/customer/customer.reducer';
 import Notiflix from 'notiflix';
-import { isAddCustomerSelector, isEditCustomerSelector } from '../../../redux/selectors';
+import { isAddCustomerSelector, isEditCustomerSelector, isResetCustomerSelector } from '../../../redux/selectors';
 import SearchWithDropdownOptions from '../../../components/commons/Layouts/SearchWithDropdownOptions/SearchWithDropdownOptions';
 import { CustomerTable } from '../../../components/admin/Customer';
 import { customer_table_header } from '../../../asset/data/customer_table_header';
@@ -39,6 +39,7 @@ export function CustomerPage(props) {
   //Redux
   const isAddCustomer = useSelector(isAddCustomerSelector);
   const isEditCustomer = useSelector(isEditCustomerSelector);
+  const isReset = useSelector(isResetCustomerSelector)
   const dispatch = useDispatch();
   //Loading
   const [loading, setLoading] = React.useState(true);
@@ -61,7 +62,7 @@ export function CustomerPage(props) {
       setLoading(false);
     };
     handleGetAllCustomers();
-  }, [dispatch, search, filterStatus]);
+  }, [dispatch, search,isReset, filterStatus]);
 
   const setCustomer = (result, value) => {
     setData(result.data);
