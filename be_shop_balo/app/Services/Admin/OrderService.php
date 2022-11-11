@@ -5,6 +5,7 @@ namespace App\Services\Admin;
 use App\Http\Traits\ApiResponse;
 use App\Repositories\Admin\OrderRepository;
 use Exception;
+use function PHPUnit\Framework\isEmpty;
 
 class OrderService
 {
@@ -84,14 +85,14 @@ class OrderService
     {
 
         $result = $this->orderRepository->getFigureOrders($request);
+        if(isEmpty($result)) $result=[];
         $data=[
 
             'data'=>$result
         ];
-        if ($result) {
+
             return $this->apiResponse($data, 'success', 'Figure Order successfully');
-        }else
-        { return $this->apiResponse([], 'fail', 'Figure Order unsuccessfully'); }
+
     }
     public function getFigureRevenue($request): \Illuminate\Http\JsonResponse
     {
@@ -101,10 +102,9 @@ class OrderService
 
             'data'=>$result
         ];
-        if ($result) {
+
             return $this->apiResponse($data, 'success', 'Figure Order successfully');
-        }else
-        { return $this->apiResponse([], 'fail', 'Figure Order unsuccessfully'); }
+
     }
     public function getTopStaffSelling($request): \Illuminate\Http\JsonResponse
     {

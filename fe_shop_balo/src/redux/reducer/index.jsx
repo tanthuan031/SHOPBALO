@@ -8,6 +8,9 @@ import staffReducer from './staff/staff.reducer';
 import reviewReducer from './review/review.reducer';
 import authReducer from './auth/auth.reducer';
 import sliderReducer from './slider/slider.reducer';
+import profileReducer from './profile/profile.reducer';
+import cartReducer from './cart/cart.reducer';
+import homeClientReducer from './home/home.reducer';
 
 const rootReducer = combineReducers({
   product: productReducer,
@@ -19,5 +22,9 @@ const rootReducer = combineReducers({
   review: reviewReducer,
   auth: authReducer,
   slider: sliderReducer,
+  profile: profileReducer,
+  cart: cartReducer,
+  homeClient: homeClientReducer,
 });
+
 export default rootReducer;

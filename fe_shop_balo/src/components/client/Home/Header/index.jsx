@@ -7,11 +7,39 @@ import PropTypes from 'prop-types';
 import { MdShoppingCart, MdSearch } from 'react-icons/md';
 import { HiOutlineHeart } from 'react-icons/hi';
 import { data_header_client } from '../../../../asset/data/data_header_client';
+import { cartSelector } from '../../../../redux/selectors';
+import { useDispatch, useSelector } from 'react-redux';
+import { isOpenCartCompact } from '../../../../redux/selectors/';
+import { setIsOpenCartCompact } from '../../../../redux/reducer/home/home.reducer';
 
-const data_menu_top = ['Help & FAQs', 'My Account', 'EN', 'USD'];
+// const data_menu_top = ['Help & FAQs', 'My Account', 'EN', 'USD'];
+const data_menu_top = [
+  {
+    id: 1,
+    name: 'Help & FAQs',
+    links: '#',
+  },
+  {
+    id: 2,
+    name: 'My Account',
+    links: '/my-account',
+  },
+  {
+    id: 3,
+    name: 'EN',
+    links: '#',
+  },
+];
 const data_menu_list = data_header_client;
 
 const Header = () => {
+  const cart=useSelector(cartSelector)
+  const dispacth=useDispatch()
+  const handleOpenCartCompact=()=>{
+    dispacth(setIsOpenCartCompact(true))
+  }
+
+
   return (
     <>
       <header>
@@ -39,9 +67,9 @@ const Header = () => {
 
                 <div className="right-top-bar flex-w h-full">
                   {data_menu_top.map((item, index) => (
-                    <a href="#" className="flex-c-m trans-04 p-lr-25" key={index}>
-                      {item}
-                    </a>
+                    <Link to={item.links} className="flex-c-m trans-04 p-lr-25" key={index}>
+                      {item.name}
+                    </Link>
                   ))}
                 </div>
               </div>
@@ -83,19 +111,15 @@ const Header = () => {
 
                 <div
                   className="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 icon-header-noti js-show-cart"
-                  data-notify="2"
+                  data-notify={cart.length>0?cart.length:0}
+                  onClick={() =>handleOpenCartCompact()}
                 >
                   <MdShoppingCart />
-                  <i className="zmdi zmdi-shopping-cart"></i>
+
                 </div>
 
-                <a
-                  href="#"
-                  className="dis-block icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 icon-header-noti"
-                  data-notify="0"
-                >
-                  <HiOutlineHeart />
-                </a>
+               <span className="dis-block  cl2  trans-04 p-l-22 p-r-11 icon-header-noti"></span>
+
               </div>
             </nav>
           </div>

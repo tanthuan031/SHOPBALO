@@ -7,3 +7,5 @@ export * from './customer/customer.selector';
 export * from './review/review.selector';
 export * from './auth/auth.reducer';
 export * from './slider/slider.selector';
+export * from './cart/cart.selector'
+export * from './home/home.selector'

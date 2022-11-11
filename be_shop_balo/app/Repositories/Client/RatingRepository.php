@@ -18,8 +18,13 @@ class RatingRepository extends BaseRepository
 
     public function getAll($search = [])
     {
-        return $this->rating->filterProductById($search['filter'])->search(@$search['key'])->sortPoint($search['sortPoint'])
-            ->sortStatus(@$search['sortStatus'])
-            ->with(['customers', 'products'])->paginate(@$search['per_page']);
+        try {
+            return $this->rating->filterProductById($search['filter'])->search(@$search['key'])->sortPoint($search['sortPoint'])
+                ->sortStatus(@$search['sortStatus'])
+                ->with(['customers', 'products'])->paginate(@$search['per_page']);
+        }
+        catch (\Exception $e) {
+            dd($e);
+        }
     }
 }
