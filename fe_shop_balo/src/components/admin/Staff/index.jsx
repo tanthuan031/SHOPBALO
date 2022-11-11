@@ -76,9 +76,7 @@ export function StaffTable(props) {
           <td>
             {/* {' '}
             <img  src={`${URL_SERVER}/storage/staff/${item.avatar} `} /> */}
-            <div className='img-avatar '>
-              <ImageCustom src={`${URL_SERVER}/storage/staff/${item.avatar} `} className='w-100 ' />
-            </div>
+              <ImageCustom type='avatar' src={`${URL_SERVER}/storage/staff/${item.avatar} `}  />
           </td>
           <td className='col-txt'>
             {`${item.first_name} ${item.last_name}`}
@@ -129,9 +127,7 @@ export function StaffTable(props) {
       <div className='card-overlay'>
         <div className='card-image-overlay'>
           {/* <img className="avatar-detail" src={`${URL_SERVER}/storage/staff/${item.avatar}`} /> */}
-          <div className='avatar-detail '>
-            <ImageCustom src={`${URL_SERVER}/storage/staff/${item.avatar}`} className='w-100 ' />
-          </div>
+            <ImageCustom type='avatar-overlay' src={`${URL_SERVER}/storage/staff/${item.avatar}`} />
           <p className='card-txt card-txt-title'>{`${item.first_name} ${item.last_name}`}</p>
           <p className='card-txt'>
             <BsFillTelephoneFill className='icon' />

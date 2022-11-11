@@ -67,9 +67,7 @@ export function CustomerTable(props) {
         <tr key={item.id} className="row-data cursor-pointer" onClick={() => showDetail({ item })}>
           <td>
             {/* <img className="img-avatar " src={`${URL_SERVER}/storage/customer/${item.avatar} `} /> */}
-            <div className="img-avatar ">
-              <ImageCustom src={`${URL_SERVER}/storage/customer/${item.avatar} `} className="w-100 " />
-            </div>
+              <ImageCustom type='avatar' src={`${URL_SERVER}/storage/customer/${item.avatar} `}  />
           </td>
           <td className="col-txt">
             {`${item.first_name} ${item.last_name}`}
@@ -119,9 +117,7 @@ export function CustomerTable(props) {
       <div className="card-overlay">
         <div className="card-image-overlay">
           {/* <img className="avatar-detail" src={`${URL_SERVER}/storage/customer/${item.avatar}`} /> */}
-          <div className="avatar-detail ">
-            <ImageCustom src={`${URL_SERVER}/storage/customer/${item.avatar}`} className="w-100 " />
-          </div>
+            <ImageCustom src={`${URL_SERVER}/storage/customer/${item.avatar}`}type='avatar-overlay' />
           <p className="card-txt card-txt-title">{`${item.first_name} ${item.last_name}`}</p>
           <p className="card-txt">
             <FaPhoneAlt className="icon" />

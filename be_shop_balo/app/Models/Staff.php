@@ -63,7 +63,6 @@ class Staff extends Model
     }
     public function scopeFilter($query, $request)
     {
-        // dd($request->query("filter")["type"]);
         return $query->when($request->has('filter.status'), function ($query) use ($request) {
             $list = explode(",", $request->query("filter")["status"]);
             $query->whereIn("status", $list);
@@ -93,7 +92,7 @@ class Staff extends Model
                     ->orWhere("phone", "LIKE", "%{$search}%");
             });
     }
-    public function scopeUnique($query, $request)
+    public function scopeExistance($query, $request)
     {
         return $query
             ->when($request->has('email'), function ($query) use ($request) {
