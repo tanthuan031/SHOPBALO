@@ -52,7 +52,7 @@ export function CartPage(props) {
   useEffect( () => {
      ( async ()=>await handleGetDataProduct(dataCart, setListCartProduct, setTotal))();
 
-  }, [dispatch]);
+  }, [dispatch,dataCart]);
 
   return (
     <>

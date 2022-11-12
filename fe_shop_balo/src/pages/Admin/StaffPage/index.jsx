@@ -49,7 +49,6 @@ export function StaffPage(props) {
   //Logic
   const  isReset = useSelector(isResetStaffSelector)
   React.useEffect(() => {
-    // handle FilterStatus Value
     let params = {};
     if (filterStatus !== 'All') params = { ...params, filterStatus };
     if (search !== '') params = { ...params, filter, search };

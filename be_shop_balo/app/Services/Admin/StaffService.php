@@ -29,7 +29,7 @@ class StaffService
             return $this->apiResponse([], 'fail', 'Get staff unsuccessful');
         }
     }
-    
+
     public function  showStaff($id)
     {
         $result = $this->staffRepository->getStaff($id);

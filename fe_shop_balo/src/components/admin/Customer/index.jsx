@@ -117,7 +117,7 @@ export function CustomerTable(props) {
       <div className="card-overlay">
         <div className="card-image-overlay">
           {/* <img className="avatar-detail" src={`${URL_SERVER}/storage/customer/${item.avatar}`} /> */}
-            <ImageCustom src={`${URL_SERVER}/storage/customer/${item.avatar}`}type='avatar-overlay' />
+            <ImageCustom src={`${URL_SERVER}/storage/customer/${item.avatar}`} type='avatar-overlay' />
           <p className="card-txt card-txt-title">{`${item.first_name} ${item.last_name}`}</p>
           <p className="card-txt">
             <FaPhoneAlt className="icon" />

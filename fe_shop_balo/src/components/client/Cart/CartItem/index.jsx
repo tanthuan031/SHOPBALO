@@ -34,8 +34,8 @@ const [totalPrice,setTotalPrice ]=useState(quantity_cart*price)
   }
   const handleDeleteCartItem= async (id)=>{
    await dispatch(deleteItemCart({id:id}))
-   localStorage.removeItem('cart')
-    localStorage.setItem('cart',JSON.stringify({ cart:{cartData:cart}}))
+  // localStorage.removeItem('cart')
+   // localStorage.setItem('cart',JSON.stringify({ cart:{cartData:cart}}))
   }
   return (
     <tr className="table_row" key={id}>

@@ -53,7 +53,9 @@ export const productReducer = createSlice({
         )}
     },
     deleteItemCart:(state, action)=>{
-      return {cartData: state.cartData.filter((item) =>+item.id !== action.payload.id)}
+      let newCart= state.cartData.filter((item) =>+item.id !== action.payload.id)
+      localStorage.setItem('cart',JSON.stringify({ cart:{cartData:newCart}}))
+      return {cartData:newCart}
      },
 
 
