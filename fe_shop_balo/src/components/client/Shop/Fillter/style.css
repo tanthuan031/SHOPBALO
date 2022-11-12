@@ -1,5 +1,5 @@
 .filter-homepage {
-  width: 50rem;
+  /* width: 60rem; */
   overflow: auto;
 }
 
@@ -21,7 +21,7 @@
 }
 
 .t-collapse__title {
-  font-size: 1.5rem;
+  font-size: 1.2rem;
   font-weight: bold;
 }
 
