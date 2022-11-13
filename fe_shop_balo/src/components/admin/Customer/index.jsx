@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { FaAward, FaFemale, FaMale, FaMapMarkerAlt, FaPen, FaPhoneAlt, FaTimesCircle } from 'react-icons/fa';
+import { FaAward, FaFemale, FaMale, FaMapMarkerAlt, FaPen, FaPhoneAlt, FaTimes, FaTimesCircle } from 'react-icons/fa';
 import Modal from '../../commons/Layouts/Modal';
 import TableLayout from '../../commons/Layouts/Table';
 import './style.css';
@@ -8,7 +8,7 @@ import AutoSendMail from '../../commons/Layouts/AutoSendMail';
 import { HiMail } from 'react-icons/hi';
 import { GrStatusUnknown } from 'react-icons/gr';
 import AutoCallPhone from '../../commons/Layouts/AutoCallPhone';
-import { setIsEdit } from '../../../redux/reducer/customer/customer.reducer';
+import { setIsEdit, setIsReset } from '../../../redux/reducer/customer/customer.reducer';
 import Notiflix from 'notiflix';
 import { ErrorToast, SuccessToast } from '../../commons/Layouts/Alerts';
 import { setCustomer } from '../../../redux/reducer/customer/customer.reducer';
@@ -19,6 +19,9 @@ import ImageCustom from '../../commons/Layouts/Image';
 export function CustomerTable(props) {
   const [show, setShowDetail] = useState(false);
   const [detailCustomer, setDetailCustomer] = useState('');
+  const [showPopupDelete, setShowPopupDelete] = useState({
+    customer_id: null, show: false,
+  });
   const dispatch = useDispatch();
   const showDetail = (item) => {
     setShowDetail(true);
@@ -37,8 +40,11 @@ export function CustomerTable(props) {
       ErrorToast('Something went wrong. Please try again', 3000);
     }
   };
-  const handleRemoveCustomer = async (e, id) => {
+  const showConfirmDeleteCustomer = (e, id) => {
     e.stopPropagation();
+    setShowPopupDelete({ customer_id: id, show: true });
+  };
+  const handleRemoveCustomer = async ( id) => {
     const result = await deleteCustomer(id);
     if (result === 200) {
       SuccessToast('Remove customer successfully', 3000);
@@ -51,6 +57,8 @@ export function CustomerTable(props) {
       Notiflix.Block.remove('#root');
       ErrorToast('Something went wrong. Please try again', 3000);
     }
+    setShowPopupDelete({...showPopupDelete,show: false})
+    dispatch(setIsReset(Math.random()))
   };
 
   const renderTableBody = () => {
@@ -59,9 +67,8 @@ export function CustomerTable(props) {
         <tr key={item.id} className="row-data cursor-pointer" onClick={() => showDetail({ item })}>
           <td>
             {/* <img className="img-avatar " src={`${URL_SERVER}/storage/customer/${item.avatar} `} /> */}
-            <div className="img-avatar ">
-              <ImageCustom src={item.avatar} className="w-100 " />
-            </div>
+              <ImageCustom type='avatar' src={`${URL_SERVER}/storage/customer/${item.avatar} `}  />
+
           </td>
           <td className="col-txt">
             {`${item.first_name} ${item.last_name}`}
@@ -93,9 +100,9 @@ export function CustomerTable(props) {
               </button>
               <button
                 id="disabled-user"
-                /*  onClick={(e) => {
-                  handleRemoveCustomer(e, item.id);
-                }}*/
+                  onClick={(e) => {
+                  showConfirmDeleteCustomer(e, item.id);
+                }}
                 className="br-6px p-2 ms-3 text-danger bg-gray-100 w-48px h-48px d-flex align-items-center justify-content-center border-none"
               >
                 <FaTimesCircle className="text-danger font-20px" />
@@ -111,9 +118,8 @@ export function CustomerTable(props) {
       <div className="card-overlay">
         <div className="card-image-overlay">
           {/* <img className="avatar-detail" src={`${URL_SERVER}/storage/customer/${item.avatar}`} /> */}
-          <div className="avatar-detail ">
-            <ImageCustom src={item.avatar} className="w-100 " />
-          </div>
+            <ImageCustom src={`${URL_SERVER}/storage/customer/${item.avatar}`} type='avatar-overlay' />
+
           <p className="card-txt card-txt-title">{`${item.first_name} ${item.last_name}`}</p>
           <p className="card-txt">
             <FaPhoneAlt className="icon" />
@@ -150,7 +156,32 @@ export function CustomerTable(props) {
       </div>
     );
   };
+  const popupConfirmationDelete=()=>{
+    return (
+      <div className="modal-dialog modal-confirm">
+        <div className="modal-content">
+          <div className="modal-headerd flex-column">
+            <div className="icon-box">
+              <FaTimes className='material-icons p-t-15' size='4rem' color="red"/>
+            </div>
+            <h4 className="modal-title w-100">Are you sure ?</h4>
 
+          </div>
+          <div className="modal-body">
+            <p>Do you really want to delete these records? This process cannot be undone.</p>
+          </div>
+          <div className="modal-footer justify-content-center">
+            <button type="button" className="btn btn-secondary"
+                    onClick={(e)=>setShowPopupDelete({...showPopupDelete,show: false})}
+                    data-dismiss="modal">Cancel</button>
+            <button type="button" className="btn btn-danger"
+                    onClick={()=>handleRemoveCustomer(showPopupDelete.customer_id)}
+            >Delete</button>
+          </div>
+        </div>
+      </div>
+    );
+  }
   return (
     <>
       <div className="container-fluid ">
@@ -167,6 +198,14 @@ export function CustomerTable(props) {
         setStateModal={() => setShowDetail(false)}
         elementModalTitle="Detail Customer"
         elementModalBody={renderDetailCustomer(detailCustomer)}
+      />
+      <Modal
+        show={showPopupDelete.show}
+        isHeader={false}
+        className='modal-md'
+        setStateModal={() => setShowPopupDelete({ ...showPopupDelete, show: true })}
+        elementModalTitle='Confirm Delete'
+        elementModalBody={popupConfirmationDelete()}
       />
     </>
   );

@@ -42,7 +42,6 @@ class StaffService
 
     public function storeStaff($request): \Illuminate\Http\JsonResponse
     {
-        // return $this->apiResponse('','testing',$request->all());
         $avatar = Helper::saveImgBase64($request->avatar, 'Staff');
         $dataRequest = [
             'role_id' => $request->role_id,
@@ -57,9 +56,8 @@ class StaffService
             'address' => $request->address,
             'created_date' => $request->created_date,
         ];
-        //  return $this->apiResponse([],'success',$remakeRequest);
         $result = $this->staffRepository->storeStaff($dataRequest);
-        // return $this->apiResponse('','fail',$result);
+
         if ($result) {
             return $this->apiResponse($result, 'success', 'Create staff successful');
         } else {
@@ -72,9 +70,6 @@ class StaffService
         if (!is_null($request->avatar)) {
             $request['avatar'] = Helper::saveImgBase64($request->avatar, 'Staff');
         }
-        /*  if(!is_null($request->created_date)) {
-            $request['created_date'] = date('Y-m-d' , strtotime($request->created_date));
-        }*/
         $result = $this->staffRepository->updateStaff($request, $id);
         //return $this->apiResponse([],$result,'ÚUp');
         if ($result) {

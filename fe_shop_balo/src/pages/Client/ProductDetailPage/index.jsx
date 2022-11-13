@@ -11,8 +11,7 @@ import { useParams } from 'react-router-dom';
 import { getDetailProductById, getRelateProducts } from '../../../api/Client/Home/productDetailAPI';
 import { getStorageImage } from '../../../api/StorageImage';
 import { getRatingWithProductID } from '../../../api/Client/Raing/ratingAPI';
-import Skeleton from '../../../components/commons/Layouts/Skeleton';
-import { SkeletonCart } from '../../../components/commons/Layouts/Skeleton/SkeletonCart';
+import { SkeletonProductDetail } from '../../../components/commons/Layouts/Skeleton/SkeletonProductDetail';
 
 function ProductDetailPage(props) {
   const [loadingProductAndReview, setLoadingProductAndReview] = useState(true);
@@ -130,7 +129,7 @@ function ProductDetailPage(props) {
           </section>
         </>
       ) : (
-        <SkeletonCart />
+        <SkeletonProductDetail />
       )}
       {/*-------------------------------------RelateProduct--------------------------------*/}
     </>

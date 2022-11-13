@@ -34,9 +34,9 @@ const data_menu_list = data_header_client;
 
 const Header = () => {
   const cart=useSelector(cartSelector)
-  const dispacth=useDispatch()
+  const dispatch=useDispatch()
   const handleOpenCartCompact=()=>{
-    dispacth(setIsOpenCartCompact(true))
+    dispatch(setIsOpenCartCompact(true))
   }
 
 

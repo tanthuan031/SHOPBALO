@@ -101,10 +101,11 @@ export const editStaff = async (id, body) => {
 export const deleteStaff = async (id) => {
   const url = `/api/admin/staff/${id}`;
   const response = await axiosClient.delete(url, configHeadersAuthenticate());
-  //console.log(response)
+  console.log(response)
+  console.log(url);
   if (response.status === 401) {
     return 401;
-  } else if (response.status === 'success') {
+  } else if (response.status === 'Success') {
     return 200;
   } else if (response.status === 500) {
     return 500;

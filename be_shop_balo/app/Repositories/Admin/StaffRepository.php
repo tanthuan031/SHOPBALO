@@ -25,6 +25,13 @@ class StaffRepository extends BaseRepository
             ->paginate($this->paginate);
         return StaffResource::collection($data)->response()->getData();
     }
+    public function getUnique($request){
+        $data = Staff::query()
+            ->with('roles')
+          ->existance($request)
+            ->paginate($this->paginate);
+        return StaffResource::collection($data)->response()->getData();
+    }
     public function getStaff(int $id)
     {
         $data = Staff::query()->with('roles')->find($id);

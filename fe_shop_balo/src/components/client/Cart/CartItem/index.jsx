@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useMemo, useState } from 'react';
+import React, {  useEffect, useMemo, useState } from 'react';
 import { formatter } from '../../../../utils/formatCurrency';
 import { FaMinus, FaPlus } from 'react-icons/fa';
 import { useDispatch, useSelector } from 'react-redux';
@@ -31,7 +31,6 @@ function CartItem({ id, name, price, image, quantity_cart, limit_amount, action,
   };
   const handleDeleteCartItem = async (id) => {
     await dispatch(deleteItemCart({ id: id }));
-    localStorage.removeItem('cart');
   };
   return (
     <tr className="table_row" key={id}>

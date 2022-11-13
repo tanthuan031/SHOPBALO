@@ -16,7 +16,8 @@ import StaffEdit from '../../../components/admin/Staff/Edit';
 import FilterStatus from '../../../components/admin/Staff/FilterStatus';
 import { setExpiredToken } from '../../../redux/reducer/auth/auth.reducer';
 import { setIsAdd } from '../../../redux/reducer/staff/staff.reducer';
-import { isAddStaffSelector, isEditStaffSelector } from '../../../redux/selectors';
+import { isAddStaffSelector, isEditStaffSelector, isResetStaffSelector } from '../../../redux/selectors';
+import "./style.css"
 
 export function StaffPage(props) {
   const data_staff_table_header = [...staff_table_header];
@@ -46,13 +47,8 @@ export function StaffPage(props) {
   //Loading
   const [loading, setLoading] = React.useState(true);
   //Logic
-  const dispatchAction = {
-    dispatch,
-    search,
-    filterStatus,
-  };
+  const  isReset = useSelector(isResetStaffSelector)
   React.useEffect(() => {
-    // handle FilterStatus Value
     let params = {};
     if (filterStatus !== 'All') params = { ...params, filterStatus };
     if (search !== '') params = { ...params, filter, search };
@@ -69,7 +65,7 @@ export function StaffPage(props) {
       setLoading(false);
     };
     handleGetAllStaffs();
-  }, [dispatch, search, filterStatus]);
+  }, [dispatch, search,isReset, filterStatus]);
 
   const setStaff = (result, value) => {
     setData(result.data);
