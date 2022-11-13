@@ -71,8 +71,8 @@ function ProductAdd(props) {
     { value: '2', label: 'Blue' },
   ];
   const typeOptionsSatus = [
-    { value: '0', label: 'Active' },
-    { value: '1', label: 'Out of stock' },
+    { value: '1', label: 'Active' },
+    { value: '0', label: 'Out of stock' },
   ];
   const editorDescription = (value) => {
     setValue('description', value);

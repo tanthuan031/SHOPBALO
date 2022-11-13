@@ -20,6 +20,7 @@ export default function PaginationUI(props) {
       itemClass="page-item"
       linkClass="page-link"
       onChange={handlePageChange}
+      className="pagination-client"
     />
   );
 }

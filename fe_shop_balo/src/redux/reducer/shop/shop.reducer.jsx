@@ -3,9 +3,9 @@ import { createSlice } from '@reduxjs/toolkit';
 export const shopClientReducer = createSlice({
   name: 'shopClient',
   initialState: {
-    categoryId: 1,
-    fillterPriceStart: 0,
-    fillterPriceEnd: 10000000,
+    categoryId: undefined,
+    fillterPriceStart: undefined,
+    fillterPriceEnd: undefined,
   },
   reducers: {
     setCategoryId: (state, action) => {

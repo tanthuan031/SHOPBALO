@@ -81,7 +81,7 @@ function ProductDetailPage(props) {
         let relateProducts = result.data.map((item) => ({
           id: item.id,
           name: item.name,
-          image: 'https://product.hstatic.net/1000178923/product/5_be281c4746ee47be8f8ef613caa98953_master.jpg', // getURLImageProduct('Product?cat=' + item.image),
+          image: item.image, // getURLImageProduct('Product?cat=' + item.image),
           price: item.price,
         }));
         setListRelateProducts(relateProducts);
