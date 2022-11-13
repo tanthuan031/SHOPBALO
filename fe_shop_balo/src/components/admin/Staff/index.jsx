@@ -67,7 +67,7 @@ export function StaffTable(props) {
             {/* {' '}
             <img  src={`${URL_SERVER}/storage/staff/${item.avatar} `} /> */}
             <div className="img-avatar ">
-              <ImageCustom src={`${URL_SERVER}/storage/staff/${item.avatar} `} className="w-100 " />
+              <ImageCustom src={item.avatar} className="w-100 " />
             </div>
           </td>
           <td className="col-txt">
@@ -120,7 +120,7 @@ export function StaffTable(props) {
         <div className="card-image-overlay">
           {/* <img className="avatar-detail" src={`${URL_SERVER}/storage/staff/${item.avatar}`} /> */}
           <div className="avatar-detail ">
-            <ImageCustom src={`${URL_SERVER}/storage/staff/${item.avatar}`} className="w-100 " />
+            <ImageCustom src={item.avatar} className="w-100 " />
           </div>
           <p className="card-txt card-txt-title">{`${item.first_name} ${item.last_name}`}</p>
           <p className="card-txt">

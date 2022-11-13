@@ -4,3 +4,6 @@
   transition: all 0.3s;
   min-height: calc(100vh - 60px);
 }
+*::-webkit-scrollbar-thumb {
+  background-color: #cccccc !important;
+}

@@ -9,12 +9,7 @@ const ProductItem = (props) => {
     <div className="" style={{ width: '20rem' }}>
       <div className="block2">
         <div className="block2-pic hov-img0">
-          <img
-            // src={item.image}
-            src="https://picsum.photos/200/300"
-            alt="IMG-PRODUCT"
-            style={{ height: '25rem', objectFit: 'cover' }}
-          />
+          <img src={item.image} alt="IMG-PRODUCT" style={{ height: '20rem', objectFit: 'cover' }} />
           <Link
             to={`/product/${item.id}`}
             className="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04 js-show-modal1"

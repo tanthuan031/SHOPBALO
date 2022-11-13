@@ -14,7 +14,6 @@ import { getRatingWithProductID } from '../../../api/Client/Raing/ratingAPI';
 import Skeleton from '../../../components/commons/Layouts/Skeleton';
 import { SkeletonCart } from '../../../components/commons/Layouts/Skeleton/SkeletonCart';
 
-
 function ProductDetailPage(props) {
   const [loadingProductAndReview, setLoadingProductAndReview] = useState(true);
   const [productDetail, setProductDetail] = useState({});
@@ -40,14 +39,13 @@ function ProductDetailPage(props) {
         const urlArrayImageSlide = 'ProductSlide?cat=' + result.image_slide;
         const urlImage = 'Product?cat=' + result.image;
         const imageSlice = await getStorageImage(urlArrayImageSlide);
-        const imageMain = await getStorageImage(urlImage);
+        // const imageMain = await getStorageImage(urlImage);
         if (imageSlice === 401 || imageSlice === 500) return false;
         else {
-          result.image = imageMain[0];
+          // result.image = imageMain[0];
           result.image_slide = imageSlice;
           setProductDetail(result);
           setIdCategory(result.category_id);
-
         }
       }
     };
@@ -71,7 +69,6 @@ function ProductDetailPage(props) {
         let avr = rating.reduce((acc, item) => acc + item.point, 0) / rating.length;
         setAverageRating(!!avr ? avr : 5);
       }
-
     };
     //1 lỗi
     const handleGetRalateProducts = async (id) => {
@@ -84,21 +81,19 @@ function ProductDetailPage(props) {
         let relateProducts = result.data.map((item) => ({
           id: item.id,
           name: item.name,
-          image: 'https://product.hstatic.net/1000178923/product/5_be281c4746ee47be8f8ef613caa98953_master.jpg',// getURLImageProduct('Product?cat=' + item.image),
+          image: 'https://product.hstatic.net/1000178923/product/5_be281c4746ee47be8f8ef613caa98953_master.jpg', // getURLImageProduct('Product?cat=' + item.image),
           price: item.price,
         }));
         setListRelateProducts(relateProducts);
       }
-
     };
     handleGetInfoDetailProduct(id);
     handleGetInfoReviewProduct(id);
 
     handleGetRalateProducts(idCategory);
     return () => {
-     setLoadingProductAndReview(false);
+      setLoadingProductAndReview(false);
     };
-
   }, [id, idCategory]);
 
   return (
@@ -106,31 +101,31 @@ function ProductDetailPage(props) {
       {/*-------------------------------------DetailProduct--------------------------------*/}
       {!loadingProductAndReview ? (
         <>
-          <section className='sec-product-detail bg0 p-t-65 p-b-60'>
-            <div className='container'>
+          <section className="sec-product-detail bg0 p-t-65 p-b-60">
+            <div className="container">
               <Row>
-                <Col md='6' lg='7'>
+                <Col md="6" lg="7">
                   <Gallery listImage={productDetail.image_slide} mainImage={productDetail.image} />
-
                 </Col>
-                <Col md='6' lg='5'>
+                <Col md="6" lg="5">
                   <InfoProduct
                     id={id}
                     price={productDetail.price}
                     description={productDetail.description}
-                    star={averageRating} name={productDetail.name} color={productDetail.code_color}
-                    amount={productDetail.amount} />
+                    star={averageRating}
+                    name={productDetail.name}
+                    color={productDetail.code_color}
+                    amount={productDetail.amount}
+                  />
                 </Col>
               </Row>
 
-              <div className='bor10 m-t-50 p-t-43 p-b-40'>
+              <div className="bor10 m-t-50 p-t-43 p-b-40">
                 <ReviewProduct list_review={listRating} averageRating={averageRating} />
-
               </div>
             </div>
-
           </section>
-          <section className='sec-relate-product bg0 p-t-45 p-b-105'>
+          <section className="sec-relate-product bg0 p-t-45 p-b-105">
             <RelateProduct listRelateProducts={listRelateProducts} />
           </section>
         </>
@@ -138,7 +133,6 @@ function ProductDetailPage(props) {
         <SkeletonCart />
       )}
       {/*-------------------------------------RelateProduct--------------------------------*/}
-
     </>
   );
 }

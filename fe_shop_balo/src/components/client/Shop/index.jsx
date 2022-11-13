@@ -27,9 +27,9 @@ const Shop = () => {
   const categoryId = useSelector(categoryIdSelector);
   // console.log('🚀 ~ file: index.jsx ~ line 27 ~ Shop ~ categoryId', categoryId);
   const start_price = useSelector(fillterPriceStart);
-  console.log("🚀 ~ file: index.jsx ~ line 30 ~ Shop ~ start_price", start_price)
+  console.log('🚀 ~ file: index.jsx ~ line 30 ~ Shop ~ start_price', start_price);
   const end_price = useSelector(fillterPriceEnd);
-  console.log("🚀 ~ file: index.jsx ~ line 32 ~ Shop ~ end_price", end_price)
+  console.log('🚀 ~ file: index.jsx ~ line 32 ~ Shop ~ end_price', end_price);
 
   const filter = categoryId;
 
@@ -69,11 +69,11 @@ const Shop = () => {
   useEffect(() => {
     handleGetAllCategory();
     handleGetAllProduct();
-  }, [page,filter, start_price, end_price]);
+  }, [page, filter, start_price, end_price]);
 
   return (
     <>
-      <section className="container">
+      <section className="container-fluid ">
         <section id="shop__title-main">
           <h1 className="fw-bold fs-2 my-4">ALL PRODUCT</h1>
         </section>
@@ -91,7 +91,7 @@ const Shop = () => {
             </div>
           </div>
           <div className="d-flex flex-column" style={{ width: '75%' }}>
-            <div className="d-flex flex-wrap justify-content-start gap-4">
+            <div className="d-flex flex-wrap justify-content-center gap-4">
               {!isLoading ? (
                 <>{dataProduct.length > 0 ? <ProductList item={dataProduct} /> : <NotFoundData />}</>
               ) : (

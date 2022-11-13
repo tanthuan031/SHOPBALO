@@ -4,3 +4,6 @@
   min-height: calc(100vh - 60px);
   background-color: #fff;
 }
+*::-webkit-scrollbar-thumb {
+  background-color: #cccccc !important;
+}
