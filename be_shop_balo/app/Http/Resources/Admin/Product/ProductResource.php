@@ -18,6 +18,10 @@ class ProductResource extends JsonResource
     {
 
 
+            $rating=[
+                    'point'=> @$this->ratings->toArray()[0]['point_avg'] === null ? 5.00 : @$this->ratings->toArray()[0]['point_avg']
+            ];
+
         $arrayData = [
             'id' => $this->id,
             'category_id' => $this->category_id,
@@ -30,6 +34,7 @@ class ProductResource extends JsonResource
             'code_color' => $this->product_details->code_color ?? null,
             'amount' => $this->product_details->amount ?? null,
             'price' => $this->product_details->price ?? null,
+            'rating'=>$rating
 
 
         ];

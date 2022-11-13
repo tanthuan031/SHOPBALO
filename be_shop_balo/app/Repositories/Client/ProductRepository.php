@@ -20,27 +20,7 @@ class ProductRepository extends BaseRepository
     }
 
 
-    // public function getAll($request = [])
-    // {
 
-    //     return $this->product->with('categories')->with('product_details') ->status()
-    //              ->withWhereHas('product_details', function ($query) use($request){
-    //                         if(!empty(@$request['filter'][0])){
-    //                         $query->where('price','>=',@$request['filter'][0]);
-    //                         }if(!empty(@$request['filter'][1])){
-    //                             $query->where('price','<',@$request['filter'][1]);
-    //                         }else{
-
-    //                          }
-
-    //             })
-
-    //         ->selling($request)
-    //         ->sort($request)
-    //         ->search($request)
-    //         ->filter($request)
-    //         ->paginate($request['per_page']);
-    // }
     public function getAll($request = [])
     {
 
@@ -59,11 +39,13 @@ class ProductRepository extends BaseRepository
 
                 $query->whereIn('category_id', explode(',', $request->input('filter.category_id')));
             })
-
+            ->with('ratings',function ($query){
+                $query ->selectRaw('avg(point) as point_avg, product_id')
+                    ->groupBy('product_id');
+            })
             ->selling($request)
             ->sort($request)
             ->search($request)
-
             ->paginate($request['per_page']);
     }
     public function sellProduct()
@@ -73,4 +55,16 @@ class ProductRepository extends BaseRepository
             ->orderBy('total', 'desc')
             ->limit(10)->get();
     }
+
+
+    public function findById($id){
+        return $this->product->with('categories')->with('product_details')
+            ->status()
+            ->with('ratings',function ($query){
+                $query ->selectRaw('avg(point) as point_avg, product_id')
+                    ->groupBy('product_id');
+            })->where('id',$id)->get();
+    }
+
+
 }
