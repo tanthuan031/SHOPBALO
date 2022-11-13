@@ -19,9 +19,10 @@ class ProductService
 
     public function getAll($request)
     {
+
         $data = [];
         $request['per_page'] = $request['per_page'] === null ? $this->limit : $request['per_page'];
-        $request['filter'] =[
+        $request['filter_price'] =[
             @$request->start_price,
            @$request->end_price,
         ];

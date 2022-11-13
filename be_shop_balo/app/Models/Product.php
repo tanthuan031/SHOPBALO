@@ -67,6 +67,7 @@ class Product extends Model
 
     public function scopeFilter($query, $request)
     {
+
         // dd($request->query("filter")["type"]);
         return $query->when($request->has('filter.status'), function ($query) use ($request) {
             $list = explode(",", $request->query("filter")["status"]);
@@ -74,6 +75,7 @@ class Product extends Model
         })
             ->when($request->has('filter.category_id'), function ($query) use ($request) {
                 $list = explode(",", $request->query("filter")["category_id"]);
+                dd($list);
                 $query->whereIn("category_id", $list);
             });
     }
