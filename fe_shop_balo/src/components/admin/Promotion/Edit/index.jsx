@@ -1,21 +1,19 @@
-import { Button, Form } from 'react-bootstrap';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { Controller, useForm, useWatch } from 'react-hook-form';
-import Select from 'react-select';
-import './style.css';
-import { useDispatch, useSelector } from 'react-redux';
-import { setIsAdd, setIsEdit, setPromotion } from '../../../../redux/reducer/promotion/promotion.reducer';
-import { BlockUI } from '../../../commons/Layouts/Notiflix';
-import { ErrorToast, SuccessToast } from '../../../commons/Layouts/Alerts';
 import Notiflix from 'notiflix';
-import CustomEditor from '../../../commons/Layouts/Edittor';
+import { Button, Form } from 'react-bootstrap';
+import { Controller, useForm, useWatch } from 'react-hook-form';
+import { useDispatch, useSelector } from 'react-redux';
+import Select from 'react-select';
 import { addSchemaPromotion } from '../../../../adapter/promotion';
-import { addDiscount, editDiscount } from '../../../../api/Admin/Promotion/promotionAPI';
-import { useEffect } from 'react';
-import { FaRegRegistered } from 'react-icons/fa';
-import { isPromotionSelector } from '../../../../redux/selectors/promotion/promotion.selector';
-import { setExpiredToken } from '../../../../redux/reducer/auth/auth.reducer';
 import { deleteCookie, getCookies } from '../../../../api/Admin/Auth';
+import { editDiscount } from '../../../../api/Admin/Promotion/promotionAPI';
+import { setExpiredToken } from '../../../../redux/reducer/auth/auth.reducer';
+import { setIsAdd, setIsEdit } from '../../../../redux/reducer/promotion/promotion.reducer';
+import { isPromotionSelector } from '../../../../redux/selectors/promotion/promotion.selector';
+import { ErrorToast, SuccessToast } from '../../../commons/Layouts/Alerts';
+import CustomEditor from '../../../commons/Layouts/Edittor';
+import { BlockUI } from '../../../commons/Layouts/Notiflix';
+import './style.css';
 
 function PromotionEdit(props) {
   const dispatch = useDispatch();

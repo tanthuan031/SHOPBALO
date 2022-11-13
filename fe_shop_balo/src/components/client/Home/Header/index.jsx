@@ -12,14 +12,31 @@ import { useDispatch, useSelector } from 'react-redux';
 import { isOpenCartCompact } from '../../../../redux/selectors/';
 import { setIsOpenCartCompact } from '../../../../redux/reducer/home/home.reducer';
 
-const data_menu_top = ['Help & FAQs', 'My Account', 'EN', 'USD'];
+// const data_menu_top = ['Help & FAQs', 'My Account', 'EN', 'USD'];
+const data_menu_top = [
+  {
+    id: 1,
+    name: 'Help & FAQs',
+    links: '#',
+  },
+  {
+    id: 2,
+    name: 'My Account',
+    links: '/my-account',
+  },
+  {
+    id: 3,
+    name: 'EN',
+    links: '#',
+  },
+];
 const data_menu_list = data_header_client;
 
 const Header = () => {
   const cart=useSelector(cartSelector)
-  const dispacth=useDispatch()
+  const dispatch=useDispatch()
   const handleOpenCartCompact=()=>{
-    dispacth(setIsOpenCartCompact(true))
+    dispatch(setIsOpenCartCompact(true))
   }
 
 
@@ -50,9 +67,9 @@ const Header = () => {
 
                 <div className="right-top-bar flex-w h-full">
                   {data_menu_top.map((item, index) => (
-                    <a href="#" className="flex-c-m trans-04 p-lr-25" key={index}>
-                      {item}
-                    </a>
+                    <Link to={item.links} className="flex-c-m trans-04 p-lr-25" key={index}>
+                      {item.name}
+                    </Link>
                   ))}
                 </div>
               </div>
@@ -82,14 +99,14 @@ const Header = () => {
 
               {/* <!-- Icon header --> */}
               <div className="wrap-icon-header flex-w flex-r-m">
-                <div className="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 js-show-modal-search d-flex align-items-center">
+                <div className="icon-header-item cl2 hov-cl1 trans-04 js-show-modal-search d-flex align-items-center search-header">
                   <input
                     type="email"
                     className="form-control"
                     id="exampleFormControlInput1"
-                    placeholder="name@example.com"
+                    placeholder="Search..."
                   ></input>
-                  <MdSearch />
+                  <MdSearch className="icon-search" />
                 </div>
 
                 <div

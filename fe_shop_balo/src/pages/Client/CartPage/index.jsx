@@ -3,7 +3,6 @@ import { formatter } from '../../../utils/formatCurrency';
 import { getDetailProductById } from '../../../api/Client/Home/productDetailAPI';
 import { useDispatch, useSelector } from 'react-redux';
 import { cartSelector } from '../../../redux/selectors';
-import { getStorageImage } from '../../../api/StorageImage';
 import CartItem from '../../../components/client/Cart/CartItem';
 import NotFoundData from '../../../components/commons/Layouts/NotFoundData';
 import SkeletonCart from '../../../components/commons/Layouts/Skeleton/SkeletonCart';
@@ -13,7 +12,6 @@ export function CartPage(props) {
   const [loading,setLoading] = useState(true)
   const [total, setTotal] = useState(0);
   const dataCart = useSelector(cartSelector);
- // console.log(dataCart);
   const getInfoProductWithID = async (id) => {
     const result = await getDetailProductById(id);
     // console.log(result);
@@ -22,28 +20,19 @@ export function CartPage(props) {
     } else if (result === 500) {
       return false;
     } else {
-      const urlArrayImageSlide = 'Product?cat=' + result.image;
-      const imageSlice = await getStorageImage(urlArrayImageSlide);
-      if (imageSlice === 401 || imageSlice === 500) return false;
-      else {
-        result.image = imageSlice;
-        return result;
-      }
+      return result;
     }
-
   };
   const handleGetDataProduct = async (dataCart, callback, callback2) => {
- //   console.log('callAPI');
-    let data = dataCart.map(async (item) =>
-      await getInfoProductWithID(item.id),
-    );
+
+    console.log('callAPI');
+    let data = dataCart.map(async (item) => await getInfoProductWithID(item.id));
     let temp = await Promise.all(data);
     // console.log('ínfc',temp);
     const remakedata = temp.map((item, index) => {
       return { ...item, quantity_cart: dataCart[index].qty };
     });
     callback(remakedata);
-    //callback(temp)
    callback2(remakedata.reduce((acc, item) => acc + (item.price * item.quantity_cart), 0));
     setLoading(false)
   };

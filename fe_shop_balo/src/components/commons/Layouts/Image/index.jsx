@@ -1,7 +1,7 @@
 // @flow
 import * as React from 'react';
 import imageDefault from '../../../../asset/images/imagedefault.jpg';
-import { forwardRef, useRef } from 'react';
+import { forwardRef} from 'react';
 import "./style.css"
 function ImageCustom(props,ref) {
   const [image, setImage] = React.useState();

@@ -4,12 +4,12 @@ import { Link } from 'react-router-dom';
 import { formatter } from '../../../../utils/formatCurrency';
 
 const ProductItem = (props) => {
-  const {item} = props;
+  const { item } = props;
   return (
-    <div className="" style={{width: "20rem"}}>
+    <div className="" style={{ width: '20rem' }}>
       <div className="block2">
         <div className="block2-pic hov-img0">
-          <img src={item.image} alt="IMG-PRODUCT" style={{ height: '25rem' }} />
+          <img src={item.image} alt="IMG-PRODUCT" style={{ height: '20rem', objectFit: 'cover' }} />
           <Link
             to={`/product/${item.id}`}
             className="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04 js-show-modal1"
@@ -26,8 +26,6 @@ const ProductItem = (props) => {
 
             <span className="stext-105 cl3"> {formatter.format(item.price)} </span>
           </div>
-
-
         </div>
       </div>
     </div>

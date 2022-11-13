@@ -74,8 +74,6 @@ export function StaffTable(props) {
       return (
         <tr key={item.id} className='row-data cursor-pointer' onClick={() => showDetail({ item })}>
           <td>
-            {/* {' '}
-            <img  src={`${URL_SERVER}/storage/staff/${item.avatar} `} /> */}
               <ImageCustom type='avatar' src={`${URL_SERVER}/storage/staff/${item.avatar} `}  />
           </td>
           <td className='col-txt'>
