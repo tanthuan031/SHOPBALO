@@ -1,8 +1,12 @@
+import './index.css';
+
 export function ContactPage() {
 
 
     return (
-        <h1>contact page</h1>
+       <div className="banner">
+
+       </div>
     );
 
 }

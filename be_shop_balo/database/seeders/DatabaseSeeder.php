@@ -6,7 +6,7 @@ use App\Models\Customer;
 use App\Models\Product;
 use App\Models\ProductDetail;
 use Illuminate\Database\Seeder;
-
+use Illuminate\Support\Facades\App;
 class DatabaseSeeder extends Seeder
 {
     /**
@@ -16,17 +16,25 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
+        App::setLocale('vi');
         $this->call([
-            CategorySeeder::class,
-            ProductSeeder::class,
-            ProductDetailSeeder::class,
-            RoleSeeder::class,
-            StaffSeeder::class,
-            CustomerSeeder::class,
-            DiscountSeeder::class,
-            RatingSeeder::class,
-            OrderSeeder::class,
-            OrderDetailSeeder::class,
+            // after
+           // CategorySeeder::class,
+        //    PermissionSeeder::class,
+           RoleSeeder::class,
+        //  CustomerSeeder::class,
+        //  StaffSeeder::class,
+          // DiscountSeeder::class,
+            // ProductSeeder::class,
+            // ProductDetailSeeder::class,
+            
+           
+    
+          //before
+            // RatingSeeder::class,
+            // OrderSeeder::class,
+            // OrderDetailSeeder::class,
         ]);
+        App::setLocale('en');
     }
 }

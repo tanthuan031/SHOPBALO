@@ -9,6 +9,7 @@ import ProductDetailPage from '../../pages/Client/ProductDetailPage';
 import { LoginPage } from '../../pages/Client/AuthPage/Login';
 import { RegisterPage } from '../../pages/Client/AuthPage/Register';
 import { HomePage } from '../../pages/Client/HomePage';
+import { ContactPage } from '../../pages/Client/ContactPage';
 
 function ClientRouter(props) {
   return (
@@ -20,6 +21,7 @@ function ClientRouter(props) {
       <Route path="/product" element={<ClientLayout slot={<ProductPage key={'1'} />} />} />
       <Route path="/product/:id" element={<ClientLayout slot={<ProductDetailPage key={'1'} />} />} />
       <Route path="/about" element={<ClientLayout slot={<AboutPage key={'a'} />} />} />
+      <Route path="/contact" element={<ClientLayout slot={<ContactPage key={'a'} />} />} />
       <Route path="/my-account" element={<ClientLayout slot={<ProfilePage key={'a'} />} />} />
       <Route path="/cart" element={<ClientLayout slot={<CartPage key={'a'} />} />} />
 
