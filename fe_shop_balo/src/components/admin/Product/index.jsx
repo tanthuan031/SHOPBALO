@@ -142,7 +142,7 @@ export function ProductTable(props) {
               <p className="text-product-detail">
                 Status :
                 <span className={`${detailProduct.status === '0' ? 'text-success' : 'text-danger'}`}>
-                  {detailProduct.status === '0' ? ' Active' : ' Out of stock'}
+                  {detailProduct.status === '1' ? ' Active' : ' Out of stock'}
                 </span>
               </p>
             </div>
