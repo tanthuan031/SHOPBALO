@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { handleGetInformationClient } from '../../../api/Client/Auth/authAPI';
+import { deleteCookieClient, getCookiesClient, handleGetInformationClient } from '../../../api/Client/Auth/authAPI';
 import { getStorageImage } from '../../../api/StorageImage';
 import ProfileClient from '../../../components/client/Profile';
 import ProfileEditClient from '../../../components/client/Profile/Edit';
@@ -14,7 +14,7 @@ export function ProfilePage(props) {
     const handleGetInforClient = async () => {
       const result = await handleGetInformationClient();
       if (result === 401) {
-        // handleSetUnthorization();
+        handleSetUnthorization();
         return false;
       } else if (result === 500) {
         return false;
@@ -29,12 +29,18 @@ export function ProfilePage(props) {
   const backProfile = async () => {
     const result = await handleGetInformationClient();
     if (result === 401) {
-      // handleSetUnthorization();
+      handleSetUnthorization();
       return false;
     } else if (result === 500) {
       return false;
     } else {
       setDataProfile(result);
+    }
+  };
+  const handleSetUnthorization = () => {
+    const token = getCookiesClient('tokenClient');
+    if (token) {
+      deleteCookieClient('tokenClient');
     }
   };
   return (

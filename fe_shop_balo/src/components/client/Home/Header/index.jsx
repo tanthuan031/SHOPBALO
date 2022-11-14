@@ -1,19 +1,22 @@
 import React from 'react';
 import './style.css';
 import '../../../../asset/js/jquery-custom';
-import { ListGroup as ListGroupBootstrap } from 'react-bootstrap';
+import { Button, ListGroup as ListGroupBootstrap } from 'react-bootstrap';
 import { Link, NavLink } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { MdShoppingCart, MdSearch } from 'react-icons/md';
 import { HiOutlineHeart } from 'react-icons/hi';
 import { data_header_client } from '../../../../asset/data/data_header_client';
-import { cartSelector } from '../../../../redux/selectors';
+import { cartSelector, isLoginClientSelector } from '../../../../redux/selectors';
 import { useDispatch, useSelector } from 'react-redux';
 import { isOpenCartCompact } from '../../../../redux/selectors/';
 import { setIsOpenCartCompact } from '../../../../redux/reducer/home/home.reducer';
+import { checkLoginClient } from '../../../../adapter/auth';
+import LogoutClient from '../../Auth/Logout';
+import { useState } from 'react';
 
 // const data_menu_top = ['Help & FAQs', 'My Account', 'EN', 'USD'];
-const data_menu_top = [
+const data_menu_top_in_login = [
   {
     id: 1,
     name: 'Help & FAQs',
@@ -26,6 +29,33 @@ const data_menu_top = [
   },
   {
     id: 3,
+    name: 'Logout',
+    links: '/my-account',
+  },
+  {
+    id: 4,
+    name: 'EN',
+    links: '#',
+  },
+];
+const data_menu_top_no_login = [
+  {
+    id: 1,
+    name: 'Help & FAQs',
+    links: '#',
+  },
+  {
+    id: 2,
+    name: 'Login',
+    links: '/login',
+  },
+  {
+    id: 2,
+    name: 'Register',
+    links: '/register',
+  },
+  {
+    id: 3,
     name: 'EN',
     links: '#',
   },
@@ -33,44 +63,47 @@ const data_menu_top = [
 const data_menu_list = data_header_client;
 
 const Header = () => {
-  const cart=useSelector(cartSelector)
-  const dispatch=useDispatch()
-  const handleOpenCartCompact=()=>{
-    dispatch(setIsOpenCartCompact(true))
-  }
+  const cart = useSelector(cartSelector);
+  const isLoginClient = checkLoginClient();
 
+  const [showLogout, setShowLogout] = useState();
+  const dispatch = useDispatch();
+  const handleOpenCartCompact = () => {
+    dispatch(setIsOpenCartCompact(true));
+  };
 
   return (
     <>
       <header>
-        {/* <!-- Header desktop --> */}
         <div className="container-menu-desktop">
-          {/* <!-- Topbar --> */}
-          {/* <div className="top-bar">
-            <div className="content-topbar flex-sb-m h-full container">
-              <div className="left-top-bar">Free shipping for standard order over $100</div>
-
-              <div className="right-top-bar flex-w h-full">
-                {data_menu_top.map((item, index) => (
-                  <a href="#" className="flex-c-m trans-04 p-lr-25" key={index}>
-                    {item}
-                  </a>
-                ))}
-              </div>
-            </div>
-          </div> */}
-
           <div className="wrap-menu-desktop">
             <nav className="top-bar">
               <div className="content-topbar flex-sb-m h-full container">
-                <div className="left-top-bar">Free shipping for standard order over $100</div>
+                <div className="left-top-bar">Free shipping for standa rd order over $100</div>
 
                 <div className="right-top-bar flex-w h-full">
-                  {data_menu_top.map((item, index) => (
-                    <Link to={item.links} className="flex-c-m trans-04 p-lr-25" key={index}>
-                      {item.name}
-                    </Link>
-                  ))}
+                  {isLoginClient ? (
+                    <>
+                      <Link to="#" className="flex-c-m trans-04 p-lr-25">
+                        Help & FAQs
+                      </Link>
+                      <Link to="/my-account" className="flex-c-m trans-04 p-lr-25">
+                        My Account
+                      </Link>
+                      <Link to="#" className="flex-c-m trans-04 p-lr-25" onClick={() => setShowLogout(true)}>
+                        Logout
+                      </Link>
+                      <Link to="#" className="flex-c-m trans-04 p-lr-25">
+                        EN
+                      </Link>
+                    </>
+                  ) : (
+                    data_menu_top_no_login.map((item, index) => (
+                      <Link to={item.links} className="flex-c-m trans-04 p-lr-25" key={index}>
+                        {item.name}
+                      </Link>
+                    ))
+                  )}
                 </div>
               </div>
             </nav>
@@ -111,20 +144,19 @@ const Header = () => {
 
                 <div
                   className="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 icon-header-noti js-show-cart"
-                  data-notify={cart.length>0?cart.length:0}
-                  onClick={() =>handleOpenCartCompact()}
+                  data-notify={cart.length > 0 ? cart.length : 0}
+                  onClick={() => handleOpenCartCompact()}
                 >
                   <MdShoppingCart />
-
                 </div>
 
-               <span className="dis-block  cl2  trans-04 p-l-22 p-r-11 icon-header-noti"></span>
-
+                <span className="dis-block  cl2  trans-04 p-l-22 p-r-11 icon-header-noti"></span>
               </div>
             </nav>
           </div>
         </div>
       </header>
+      {<LogoutClient show={showLogout} setStateModal={() => setShowLogout(false)} />}
     </>
   );
 };

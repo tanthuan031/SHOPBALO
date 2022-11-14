@@ -41,4 +41,8 @@ class AuthClientController extends Controller
     {
         return $this->authService->getMeClient();
     }
+    public function logoutClient(Request $request): JsonResponse
+    {
+        return $this->authService->logoutClient($request);
+    }
 }

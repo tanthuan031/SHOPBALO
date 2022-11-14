@@ -126,4 +126,12 @@ class AuthClientServices
             return $this->apiResponse([], $result['status'], $result['message']);
         }
     }
+    public function logoutClient($request)
+    {
+
+        $result = $this->authRepository->logoutClient($request);
+        if ($result['status'] === 200) {
+            return $this->apiResponse([], 'success', $result['message'], $result['status']);
+        }
+    }
 }

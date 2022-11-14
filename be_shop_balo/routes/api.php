@@ -72,6 +72,7 @@ Route::group([
 ], function () {
     Route::get('/getme', [AuthClientController::class, 'getMeClient']);
     Route::put('/updateprofile/{id}', [AuthClientController::class, 'updateprofile']);
+    Route::post('/logout', [AuthClientController::class, 'logoutClient']);
 });
 Route::prefix('client')->group(static function () {
     Route::resource('product', ClientProductController::class)->only([
