@@ -14,13 +14,14 @@ class GetAllResource extends JsonResource
      */
     public function toArray($request)
     {
+        $url= strpos($this->image_slider,'http') ===false ?  env("APP_URL") . '/storage/Slider/' . $this->image_slider :   $this->image_slider;
 
         return [
             'id' => $this->id,
             'name' => $this->name,
             'status' => $this->status,
             'description' => $this->description,
-            'image' => env("APP_URL") . '/storage/Slider/' . $this->image_slider,
+            'image' => $url,
             'url' => $this->url,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,

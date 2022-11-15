@@ -1,17 +1,30 @@
 
+import { useEffect, useState } from 'react';
 import { FaEnvelope, FaMapMarked, FaPhone } from 'react-icons/fa';
+import SkeletonBanner from '../../../components/commons/Layouts/Skeleton/SkeletonBanner';
+import SkeletonSlider from '../../../components/commons/Layouts/Skeleton/SkeletonSlider';
+
+
 import './index.css';
 
 export function ContactPage() {
-
-
+    const [isLoading, setIsLoading] = useState(false);
+    useEffect(() => {
+        const timer = setTimeout(() => {
+            setIsLoading(true);
+        }, 1500);
+        return () => clearTimeout(timer);
+    }, []);
     return (
         <>
             <div className="wrapper">
-                <div className="banner">
+                {
+                    isLoading ? ( <div className="banner">
                     <p >contact</p>
-                </div>
-                <div className="content">
+                </div>):( <SkeletonSlider isShow={false} height='300px' ></SkeletonSlider>)
+                }
+               
+               {isLoading ? (  <div className="content">
                     <div className="content_right">
                         <p>Send Us A Message</p>
                         <form className='form_help'>
@@ -54,7 +67,8 @@ export function ContactPage() {
                             </div>
                         </div>
                     </div>
-                </div>
+                </div>):(<SkeletonBanner  colunm={2}></SkeletonBanner>)}
+              
             </div >
         </>
     );

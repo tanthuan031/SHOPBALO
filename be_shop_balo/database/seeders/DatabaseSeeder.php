@@ -19,21 +19,17 @@ class DatabaseSeeder extends Seeder
         App::setLocale('vi');
         $this->call([
             // after
-           // CategorySeeder::class,
-        //    PermissionSeeder::class,
-           RoleSeeder::class,
-        //  CustomerSeeder::class,
-        //  StaffSeeder::class,
-          // DiscountSeeder::class,
-            // ProductSeeder::class,
-            // ProductDetailSeeder::class,
-            
-           
-    
+             CategorySeeder::class,
+             PermissionSeeder::class,
+             RoleSeeder::class,
+            CustomerSeeder::class,
+            StaffSeeder::class,
+            DiscountSeeder::class,
+            ProductSeeder::class,
           //before
-            // RatingSeeder::class,
-            // OrderSeeder::class,
-            // OrderDetailSeeder::class,
+            SliderSeeder::class,
+            RatingSeeder::class,
+            OrderSeeder::class,
         ]);
         App::setLocale('en');
     }

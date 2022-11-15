@@ -14,6 +14,8 @@ class CustomerResource extends JsonResource
      */
     public function toArray($request): array|\JsonSerializable|\Illuminate\Contracts\Support\Arrayable
     {
+        $url= strpos( $this->avatar,'http') ===false ?  env('APP_URL') . '/storage/customer/'  . $this->avatar :    $this->avatar;
+
         $arrayData = [
             'id' => $this->id,
             'first_name' => $this->first_name,
@@ -23,7 +25,7 @@ class CustomerResource extends JsonResource
             'email' => $this->email,
             'password' => $this->password,
             'point' => $this->point,
-            'avatar' => env('APP_URL') . '/storage/customer/'  . $this->avatar,
+            'avatar' => $url,
             'status' => $this->status,
             'address' => $this->address,
             'created_date' => $this->created_date,

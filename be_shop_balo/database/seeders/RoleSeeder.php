@@ -48,13 +48,16 @@ class RoleSeeder extends Seeder
        if(!is_null($permission)){
            foreach($data as $key => $item){
                 foreach($permission as $per){
-                    if(strpos($per['name'],'Admin') !==false && $item['name'] == 'Admin'){
+             
+                if(strpos($per->name,'Admin') !==false && $item['name'] == 'Admin'){
                             
-                        array_push($data[$key]['permission_id'],$per['id']);
-                }else if(strpos($item['name'],'Client') !==false && $item['name'] == 'Client'){
-                    array_push($data[$key]['permission_id'],$per['id']);
-                }else if($item['name'] == 'User'){
-                    array_push($data[$key]['permission_id'],$per['id']);
+                        array_push($data[$key]['permission_id'],$per->id);
+                }else if(strpos($per->name,'Client') !==false && $item['name'] == 'Client'){
+
+                    array_push($data[$key]['permission_id'],$per->id);
+
+                }else if($item['name'] == 'User' ||$item['name'] == ''){
+                    array_push($data[$key]['permission_id'],$per->id);
                 }
                 
             }
@@ -64,12 +67,12 @@ class RoleSeeder extends Seeder
        }
        foreach($data as $item){
            $roleId= DB::table('roles')->insertGetId([
-                'name'=>$data['name'],
+                'name'=>$item['name'],
                 'created_at' => date('Y-m-d H:i:s'),
                 'updated_at' => date('Y-m-d H:i:s'),
             ]);
-            foreach($item['role_permissions'] as $role){
-                DB::table('roles')->insert([
+            foreach($item['permission_id'] as $role){
+                DB::table('role_permissions')->insert([
                     'role_id'=>$roleId,
                     'permission_id'=>$role,
                     'created_at' => date('Y-m-d H:i:s'),

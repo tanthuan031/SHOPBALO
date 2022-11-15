@@ -17,9 +17,9 @@ return new class extends Migration
             $table->id();
             $table->foreignId('category_id')->constrained('categories');
             $table->string('name');
-            $table->string('description');
+            $table->text('description');
             $table->string('image');
-            $table->string('image_slide');
+            $table->text('image_slide');
             $table->string('status');
             $table->softDeletes();
             $table->timestamps();
