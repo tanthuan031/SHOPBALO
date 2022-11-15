@@ -16,7 +16,7 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        App::setLocale('vi');
+      
         $this->call([
             // after
              CategorySeeder::class,
@@ -31,6 +31,6 @@ class DatabaseSeeder extends Seeder
             RatingSeeder::class,
             OrderSeeder::class,
         ]);
-        App::setLocale('en');
+       
     }
 }

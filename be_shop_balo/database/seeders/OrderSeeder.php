@@ -30,7 +30,8 @@ class OrderSeeder extends Seeder
                     'order_detail'=>[
 
                         ]
-                    ],[
+                ],
+                [
                         'id'=>2,
                         'status'=>1,
                         'total_price'=>56000,
@@ -38,39 +39,40 @@ class OrderSeeder extends Seeder
                         'order_detail'=>[
     
                         ]
-                    ],[
-                            'id'=>3,
-                            'status'=>1,
-                            'total_price'=>34000,
-                            'created_order_date'=>date('Y-m-d H:i:s'),
-                            'order_detail'=>[
-        
+                ],
+                [
+                        'id'=>3,
+                        'status'=>1,
+                        'total_price'=>34000,
+                        'created_order_date'=>date('Y-m-d H:i:s'),
+                        'order_detail'=>[
+    
+                        ]
+                ],[
+                        'id'=>4,
+                        'status'=>1,
+                        'total_price'=>12000,
+                        'created_order_date'=>date('Y-m-d H:i:s'),
+                        'order_detail'=>[
+    
                             ]
-                     ],[
-                                'id'=>4,
-                                'status'=>1,
-                                'total_price'=>12000,
-                                'created_order_date'=>date('Y-m-d H:i:s'),
-                                'order_detail'=>[
-            
-                                    ]
-                    ],[
-                                    'id'=>5,
-                                    'status'=>1,
-                                    'total_price'=>56000,
-                                    'created_order_date'=>date('Y-m-d H:i:s'),
-                                    'order_detail'=>[
-                
-                                    ]
-                                ],[
-                                        'id'=>6,
-                                        'status'=>1,
-                                        'total_price'=>34000,
-                                        'created_order_date'=>date('Y-m-d H:i:s'),
-                                        'order_detail'=>[
-                    
-                                        ]
-                                ]
+                ],[
+                    'id'=>5,
+                    'status'=>1,
+                    'total_price'=>56000,
+                    'created_order_date'=>date('Y-m-d H:i:s'),
+                    'order_detail'=>[
+
+                    ]
+                ],[
+                    'id'=>6,
+                    'status'=>1,
+                    'total_price'=>34000,
+                    'created_order_date'=>date('Y-m-d H:i:s'),
+                    'order_detail'=>[
+
+                    ]
+                ]
         ];
         
         if(!is_null($products)){

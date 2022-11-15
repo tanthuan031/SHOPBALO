@@ -25,33 +25,33 @@ class RatingSeeder extends Seeder
                     'id'=>1,
                     'point'=>4,
                     'status'=>'pushlished',
-                    'content'=>'thích cựcccccccc, lần sau sẽ ghé shop! túi đẹp mà giá lại siêu rẻ còn giao nhanh nữaaa hơi bị thích luôn á'
+                    'content'=>'I like it very much, next time will visit the shop! Nice bag but the price is super cheap and the delivery is fast too, I\'m in love with it'
                 ],
                 [
                     'id'=>2,
                     'point'=>5,
                     'status'=>'pushlished',
-                    'content'=>'Đã nhận được sản phẩm,đóng gói cẩn thận,giao hàng nhanh,giao đúng sản phẩm,đủ số lượng,màu sắc như trong đơn hàng mình đã đặt,giá cả cũng hợp lý,mình rất hài lòng,lần tới nhất định mình sẽ tiếp tục ủng hộ shop,xin tặng cho shop 10sao..!'
+                    'content'=>'Received the product, packed carefully, fast delivery, delivered the right product, enough quantity, color as in the order I ordered, the price is also reasonable, I am very satisfied, next time I will definitely continue Continue to support the shop, please give the shop 10 stars..!'
                 ],
                 [
                     'id'=>3,
                     'point'=>5,
                     'status'=>'pushlished',
-                    'content'=>'Balo xinh lắm ạaaaaaaa
-                    Shop cskh rất tốttttttttttttr
-                    5 sao nháaaaaaaaaaaaaaaaaaaaaaaaa'
+                    'content'=>'Balloon is so pretty
+                    Shop cskh is very goodttttttttttt
+                    5 stars '
                 ],
                 [
                     'id'=>4,
                     'point'=>5,
                     'status'=>'pushlished',
-                    'content'=>'túi xinh lắm nha mọi người.........mọi người nên mua nha............................'
+                    'content'=>'The bag is so pretty everyone..........everyone should buy it.........'
                 ],
                 [
                     'id'=>5,
                     'point'=>5,
                     'status'=>'pushlished',
-                    'content'=>'túi xinh, chất da đẹp, k bị mùi hôi. màu đẹp như ảnh. ...........................................'
+                    'content'=>'Nice bag, nice leather, no bad smell. beautiful color like the photo. ..............................'
                 ]
         ];
         foreach($data as $key=> $item){

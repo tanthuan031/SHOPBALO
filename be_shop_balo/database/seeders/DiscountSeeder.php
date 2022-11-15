@@ -20,27 +20,27 @@ class DiscountSeeder extends Seeder
         $data=[
             [
                 'id'=>1,
-                'name'=>'Giảm 50%',
+                'name'=>'Sale 50%',
                 'value'=>50,
                 'status'=>true,
                 'point'=>5,
-                'description'=>'Chỉ áp dụng từ ngày 20/10 đên 20/11 trong năm 2022.'
+                'description'=>'Only valid from October 20 to November 20 in 2022.'
             ],
             [
                 'id'=>2,
-                'name'=>'Mua một tặng một',
+                'name'=>'Buy one get one free',
                 'value'=>0,
                 'status'=>true,
                 'point'=>5,
-                'description'=>'Chỉ áp dụng cho các sản phẩm có giá trị từ 200.000 VNĐ trở lên .'
+                'description'=>'Only applicable for products with a value of 200,000 VND or more.'
             ],
             [
                 'id'=>3,
-                'name'=>'Giảm giá cho một nhóm đối tượng nhất định đặc biệt',
+                'name'=>'Discounts for a certain group of special audiences',
                 'value'=>30,
                 'status'=>true,
                 'point'=>5,
-                'description'=>'Chỉ áp dụng cho các sản phẩm có giá trị thấp hơn 100.000 VNĐ .'
+                'description'=>'Only applicable for products with a value of less than 100,000 VND.'
             ],
             [
                 'id'=>4,
@@ -48,15 +48,15 @@ class DiscountSeeder extends Seeder
                 'value'=>70,
                 'status'=>true,
                 'point'=>5,
-                'description'=>'Chỉ áp dụng trong các khung giờ như sau 9h-12h,16h-18h,Lưu ý: Khuyến mãi này chỉ sử dụng trong ngày 25/12/2022.'
+                'description'=>'Only applied in the following time frames from 9am-12pm, 16h-18h, Note: This promotion is only used on December 25, 2022.'
             ],
             [
                 'id'=>5,
-                'name'=>'Miễn phí vận chuyển và hoàn lại (đổi trả hàng) miễn phí',
+                'name'=>'Free shipping and free returns (exchanges)',
                 'value'=>10,
                 'status'=>true,
                 'point'=>15,
-                'description'=>'Chỉ áp dụng cho các dịch vụ tính toán qua MoMo,ZaloPay,PayPal,Amazon Pay.'
+                'description'=>'Only applicable for payment services via MoMo, ZaloPay, Paypal, Amazon Pay.'
             ],
         ];
         foreach($data as $item){
