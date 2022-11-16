@@ -12,7 +12,7 @@ export const configHeadersAuthenticate = () => {
   };
 };
 export const getStatistisOrder = async ({ filter } = {}) => {
-  const url = '/api/admin/statistics/Order';
+  const url = '/api/admin/statistics/order';
   const queryString = [];
 
   if (filter) {
@@ -104,7 +104,7 @@ export const getStatistisCategory = async ({ filterStatus, filter, search } = {}
 };
 
 export const getFigureNewOrderToday = async () => {
-  const url = '/api/admin/statistics/Order-today';
+  const url = '/api/admin/statistics/order-today';
   const reponse = await axiosClient.get(url, configHeadersAuthenticate());
   if (reponse.status === 401) {
     return 401;

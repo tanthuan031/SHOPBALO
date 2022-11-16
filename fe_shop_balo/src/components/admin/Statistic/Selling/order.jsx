@@ -3,6 +3,7 @@ import { Chart } from 'primereact';
 import { getStatistisOrder } from '../../../../api/Admin/Statistic/statisticAPI';
 import "./index.css"
 import { Button } from 'react-bootstrap';
+import NotFoundData from '../../../commons/Layouts/NotFoundData';
 
 
 function ChartLineOrders({ type,label,data,onFilter }) {
@@ -62,7 +63,7 @@ function ChartLineOrders({ type,label,data,onFilter }) {
           }
         </div>
       </div>
-      <Chart type={type} data={dataOrder} options={optionsOrder}  className="m-lg-3" id='chart'/>
+        <Chart type={type} data={dataOrder} options={optionsOrder}  className="m-lg-3" id='chart'/>
       <div className="chart-footer">
       </div>
     </div>

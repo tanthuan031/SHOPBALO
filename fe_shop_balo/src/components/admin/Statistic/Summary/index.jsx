@@ -9,39 +9,39 @@ function SummaryStatisTic(props) {
     <Row className="summary-container">
       <Col  className=" small-box st-orders">
           <div className="inner">
-            <h3>{props.order}</h3>
+            <h3 className='title-main'>{!!props.order?props.order:0}</h3>
 
-            <p>New Orders</p>
+            <p className='title' >New Orders</p>
           </div>
           <div className="icon">
-            <FaShoppingCart />
+            <FaShoppingCart className='icon-cart '/>
           </div>
       </Col>
       <Col   className=" small-box st-revenue">
         <div className="inner">
-          <h3>{!!props.revenue? formatter.format(props.revenue):formatter.format(0)}</h3>
+          <h3 className='title-main'>{!!props.revenue? formatter.format(props.revenue):formatter.format(0)}</h3>
 
-          <p>Revenue Today</p>
+          <p className='title'>Revenue Today</p>
         </div>
         <div className="icon">
-          <FaCoins />
+          <FaCoins className='icon-revenue' />
         </div>
       </Col>
       <Col  className=" small-box  st-customers">
         <div className="inner">
-          <h3>{props.customer}</h3>
+          <h3 className='title-main'>{!!props.customer?props.customer:0}</h3>
 
-          <p>New Customers</p>
+          <p className='title'>New Customers</p>
         </div>
         <div className="icon">
-          <FaPeopleArrows />
+          <FaPeopleArrows className='icon-customer m-l-2' />
         </div>
       </Col>
       <Col  className=" small-box  st-customers">
         <div className="inner">
-          <h3>150</h3>
+          <h3 className='title-main'>150</h3>
 
-          <p>New Customers</p>
+          <p className='title'>New Customers</p>
         </div>
         <div className="icon">
           <FaPeopleArrows />

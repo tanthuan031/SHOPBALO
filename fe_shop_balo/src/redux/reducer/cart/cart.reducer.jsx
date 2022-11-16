@@ -1,11 +1,12 @@
 import { createSlice } from '@reduxjs/toolkit';
 const dataShop = JSON.parse(localStorage.getItem("cart"));
 const yourCart = !!dataShop ? dataShop.cart.cartData : [];
+// callAPI
 //const initialState = !!yourCart ? yourCart : [];
 export const productReducer = createSlice({
   name: 'cart',
   initialState:{
-    cartData:!!yourCart ? yourCart : []
+    cartData:!!yourCart ? yourCart : [],
   },
   reducers: {
     addProductCart: (state, action) => {
