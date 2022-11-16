@@ -18,6 +18,10 @@ Github Project: https://github.com/tanthuan031/SHOPBALO.git
 
 - Xampp Server : https://www.apachefriends.org/
 
+<h5>Class Diagram</h5>
+
+![img.png](ReadmeFolder/shopbalo.png)
+
 ## Setup Project
 
 ## 1.Back End
