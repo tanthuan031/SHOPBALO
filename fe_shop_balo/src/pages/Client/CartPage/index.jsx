@@ -9,14 +9,10 @@ import SkeletonCart from '../../../components/commons/Layouts/Skeleton/SkeletonC
 export function CartPage(props) {
   const [listCartProduct, setListCartProduct] = useState([]);
   const [loading,setLoading] = useState(false)
-  const [total, setTotal] = useState(0);
   const dataCart = useSelector(cartSelector);
-  const dispatch = useDispatch();
   useEffect( () => {
     setListCartProduct(dataCart)
-    setTotal(dataCart.reduce((acc, item) => acc + (item.price * item.qty), 0))
-  }, [dispatch]);
-  //console.log(listCartProduct);
+  }, [dataCart]);
   return (
     <>
       {
@@ -42,13 +38,13 @@ export function CartPage(props) {
                                   <th className='column-5'>Total</th>
                                 </tr>
                                 {
-                                  listCartProduct.length>0&& listCartProduct.map((item) => (
+                                  listCartProduct.length>0 && listCartProduct.map((item) => (
                                     <CartItem id={item.id} name={item.name}
                                               price={item.price} key={item.id}
                                               quantity_cart={item.qty}
                                               limit_amount={item.amount}
                                               image={item.image}
-                                              onSetTotal={setTotal}
+
                                     />
                                   ))
                                 }
@@ -77,7 +73,7 @@ export function CartPage(props) {
 
                               <div className='size-209 p-t-1'>
               <span className='mtext-110 cl2'>
-            {formatter.format(total)}
+            {formatter.format(listCartProduct.reduce((acc, item) => acc + (item.price * item.qty), 0))}
               </span>
                               </div>
                             </div>
