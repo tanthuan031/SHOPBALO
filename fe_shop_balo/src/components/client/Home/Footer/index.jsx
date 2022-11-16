@@ -31,15 +31,15 @@ const Footer = () => {
             </p>
 
             <div className="p-t-27">
-              <Link to="http://" className="fs-18 cl7 hov-cl1 trans-04 m-r-16">
+              <Link to="https://www.facebook.com/backpack.tresor" target={'_blank'}className="fs-18 cl7 hov-cl1 trans-04 m-r-16">
                 <FaFacebookF />
               </Link>
 
-              <Link to="http://" className="fs-18 cl7 hov-cl1 trans-04 m-r-16">
+              <Link to="https://www.facebook.com/backpack.tresor" target={'_blank'}className="fs-18 cl7 hov-cl1 trans-04 m-r-16">
                 <FaInstagram />
               </Link>
 
-              <Link to="http://" className="fs-18 cl7 hov-cl1 trans-04 m-r-16">
+              <Link to="https://www.facebook.com/backpack.tresor" target={'_blank'}className="fs-18 cl7 hov-cl1 trans-04 m-r-16">
                 <FaPinterestP />
               </Link>
             </div>
@@ -54,14 +54,16 @@ const Footer = () => {
                   className="input1 bg-none plh1 stext-107 cl7"
                   type="text"
                   name="email"
-                  placeholder="email@example.com"
+                  placeholder="tresorbackpack@gmail.com"
                 />
                 <div className="focus-input1 trans-04"></div>
               </div>
 
               <div className="p-t-18">
                 <button className="flex-c-m stext-101 cl0 size-103 bg1 bor1 hov-btn2 p-lr-15 trans-04">
-                  Subscribe
+                  <Link to="https://www.facebook.com/backpack.tresor" target={'_blank'} className="text-dark">
+                    Subscribe
+                  </Link>
                 </button>
               </div>
             </form>
@@ -83,7 +85,7 @@ const Footer = () => {
 
           <p className="stext-107 cl6 txt-center">
             Copyright &copy;
-            {new Date().getFullYear()}
+            {`${new Date().getFullYear()} `}
             All rights reserved | Made with
             <i className="fa fa-heart-o" aria-hidden="true"></i> by
             <Link to="" target={'_blank'}>
