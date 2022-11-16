@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { formatter } from '../../../utils/formatCurrency';
-import { getDetailProductById } from '../../../api/Client/Home/productDetailAPI';
 import { useDispatch, useSelector } from 'react-redux';
 import { cartSelector } from '../../../redux/selectors';
 import CartItem from '../../../components/client/Cart/CartItem';
@@ -9,40 +8,15 @@ import SkeletonCart from '../../../components/commons/Layouts/Skeleton/SkeletonC
 
 export function CartPage(props) {
   const [listCartProduct, setListCartProduct] = useState([]);
-  const [loading,setLoading] = useState(true)
+  const [loading,setLoading] = useState(false)
   const [total, setTotal] = useState(0);
   const dataCart = useSelector(cartSelector);
-  const getInfoProductWithID = async (id) => {
-    const result = await getDetailProductById(id);
-    // console.log(result);
-    if (result === 401) {
-      return false;
-    } else if (result === 500) {
-      return false;
-    } else {
-      return result;
-    }
-  };
-  const handleGetDataProduct = async (dataCart, callback, callback2) => {
-
-    console.log('callAPI');
-    let data = dataCart.map(async (item) => await getInfoProductWithID(item.id));
-    let temp = await Promise.all(data);
-    // console.log('ínfc',temp);
-    const remakedata = temp.map((item, index) => {
-      return { ...item, quantity_cart: dataCart[index].qty };
-    });
-    callback(remakedata);
-   callback2(remakedata.reduce((acc, item) => acc + (item.price * item.quantity_cart), 0));
-    setLoading(false)
-  };
   const dispatch = useDispatch();
-  //console.log(listCartProduct);
   useEffect( () => {
-     ( async ()=>await handleGetDataProduct(dataCart, setListCartProduct, setTotal))();
-
-  }, [dispatch,dataCart]);
-
+    setListCartProduct(dataCart)
+    setTotal(dataCart.reduce((acc, item) => acc + (item.price * item.qty), 0))
+  }, [dispatch]);
+  //console.log(listCartProduct);
   return (
     <>
       {
@@ -71,7 +45,7 @@ export function CartPage(props) {
                                   listCartProduct.length>0&& listCartProduct.map((item) => (
                                     <CartItem id={item.id} name={item.name}
                                               price={item.price} key={item.id}
-                                              quantity_cart={item.quantity_cart}
+                                              quantity_cart={item.qty}
                                               limit_amount={item.amount}
                                               image={item.image}
                                               onSetTotal={setTotal}
