@@ -287,7 +287,7 @@ const ProfileEditClient = (props) => {
         <div className="d-flex justify-content-end p-2 mt-3">
           <Button
             id="product-save-btn"
-            variant="danger"
+            variant="primary"
             type="submit"
             className="font-weight-bold me-3"
             disabled={!isDirty}

@@ -80,7 +80,7 @@ function ProductDetailPage(props) {
         let relateProducts = result.data.map((item) => ({
           id: item.id,
           name: item.name,
-          image: item.image,
+          image: item.image, // getURLImageProduct('Product?cat=' + item.image),
           price: item.price,
         }));
         setListRelateProducts(relateProducts);

@@ -27,9 +27,7 @@ const Shop = () => {
   const categoryId = useSelector(categoryIdSelector);
   // console.log('🚀 ~ file: index.jsx ~ line 27 ~ Shop ~ categoryId', categoryId);
   const start_price = useSelector(fillterPriceStart);
-  console.log('🚀 ~ file: index.jsx ~ line 30 ~ Shop ~ start_price', start_price);
   const end_price = useSelector(fillterPriceEnd);
-  console.log('🚀 ~ file: index.jsx ~ line 32 ~ Shop ~ end_price', end_price);
 
   const filter = categoryId;
 
@@ -73,7 +71,7 @@ const Shop = () => {
 
   return (
     <>
-      <section className="container-fluid ">
+      <section className="container ">
         <section id="shop__title-main">
           <h1 className="fw-bold fs-2 my-4">ALL PRODUCT</h1>
         </section>
@@ -105,6 +103,7 @@ const Shop = () => {
                   perPage={per_page}
                   totalRecord={totalRecord}
                   currentPage={page}
+                  className="pagination-client"
                 />
               )}
             </div>
