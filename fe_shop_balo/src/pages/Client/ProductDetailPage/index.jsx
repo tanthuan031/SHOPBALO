@@ -97,7 +97,7 @@ function ProductDetailPage(props) {
         <>
           <section className="sec-product-detail bg0 p-t-65 p-b-60">
             <div className="container">
-              <Row>
+              <div className='row'>
                 <Col md="6" lg="7">
                   <Gallery listImage={productDetail.image_slide} mainImage={productDetail.image} />
                 </Col>
@@ -113,7 +113,7 @@ function ProductDetailPage(props) {
                     image={productDetail.image}
                   />
                 </Col>
-              </Row>
+              </div>
 
               <div className="bor10 m-t-50 p-t-43 p-b-40">
                 <ReviewProduct list_review={listRating} averageRating={averageRating} />

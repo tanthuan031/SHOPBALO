@@ -33,7 +33,7 @@ function Gallery({ listImage,mainImage }) {
     <div className='p-l-25 p-r-30 p-lr-0-lg'>
       <div className='wrap-slick3 flex-sb flex-w'>
         <div className='wrap-slick3-dots'>
-          <ul className='slick3-dots'>
+          <ul className='slick3-dots dis-style'>
             {
               (!!listImageProduct) &&   listImageProduct.map(item=>(
                 <li className={item.id===imageMain?'img-slide-active':''} onClick={()=>setImageMain(item.id)} key={item.id}>
