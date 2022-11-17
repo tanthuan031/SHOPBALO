@@ -29,6 +29,8 @@ export function DashBoardPage(props) {
   const [chartCategory, setChartCategory] = useState([]);
   const [chartStaff, setChartStaff] = useState([]);
   const [chartCustomer, setChartCustomer] = useState([]);
+
+
   const dispatch = useDispatch();
   const [filter, setFilter] = useState('Weekly');
   const checkResultAPI = (result) => {
@@ -41,6 +43,8 @@ export function DashBoardPage(props) {
   };
   /* call API */
   const handleGetStatistisOrders = async (filter) => {
+
+
     const result = await getStatistisOrder({ filter });
     if (result === 401) {
       handleSetUnthorization();

@@ -8,6 +8,10 @@ import NotFoundData from '../../../commons/Layouts/NotFoundData';
 
 function ChartLineOrders({ type,label,data,onFilter }) {
   console.log('chartline orders rerendered');
+
+  const [dataRemake, setDataRemake] = useState([]);
+  const [labelRemake, setLabelRemake] = useState([]);
+
   const optionFilter=[
     {id:1,name:'Monthly'},
     {id:2,name:'Weekly'},
@@ -40,6 +44,31 @@ function ChartLineOrders({ type,label,data,onFilter }) {
       }
     }
   }
+  // switch (filter){
+  //   case 'Monthly':
+  //     var today = new Date();
+  //     var thatday = new Date();
+  //     thatday.setMonth(today.getMonth() - 1);
+  //     console.log(today.toDateString(),thatday.toDateString());
+  //
+  //     var getDaysArray = (start, end)=> {
+  //
+  //       for(var arr=[],dt=new Date(start); dt<=new Date(end); dt.setDate(dt.getDate()+1)){
+  //         arr.push(new Date(dt));
+  //       }
+  //       return arr;
+  //     };
+  //     const d=getDaysArray(thatday,today);
+  //     console.log(d);
+  //
+  //     break
+  //   case 'Weekly':
+  //
+  //     break
+  //   case 'Today':
+  //
+  //     break
+  // }
   return (
     <div className=" container_chart_order">
       <div className="chart-header">
