@@ -6,6 +6,7 @@ export const shopClientReducer = createSlice({
     categoryId: undefined,
     fillterPriceStart: undefined,
     fillterPriceEnd: undefined,
+    search: undefined,
   },
   reducers: {
     setCategoryId: (state, action) => {
@@ -17,9 +18,12 @@ export const shopClientReducer = createSlice({
     setFillterPriceEnd: (state, action) => {
       state.fillterPriceEnd = action.payload;
     },
+    setSearch: (state, action) => {
+      state.search = action.payload;
+    }
   },
 });
 
-export const { setCategoryId, setFillterPriceStart, setFillterPriceEnd } = shopClientReducer.actions;
+export const { setCategoryId, setFillterPriceStart, setFillterPriceEnd, setSearch } = shopClientReducer.actions;
 
 export default shopClientReducer.reducer;

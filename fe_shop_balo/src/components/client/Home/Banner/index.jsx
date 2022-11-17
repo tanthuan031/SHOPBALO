@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 
 // Import Swiper React components
@@ -6,36 +6,11 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 
 // Import Swiper styles
 import 'swiper/css';
-import 'swiper/css/pagination';
 import 'swiper/css/navigation';
+import 'swiper/css/pagination';
 
 // import required modules
-import { Navigation } from 'swiper';
-import { getAllCategory } from '../../../../api/Client/Home/homeAPI';
-import Skeleton from '../../../commons/Layouts/Skeleton';
 import SkeletonBanner from '../../../commons/Layouts/Skeleton/SkeletonBanner';
-
-const images = 'https://wallpapershome.com/images/pages/ico_h/24116.jpg';
-const data = [
-  {
-    id: 1,
-    image: images,
-    name: 'Women',
-    description: 'Spring 2018',
-  },
-  {
-    id: 2,
-    image: images,
-    name: 'Women',
-    description: 'Spring 2018',
-  },
-  {
-    id: 3,
-    image: images,
-    name: 'Women',
-    description: 'Spring 2018',
-  },
-];
 
 const Banner = ({ banner, isLoadingBanner }) => {
   return (

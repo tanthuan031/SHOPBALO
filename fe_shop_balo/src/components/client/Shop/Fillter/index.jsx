@@ -1,14 +1,36 @@
-import React, { useState } from 'react';
-import { GrSubtract } from 'react-icons/gr';
+import React, { useRef, useState } from 'react';
 import { FiPlus } from 'react-icons/fi';
+import { GrSubtract } from 'react-icons/gr';
+import { useDispatch, useSelector } from 'react-redux';
+import { setFillterPriceEnd, setFillterPriceStart } from '../../../../redux/reducer/shop/shop.reducer';
+import { fillterPriceEnd, fillterPriceStart } from '../../../../redux/selectors/shop/shop.selector';
 import FillterContent from './FillterContent';
-import { setFillterPriceStart, setFillterPriceEnd } from '../../../../redux/reducer/shop/shop.reducer';
 import './style.css';
-import { useDispatch } from 'react-redux';
 
-const Fillter = ({ item, title, isContent }) => {
+const Fillter = ({ item, title, isContent, isClear }) => {
   const dispatch = useDispatch();
   const [isToggle, setIsToggle] = useState(true);
+
+  const [startPrice, setStartPrice] = useState('');
+  const [endPrice, setEndPrice] = useState('');
+  const refStartPrice = useRef(null);
+  const refEndPrice = useRef(null);
+
+  const start_price = useSelector(fillterPriceStart);
+  const end_price = useSelector(fillterPriceEnd);
+  // console.log('isClear', isClear);
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    dispatch(setFillterPriceStart(startPrice));
+    dispatch(setFillterPriceEnd(endPrice));
+
+    // 👇️ clear all input values in the form
+    if (isClear) {
+      refStartPrice.current.value = '';
+      refEndPrice.current.value = '';
+    }
+  };
 
   return (
     <>
@@ -25,27 +47,36 @@ const Fillter = ({ item, title, isContent }) => {
             {isContent ? (
               isToggle && <FillterContent item={item} />
             ) : (
-              <div className="d-flex">
-                <div className="form-floating mb-3">
-                  <input
-                    type="number"
-                    className="form-control"
-                    id="from"
-                    onChange={(e) => dispatch(setFillterPriceStart(e.target.value))}
-                  />
-                  <label htmlFor="from">From</label>
+              <form onSubmit={handleSubmit}>
+                <div className="d-flex">
+                  <div className="form-floating mb-3">
+                    <input
+                      type="number"
+                      className="form-control"
+                      placeholder="From"
+                      id="from"
+                      ref={refStartPrice}
+                      onChange={(e) => setStartPrice(e.target.value)}
+                    />
+                    <label htmlFor="from">From</label>
+                  </div>
+                  <span className="fs-2">{' - '}</span>
+                  <div className="form-floating mb-3">
+                    <input
+                      type="number"
+                      className="form-control"
+                      placeholder="To"
+                      id="to"
+                      ref={refEndPrice}
+                      onChange={(e) => setEndPrice(e.target.value)}
+                    />
+                    <label htmlFor="to">To</label>
+                  </div>
                 </div>
-                <span className="fs-2">{' - '}</span>
-                <div className="form-floating mb-3">
-                  <input
-                    type="number"
-                    className="form-control"
-                    id="to"
-                    onChange={(e) => dispatch(setFillterPriceEnd(e.target.value))}
-                  />
-                  <label htmlFor="to">To</label>
-                </div>
-              </div>
+                <button type="submit" className="btn btn-danger">
+                  Fillter
+                </button>
+              </form>
             )}
 
             <hr></hr>

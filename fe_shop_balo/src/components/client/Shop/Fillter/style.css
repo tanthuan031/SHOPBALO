@@ -1,7 +1,6 @@
 .filter-homepage {
-  /* width: 60rem; */
-
   overflow: auto;
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
 }
 
 .t-collapse__label {
@@ -26,11 +25,4 @@
   font-weight: bold;
 }
 
-.t-collapse__title {
-}
 
-.t-collapse__icon {
-}
-
-.t-collapse__content {
-}

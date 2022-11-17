@@ -30,3 +30,22 @@ export const data_header_client = [
     link: '/checkout',
   },
 ];
+
+
+export const data_menu_top = [
+  {
+    id: 1,
+    name: 'Help & FAQs',
+    links: '#',
+  },
+  {
+    id: 2,
+    name: 'My Account',
+    links: '/my-account',
+  },
+  {
+    id: 3,
+    name: 'EN',
+    links: '#',
+  },
+];

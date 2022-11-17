@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useDispatch } from 'react-redux';
 import { setCategoryId } from '../../../../redux/reducer/shop/shop.reducer';
 import './style.css';
