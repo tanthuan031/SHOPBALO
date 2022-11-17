@@ -67,7 +67,7 @@ export function CustomerTable(props) {
         <tr key={item.id} className="row-data cursor-pointer" onClick={() => showDetail({ item })}>
           <td>
             {/* <img className="img-avatar " src={`${URL_SERVER}/storage/customer/${item.avatar} `} /> */}
-              <ImageCustom type='avatar' src={`${URL_SERVER}/storage/customer/${item.avatar} `}  />
+              <ImageCustom type='avatar' src={item.avatar}   />
 
           </td>
           <td className="col-txt">
@@ -118,7 +118,7 @@ export function CustomerTable(props) {
       <div className="card-overlay">
         <div className="card-image-overlay">
           {/* <img className="avatar-detail" src={`${URL_SERVER}/storage/customer/${item.avatar}`} /> */}
-            <ImageCustom src={`${URL_SERVER}/storage/customer/${item.avatar}`} type='avatar-overlay' />
+            <ImageCustom src={item.avatar} type='avatar-overlay' />
 
           <p className="card-txt card-txt-title">{`${item.first_name} ${item.last_name}`}</p>
           <p className="card-txt">
@@ -150,7 +150,7 @@ export function CustomerTable(props) {
           </p>
           <p className="card-txt-content">
             {' '}
-            <strong>First date working:</strong> {item.created_date}
+            <strong>Enrollment date:</strong> {item.created_date}
           </p>
         </div>
       </div>

@@ -13,8 +13,6 @@ import { setIsAdd } from '../../../../redux/reducer/customer/customer.reducer';
 import './style.css';
 import { addCustomer } from '../../../../api/Admin/Customer/customerAPI';
 import { AiFillEye, AiFillEyeInvisible } from 'react-icons/ai';
-import { URL_SERVER } from '../../../../utils/urlPath';
-import { formatDate } from '../../../../utils/formatDate';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import { setExpiredToken } from '../../../../redux/reducer/auth/auth.reducer';
 import { deleteCookie, getCookies } from '../../../../api/Admin/Auth';
@@ -49,8 +47,7 @@ const CustomerAdd = (props) => {
     });
   const onSubmit = async (data) => {
     BlockUI('#root', 'fixed');
-    // console.log('Date:',data.created_date);
-    if (data.created_date) data.created_date = formatDate(data.created_date, 'YYYY-MM-DD');
+
     const image = await toBase64(data.avatar[0]);
     const resultData = {
       first_name: data.first_name,
@@ -63,17 +60,15 @@ const CustomerAdd = (props) => {
       avatar: [image],
       status: 1,
       address: data.address,
-      created_date: data.created_date,
+
     };
-    //console.log('data:', resultData);
     const result = await addCustomer(resultData);
-    //console.log('Result:', result);
     Notiflix.Block.remove('#root');
     if (result === 200) {
       SuccessToast('Create customer successfully', 3000);
       props.backToCustomerList([
         {
-          key: 'id',
+          key: 'created_at',
           value: 'desc',
         },
       ]);
@@ -307,30 +302,7 @@ const CustomerAdd = (props) => {
               </div>
             </Form.Group>
           </Col>
-          <Col>
-            <Form.Group className="mb-3">
-              <Form.Label className="label-input">Created date</Form.Label>
-              <Controller
-                control={control}
-                name="created_date"
-                defaultValue=""
-                render={({ field: { onChange, onBlur, value, ref } }) => (
-                  <Form.Control
-                    onChange={onChange}
-                    value={value}
-                    ref={ref}
-                    type="date"
-                    isInvalid={errors.created_date}
-                    placeholder="Enter created date"
-                    {...register('created_date', { required: true })}
-                  />
-                )}
-              />
-              <div className="d-flex justify-content-between">
-                <small className="text-red font-weight-semi">{errors?.created_date?.message}</small>
-              </div>
-            </Form.Group>
-          </Col>
+
         </Row>
 
         <Form.Group className="mb-3">

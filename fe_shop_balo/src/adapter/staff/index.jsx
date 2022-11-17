@@ -31,7 +31,7 @@ export const editSchema = yup.object({
     .required(' Email can not blank')
     .matches(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/, 'Email is invalid'),
   address: yup.string().required('Please, Address can not blank').max(250).trim(),
-  created_date: yup.date().min(today, `Created date must be later than ${today.toLocaleString()}`).required('Please type a date'),
+  created_date: yup.date().required('Please type a date'),
   role_id: yup.object().required('Please! Choose a role'),
   gender: yup.object().required('Please !Choose a gender'),
 });
