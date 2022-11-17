@@ -172,3 +172,66 @@
 .text_color_cutom {
     color: #717fdf;
 }
+
+/* mobile */
+@media (max-width:740px) {
+
+
+    .wrapper {
+        height: unset;
+    }
+
+    .banner {
+
+        background-size: cover;
+        background-repeat: no-repeat;
+        height: 250px;
+
+    }
+
+    .content {
+
+        padding: 0 20px;
+        width: 100%;
+        height: unset;
+        display: inline-block;
+    }
+
+    .content_right,
+    .content_left {
+        margin: 20px 0;
+        height: unset;
+        width: unset;
+    }
+}
+
+/* tablet */
+@media (min-width:740px)and (max-width:1024px) {
+
+    .wrapper {
+        height: unset;
+    }
+
+    .banner {
+
+        background-size: cover;
+        background-repeat: no-repeat;
+        height: 250px;
+
+    }
+
+    .content {
+
+        padding: 0 20px;
+        width: 100%;
+        height: unset;
+        display: inline-block;
+    }
+
+    .content_right,
+    .content_left {
+        margin: 20px 0;
+        height: unset;
+        width: unset;
+    }
+}

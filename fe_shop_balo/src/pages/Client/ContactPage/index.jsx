@@ -7,24 +7,40 @@ import SkeletonSlider from '../../../components/commons/Layouts/Skeleton/Skeleto
 
 import './index.css';
 
+function getWindowDimensions() {
+    const { innerWidth: width } = window;
+
+    return width;
+}
+
 export function ContactPage() {
+
     const [isLoading, setIsLoading] = useState(false);
+    const [column, setColumn] = useState(2);
+
+
     useEffect(() => {
+        window.addEventListener('resize', () => {
+            const width = getWindowDimensions()
+            console.log(width);
+            width <= 730 ? setColumn(1) : setColumn(2);
+        });
         const timer = setTimeout(() => {
             setIsLoading(true);
         }, 1500);
         return () => clearTimeout(timer);
     }, []);
+
     return (
         <>
             <div className="wrapper">
                 {
-                    isLoading ? ( <div className="banner">
-                    <p >contact</p>
-                </div>):( <SkeletonSlider isShow={false} height='300px' ></SkeletonSlider>)
+                    isLoading ? (<div className="banner">
+                        <p >contact</p>
+                    </div>) : (<SkeletonSlider isShow={false} height='300px' ></SkeletonSlider>)
                 }
-               
-               {isLoading ? (  <div className="content">
+
+                {isLoading ? (<div className="content">
                     <div className="content_right">
                         <p>Send Us A Message</p>
                         <form className='form_help'>
@@ -67,8 +83,8 @@ export function ContactPage() {
                             </div>
                         </div>
                     </div>
-                </div>):(<SkeletonBanner  colunm={2}></SkeletonBanner>)}
-              
+                </div>) : (<SkeletonBanner colunm={column} ></SkeletonBanner>)}
+
             </div >
         </>
     );
