@@ -53,7 +53,6 @@ function CartCompact(props) {
   const handleFowardCheckoutPage = () => {
     navigate('/checkout');
   };
-  console.log('listCart', listCart);
   return (
     <div className={`wrap-header-cart js-panel-cart z-index-1m ${!!isOpenCart && `show-header-cart`}`}>
       <div className="s-full js-hide-cart"></div>

@@ -13,6 +13,7 @@ use App\Http\Controllers\Admin\StatisticController;
 use App\Http\Controllers\Admin\StorageImageController;
 use App\Http\Controllers\Client\AuthClientController;
 use App\Http\Controllers\Client\CategoryController as ClientCategoryController;
+use App\Http\Controllers\Client\DiscountClientController;
 use App\Http\Controllers\Client\ProductController as ClientProductController;
 use App\Http\Controllers\Client\RatingController as ClientRatingController;
 use App\Http\Controllers\Client\SliderController as ClientSliderController;
@@ -85,6 +86,9 @@ Route::prefix('client')->group(static function () {
         'index', 'show', 'store'
     ]);
     Route::resource('slider', ClientSliderController::class)->only([
+        'index', 'show'
+    ]);
+    Route::resource('discount', DiscountClientController::class)->only([
         'index', 'show'
     ]);
 });

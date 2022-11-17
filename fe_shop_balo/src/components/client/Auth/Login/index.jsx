@@ -102,7 +102,7 @@ export default function FormLogin() {
               </Form.Group>
               <div className="d-flex justify-content-end">
                 <Button
-                  onClick={() => historyLocation(-1)}
+                  onClick={() => (historyLocation(-1) ? historyLocation(-1) : window.location.href('/'))}
                   className=" btn font-weight-bold btn-login-client margin-right-10px btn-secondary "
                 >
                   Cancel

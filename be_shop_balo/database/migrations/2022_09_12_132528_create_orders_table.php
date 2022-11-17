@@ -21,6 +21,7 @@ return new class extends Migration
             $table->boolean('status');
             $table->float('discount_value');
             $table->float('total_price');
+            $table->string('address_delivery');
             $table->date('created_order_date');
             $table->softDeletes();
 
