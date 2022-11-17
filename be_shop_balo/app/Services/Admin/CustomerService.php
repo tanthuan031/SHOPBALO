@@ -6,6 +6,7 @@ use App\Helpers\Helper;
 use App\Http\Traits\ApiResponse;
 use App\Repositories\Admin\CustomerRepository;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Facades\Date;
 
 class CustomerService
 {
@@ -67,7 +68,7 @@ class CustomerService
             'avatar' => $avatar, //'abcd.png'
             'status' => 1,
             'address' => $request->address,
-            'created_date' => $request->created_date,
+            'created_date' => date('Y-m-d H:i:s'),
         ];
 
         $result = $this->CustomerRepository->storeCustomer($dataRequest);
