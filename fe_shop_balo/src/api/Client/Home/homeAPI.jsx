@@ -35,7 +35,7 @@ export const getAllCategory = async () => {
   }
 };
 
-export const getAllProducts = async ({ sell, sort, page, filter, start_price, end_price, per_page } = {}) => {
+export const getAllProducts = async ({ sell, sort, page, filter, start_price, end_price, per_page, dataSearch } = {}) => {
   const url = '/api/client/product';
   const queryString = [];
   if (sell) queryString.push(`sell=${sell}`);
@@ -45,6 +45,7 @@ export const getAllProducts = async ({ sell, sort, page, filter, start_price, en
   if (start_price) queryString.push(`start_price=${start_price}`);
   if (end_price) queryString.push(`end_price=${end_price}`);
   if (per_page) queryString.push(`per_page=${per_page}`);
+  if (dataSearch) queryString.push(`search=${dataSearch}`);
 
   const final_url = concatQueryString(queryString, url);
   const response = await axiosClient.get(final_url);

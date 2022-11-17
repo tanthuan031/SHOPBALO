@@ -8,7 +8,6 @@ import '../../../../asset/js/jquery-custom';
 import { setIsOpenCartCompact } from '../../../../redux/reducer/home/home.reducer';
 import { setSearch } from '../../../../redux/reducer/shop/shop.reducer';
 import { cartSelector } from '../../../../redux/selectors';
-import { search } from '../../../../redux/selectors/shop/shop.selector';
 import './style.css';
 
 const data_menu_list = data_header_client;
@@ -24,8 +23,6 @@ const Header = () => {
     dispatch(setIsOpenCartCompact(true));
   };
 
-  // const getDataFromSearch = useSelector(search);
-  // console.log('🚀 ~ file: index.jsx ~ line 34 ~ Header ~ getDataFromSearch', getDataFromSearch);
 
   const handleSubmit = (e) => {
     e.preventDefault();

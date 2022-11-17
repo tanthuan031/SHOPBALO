@@ -6,12 +6,19 @@ import { formatter } from '../../../../utils/formatCurrency';
 const ProductItem = (props) => {
   const { item } = props;
   return (
-    <div className="" style={{ width: '20rem', height: '27rem', boxShadow: "rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px" }}>
+    <div
+      className=""
+      style={{
+        width: '20rem',
+        height: '27rem',
+        boxShadow: 'rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px',
+      }}
+    >
       <div className="block2">
         <div className="block2-pic hov-img0">
           <img
-            // src={item.image}
-            src="https://picsum.photos/200/300"
+            src={item.image}
+            // src="https://picsum.photos/200/300"
             alt="IMG-PRODUCT"
             style={{ height: '20rem', objectFit: 'cover' }}
           />

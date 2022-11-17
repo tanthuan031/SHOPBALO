@@ -3,15 +3,22 @@ import { FiFilter } from 'react-icons/fi';
 import { useDispatch, useSelector } from 'react-redux';
 import { getAllCategory, getAllProducts } from '../../../api/Client/Home/homeAPI';
 import { title_fillter_header } from '../../../asset/data/staff/title_fillter_header';
+import {
+  setCategoryId,
+  setFillterPriceEnd,
+  setFillterPriceStart,
+  setSearch
+} from '../../../redux/reducer/shop/shop.reducer';
+import {
+  categoryIdSelector, fillterPriceEnd, fillterPriceStart, search
+} from '../../../redux/selectors/shop/shop.selector';
 import { ErrorToast } from '../../commons/Layouts/Alerts';
 import NotFoundData from '../../commons/Layouts/NotFoundData';
 import PaginationUI from '../../commons/Layouts/Pagination';
 import Skeleton from '../../commons/Layouts/Skeleton';
 import ProductItem from '../Home/Product/ProductItem';
-import { categoryIdSelector, fillterPriceStart, fillterPriceEnd } from '../../../redux/selectors/shop/shop.selector';
 import Fillter from './Fillter';
 import './style.css';
-import { setCategoryId, setFillterPriceEnd, setFillterPriceStart } from '../../../redux/reducer/shop/shop.reducer';
 
 const Shop = () => {
   const title_fillter = [...title_fillter_header];
@@ -29,7 +36,9 @@ const Shop = () => {
   const start_price = useSelector(fillterPriceStart);
   const end_price = useSelector(fillterPriceEnd);
   const [isClear, setIsClear] = useState(false);
-  
+
+  const dataSearch = useSelector(search);
+  // console.log('🚀 ~ file: index.jsx ~ line 34 ~ Header ~ getDataFromSearch', dataSearch);
 
   const filter = categoryId;
   const dispatch = useDispatch();
@@ -37,6 +46,7 @@ const Shop = () => {
     dispatch(setCategoryId(undefined));
     dispatch(setFillterPriceStart(undefined));
     dispatch(setFillterPriceEnd(undefined));
+    dispatch(setSearch(undefined));
   };
 
   const handleGetAllCategory = async () => {
@@ -45,7 +55,7 @@ const Shop = () => {
   };
 
   const handleGetAllProduct = async () => {
-    const result = await getAllProducts({ sort, page, filter, per_page, start_price, end_price });
+    const result = await getAllProducts({ sort, page, filter, per_page, start_price, end_price, dataSearch });
     if (result === 401) {
       ErrorToast('Something went wrong. Please try again', 3000);
       return false;
@@ -81,7 +91,7 @@ const Shop = () => {
     } else {
       setIsClear(false);
     }
-  }, [page, filter, start_price, end_price]);
+  }, [page, filter, start_price, end_price, dataSearch]);
 
   return (
     <>
@@ -99,7 +109,7 @@ const Shop = () => {
                     <span className="fw-bold ms-3 ">Bộ lọc</span>
                   </div>
                   <span className="fw-bold ms-3 pointer text-danger" onClick={() => handleClearFilter()}>
-                    All Clear
+                    Clear All
                   </span>
                 </div>
                 <div className="p-3">
