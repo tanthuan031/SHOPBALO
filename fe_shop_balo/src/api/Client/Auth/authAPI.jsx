@@ -70,23 +70,23 @@ export const handleGetInformationClient = async () => {
   }
 };
 
-// export const logout = async () => {
-//   const response = await axiosClient.post('api/admin/logout', {}, configHeadersAuthenticate());
-//   const { status } = response;
-//   switch (status) {
-//     case 'success':
-//       SuccessToast('Logout successfully', 1000);
-//       return 200;
-//       break;
-//     case 401:
-//       Notiflix.Block.remove('.modal-content');
-//       return 401;
-//     default:
-//       ErrorToast(3500, 'Server error. Please try again');
-//       Notiflix.Block.remove('.modal-content');
-//       return 500;
-//   }
-// };
+export const logoutClient = async () => {
+  const response = await axiosClient.post('api/client/logout', {}, configHeadersAuthenticate());
+  const { status } = response;
+  // console.log('dhgj', status);
+  switch (status) {
+    case 'success':
+      SuccessToast('Logout successfully', 1000);
+      return 200;
+    case 401:
+      Notiflix.Block.remove('.modal-content');
+      return 401;
+    default:
+      ErrorToast(3500, 'Server error. Please try again');
+      Notiflix.Block.remove('.modal-content');
+      return 500;
+  }
+};
 
 export const senMailOTPClient = async (body) => {
   const response = await axiosClient.post('api/client/otp-sendmail', body);

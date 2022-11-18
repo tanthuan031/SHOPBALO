@@ -29,6 +29,12 @@ export const data_header_client = [
     active: false,
     link: '/checkout',
   },
+  {
+    id: 6,
+    name: 'History',
+    active: false,
+    link: '/history',
+  },
 ];
 
 

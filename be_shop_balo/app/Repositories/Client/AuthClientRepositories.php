@@ -141,4 +141,12 @@ class AuthClientRepositories extends BaseRepository
             ];
         }
     }
+    public function logoutClient($request)
+    {
+        $request->user()->currentAccessToken()->delete();
+        return  $result = [
+            'status' => 200,
+            'message' => 'Logout Successfully'
+        ];
+    }
 }

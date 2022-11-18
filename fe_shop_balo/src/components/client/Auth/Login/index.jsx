@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Button, Form } from 'react-bootstrap';
+import { Button, Form, NavLink } from 'react-bootstrap';
 import { useForm } from 'react-hook-form';
 import { FaEye, FaEyeSlash, FaRegUserCircle } from 'react-icons/fa';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -11,15 +11,17 @@ import {
   setIsForgotPassword,
   setIsForgotPasswordClient,
   setIsLogin,
+  setIsLoginClient,
 } from '../../../../redux/reducer/auth/auth.reducer';
 import { BlockUI, BlockUICLIENT } from '../../../commons/Layouts/Notiflix';
 import { ErrorToast, SuccessToast } from '../../../commons/Layouts/Alerts';
 import './style.css';
 import ImageLogin from '../../../../utils/imagelogin.png';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { handleLoginClientAPI, setCookiesClient } from '../../../../api/Client/Auth/authAPI';
 
 export default function FormLogin() {
+  const historyLocation = useNavigate();
   const [typePassword, setShowPassword] = useState('password');
   const dispatch = useDispatch();
   const {
@@ -48,9 +50,11 @@ export default function FormLogin() {
     if (result.status === 200) {
       SuccessToast('Logged in successfully', 2000);
       setCookiesClient('tokenClient', result.data, 1);
+      dispatch(setIsLoginClient(true));
       // Notiflix.Block.remove('.sl-box');
       setTimeout(() => {
-        window.location.href = '/';
+        // window.location.href = '/';
+        historyLocation(-1);
       }, 1000);
       return;
     }
@@ -96,7 +100,13 @@ export default function FormLogin() {
                   Fogot password ?
                 </span>
               </Form.Group>
-              <div className="d-grid">
+              <div className="d-flex justify-content-end">
+                <Button
+                  onClick={() => (historyLocation(-1) ? historyLocation(-1) : window.location.href('/'))}
+                  className=" btn font-weight-bold btn-login-client margin-right-10px btn-secondary "
+                >
+                  Cancel
+                </Button>
                 <Button className="font-weight-bold btn-login-client" type="submit" disabled={!isValid}>
                   Login
                 </Button>

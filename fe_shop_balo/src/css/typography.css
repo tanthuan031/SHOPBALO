@@ -64,6 +64,9 @@ a {
 .font-20px {
   font-size: var(--20px);
 }
+.font-24px {
+  font-size: 1.5rem;
+}
 .font-30px {
   font-size: 1.9rem;
 }
@@ -76,6 +79,12 @@ a {
 }
 .padding-left-12px {
   padding-left: var(--12px);
+}
+.padding-left-24px {
+  padding-left: var(--24px);
+}
+.padding-left-48px {
+  padding-left: 5rem;
 }
 .padding-right-12x {
   padding-right: 4rem;
@@ -93,12 +102,22 @@ a {
 .margin-left-100px {
   margin-left: 10%;
 }
+
 .margin-right-10px {
   margin-right: 1%;
 }
 .margin-right-100px {
   margin-right: 10%;
 }
+.margin-0px {
+  margin: 0px;
+}
 .pagination {
   justify-content: center;
+}
+.width-50 {
+  width: 50%;
+}
+.width-70 {
+  width: 70%;
 }

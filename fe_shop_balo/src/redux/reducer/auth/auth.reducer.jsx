@@ -5,12 +5,14 @@ export const authReducer = createSlice({
   initialState: {
     key: 0,
     isLogin: false,
+    isLoginClient: false,
     expiredToken: false,
     isForgotPassword: false,
     isForgotPasswordVerification: false,
     isForgotPasswordClient: false,
     isForgotPasswordVerificationClient: false,
     user: {},
+    client: {},
     emailForgot: '',
     emailForgotClient: '',
   },
@@ -45,6 +47,13 @@ export const authReducer = createSlice({
     setEmailForgotClient: (state, action) => {
       state.emailForgotClient = action.payload;
     },
+    // Client
+    setClient: (state, action) => {
+      state.client = action.payload;
+    },
+    setIsLoginClient: (state, action) => {
+      state.isLoginClient = action.payload;
+    },
   },
 });
 
@@ -58,6 +67,8 @@ export const {
   setIsForgotPasswordClient,
   setIsForgotPasswordVerificationClient,
   setEmailForgotClient,
+  setClient,
+  setIsLoginClient,
 } = authReducer.actions;
 
 export default authReducer.reducer;

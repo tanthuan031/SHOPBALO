@@ -1,5 +1,6 @@
 import * as yup from 'yup';
 import { deleteCookie, getCookies, handleGetInformation, handleLogin1 } from '../../api/Admin/Auth';
+import { handleGetInformationClient } from '../../api/Client/Auth/authAPI';
 import { BlockUI } from '../../components/commons/Layouts/Notiflix';
 export const schemaLogin = yup
   .object({
@@ -42,6 +43,19 @@ export const checkLogin = () => {
 };
 export const handleGetMe = async () => {
   const response = await handleGetInformation();
+  if (response === 401) {
+    return 401;
+  } else {
+    return response;
+  }
+};
+
+export const checkLoginClient = () => {
+  const getTokenClient = getCookies('tokenClient');
+  return getTokenClient ? true : false;
+};
+export const handleGetMeClient = async () => {
+  const response = await handleGetInformationClient();
   if (response === 401) {
     return 401;
   } else {

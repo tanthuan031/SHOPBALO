@@ -20,10 +20,12 @@ class Order extends Model
     protected $fillable = [
         'customer_id',
         'staff_id',
+        'address_delivery',
         'discount_id',
         'status',
         'discount_value',
         'total_price',
+        'created_order_date'
     ];
     public function customers(): BelongsTo
     {
@@ -64,5 +66,16 @@ class Order extends Model
                 }
                 $query->orderBy($sortBy, $sortValue);
             });
+    }
+    public function scopeFilter($query, $request)
+    {
+        // dd($request->query("filter")["type"]);
+        return $query->when($request->has('filter.customer_id'), function ($query) use ($request) {
+            $list = explode(",", $request->query("filter")["customer_id"]);
+            $query->whereIn("customer_id", $list);
+        })->when($request->has('filter.status'), function ($query) use ($request) {
+            $list = explode(",", $request->query("filter")["status"]);
+            $query->whereIn("status", $list);
+        });
     }
 }

@@ -42,7 +42,6 @@ export const configHeadersAuthenticate = () => {
 export const handleLogin = async (body) => {
   const url = 'api/admin/login';
   const response = await axiosClient.post(url, body);
-
   return response;
 };
 export const handleGetInformation = async () => {
@@ -50,7 +49,6 @@ export const handleGetInformation = async () => {
   if (response.status === 401) {
     return 401;
   }
-
   if (response.status === 'success') {
     return response.data;
   }

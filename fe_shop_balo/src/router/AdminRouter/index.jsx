@@ -33,7 +33,6 @@ export default function AdminRouter() {
       } else {
         dispatch(setIsLogin(true));
         dispatch(setUser(result));
-        console.log('fwh', result);
       }
     });
   }, [dispatch]);
