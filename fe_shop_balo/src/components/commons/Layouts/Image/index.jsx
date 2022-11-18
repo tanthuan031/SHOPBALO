@@ -32,10 +32,11 @@ function ImageCustom(props,ref) {
     <img
       src={error ? imageDefault : props.src}
       ref={ref}
-      // onLoad={handleImageLoaded.bind(this)}
+      {...props}
       onError={handleImageError.bind(this)}
       className={`${classNameType} ${props.className}`}
-     alt={props.alt}/>
+      alt={props.alt}
+    />
   );
 }
 export default forwardRef(ImageCustom)
