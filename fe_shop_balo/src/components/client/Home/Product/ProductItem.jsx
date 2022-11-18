@@ -1,12 +1,20 @@
 import React from 'react';
 import { BsHeart } from 'react-icons/bs';
 import { Link } from 'react-router-dom';
+import StarRatings from 'react-star-ratings/build/star-ratings';
 import { formatter } from '../../../../utils/formatCurrency';
 
 const ProductItem = (props) => {
   const { item } = props;
   return (
-    <div className="" style={{ width: '20rem' }}>
+    <div
+      className=""
+      style={{
+        width: '20rem',
+        height: '27rem',
+        boxShadow: 'rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px',
+      }}
+    >
       <div className="block2">
         <div className="block2-pic hov-img0">
           <img src={item.image} alt="IMG-PRODUCT" style={{ height: '20rem', objectFit: 'cover' }} />
@@ -18,13 +26,22 @@ const ProductItem = (props) => {
           </Link>
         </div>
 
-        <div className="block2-txt flex-w flex-t p-t-14">
-          <div className="block2-txt-child1 flex-col-l">
+        <div className="block2-txt flex-w flex-t p-3">
+          <div className="d-flex flex-column w-100">
             <a href={`/product/${item.id}`} className="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6">
               {item.name}
             </a>
 
-            <span className="stext-105 cl3"> {formatter.format(item.price)} </span>
+            <div className="d-flex justify-content-between">
+              <span className="stext-105 cl3"> {formatter.format(item.price)} </span>
+
+              <StarRatings
+                rating={item.ratings.point}
+                starRatedColor="rgb(252,202,25)"
+                starDimension="20px"
+                starSpacing="3px"
+              />
+            </div>
           </div>
         </div>
       </div>

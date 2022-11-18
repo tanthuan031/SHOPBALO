@@ -1,4 +1,3 @@
-import React from 'react';
 import axiosClient from '../axiosClient';
 
 export const getStorageImage = async params => {

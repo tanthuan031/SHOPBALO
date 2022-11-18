@@ -14,10 +14,11 @@ import { ErrorToast, SuccessToast } from '../../../commons/Layouts/Alerts';
 import './style.css';
 import ImageLogin from '../../../../utils/imagelogin.png';
 import Select from 'react-select';
-import { Link, Navigate } from 'react-router-dom';
+import { Link, Navigate, useNavigate } from 'react-router-dom';
 import { addSchema } from '../../../../adapter/customer';
 import { handleRegisterClientAPI } from '../../../../api/Client/Auth/authAPI';
 export default function FormRegister() {
+  const backToPage = useNavigate();
   const [typePassword, setShowPassword] = useState('password');
   const dispatch = useDispatch();
   const {
@@ -197,7 +198,14 @@ export default function FormRegister() {
                   </div>
                 </div>
               </div>
-              <div className="d-grid gap-2 mt-2">
+              <div className="d-flex justify-content-end gap-2 mt-2">
+                <Button
+                  variant="secondary"
+                  className="font-weight-bold btn-login-client "
+                  onClick={() => backToPage(-1)}
+                >
+                  Cancel
+                </Button>
                 <Button variant="primary" className="font-weight-bold btn-login-client " type="submit">
                   Register
                 </Button>

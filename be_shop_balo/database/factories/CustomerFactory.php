@@ -32,9 +32,8 @@ class CustomerFactory extends Factory
             'address' => $this->faker->address,
             'created_date' => date('Y-m-d H:i:s'),
             'deleted_at' =>  null,
-            'created_at' =>     date('Y-m-d H:i:s'),
+            'created_at' => date('Y-m-d H:i:s'),
             'updated_at' => date('Y-m-d H:i:s'),
-
 
         ];
     }

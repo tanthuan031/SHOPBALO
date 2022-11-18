@@ -68,4 +68,12 @@ class Discount extends Model
     {
         return $query->orderBy($value, $filter);
     }
+
+    public function scopeFilter($query, $request)
+    {
+        return $query->when($request->has('filter.point'), function ($query) use ($request) {
+            $list = explode(",", $request->query("filter")["point"]);
+            $query->where("point", "<=", $list)->where("status", "=", "1");
+        });
+    }
 }

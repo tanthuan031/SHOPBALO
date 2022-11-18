@@ -9,6 +9,11 @@ export const promotionReducer = createSlice({
     status: 'All',
     sort: 'asc',
     promotion: {},
+    promotionCheckOut: {
+      value: 0,
+      name: '',
+      id: 0,
+    },
   },
   reducers: {
     setIsAdd: (state, action) => {
@@ -29,9 +34,13 @@ export const promotionReducer = createSlice({
     setPromotion: (state, action) => {
       state.promotion = { ...action.payload };
     },
+    setPromotionCheckOut: (state, action) => {
+      state.promotionCheckOut = action.payload;
+    },
   },
 });
 
-export const { setIsAdd, setIsEdit, setPromotion, setIsReset, setStatus, setSort } = promotionReducer.actions;
+export const { setIsAdd, setIsEdit, setPromotion, setIsReset, setStatus, setSort, setPromotionCheckOut } =
+  promotionReducer.actions;
 
 export default promotionReducer.reducer;

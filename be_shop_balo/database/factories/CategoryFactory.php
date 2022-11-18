@@ -18,10 +18,6 @@ class CategoryFactory extends Factory
      */
     public function definition()
     {
-        return [
-            'name' => $this->faker->sentence($this->faker->biasedNumberBetween(4, 6)),
-            'parent_id' => 0,
-            'image' => 'test1.png'
-        ];
+        return [];
     }
 }

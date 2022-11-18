@@ -17,7 +17,9 @@
 .text-gray-300 {
   color: var(--bs-gray-300);
 }
-
+.text-blue-100 {
+  color: #6c7ae0;
+}
 .bg-blue-100 {
   background-color: var(--bs-blue-100);
 }
@@ -44,4 +46,7 @@
 
 .bg-infor-100 {
   background-color: var(--bs-infor-100);
+}
+.bg-gray-black {
+  background-color: #ecf0f4;
 }

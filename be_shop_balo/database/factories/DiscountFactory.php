@@ -18,11 +18,6 @@ class DiscountFactory extends Factory
      */
     public function definition()
     {
-        return [
-            'name' => $this->faker->sentence($this->faker->biasedNumberBetween(4, 6)),
-            'value' => 90,
-            'status' => true,
-            'description' => $this->faker->text(),
-        ];
+        return [];
     }
 }

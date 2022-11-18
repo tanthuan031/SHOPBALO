@@ -20,7 +20,7 @@ class StaffFactory extends Factory
      */
     public function definition()
     {
-
+        
         return [
             'role_id' => Role::all()->random()->id, //$this->faker->randomElement([1,2,3]),
             'first_name' => $this->faker->firstName,

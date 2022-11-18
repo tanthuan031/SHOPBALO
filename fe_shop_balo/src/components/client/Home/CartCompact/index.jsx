@@ -17,8 +17,8 @@ function CartCompact(props) {
   const dataCart = useSelector(cartSelector);
   const isOpenCart = useSelector(isOpenCartCompact);
   useEffect(() => {
-    setListCart(dataCart)
-    setTotal(dataCart.reduce((acc, item) => acc + (item.price * item.qty), 0))
+    setListCart(dataCart);
+    setTotal(dataCart.reduce((acc, item) => acc + item.price * item.qty, 0));
   }, [isOpenCart]);
   const dispatch = useDispatch();
   const handleCloseOpenCart = () => {
@@ -64,8 +64,6 @@ function CartCompact(props) {
                 </li>
               ))}
           </ul>
-
-
         </div>
         <div className="w-full">
           <div className="header-cart-total w-full p-tb-40">Total: {formatter.format(total)}</div>

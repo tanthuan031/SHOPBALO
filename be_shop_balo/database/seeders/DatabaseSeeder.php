@@ -6,6 +6,7 @@ use App\Models\Customer;
 use App\Models\Product;
 use App\Models\ProductDetail;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\App;
 
 class DatabaseSeeder extends Seeder
 {
@@ -16,17 +17,20 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
+
         $this->call([
+            // after
             CategorySeeder::class,
-            ProductSeeder::class,
-            ProductDetailSeeder::class,
+            PermissionSeeder::class,
             RoleSeeder::class,
-            StaffSeeder::class,
             CustomerSeeder::class,
+            StaffSeeder::class,
             DiscountSeeder::class,
-            RatingSeeder::class,
+            ProductSeeder::class,
+            //before
+            SliderSeeder::class,
+            // RatingSeeder::class,
             OrderSeeder::class,
-            OrderDetailSeeder::class,
         ]);
     }
 }

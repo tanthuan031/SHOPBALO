@@ -1,14 +1,25 @@
 import React, { useEffect, useState } from 'react';
 import { FiFilter } from 'react-icons/fi';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { getAllCategory, getAllProducts } from '../../../api/Client/Home/homeAPI';
 import { title_fillter_header } from '../../../asset/data/staff/title_fillter_header';
+import {
+  setCategoryId,
+  setFillterPriceEnd,
+  setFillterPriceStart,
+  setSearch,
+} from '../../../redux/reducer/shop/shop.reducer';
+import {
+  categoryIdSelector,
+  fillterPriceEnd,
+  fillterPriceStart,
+  search,
+} from '../../../redux/selectors/shop/shop.selector';
 import { ErrorToast } from '../../commons/Layouts/Alerts';
 import NotFoundData from '../../commons/Layouts/NotFoundData';
 import PaginationUI from '../../commons/Layouts/Pagination';
 import Skeleton from '../../commons/Layouts/Skeleton';
 import ProductItem from '../Home/Product/ProductItem';
-import { categoryIdSelector, fillterPriceStart, fillterPriceEnd } from '../../../redux/selectors/shop/shop.selector';
 import Fillter from './Fillter';
 import './style.css';
 
@@ -25,11 +36,21 @@ const Shop = () => {
   const per_page = 9;
 
   const categoryId = useSelector(categoryIdSelector);
-  // console.log('🚀 ~ file: index.jsx ~ line 27 ~ Shop ~ categoryId', categoryId);
   const start_price = useSelector(fillterPriceStart);
   const end_price = useSelector(fillterPriceEnd);
+  const [isClear, setIsClear] = useState(false);
+
+  const dataSearch = useSelector(search);
+  // console.log('🚀 ~ file: index.jsx ~ line 34 ~ Header ~ getDataFromSearch', dataSearch);
 
   const filter = categoryId;
+  const dispatch = useDispatch();
+  const handleClearFilter = () => {
+    dispatch(setCategoryId(undefined));
+    dispatch(setFillterPriceStart(undefined));
+    dispatch(setFillterPriceEnd(undefined));
+    dispatch(setSearch(undefined));
+  };
 
   const handleGetAllCategory = async () => {
     const result = await getAllCategory();
@@ -37,7 +58,7 @@ const Shop = () => {
   };
 
   const handleGetAllProduct = async () => {
-    const result = await getAllProducts({ sort, page, filter, per_page, start_price, end_price });
+    const result = await getAllProducts({ sort, page, filter, per_page, start_price, end_price, dataSearch });
     if (result === 401) {
       ErrorToast('Something went wrong. Please try again', 3000);
       return false;
@@ -67,7 +88,13 @@ const Shop = () => {
   useEffect(() => {
     handleGetAllCategory();
     handleGetAllProduct();
-  }, [page, filter, start_price, end_price]);
+
+    if (!!start_price === true && !!end_price === true) {
+      setIsClear(true);
+    } else {
+      setIsClear(false);
+    }
+  }, [page, filter, start_price, end_price, dataSearch]);
 
   return (
     <>
@@ -75,16 +102,23 @@ const Shop = () => {
         <section id="shop__title-main">
           <h1 className="fw-bold fs-2 my-4">ALL PRODUCT</h1>
         </section>
-        <div className="d-flex">
-          <div className="filter-homepage me-4 overflow-auto bg-light " style={{ width: '25%' }}>
+        <div className="d-flex gap-3">
+          <div className="filter-homepage me-4 overflow-auto bg-light" style={{ width: '25%' }}>
             <div>
-              <div className="overflow-auto d-flex flex-column p-3" style={{ height: '50rem' }}>
-                <div className="!mt-0 flex items-center space-x-2 pb-3">
-                  <FiFilter />
-                  <span className="fw-bold ms-3 ">Bộ lọc</span>
+              <div className="overflow-auto d-flex flex-column" style={{ height: '50rem' }}>
+                <div className="d-flex justify-content-between align-items-center p-3 bg-light header-fillter">
+                  <div className="">
+                    <FiFilter />
+                    <span className="fw-bold ms-3 ">Bộ lọc</span>
+                  </div>
+                  <span className="fw-bold ms-3 pointer text-danger" onClick={() => handleClearFilter()}>
+                    Clear All
+                  </span>
                 </div>
-                <Fillter item={dataCategory} title={title_fillter[0].title} isContent={true} />
-                <Fillter item={dataCategory} title={title_fillter[1].title} />
+                <div className="p-3">
+                  <Fillter item={dataCategory} title={title_fillter[0].title} isContent={true} />
+                  <Fillter item={dataCategory} title={title_fillter[1].title} isClear={isClear} />
+                </div>
               </div>
             </div>
           </div>
