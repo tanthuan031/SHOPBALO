@@ -1,7 +1,8 @@
 import { Skeleton } from 'primereact/skeleton';
 import React from 'react';
 
-const SkeletonBanner = () => {
+const SkeletonBanner = (props) => {
+  const { colunm = 3, height = '3rem' } = props;
   const n = 3;
   return (
     <>

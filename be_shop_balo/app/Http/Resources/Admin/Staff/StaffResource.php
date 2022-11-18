@@ -14,6 +14,8 @@ class StaffResource extends JsonResource
      */
     public function toArray($request)
     {
+        $url= strpos($this->avatar,'http') ===false ? env('APP_URL') . '/storage/Staff/' . $this->avatar :  $this->avatar;
+
         $arrayData = [
             'id' => $this->id,
             'role_id' => $this->role_id,
@@ -24,7 +26,7 @@ class StaffResource extends JsonResource
             'phone' => $this->phone,
             'email' => $this->email,
             'password' => $this->password,
-            'avatar' => env('APP_URL') . '/storage/Staff/' . $this->avatar,
+            'avatar' => $url,
             'status' => $this->status,
             'address' => $this->address,
             'created_date' => $this->created_date,

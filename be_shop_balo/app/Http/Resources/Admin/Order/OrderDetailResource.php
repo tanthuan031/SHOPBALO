@@ -14,11 +14,13 @@ class OrderDetailResource extends JsonResource
      */
     public function toArray($request): array
     {
+        $url= strpos( $this->products->image,'http') ===false ?  env('APP_URL') . '/storage/product/' .  $this->products->image :  $this->products->image ;
+
         $arrOrderDetail = [
             'order_id' => $this->order_id,
             'product_id' => $this->product_id,
             'product_name' => $this->products->name,
-            'image' => env('APP_URL') . '/storage/product/' .  $this->products->image,
+            'image' => $url,
             'amount' => $this->amount,
             'price' => $this->price,
 

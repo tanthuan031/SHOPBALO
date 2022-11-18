@@ -16,6 +16,10 @@ class ShowResource extends JsonResource
     {
         $products = $this->products;
         $customers = $this->customers;
+        $urlAvatar= strpos(  $customers->avatar,'http') ===false ?  env('APP_URL') . '/storage/Customer/' . $customers->avatar :   $customers->avatar ;
+        $urlProduct= strpos( $products->image,'http') ===false ?  env('APP_URL') . '/storage/Product/' . $products->image :   $products->image ;
+        $urlRating= strpos( $this->image,'http') ===false ?  env('APP_URL') . '/storage/Rating/' . $this->image :   $this->image ;
+
         return [
             'id' => $this->id,
             'customers' => [
@@ -26,7 +30,7 @@ class ShowResource extends JsonResource
                 'gender' => $customers->gender,
                 'phone' => $customers->phone,
                 'email' => $customers->email,
-                'avatar' => env('APP_URL') . '/storage/Customer/' . $customers->avatar,
+                'avatar' =>  $urlAvatar,
                 'status' => $customers->status,
                 'address' => $customers->address,
                 'created_date' => $customers->created_date,
@@ -39,13 +43,13 @@ class ShowResource extends JsonResource
                 'name' => $products->name,
                 'description' => $products->description,
                 'status' => $products->status,
-                'image' => env('APP_URL') . '/storage/Product/' . $products->image,
+                'image' => $urlProduct,
                 'created_at' => $products->created_at,
             ],
             'point' => $this->point,
             'status' => $this->status,
             'content' => $this->content,
-            'image' => env('APP_URL') . '/storage/Rating/' . $this->image,
+            'image' => $urlRating,
             'created_date' => $this->created_at,
         ];
     }

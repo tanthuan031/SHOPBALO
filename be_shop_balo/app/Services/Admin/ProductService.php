@@ -72,10 +72,8 @@ class ProductService
         if (!is_null($request->image_slide)) {
             $request['image_slide'] = Helper::saveImgBase64($request->image_slide, 'ProductSlide');
         }
-        // dd($request->all());
         $result = $this->productRepository->updateProduct($request, $id);
         $result1 = $this->productRepository->updateProductDetail($request, $id);
-        // dd($result);
         if ($result || $result1) {
             return $this->apiResponse($result, 'Success', 'Update product successfully');
         } else {
