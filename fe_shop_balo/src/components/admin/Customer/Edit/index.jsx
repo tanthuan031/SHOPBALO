@@ -364,7 +364,7 @@ const CustomerEdit = (props) => {
               src={
                 imageAvatarCustomerShow
                   ? imageAvatarCustomerShow
-                  : `${URL_SERVER}/storage/customer/${dataCustomer.avatar}`
+                  : dataCustomer.avatar
               }
               className="img-responsive image-avatar"
             />

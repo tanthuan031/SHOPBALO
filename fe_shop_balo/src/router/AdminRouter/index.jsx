@@ -19,6 +19,7 @@ import { checkLogin, handleGetMe } from '../../adapter/auth';
 import { deleteCookie, getCookies } from '../../api/Admin/Auth';
 
 import SliderPage from '../../pages/Admin/SliderPage';
+import ImportPage from '../../pages/Admin/ImportPage';
 export default function AdminRouter() {
   const dispatch = useDispatch();
   const isAuthenticate = useSelector(isLoginSelector);

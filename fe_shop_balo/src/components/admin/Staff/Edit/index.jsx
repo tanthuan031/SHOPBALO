@@ -17,6 +17,7 @@ import './style.css';
 import { formatDate } from '../../../../utils/formatDate';
 import { setExpiredToken } from '../../../../redux/reducer/auth/auth.reducer';
 import { deleteCookie, getCookies } from '../../../../api/Admin/Auth';
+import ImageCustom from '../../../commons/Layouts/Image';
 
 const StaffEdit = (props) => {
   const staffSelector = useSelector(staffByIdSelector);
@@ -371,9 +372,9 @@ const StaffEdit = (props) => {
             }}
           />
           <div className="d-flex container-avatar">
-            <img
+            <ImageCustom
               className="img-responsive image-avatar"
-              src={imageAvatarStaffShow ? imageAvatarStaffShow : `${URL_SERVER}/storage/staff/${dataStaff.avatar}`}
+              src={imageAvatarStaffShow ? imageAvatarStaffShow : dataStaff.avatar}
               alt={'avatar'}
             />
           </div>
