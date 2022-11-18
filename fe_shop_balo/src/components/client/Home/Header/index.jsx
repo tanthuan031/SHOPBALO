@@ -1,19 +1,10 @@
 import React, { useRef, useState } from 'react';
 import { ListGroup as ListGroupBootstrap } from 'react-bootstrap';
 import { MdSearch, MdShoppingCart } from 'react-icons/md';
-import React from 'react';
-import './style.css';
-import '../../../../asset/js/jquery-custom';
-import { Button, ListGroup as ListGroupBootstrap } from 'react-bootstrap';
-import { Link, NavLink } from 'react-router-dom';
-import PropTypes from 'prop-types';
-import { MdShoppingCart, MdSearch } from 'react-icons/md';
-import { HiOutlineHeart } from 'react-icons/hi';
-import { data_header_client } from '../../../../asset/data/data_header_client';
-import { cartSelector, isLoginClientSelector } from '../../../../redux/selectors';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, NavLink, useNavigate } from 'react-router-dom';
-import { data_header_client, data_menu_top } from '../../../../asset/data/client/data_header_client';
+import { data_menu_top } from '../../../../asset/data/client/data_header_client';
+import { data_header_client } from '../../../../asset/data/data_header_client';
 import '../../../../asset/js/jquery-custom';
 import { setIsOpenCartCompact } from '../../../../redux/reducer/home/home.reducer';
 import { setSearch } from '../../../../redux/reducer/shop/shop.reducer';
@@ -22,7 +13,6 @@ import './style.css';
 
 import { checkLoginClient } from '../../../../adapter/auth';
 import LogoutClient from '../../Auth/Logout';
-import { useState } from 'react';
 
 // const data_menu_top = ['Help & FAQs', 'My Account', 'EN', 'USD'];
 const data_menu_top_in_login = [
