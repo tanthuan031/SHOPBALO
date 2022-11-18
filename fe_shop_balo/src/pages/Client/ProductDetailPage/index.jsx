@@ -30,17 +30,10 @@ function ProductDetailPage(props) {
       } else if (result === 500) {
         return false;
       } else {
-        const urlArrayImageSlide = 'ProductSlide?cat=' + result.image_slide;
-        const urlImage = 'Product?cat=' + result.image;
-        const imageSlice = await getStorageImage(urlArrayImageSlide);
-        // const imageMain = await getStorageImage(urlImage);
-        if (imageSlice === 401 || imageSlice === 500) return false;
-        else {
-          // result.image = imageMain[0];
-          result.image_slide = imageSlice;
-          setProductDetail(result);
-          setIdCategory(result.category_id);
-        }
+          let product = result.data.reduce(item => item)
+          setProductDetail(product);
+          setIdCategory(product.category_id);
+
       }
     };
     const handleGetInfoReviewProduct = async (id) => {
@@ -77,6 +70,8 @@ function ProductDetailPage(props) {
           name: item.name,
           image: item.image, // getURLImageProduct('Product?cat=' + item.image),
           price: item.price,
+          ratings: item.ratings,
+
         }));
         setListRelateProducts(relateProducts);
       }
@@ -89,7 +84,6 @@ function ProductDetailPage(props) {
       setLoadingProductAndReview(false);
     };
   }, [id, idCategory]);
-
   return (
     <>
       {/*-------------------------------------DetailProduct--------------------------------*/}
@@ -99,14 +93,14 @@ function ProductDetailPage(props) {
             <div className="container">
               <div className="row">
                 <Col md="6" lg="7">
-                  <Gallery listImage={productDetail.image_slide} mainImage={productDetail.image} />
+                  <Gallery listImage={productDetail.image_slide.split(',')} mainImage={productDetail.image} />
                 </Col>
                 <Col md="6" lg="5">
                   <InfoProduct
                     id={id}
                     price={productDetail.price}
                     description={productDetail.description}
-                    star={averageRating}
+                    star={productDetail.ratings}
                     name={productDetail.name}
                     color={productDetail.code_color}
                     amount={productDetail.amount}

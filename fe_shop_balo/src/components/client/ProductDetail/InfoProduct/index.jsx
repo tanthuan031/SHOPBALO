@@ -31,7 +31,7 @@ function InfoProduct({ id,name, description, price, color, amount,star,image }) 
 
         <StarRatings
 
-          rating={star}
+          rating={star.point}
           starRatedColor='rgb(252,202,25)'
           starDimension="20px"
           starSpacing="3px"
