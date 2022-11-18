@@ -7,10 +7,13 @@ import {
   setCategoryId,
   setFillterPriceEnd,
   setFillterPriceStart,
-  setSearch
+  setSearch,
 } from '../../../redux/reducer/shop/shop.reducer';
 import {
-  categoryIdSelector, fillterPriceEnd, fillterPriceStart, search
+  categoryIdSelector,
+  fillterPriceEnd,
+  fillterPriceStart,
+  search,
 } from '../../../redux/selectors/shop/shop.selector';
 import { ErrorToast } from '../../commons/Layouts/Alerts';
 import NotFoundData from '../../commons/Layouts/NotFoundData';
@@ -120,7 +123,7 @@ const Shop = () => {
             </div>
           </div>
           <div className="d-flex flex-column" style={{ width: '75%' }}>
-            <div className="d-flex flex-wrap justify-content-start gap-4">
+            <div className="d-flex flex-wrap justify-content-center gap-4">
               {!isLoading ? (
                 <>{dataProduct.length > 0 ? <ProductList item={dataProduct} /> : <NotFoundData />}</>
               ) : (

@@ -7,6 +7,7 @@ use App\Models\Product;
 use App\Models\ProductDetail;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\App;
+
 class DatabaseSeeder extends Seeder
 {
     /**
@@ -16,21 +17,20 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-      
+
         $this->call([
             // after
-             CategorySeeder::class,
-             PermissionSeeder::class,
-             RoleSeeder::class,
+            CategorySeeder::class,
+            PermissionSeeder::class,
+            RoleSeeder::class,
             CustomerSeeder::class,
             StaffSeeder::class,
             DiscountSeeder::class,
             ProductSeeder::class,
-          //before
+            //before
             SliderSeeder::class,
-            RatingSeeder::class,
+            // RatingSeeder::class,
             OrderSeeder::class,
         ]);
-       
     }
 }
