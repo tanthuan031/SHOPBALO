@@ -14,6 +14,7 @@ use App\Http\Controllers\Admin\StorageImageController;
 use App\Http\Controllers\Client\AuthClientController;
 use App\Http\Controllers\Client\CategoryController as ClientCategoryController;
 use App\Http\Controllers\Client\DiscountClientController;
+use App\Http\Controllers\Client\OrderClientController;
 use App\Http\Controllers\Client\ProductController as ClientProductController;
 use App\Http\Controllers\Client\RatingController as ClientRatingController;
 use App\Http\Controllers\Client\SliderController as ClientSliderController;
@@ -74,6 +75,7 @@ Route::group([
     Route::get('/getme', [AuthClientController::class, 'getMeClient']);
     Route::put('/updateprofile/{id}', [AuthClientController::class, 'updateprofile']);
     Route::post('/logout', [AuthClientController::class, 'logoutClient']);
+    Route::resource('/order', OrderClientController::class);
 });
 Route::prefix('client')->group(static function () {
     Route::resource('product', ClientProductController::class)->only([

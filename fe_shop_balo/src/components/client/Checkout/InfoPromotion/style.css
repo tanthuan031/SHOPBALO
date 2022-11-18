@@ -1,5 +1,6 @@
 .edit_form .form-checkout-promotion {
   box-shadow: 2px 4px 8px -1px rgb(84 81 81);
+  border-radius: 10px;
   max-height: 300px;
   overflow-y: scroll;
   position: relative;

@@ -54,7 +54,6 @@ class RatingService
     public function create($request)
     {
         $nameFile = Helper::saveImgBase64v1($request->image, 'Rating');
-
         if ($nameFile === false) return $this->errorResponse('Image is invalid', 422);
         $payload = [
             'customer_id' => $request->customer_id,

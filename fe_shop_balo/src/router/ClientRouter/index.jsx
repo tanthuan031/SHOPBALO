@@ -15,23 +15,26 @@ import { deleteCookieClient, getCookiesClient } from '../../api/Client/Auth/auth
 import { setClient, setIsLoginClient } from '../../redux/reducer/auth/auth.reducer';
 import { useDispatch } from 'react-redux';
 import { CheckOutPage } from '../../pages/Client/CheckoutPage';
+import { HistoryOrderPage } from '../../pages/Client/HistoryPage';
+import { setProfile } from '../../redux/reducer/profile/profile.reducer';
 
 function ClientRouter(props) {
   const dispatch = useDispatch();
-  // useEffect(() => {
-  //   handleGetMeClient().then((result) => {
-  //     if (result === 401) {
-  //       const token = getCookiesClient('tokenClient');
-  //       dispatch(setIsLoginClient(false));
-  //       if (token) {
-  //         deleteCookieClient('tokenClient');
-  //       }
-  //     } else {
-  //       // dispatch(setIsLoginClient(true));
-  //       // dispatch(setClient(result));
-  //     }
-  //   });
-  // }, [dispatch]);
+  useEffect(() => {
+    handleGetMeClient().then((result) => {
+      if (result === 401) {
+        const token = getCookiesClient('tokenClient');
+        dispatch(setIsLoginClient(false));
+
+        if (token) {
+          deleteCookieClient('tokenClient');
+        }
+      } else {
+        // dispatch(setIsLoginClient(true));
+        dispatch(setProfile(result));
+      }
+    });
+  }, [dispatch]);
   return (
     <Routes>
       <Route path="/login" element={<LoginPage />} />
@@ -40,11 +43,13 @@ function ClientRouter(props) {
       <Route path="/product" element={<ClientLayout slot={<ProductPage key={'1'} />} />} />
       <Route path="/product/:id" element={<ClientLayout slot={<ProductDetailPage key={'1'} />} />} />
       <Route path="/about" element={<ClientLayout slot={<AboutPage key={'a'} />} />} />
-      <Route path="/checkout" element={<ClientLayout slot={<CheckOutPage key={'a'} />} />} />
+
       <Route path="/cart" element={<ClientLayout slot={<CartPage key={'a'} />} />} />
       {/* Requỉed login */}
       <Route element={<ProtectedRoutesClient />}>
         <Route path="/my-account" element={<ClientLayout slot={<ProfilePage key={'a'} />} />} />
+        <Route path="/checkout" element={<ClientLayout slot={<CheckOutPage key={'a'} />} />} />
+        <Route path="/history" element={<ClientLayout slot={<HistoryOrderPage key={'a'} />} />} />
       </Route>
     </Routes>
   );

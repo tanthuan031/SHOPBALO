@@ -6,6 +6,7 @@ import { getDetailProductById } from '../../../api/Client/Home/productDetailAPI'
 import InfoPromotion from '../../../components/client/Checkout/InfoPromotion';
 import FormInfomationCheckout from '../../../components/client/Checkout/InformationOrder';
 import ListTableProductCheckOut from '../../../components/client/Checkout/ListTableProduct';
+import NotFoundData from '../../../components/commons/Layouts/NotFoundData';
 import Skeleton from '../../../components/commons/Layouts/Skeleton';
 import { cartSelector } from '../../../redux/selectors';
 import { formatter } from '../../../utils/formatCurrency';
@@ -65,37 +66,47 @@ export function CheckOutPage() {
 
   return (
     <section>
-      <div className="container-fluid mt-5 animsition">
+      <div className="container-fluid  animsition ">
         <div className="container">
           <div className="row">
             <h3 className="mb-5">Checkout</h3>
           </div>
-          <div className="row">
-            <div className="col-md-7 ">
-              {loading ? (
-                <Skeleton column={6} />
-              ) : (
-                <ListTableProductCheckOut dataListCart={listCartProduct} totalCart={total} />
-              )}
-            </div>
-            <div className="col-md-5">
-              {dataProfile != '' ? (
-                <InfoPromotion dataListCart={listCartProduct} dataProfile={dataProfile} totalCart={total} />
-              ) : (
-                <Skeleton column={6} />
-              )}
-            </div>
-          </div>
-          <div className="row">
-            <div className="col-md-12">
-              <h4 className=" mt-5 text-center font-weight-bold mb-3 mt-1 text-black">Order Infomation</h4>
-              {dataProfile != '' ? (
-                <FormInfomationCheckout dataListCart={listCartProduct} dataProfile={dataProfile} totalCart={total} />
-              ) : (
-                <Skeleton column={6} />
-              )}
-            </div>
-          </div>
+          {listCartProduct.length > 0 ? (
+            <>
+              <div className="row">
+                <div className="col-md-7 ">
+                  {loading ? (
+                    <Skeleton column={6} />
+                  ) : (
+                    <ListTableProductCheckOut dataListCart={listCartProduct} totalCart={total} />
+                  )}
+                </div>
+                <div className="col-md-5">
+                  {dataProfile != '' ? (
+                    <InfoPromotion dataListCart={listCartProduct} dataProfile={dataProfile} totalCart={total} />
+                  ) : (
+                    <Skeleton column={6} />
+                  )}
+                </div>
+              </div>
+              <div className="row mb-5">
+                <div className="col-md-12">
+                  <h4 className=" mt-5 text-center font-weight-bold mb-3 mt-1 text-black">Order Infomation</h4>
+                  {dataProfile != '' ? (
+                    <FormInfomationCheckout
+                      dataListCart={listCartProduct}
+                      dataProfile={dataProfile}
+                      totalCart={total}
+                    />
+                  ) : (
+                    <Skeleton column={6} />
+                  )}
+                </div>
+              </div>
+            </>
+          ) : (
+            <NotFoundData btnLink="Purchase" />
+          )}
         </div>
       </div>
     </section>

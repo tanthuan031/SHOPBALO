@@ -6,6 +6,7 @@ import { cartSelector } from '../../../redux/selectors';
 import CartItem from '../../../components/client/Cart/CartItem';
 import NotFoundData from '../../../components/commons/Layouts/NotFoundData';
 import SkeletonCart from '../../../components/commons/Layouts/Skeleton/SkeletonCart';
+import { NavLink } from 'react-router-dom';
 
 export function CartPage(props) {
   const [listCartProduct, setListCartProduct] = useState([]);
@@ -94,7 +95,7 @@ export function CartPage(props) {
                         </div>
 
                         <button className="flex-c-m stext-101 cl0 size-116 bg3 bor14 hov-btn3 p-lr-15 trans-04 pointer">
-                          Proceed to Checkout
+                          <NavLink to="/checkout"> Proceed to Checkout</NavLink>
                         </button>
                       </div>
                     </div>

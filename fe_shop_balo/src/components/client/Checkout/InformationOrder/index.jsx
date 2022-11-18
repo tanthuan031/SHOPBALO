@@ -8,7 +8,8 @@ import Select from 'react-select';
 import { getAllCities, getAllDictrists, getAllWards } from '../../../../api/Cities';
 import { useDispatch, useSelector } from 'react-redux';
 import { deleteCookieClient, getCookiesClient, handleGetInformationClient } from '../../../../api/Client/Auth/authAPI';
-import { FaEye } from 'react-icons/fa';
+import { BlockUI, BlockUICLIENT } from '../../../commons/Layouts/Notiflix';
+import { FaEdit, FaEye } from 'react-icons/fa';
 import iconVNPAY from '../../../../utils/logo-vnpay.png';
 import iconMOMO from '../../../../utils/logo-momo.png';
 import iconVISA from '../../../../utils/logo-visa.png';
@@ -16,11 +17,21 @@ import iconDELIVERY from '../../../../utils/logo-deliver.png';
 import './style.css';
 import { formatter } from '../../../../utils/formatCurrency';
 import { getAllDiscountQueryPoint } from '../../../../api/Client/Discount';
+import { promotionCheckOut } from '../../../../redux/selectors/promotion/promotion.selector';
+import { checkoutSchema } from '../../../../adapter/order';
+import { addOrder } from '../../../../api/Client/Order';
+import { ErrorToast, SuccessToast } from '../../../commons/Layouts/Alerts';
+import Notiflix from 'notiflix';
+import { Navigate } from 'react-router-dom';
 export default function FormInfomationCheckout(props) {
   const [cities, setCities] = useState([]);
   const [distrists, setDistricts] = useState();
   const [listDiscount, setListDiscount] = useState([]);
+  const [editFirstName, setEditFirstName] = useState(true);
+  const [editLastName, setEditLastName] = useState(true);
+  const [editPhone, setEditPhone] = useState(true);
   const [wards, setWards] = useState();
+  const discount = useSelector(promotionCheckOut);
   const handleGetCities = async () => {
     const formatDataCities = [];
     const data = await getAllCities();
@@ -54,37 +65,20 @@ export default function FormInfomationCheckout(props) {
     });
     setWards(formatDataWard);
   };
-  const handleGetDiscount = async () => {
-    const point = props.dataProfile.point;
-    const result = await getAllDiscountQueryPoint({
-      filterPoint: point,
-    });
-    if (result === 401) {
-      handleSetUnthorization();
-      window.location.href = '/login';
-      return false;
-    } else if (result === 500) {
-      return false;
-    } else {
-      setListDiscount(result);
-    }
-    // setLoading(false);
-  };
   const dispatch = useDispatch();
   useEffect(() => {
     handleGetCities();
-    handleGetDiscount();
   }, [dispatch]);
-  console.log('dj', listDiscount);
+
   const {
     register,
     handleSubmit,
     control,
     setValue,
-    formState: { errors, isDirty, dirtyFields },
+    formState: { errors, isDirty, isValid, dirtyFields },
   } = useForm({
     mode: 'onChange',
-    // resolver: yupResolver(editSchema),
+    resolver: yupResolver(checkoutSchema),
     defaultValues: {
       first_name: props.dataProfile.first_name,
       last_name: props.dataProfile.last_name,
@@ -108,58 +102,46 @@ export default function FormInfomationCheckout(props) {
       label: 'Payment on delivery',
     },
   ];
+  const onSubmit = async (data) => {
+    BlockUICLIENT('#root', 'fixed');
+    const resultData = {
+      customer_id: props.dataProfile.id,
+      staff_id: 1,
+      discount_id: discount.id,
+      status: 1,
+      discount_value: discount.value,
+      total_price: props.totalCart - (props.totalCart * discount.value) / 100,
+      address_delivery: data.cities + ',' + data.district + ',' + data.ward + ',' + data.address,
+      order_detail: props.dataListCart,
+    };
+    const result = await addOrder(resultData);
+    Notiflix.Block.remove('#root');
+    if (result === 200) {
+      SuccessToast('Order payment successfully', 5000);
+      localStorage.removeItem('cart');
+      window.location.href = '/history';
+    } else if (result === 404) {
+      ErrorToast('Order payment unsuccessfully', 3000);
+      Notiflix.Block.remove('#root');
+    } else if (result === 401) {
+      handleSetUnthorization();
+      Notiflix.Block.remove('#root');
+    } else {
+      Notiflix.Block.remove('#root');
+      ErrorToast('Something went wrong. Please try again', 3000);
+    }
+  };
 
-  //   const dispatch = useDispatch();
-
-  //   const onSubmit = async (data) => {
-  //     BlockUICLIENT('#root', 'fixed');
-  //     const temDirtyFields = { ...dirtyFields };
-  //     Object.keys(temDirtyFields).map((key) => {
-  //       if (key === 'gender') temDirtyFields[key] = data[key].label;
-  //       else temDirtyFields[key] = data[key];
-  //     });
-  //     // console.log('dataBefore:', temDirtyFields);
-  //     if (temDirtyFields.avatar !== undefined) {
-  //       const image = await toBase64(temDirtyFields.avatar);
-  //       temDirtyFields.avatar = [image];
-  //     }
-  //     const result = await editProfile(props.dataProfile.id, temDirtyFields);
-  //     Notiflix.Block.remove('#root');
-  //     if (result === 200) {
-  //       SuccessToast('Update customer successfully', 5000);
-  //       props.backProfile();
-  //       backtoManageCustomer();
-  //     } else if (result === 404) {
-  //       ErrorToast('Update customers unsuccessfully', 3000);
-  //       Notiflix.Block.remove('#root');
-  //     } else if (result === 401) {
-  //       // handleSetUnthorization();
-  //       Notiflix.Block.remove('#root');
-  //     } else if (result === 402) ErrorToast('Email or phone numbers have existed!', 3000);
-  //     else {
-  //       Notiflix.Block.remove('#root');
-  //       ErrorToast('Something went wrong. Please try again', 3000);
-  //     }
-  //   };
-
-  // const handleSetUnthorization = () => {
-  //   dispatch(setExpiredToken(true));
-  //   const token = getCookies('token');
-  //   // dispatch(setIsLogin(false));
-  //   dispatch(setExpiredToken(true));
-  //   if (token) {
-  //     deleteCookie('token');
-  //   }
-  // };
   const handleSetUnthorization = () => {
     const token = getCookiesClient('tokenClient');
     if (token) {
       deleteCookieClient('tokenClient');
     }
   };
+
   return (
     <div className="edit_form d-flex justify-content-center">
-      <Form className="font_checkout text-black" encType="multipart/form-data">
+      <Form className="font_checkout text-black" encType="multipart/form-data" onSubmit={handleSubmit(onSubmit)}>
         <div className="row">
           <div className="col-md-7">
             <h4 className="text-center font-weight-bold mb-3 text-black">Shipment Details</h4>
@@ -183,8 +165,9 @@ export default function FormInfomationCheckout(props) {
                           ref={ref}
                           isInvalid={errors.first_name}
                           placeholder="Enter fisrt_name"
+                          disabled={editFirstName}
                         />
-                        <FaEye />
+                        {/* <FaEdit onClick={() => setEditFirstName(!editFirstName)} /> */}
                       </div>
                     )}
                   />
@@ -201,14 +184,18 @@ export default function FormInfomationCheckout(props) {
                     name="last_name"
                     defaultValue=""
                     render={({ field: { onChange, onBlur, value, ref } }) => (
-                      <Form.Control
-                        onChange={onChange}
-                        value={value}
-                        ref={ref}
-                        isInvalid={errors.last_name}
-                        placeholder="Enter last_name"
-                        {...register('last_name', { required: true })}
-                      />
+                      <div className="d-flex icon-edit-checkout">
+                        <Form.Control
+                          onChange={onChange}
+                          value={value}
+                          ref={ref}
+                          isInvalid={errors.last_name}
+                          placeholder="Enter last_name"
+                          {...register('last_name', { required: true })}
+                          disabled={editLastName}
+                        />
+                        {/* <FaEdit onClick={() => setEditLastName(!editLastName)} /> */}
+                      </div>
                     )}
                   />
                   <div className="d-flex justify-content-between">
@@ -226,14 +213,18 @@ export default function FormInfomationCheckout(props) {
                     name="phone"
                     defaultValue=""
                     render={({ field: { onChange, onBlur, value, ref } }) => (
-                      <Form.Control
-                        onChange={onChange}
-                        value={value}
-                        ref={ref}
-                        isInvalid={errors.phone}
-                        placeholder="Enter phone"
-                        {...register('phone', { required: true, pattern: /^0[3|7|8|9|5]\d{7,8}$/ })}
-                      />
+                      <div className="d-flex icon-edit-checkout">
+                        <Form.Control
+                          onChange={onChange}
+                          value={value}
+                          ref={ref}
+                          isInvalid={errors.phone}
+                          placeholder="Enter phone"
+                          {...register('phone', { required: true, pattern: /^0[3|7|8|9|5]\d{7,8}$/ })}
+                          disabled={editPhone}
+                        />
+                        {/* <FaEdit onClick={() => setEditPhone(!editPhone)} /> */}
+                      </div>
                     )}
                   />
                   <div className="d-flex justify-content-between">
@@ -284,7 +275,7 @@ export default function FormInfomationCheckout(props) {
                         onChange={(options) => {
                           onChange(options?.value);
                           handleGetDistrict(options?.value);
-                          setValue('cities', options.value);
+                          setValue('cities', options.label);
                         }}
                         theme={(theme) => ({
                           ...theme,
@@ -319,7 +310,7 @@ export default function FormInfomationCheckout(props) {
                         options={distrists}
                         onChange={(options) => {
                           onChange(options?.value);
-                          setValue('district', options.value);
+                          setValue('district', options.label);
                           handleGetWards(options?.value);
                         }}
                         theme={(theme) => ({
@@ -355,7 +346,7 @@ export default function FormInfomationCheckout(props) {
                         options={wards}
                         onChange={(options) => {
                           onChange(options?.value);
-                          setValue('ward', options.value);
+                          setValue('ward', options.label);
                         }}
                         theme={(theme) => ({
                           ...theme,
@@ -397,29 +388,32 @@ export default function FormInfomationCheckout(props) {
               </div>
             </Form.Group>
           </div>
-          <div className="col-md-5 padding-left-48px">
-            <div className="mb-3">
+          <div className="col-md-5 padding-left-48px ">
+            <div className="mb-3 justify-content-center p-3 order-summary">
               <h4 className="text-center font-weight-bold mb-3 mt-1 text-black">Order Summary</h4>
-              <div>
-                <div className="font-20px d-flex">
+              <div className="margin-left-100px">
+                <div className="text-summary d-flex">
                   <p className="info-invoice-left"> Total price: </p>
-                  <p className="">{formatter.format(props.totalCart)}</p>
+                  <p className=""> &nbsp; {`${formatter.format(props.totalCart)}`}</p>
                 </div>
-                <div className="font-20px d-flex">
+                <div className="text-summary d-flex">
                   <p className="info-invoice-left">Discount:</p>
-                  <p className="">10</p>
+                  <p className="">
+                    {' '}
+                    - {discount ? formatter.format((discount.value * props.totalCart) / 100) : 0}{' '}
+                    {`( ${discount.value}% )`}
+                  </p>
                 </div>
-                <div className="font-20px d-flex">
-                  <p className="info-invoice-left">Promotions:</p> <p className="">10</p>
+                <div className="text-summary d-flex">
+                  <p className="info-invoice-left">Total Bill:</p>
+                  <p className="">
+                    &nbsp; {discount ? formatter.format(props.totalCart - (discount.value * props.totalCart) / 100) : 0}
+                  </p>
                 </div>
-                <div className="font-20px d-flex">
-                  <p className="info-invoice-left">Total Bill:</p> <p className="">10</p>
-                </div>
-                <div className="font-20px">
+                <div className="text-summary">
                   <p className="info-invoice-left"> Payment methods</p>
                   <div className="d-flex  justify-content-between">
                     <Form.Check
-                      // className="info-invoice-left"
                       type="radio"
                       label={<img className="iconIamge" src={iconMOMO} />}
                       name="payment"
@@ -447,31 +441,32 @@ export default function FormInfomationCheckout(props) {
                       disabled
                     />
                     <Form.Check
+                      defaultChecked
                       className="info-invoice-left"
                       type="radio"
                       label={<img className="iconIamge" src={iconDELIVERY} />}
                       name="payment"
                       id="delivery"
                       value="delivery"
-                      checked={true}
                     />
                   </div>
                 </div>
               </div>
-            </div>
-            <div className="d-flex justify-content-center p-2 mt-3">
-              <Button
-                id="product-save-btn"
-                variant="primary"
-                type="submit"
-                className="font-weight-bold me-3"
-                disabled={!isDirty}
-              >
-                Save
-              </Button>
-              <Button id="product-save-cancel" variant="outline-secondary" className="font-weight-bold">
+              <div className="d-flex justify-content-center p-2 mt-3">
+                <Button
+                  id="save-checkout"
+                  variant="primary"
+                  type="submit"
+                  className="font-weight-bold me-3 width-70 cursor-pointer"
+                  disabled={!isValid}
+                >
+                  Checkout
+                </Button>
+              </div>
+
+              {/* <Button id="product-save-cancel" variant="outline-secondary" className="font-weight-bold">
                 Cancel
-              </Button>
+              </Button> */}
             </div>
           </div>
         </div>

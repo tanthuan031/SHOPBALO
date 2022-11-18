@@ -61,8 +61,3 @@ export default function LogoutClient(props) {
     />
   );
 }
-
-LogoutClient.propTypes = {
-  show: PropTypes.bool.isRequired,
-  setStateModal: PropTypes.func.isRequired,
-};

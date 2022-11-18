@@ -66,7 +66,7 @@ const Header = () => {
   const cart = useSelector(cartSelector);
   const isLoginClient = checkLoginClient();
 
-  const [showLogout, setShowLogout] = useState();
+  const [showLogout, setShowLogout] = useState(false);
   const dispatch = useDispatch();
   const handleOpenCartCompact = () => {
     dispatch(setIsOpenCartCompact(true));
