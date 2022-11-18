@@ -73,7 +73,7 @@ const StaffAdd = (props) => {
       SuccessToast('Create staff successfully', 3000);
       props.backToStaffList([
         {
-          key: 'id',
+          key: 'created_at',
           value: 'desc',
         },
       ]);

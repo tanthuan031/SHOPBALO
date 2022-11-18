@@ -1,9 +1,9 @@
-import React, { memo } from 'react';
+import React, { memo, useState } from 'react';
 import { Button } from 'react-bootstrap';
 import { Chart } from 'primereact';
+import NotFoundData from '../../../commons/Layouts/NotFoundData';
 
 function LineChartRevenue({ type,options,data,onFilter }) {
-  console.log('chartline revenue rerendered');
   return (
     <div className=" container_chart_order">
       <div className="chart-header">
@@ -32,7 +32,9 @@ function LineChartRevenue({ type,options,data,onFilter }) {
           </Button>
         </div>
       </div>
-      <Chart type="line" data={data} options={options}  className="m-lg-3" id='chart'/>
+      {
+          <Chart type={type} data={data} options={options}  className="m-lg-3" id='chart'/>
+      }
       <div className="chart-footer">
 
       </div>

@@ -21,7 +21,7 @@ export const SuccessToast = (title, timer) => {
       popup: 'animate__animated animate__fadeOutUp',
     },
     background: '#ebfaef',
-    color: '#00b074',
+    color: '#37b489',
   });
 };
 
@@ -38,6 +38,6 @@ export const ErrorToast = (title, timer) => {
       popup: 'animate__animated animate__fadeOutUp',
     },
     background: '#fde8e8',
-    color: '#f27474',
+    color: '#e3314c',
   });
 };

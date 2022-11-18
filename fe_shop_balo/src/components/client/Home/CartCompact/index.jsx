@@ -15,45 +15,18 @@ function CartCompact(props) {
   const [listCart, setListCart] = useState([]);
   const [total, setTotal] = useState(0);
   const dataCart = useSelector(cartSelector);
-  const getInfoProductWithID = async (id) => {
-    const result = await getDetailProductById(id);
-    // console.log(result);
-    if (result === 401) {
-      return false;
-    } else if (result === 500) {
-      return false;
-    } else {
-      return result;
-    }
-  };
-  const handleGetDataProduct = async (dataCart, callback, callback2) => {
-    let data = dataCart.map(async (item) => await getInfoProductWithID(item.id));
-    let temp = await Promise.all(data);
-    // console.log('ínfc',temp);
-    const redata = temp.map((item, index) => {
-      return { ...item, quantity_cart: dataCart[index].qty };
-    });
-    callback(redata);
-    //callback(temp)
-    callback2(redata.reduce((acc, item) => acc + item.price * item.quantity_cart, 0));
-  };
-  const isLoadingCart = useSelector(isOpenCartCompact);
-  const dispatch = useDispatch();
-  useEffect(() => {
-    (async () => await handleGetDataProduct(dataCart, setListCart, setTotal))();
-  }, [isLoadingCart]);
   const isOpenCart = useSelector(isOpenCartCompact);
-  const dispacth = useDispatch();
+  useEffect(() => {
+    setListCart(dataCart);
+    setTotal(dataCart.reduce((acc, item) => acc + item.price * item.qty, 0));
+  }, [isOpenCart]);
+  const dispatch = useDispatch();
   const handleCloseOpenCart = () => {
-    dispacth(setIsOpenCartCompact(false));
-  };
-  const handleFowardCartPage = () => {
-    navigate('/cart');
+    dispatch(setIsOpenCartCompact(false));
   };
   const handleFowardCheckoutPage = () => {
     navigate('/checkout');
   };
-  // console.log('listCart', listCart);
   return (
     <div className={`wrap-header-cart js-panel-cart z-index-1m ${!!isOpenCart && `show-header-cart`}`}>
       <div className="s-full js-hide-cart"></div>
@@ -80,36 +53,35 @@ function CartCompact(props) {
                   </div>
 
                   <div className="header-cart-item-txt p-t-8">
-                    <a href="#" className="header-cart-item-name m-b-18 hov-cl1 trans-04">
+                    <a href={`/product/${item.id}`} className="header-cart-item-name m-b-18 hov-cl1 trans-04">
                       {item.name}
                     </a>
 
                     <span className="header-cart-item-info">
-                      {item.quantity_cart} x {formatter.format(item.price)}
+                      {item.qty} x {formatter.format(item.price)}
                     </span>
                   </div>
                 </li>
               ))}
           </ul>
+        </div>
+        <div className="w-full">
+          <div className="header-cart-total w-full p-tb-40">Total: {formatter.format(total)}</div>
 
-          <div className="w-full">
-            <div className="header-cart-total w-full p-tb-40">Total: {formatter.format(total)}</div>
+          <div className="header-cart-buttons flex-w w-full">
+            <a
+              href={'/cart'}
+              className="flex-c-m stext-101 cl0 size-107 bg3 bor2 hov-btn3 p-lr-15 trans-04 m-r-8 m-b-10 cursor-pointer"
+            >
+              View Cart
+            </a>
 
-            <div className="header-cart-buttons flex-w w-full">
-              <a
-                href={'/cart'}
-                className="flex-c-m stext-101 cl0 size-107 bg3 bor2 hov-btn3 p-lr-15 trans-04 m-r-8 m-b-10 cursor-pointer"
-              >
-                View Cart
-              </a>
-
-              <a
-                onClick={() => handleFowardCheckoutPage()}
-                className="flex-c-m stext-101 cl0 size-107 bg3 bor2 hov-btn3 p-lr-15 trans-04 m-b-10 cursor-pointer"
-              >
-                Check Out
-              </a>
-            </div>
+            <a
+              href={'/checkout'}
+              className="flex-c-m stext-101 cl0 size-107 bg3 bor2 hov-btn3 p-lr-15 trans-04 m-b-10 cursor-pointer"
+            >
+              Check Out
+            </a>
           </div>
         </div>
       </div>

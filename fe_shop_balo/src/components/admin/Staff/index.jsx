@@ -74,7 +74,7 @@ export function StaffTable(props) {
       return (
         <tr key={item.id} className='row-data cursor-pointer' onClick={() => showDetail({ item })}>
           <td>
-              <ImageCustom type='avatar' src={`${URL_SERVER}/storage/staff/${item.avatar} `}  />
+              <ImageCustom type='avatar' src={item.avatar}   />
           </td>
           <td className='col-txt'>
             {`${item.first_name} ${item.last_name}`}
@@ -125,7 +125,7 @@ export function StaffTable(props) {
       <div className='card-overlay'>
         <div className='card-image-overlay'>
           {/* <img className="avatar-detail" src={`${URL_SERVER}/storage/staff/${item.avatar}`} /> */}
-            <ImageCustom type='avatar-overlay' src={`${URL_SERVER}/storage/staff/${item.avatar}`} />
+            <ImageCustom type='avatar-overlay' src={item.avatar} />
           <p className='card-txt card-txt-title'>{`${item.first_name} ${item.last_name}`}</p>
           <p className='card-txt'>
             <BsFillTelephoneFill className='icon' />
@@ -156,7 +156,7 @@ export function StaffTable(props) {
           </p>
           <p className='card-txt-content'>
             {' '}
-            <strong>First date working:</strong> {item.created_date}
+            <strong>Enrollment date:</strong> {item.created_date}
           </p>
         </div>
       </div>

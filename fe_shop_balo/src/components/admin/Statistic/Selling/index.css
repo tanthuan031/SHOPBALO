@@ -3,13 +3,11 @@
 .container_chart_order {
     margin-top:1rem;
     width: 1115px;
-
-
     padding: 2.2rem 1.8rem;
     background: #FFFFFF;
     box-shadow: 0px 5px 10px #F1F2FA;
     border-radius: 8px;
-    margin-left: 2.1rem;
+
 }
 .container_chart_order .chart-header{
     position: relative;

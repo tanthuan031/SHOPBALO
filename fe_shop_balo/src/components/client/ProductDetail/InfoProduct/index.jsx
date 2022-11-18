@@ -5,8 +5,9 @@ import StarRatings from 'react-star-ratings/build/star-ratings';
 import { useDispatch, useSelector } from 'react-redux';
 import { addProductCart, addProductCartWithQuantity } from '../../../../redux/reducer/cart/cart.reducer';
 import { cartSelector } from '../../../../redux/selectors';
+import { SuccessToast } from '../../../commons/Layouts/Alerts';
 
-function InfoProduct({ id,name, description, price, color, amount,star }) {
+function InfoProduct({ id,name, description, price, color, amount,star,image }) {
   const [loading, setLoading] = useState(true);
   const [availableProduct, setAvailableProduct] = useState(!!amount > 0);
   const [quantity, setQuantity] = useState(amount<=0?0:1);
@@ -14,7 +15,8 @@ function InfoProduct({ id,name, description, price, color, amount,star }) {
   const cart=useSelector(cartSelector)
   const handleAddCartItem=async  (id,quantity) => {
  //  dispatch(addProductCart({id:id}))
-   await dispatch(addProductCartWithQuantity({id:id, quantity:quantity}))
+   await dispatch(addProductCartWithQuantity({id:id,name:name,price:price,image:image,amount:amount, quantity:quantity}))
+    SuccessToast('Add Cart Successfully ! ', 2200);
   }
   return (
     <div className='p-r-50 p-t-5 p-lr-0-lg'>
@@ -90,6 +92,7 @@ function InfoProduct({ id,name, description, price, color, amount,star }) {
           className={`flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04 js-addcart-detail m-l-10   ${(amount<=0&&'disabled').toString()}`}>
           Add to cart
         </button>
+
 
       </div>
 

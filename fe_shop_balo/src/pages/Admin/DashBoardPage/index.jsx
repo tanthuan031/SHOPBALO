@@ -19,6 +19,7 @@ import BarChartCustomer from '../../../components/admin/Statistic/Selling/Custom
 import { setExpiredToken } from '../../../redux/reducer/auth/auth.reducer';
 import { deleteCookie, getCookies } from '../../../api/Admin/Auth';
 import { useDispatch } from 'react-redux';
+import SkeletonDashboard from '../../../components/commons/Layouts/Skeleton/SkeletonDashboard';
 
 export function DashBoardPage(props) {
   const [loading, setLoading] = useState(true);
@@ -28,6 +29,8 @@ export function DashBoardPage(props) {
   const [chartCategory, setChartCategory] = useState([]);
   const [chartStaff, setChartStaff] = useState([]);
   const [chartCustomer, setChartCustomer] = useState([]);
+
+
   const dispatch = useDispatch();
   const [filter, setFilter] = useState('Weekly');
   const checkResultAPI = (result) => {
@@ -40,6 +43,8 @@ export function DashBoardPage(props) {
   };
   /* call API */
   const handleGetStatistisOrders = async (filter) => {
+
+
     const result = await getStatistisOrder({ filter });
     if (result === 401) {
       handleSetUnthorization();
@@ -66,7 +71,7 @@ export function DashBoardPage(props) {
         data: result.data.map((item) => item.revenue),
       });
     }
-    setLoading(false);
+
   };
   const handleGetStatistisCategory = async () => {
     const result = await getStatistisCategory();
@@ -78,7 +83,6 @@ export function DashBoardPage(props) {
     } else {
       setChartCategory(result.data);
     }
-    setLoading(false);
   };
   const handleGetStatistisStaff = async () => {
     const result = await getStatisticStaff();
@@ -93,7 +97,6 @@ export function DashBoardPage(props) {
         label: result.data.map((item) => `${item.first_name} ${item.last_name}`),
       });
     }
-    setLoading(false);
   };
   const handleGetStatistisCustomer = async () => {
     const result = await getStatisticCustomer();
@@ -116,9 +119,9 @@ export function DashBoardPage(props) {
       const resultRevenue = checkResultAPI(await getFigureRevenueToday());
       const resultCustomer = checkResultAPI(await getFigureNewCustomer());
       setSummaryData({
-        order: resultOrder.reduce((acc, order) => order).amount_order,
-        revenue: resultRevenue.reduce((acc, revenue) => revenue).revenue,
-        customer: resultCustomer.reduce((acc, customer) => customer).amount_customer,
+        order:  !!resultOrder && resultOrder.reduce((acc, order) => order).amount_order,
+        revenue: !!resultRevenue && resultRevenue.reduce((acc, revenue) => revenue).revenue,
+        customer: !!resultCustomer && resultCustomer.reduce((acc, customer) => customer).amount_customer,
       });
     };
     handleGetSummaryData();
@@ -127,6 +130,8 @@ export function DashBoardPage(props) {
 
     handleGetStatistisStaff();
     handleGetStatistisCustomer();
+      setLoading(false)
+
   }, []);
   /* handle Func */
   const handleFilterOrder = useCallback((filterOrder) => {
@@ -175,32 +180,37 @@ export function DashBoardPage(props) {
   };
   return (
     <>
-      <div className="container-fluid mt-5">
+      {
+        !loading?( <div className="container-fluid mt-5">
         <SummaryStatisTic order={summaryData.order} revenue={summaryData.revenue} customer={summaryData.customer} />
         <div className=" justify-content-center">
-          <ChartLineOrders type="line" data={chartOrder.data} label={chartOrder.label} onFilter={handleFilterOrder} />
-          <LineChartRevenue type="line" data={dataRevenue} options={optionsRevenue} onFilter={handleFilterRevenue} />
-          <Row>
-            <Col>
-              {' '}
-              <PieChartCategory />
-            </Col>
-            <Col>
-              {' '}
-              <PieChartCategory />
-            </Col>
-          </Row>
-          <Row>
-            <Col>
-              <BarChartStaff data={chartStaff.data} label={chartStaff.label} />
-            </Col>
-            <Col>
-              <BarChartCustomer data={chartCustomer.data} label={chartCustomer.label} />
-            </Col>
-          </Row>
-          {/**/}
+        <ChartLineOrders type="line" data={chartOrder.data} label={chartOrder.label} onFilter={handleFilterOrder} />
+        <LineChartRevenue type="line" data={dataRevenue} options={optionsRevenue} onFilter={handleFilterRevenue} />
+        <Row>
+        <Col>
+      {' '}
+        <PieChartCategory />
+        </Col>
+        <Col>
+      {' '}
+        <PieChartCategory />
+        </Col>
+        </Row>
+        <Row>
+        <Col>
+        <BarChartStaff data={chartStaff.data} label={chartStaff.label} />
+        </Col>
+        <Col>
+        <BarChartCustomer data={chartCustomer.data} label={chartCustomer.label} />
+        </Col>
+        </Row>
+      {/**/}
         </div>
-      </div>
+        </div>)
+        :(
+        <SkeletonDashboard />
+        )
+      }
     </>
   );
 }

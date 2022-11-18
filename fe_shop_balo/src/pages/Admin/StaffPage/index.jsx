@@ -75,7 +75,7 @@ export function StaffPage(props) {
     setTotalRecord(result.meta.total);
     // setTotalPage(result.meta.);
   };
-
+  console.log(data);
   const handlePageChange = async (page) => {
     setPage(page);
     setLoading(true);

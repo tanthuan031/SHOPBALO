@@ -3,7 +3,7 @@
 }
 .small-box{
     border-radius: .5rem;
-    box-shadow: 0 2px 3px rgb(0 0 0 / 13%), 1px 2px 3px rgb(0 0 0 / 20%);
+    border: 2px solid rgba(154, 154, 154, 0.3);
     display: block;
     position: relative;
     margin: 20px 10px;
@@ -25,4 +25,25 @@
     right: 15%;
     top:24%;
     font-size: 3.2rem;
+}
+.summary-container .icon-cart{
+    color: #4fc296;
+}
+.summary-container .icon-customer {
+    color: #d50f5a;
+}
+.summary-container .icon-revenue{
+    color: #f8b014;
+}
+.summary-container .icon-or{
+    color: #4fc296;
+}
+.summary-container .inner .title{
+    color: #858585;
+    font-weight:550;
+    font-size:1.05rem;
+}
+.summary-container .inner .title-main{
+    color: #1f1d1d;
+    font-weight:850;
 }

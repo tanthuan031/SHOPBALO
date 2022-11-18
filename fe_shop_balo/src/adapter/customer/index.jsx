@@ -1,5 +1,4 @@
 import * as yup from 'yup';
-const today = new Date();
 export const addSchema = yup.object({
   first_name: yup.string().required('Please, First name can not blank').max(50).trim(),
   last_name: yup.string().required('Please, Last name can not blank').max(50).trim(),

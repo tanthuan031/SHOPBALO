@@ -1,4 +1,4 @@
-import React, { useEffect, useLayoutEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Gallery from '../../../components/client/ProductDetail/Gallery';
 import InfoProduct from '../../../components/client/ProductDetail/InfoProduct';
 import ReviewProduct from '../../../components/client/ProductDetail/ReviewProduct';
@@ -22,11 +22,6 @@ function ProductDetailPage(props) {
   const [idCategory, setIdCategory] = useState(0);
   const { id } = useParams();
 
-  const getURLImageProduct = async (input) => {
-    const urlIMG = await getStorageImage(input);
-    if (urlIMG === 401 || urlIMG === 500) return false;
-    else return urlIMG;
-  };
   useEffect(() => {
     const handleGetInfoDetailProduct = async (id) => {
       const result = await getDetailProductById(id);
@@ -102,7 +97,7 @@ function ProductDetailPage(props) {
         <>
           <section className="sec-product-detail bg0 p-t-65 p-b-60">
             <div className="container">
-              <Row>
+              <div className='row'>
                 <Col md="6" lg="7">
                   <Gallery listImage={productDetail.image_slide} mainImage={productDetail.image} />
                 </Col>
@@ -115,9 +110,10 @@ function ProductDetailPage(props) {
                     name={productDetail.name}
                     color={productDetail.code_color}
                     amount={productDetail.amount}
+                    image={productDetail.image}
                   />
                 </Col>
-              </Row>
+              </div>
 
               <div className="bor10 m-t-50 p-t-43 p-b-40">
                 <ReviewProduct list_review={listRating} averageRating={averageRating} />
