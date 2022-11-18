@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import '../../../../asset/js/slick-custom';
 import ImageCustom from '../../../commons/Layouts/Image';
-import imageBannerNotFound from '../../../../asset/images/slider-not-found.jpg';
+import {NotFoundSlider} from '../../../../asset/images/notfound';
 // Import Swiper React components
 import { Swiper, SwiperSlide } from 'swiper/react';
 
@@ -48,7 +48,7 @@ const Slider = ({ slider, isLoadingSlider }) => {
               </SwiperSlide>
             ))
           ) : (
-            <ImageCustom src={imageBannerNotFound} className="w-100" style={{ height: '75vh', objectFit: 'fill' }} />
+            <ImageCustom src={NotFoundSlider} className="w-100" style={{ height: '75vh', objectFit: 'fill' }} />
           )
         ) : (
           <Skeleton width="100%" height="75vh"></Skeleton>
