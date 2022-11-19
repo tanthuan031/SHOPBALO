@@ -5,19 +5,17 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Database\Eloquent\Relations\HasOne;
 
-class Storage extends Model
+class ExportStorage extends Model
 {
     use HasFactory;
-    protected  $table = 'storages';
+    protected  $table = 'export_storages';
     protected $fillable = [
+        'name',
+        'export_amount',
         'product_id',
-        'provider_id',
-        'amount'
+        'provider_id'
     ];
-
     public function products(): BelongsTo
     {
         return $this->belongsTo(Product::class, 'product_id');

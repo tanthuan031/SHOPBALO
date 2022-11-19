@@ -13,6 +13,7 @@ import cartReducer from './cart/cart.reducer';
 import homeClientReducer from './home/home.reducer';
 import shopClientReducer from './shop/shop.reducer';
 import historyReducer from './history/history.reducer';
+import warehouseReducer from './warehouse/warehouse.reducer';
 
 const rootReducer = combineReducers({
   product: productReducer,
@@ -29,6 +30,7 @@ const rootReducer = combineReducers({
   homeClient: homeClientReducer,
   shopClient: shopClientReducer,
   history: historyReducer,
+  warehouse: warehouseReducer,
 });
 
 export default rootReducer;
