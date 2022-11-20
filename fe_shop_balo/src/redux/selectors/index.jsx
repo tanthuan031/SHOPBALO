@@ -10,3 +10,4 @@ export * from './slider/slider.selector';
 export * from './cart/cart.selector';
 export * from './home/home.selector';
 export * from './shop/shop.selector';
+export * from './warehouse/warehouse.selector';

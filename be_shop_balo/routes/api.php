@@ -6,11 +6,13 @@ use App\Http\Controllers\Admin\CustomerController;
 use App\Http\Controllers\Admin\DiscountController;
 use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\Admin\ProductController;
+use App\Http\Controllers\Admin\ProviderController;
 use App\Http\Controllers\Admin\RatingController;
 use App\Http\Controllers\Admin\SliderController;
 use App\Http\Controllers\Admin\StaffController;
 use App\Http\Controllers\Admin\StatisticController;
 use App\Http\Controllers\Admin\StorageImageController;
+use App\Http\Controllers\Admin\WareHouseController;
 use App\Http\Controllers\Client\AuthClientController;
 use App\Http\Controllers\Client\CategoryController as ClientCategoryController;
 use App\Http\Controllers\Client\DiscountClientController;
@@ -54,6 +56,11 @@ Route::group([
     });
     // api slider
     Route::resource('slider', SliderController::class);
+    // api storage
+    Route::prefix('warehouse')->group(function () {
+        Route::resource('storage', WareHouseController::class);
+        Route::resource('provider', ProviderController::class);
+    });
 });
 Route::get('/storage/{filename}', [StorageImageController::class, 'index']);
 

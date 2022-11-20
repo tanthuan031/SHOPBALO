@@ -30,7 +30,7 @@ class DatabaseSeeder extends Seeder
             //before
             SliderSeeder::class,
             // RatingSeeder::class,
-            OrderSeeder::class,
+            // OrderSeeder::class,
         ]);
     }
 }
