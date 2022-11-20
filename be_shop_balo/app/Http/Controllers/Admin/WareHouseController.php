@@ -22,9 +22,7 @@ class WareHouseController extends Controller
     }
     public function index(Request $request)
     {
-
-
-        return  $this->storageService->getAllStorage($request);
+            return  $this->storageService->getAllStorage($request);
     }
 
     /**
@@ -54,7 +52,29 @@ class WareHouseController extends Controller
         }
 
     }
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function getAmountImport(Request $request)
+    {
+      return $this->storageService->getAmountImport($request);
 
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function getAmountExport(Request $request)
+    {
+        return $this->storageService->getAmountExport($request);
+
+    }
     /**
      * Display the specified resource.
      *

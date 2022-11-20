@@ -60,6 +60,8 @@ Route::group([
     Route::prefix('warehouse')->group(function () {
         Route::resource('storage', WareHouseController::class);
         Route::resource('provider', ProviderController::class);
+        Route::get('amount-import',[WareHouseController::class,'getAmountImport']);
+        Route::get('amount-export',[WareHouseController::class,'getAmountExport']);
     });
 });
 Route::get('/storage/{filename}', [StorageImageController::class, 'index']);

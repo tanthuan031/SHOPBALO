@@ -5,6 +5,7 @@ namespace App\Repositories\Admin\WareHouses;
 use App\Models\ExportStorage;
 use App\Models\ImportStorage;
 use App\Models\Storage;
+use Illuminate\Support\Facades\DB;
 use Ramsey\Uuid\Type\Integer;
 
 class StorageRepository
@@ -118,5 +119,38 @@ class StorageRepository
 
         return $data;
     }
+    public function statisticImportStorage($request)
+    {
+//        $start=$request->start;
+//        $end=$request->end;
+        //SELECT MONTH(created_at) as month, SUM(import_amount) as amount FROM `import_storages` WHERE 1 GROUP BY month;
+        $result =ImportStorage::query();
+        try {
+                $result=$result->select(DB::raw('MONTH(created_at) as month'),DB::raw('SUM(import_amount)AS amount') )
+              //  ->whereBetween(DB::raw('MONTH(created_at)'), [$start, $end])
+                ->groupBy('month')
+               ->get();
 
+        } catch (\Exception $e) {
+         return false;
+        }
+        return response()->json($result)->getData();
+    }
+    public function statisticExportStorage($request)
+    {
+//        $start=$request->start;
+//        $end=$request->end;
+        //SELECT MONTH(created_at) as month, SUM(import_amount) as amount FROM `import_storages` WHERE 1 GROUP BY month;
+        $result =ExportStorage::query();
+        try {
+            $result=$result->select(DB::raw('MONTH(created_at) as month'),DB::raw('SUM(export_amount)AS amount') )
+                //  ->whereBetween(DB::raw('MONTH(created_at)'), [$start, $end])
+                ->groupBy('month')
+                ->get();
+
+        } catch (\Exception $e) {
+            return false;
+        }
+        return response()->json($result)->getData();
+    }
 }

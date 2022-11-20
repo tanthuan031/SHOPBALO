@@ -46,6 +46,24 @@ class StorageService
 
 
     }
+    public function getAmountImport($request)
+    {
+        $result = $this->storageRepository->statisticImportStorage($request);
+        $data=[
+            'data'=>$result
+        ];
+
+        return $this->apiResponse($data, 'success', 'Figure ImportStorage successfully');
+    }
+    public function getAmountExport($request)
+    {
+        $result = $this->storageRepository->statisticExportStorage($request);
+        $data=[
+            'data'=>$result
+        ];
+
+        return $this->apiResponse($data, 'success', 'Figure ExportStorage successfully');
+    }
 
     public function importStorage($request){
         $dataRequest = [
