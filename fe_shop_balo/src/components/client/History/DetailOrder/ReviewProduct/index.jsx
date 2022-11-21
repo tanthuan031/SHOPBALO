@@ -77,7 +77,7 @@ function ReviewProductItem(props) {
                   <div className="flex-w flex-m p-t-50 p-b-23">
                     <span className="stext-102 cl3 m-r-16">Your Rating</span>
                     <StarRatings
-                      rating={pointRatings}
+                      rating={parseInt(pointRatings)}
                       changeRating={setPointRatings}
                       starRatedColor="rgb(252,202,25)"
                       starDimension="20px"

@@ -82,7 +82,7 @@ class AuthClientServices
             'email' =>  $result->email,
             'password' =>  $result->password,
             'point' =>  $result->point,
-            'avatar' => env('APP_URL') . '/storage/customer/'  .  $result->avatar,
+            'avatar' => (explode("://", $result->avatar))[0] === "https" ?  $result->avatar : env('APP_URL') . '/storage/customer/'  .  $result->avatar,
             'status' =>  $result->status,
             'address' =>  $result->address,
             'created_date' =>  $result->created_date,
