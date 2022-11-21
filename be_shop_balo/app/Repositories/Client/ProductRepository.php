@@ -25,14 +25,20 @@ class ProductRepository extends BaseRepository
     {
 
 
-        return $this->product->with('categories')->with('product_details')->status()
+        return $this->product->with('categories')->with('product_details')
+            ->sortPrice(@$request['sort_price'])
+            ->status()
             ->withWhereHas('product_details', function ($query) use ($request) {
+               
+                
                 if (!empty(@$request['filter_price'][0])) {
                     $query->where('price', '>=', @$request['filter_price'][0]);
                 }
                 if (!empty(@$request['filter_price'][1])) {
                     $query->where('price', '<', @$request['filter_price'][1]);
                 }
+               
+              
             })
             ->when($request->has('filter.category_id'), function ($query) use ($request) {
 
@@ -44,9 +50,11 @@ class ProductRepository extends BaseRepository
             })
             ->selling($request)
             ->sort($request)
+           
             ->search($request)
-
+            
             ->paginate($request['per_page']);
+          
     }
     public function sellProduct()
     {

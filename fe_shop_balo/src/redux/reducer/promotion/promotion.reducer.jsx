@@ -7,7 +7,7 @@ export const promotionReducer = createSlice({
     isEdit: false,
     isReset: 'reset-page',
     status: 'All',
-    sort: 'asc',
+    sort: undefined,
     promotion: {},
     promotionCheckOut: {
       value: 0,

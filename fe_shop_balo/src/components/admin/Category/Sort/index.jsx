@@ -30,7 +30,7 @@ export default function Sort(props) {
           <Dropdown.Item as={'li'} onClick={() => handleFilter('DESC')}>
             <Form.Check
               type="radio"
-              id="checkbox-first-day"
+              id="checkbox-last-day"
               className="mx-4 my-2 font-weight-bold"
               label="Last Day"
               checked={sort === 'DESC'}
@@ -40,9 +40,9 @@ export default function Sort(props) {
           <Dropdown.Item as={'li'} onClick={() => handleFilter('ASC')}>
             <Form.Check
               type="radio"
-              id="checkbox-last-lay"
+              id="checkbox-new-day"
               className="mx-4 my-2 font-weight-bold"
-              label="First Day"
+              label="New Day"
               checked={sort === 'ASC'}
               onChange={() => handleFilter('ASC')}
             />
