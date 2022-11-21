@@ -69,11 +69,11 @@ function Gallery({ listImage, mainImage }) {
               >
                 <FaExpand />
               </span>
-              <div id="myModal" ref={imgModal} className="modal">
+              <div id="myModal" ref={imgModal} className="modal-productdetail">
                 <span className="close" ref={imgBtnCloseModal} onClick={() => handleCloseExpandImageProduct()}>
                   &times;
                 </span>
-                <ImageCustom className="modal-content" id="img01" ref={imgExpand} />
+                <ImageCustom src={imgExpand} className="modal-content" id="img01" ref={imgExpand} />
                 <div id="caption" ref={imgCaption}></div>
               </div>
             </div>

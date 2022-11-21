@@ -42,7 +42,7 @@
 #myImg:hover {opacity: 0.7;}
 
 /* The Modal (background) */
-.modal {
+.modal-productdetail {
     display: none; /* Hidden by default */
     position: fixed; /* Stay in place */
     z-index: 1000000000; /* Sit on top */
@@ -53,7 +53,7 @@
     height: 100%; /* Full height */
 
     background-color: rgb(0,0,0); /* Fallback color */
-    background-color: rgba(0,0,0,0.9); /* Black w/ opacity */
+    background-color: rgba(0,0,0,0.8); /* Black w/ opacity */
 }
 .disabled {
     pointer-events: none;  /* <----------- */
@@ -68,6 +68,7 @@
     display: block;
     width: 80%;
     max-width: 700px;
+    border-radius: 0.3rem;
 }
 
 /* Caption of Modal Image */

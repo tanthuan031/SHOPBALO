@@ -5,7 +5,8 @@ import './style.css';
 import { Col, Form, Row } from 'react-bootstrap';
 
 function StatisticStorage(props) {
-  const arrayMonth = [{ value: 1, name: 'January' },
+  const arrayMonth = [
+    { value: 1, name: 'January' },
     { value: 2, name: 'February' },
     { value: 3, name: 'March' },
     { value: 4, name: 'April' },
