@@ -42,7 +42,7 @@ export default function FormLogin() {
       Notiflix.Block.remove('.section-root-login');
       return;
     }
-    if (result.status === 401) {
+    if (result.status === 401 || result === 401) {
       ErrorToast('Your account has been locked.', 3500);
       Notiflix.Block.remove('.section-root-login');
       return;

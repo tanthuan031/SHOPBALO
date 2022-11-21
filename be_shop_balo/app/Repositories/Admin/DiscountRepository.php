@@ -26,7 +26,9 @@ class DiscountRepository extends BaseRepository
     {
         return $this->discount->status(@$search['status'])
             ->search(@$search['key'])
+           
             ->sort('value', @$search['sortValue'])
+            
             ->paginate(@$search['per_page']);
     }
 }

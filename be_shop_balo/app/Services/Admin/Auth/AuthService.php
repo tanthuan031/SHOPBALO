@@ -31,8 +31,27 @@ class AuthService
     public function getMe()
     {
         $result = $this->authRepository->getMe();
-        // dd($result);
-        return $this->apiResponse($result, 'success', 'Get Information Successfully');
+        $arrayData = [
+            'id' =>  $result->id,
+            'first_name' =>  $result->first_name,
+            'last_name' =>  $result->last_name,
+            'gender' =>  $result->gender,
+            'phone' =>  $result->phone,
+            'email' =>  $result->email,
+            'role_id' =>  $result->role_id,
+            'password' =>  $result->password,
+            'point' =>  $result->point,
+            'avatar' => (explode("://", $result->avatar))[0] === "https" ?  $result->avatar : env('APP_URL') . '/storage/staff/'  .  $result->avatar,
+            'status' =>  $result->status,
+            'address' =>  $result->address,
+            'created_date' =>  $result->created_date,
+            'created_at' =>  $result->created_at,
+            'updated_at' =>  $result->updated_at,
+
+
+        ];
+        return $this->apiResponse($arrayData, 'success', 'Get Information Successfully');
+        // return $this->apiResponse($result, 'success', 'Get Information Successfully');
     }
 
     public function logout($request)

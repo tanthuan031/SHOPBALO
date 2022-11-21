@@ -13,35 +13,38 @@ import { formatter } from '../../../utils/formatCurrency';
 
 export function CheckOutPage() {
   const [total, setTotal] = useState([]);
-  const dataCartList = useSelector(cartSelector);
+  // const dataCartList = useSelector(cartSelector);
   const [listCartProduct, setListCartProduct] = useState([]);
   const [dataProfile, setDataProfile] = useState('');
   const [loading, setLoading] = useState(true);
-  const getInfoProductWithID = async (id) => {
-    const result = await getDetailProductById(id);
-    if (result === 401) {
-      return false;
-    } else if (result === 500) {
-      return false;
-    } else {
-      return result;
-    }
-  };
-  const handleGetDataProduct = async (dataCart, callback, callback2) => {
-    let data = dataCart.map(async (item) => await getInfoProductWithID(item.id));
-    let temp = await Promise.all(data);
-    const remakedata = temp.map((item, index) => {
-      return { ...item, quantity_cart: dataCart[index].qty };
-    });
-    callback(remakedata);
-    callback2(remakedata.reduce((acc, item) => acc + item.price * item.quantity_cart, 0));
-    setLoading(false);
-  };
+  const listCartProduct1 = JSON.parse(localStorage.getItem('cart'));
+  listCartProduct1 !== null && setListCartProduct(listCartProduct1.cart.cartData);
+  console.log('fre', listCartProduct);
+  // const getInfoProductWithID = async (id) => {
+  //   const result = await getDetailProductById(id);
+  //   if (result === 401) {
+  //     return false;
+  //   } else if (result === 500) {
+  //     return false;
+  //   } else {
+  //     return result;
+  //   }
+  // };
+  // const handleGetDataProduct = async (dataCart, callback, callback2) => {
+  //   let data = dataCart.map(async (item) => await getInfoProductWithID(item.id));
+  //   let temp = await Promise.all(data);
+  //   const remakedata = temp.map((item, index) => {
+  //     return { ...item, quantity_cart: dataCart[index].qty };
+  //   });
+  //   callback(remakedata);
+  //   callback2(remakedata.reduce((acc, item) => acc + item.price * item.quantity_cart, 0));
+  //   setLoading(false);
+  // };
 
   const dispatch = useDispatch();
 
   useEffect(() => {
-    (async () => await handleGetDataProduct(dataCartList, setListCartProduct, setTotal))();
+    // (async () => await handleGetDataProduct(dataCartList, setListCartProduct, setTotal))();
     const handleGetInformationCL = async () => {
       const result = await handleGetInformationClient();
       if (result === 401) {
@@ -56,7 +59,7 @@ export function CheckOutPage() {
       // setLoading(false);
     };
     handleGetInformationCL();
-  }, [dispatch, dataCartList]);
+  }, [dispatch]);
   const handleSetUnthorization = () => {
     const token = getCookiesClient('tokenClient');
     if (token) {

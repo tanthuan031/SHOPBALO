@@ -90,7 +90,7 @@ const ReviewTable = (props) => {
           <td>
             <div className="d-flex gap-2">
               <div className="img-avatar ">
-                <ImageCustom src={`${URL_SERVER}/storage/product/${item.products.image} `} className="w-100 " />
+                <ImageCustom src={item.products.image} className="w-100 " />
               </div>
 
               <div className="d-flex flex-column">
@@ -104,7 +104,7 @@ const ReviewTable = (props) => {
             <div className="d-flex gap-2">
               {/* <img className="img-avatar " src={` ${URL_SERVER}/storage/customer/${item.customers.image} `} /> */}
               <div className="img-avatar ">
-                <ImageCustom src={` ${URL_SERVER}/storage/customer/${item.customers.image} `} className="w-100 " />
+                <ImageCustom src={item.customers.image} className="w-100 " />
               </div>
               <div className="d-flex flex-column">
                 <p>{`${item.customers.last_name} ${item.customers.first_name}`}</p>

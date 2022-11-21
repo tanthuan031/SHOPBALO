@@ -8,12 +8,14 @@ import { handleLogin, setCookies } from '../../../../api/Admin/Auth';
 import { BlockUI } from '../../Layouts/Notiflix';
 import { ErrorToast, SuccessToast } from '../../Layouts/Alerts';
 import Notiflix from 'notiflix';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { setIsForgotPassword, setIsLogin } from '../../../../redux/reducer/auth/auth.reducer';
+import { getUserSelector } from '../../../../redux/selectors';
 
 export default function FormLogin() {
   const [typePassword, setShowPassword] = useState('password');
   const dispatch = useDispatch();
+  const user = useSelector(getUserSelector);
   const {
     register,
     handleSubmit,
@@ -42,9 +44,15 @@ export default function FormLogin() {
       SuccessToast('Logged in successfully', 2000);
       setCookies('token', result.data.token, 1);
       // Notiflix.Block.remove('.sl-box');
-      setTimeout(() => {
-        window.location.href = '/admin/';
-      }, 1000);
+      console.log(user, 'user ');
+      user.role_id === 1 &&
+        setTimeout(() => {
+          window.location.href = '/admin/';
+        }, 1000);
+      user.role_id === 2 &&
+        setTimeout(() => {
+          window.location.href = '/admin/warehouse';
+        }, 1000);
       return;
     }
   };

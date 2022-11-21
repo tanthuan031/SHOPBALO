@@ -79,6 +79,7 @@ class OrderSeeder extends Seeder
                 'discount_value' => @$discounts[$key]->value ?? $discounts[0]->value,
                 'total_price' => $item['total_price'] * ($key + 1),
                 'created_order_date' => $item['created_order_date'],
+                'address_delivery'=>'HCM',
                 'created_at' => date('Y-m-d H:i:s'),
                 'updated_at' => date('Y-m-d H:i:s'),
             ]);

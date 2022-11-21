@@ -20,7 +20,7 @@ return new class extends Migration
             $table->text('description');
             $table->string('image');
             $table->text('image_slide');
-            $table->string('status');
+            $table->integer('status');
             $table->softDeletes();
             $table->timestamps();
         });

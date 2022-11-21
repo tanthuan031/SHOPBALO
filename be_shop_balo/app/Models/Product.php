@@ -51,6 +51,7 @@ class Product extends Model
     }
     public function scopeSort($query, $request)
     {
+        
         return $query
             ->when($request->has("sort"), function ($query) use ($request) {
                 $sortBy = '';
@@ -93,10 +94,17 @@ class Product extends Model
         if (!$request->has('sell')) return $query;
         return $query->whereIn('id', $request['idProductSell']);
     }
+
     public function scopeStatus($query, $status = 1)
     {
         return $query->where('status', $status);
     }
 
+    public function scopeSortPrice($query,$sort){
+        if(@$sort ==null) return $query;
+
+       return $query ->join('product_details','product_details.product_id','=','products.id')->orderBy('price',$sort);
+    }
+   
 
 }

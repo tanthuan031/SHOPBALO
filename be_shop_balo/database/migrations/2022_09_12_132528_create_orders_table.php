@@ -18,10 +18,10 @@ return new class extends Migration
             $table->foreignId('customer_id')->constrained('customers');
             $table->foreignId('staff_id')->constrained('staff');
             $table->foreignId('discount_id');
-            $table->boolean('status');
+            $table->integer('status');
             $table->string('discount_value');
             $table->string('total_price');
-            $table->string('address_delivery');
+            $table->string('address_delivery')->default('');
             $table->date('created_order_date');
             $table->softDeletes();
 

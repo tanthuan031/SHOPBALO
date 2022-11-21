@@ -290,7 +290,7 @@ class ProductSeeder extends Seeder
                 'status' => true,
             ]
         ];
-        foreach ($data as $item) {
+        foreach ($data as $key=> $item) {
             $id =   DB::table('products')->insertGetId([
                 'category_id' => "1",
                 'name' => $item['name'],
@@ -305,7 +305,7 @@ class ProductSeeder extends Seeder
                 'product_id' => $id,
                 'code_color' => '#ffe00',
                 'amount' => 30,
-                'price' => 120000,
+                'price' => 120000 * ($key + 1),
                 'created_at' => date('Y-m-d H:i:s'),
                 'updated_at' => date('Y-m-d H:i:s'),
             ]);
