@@ -37,7 +37,7 @@ function SliderEdit(props) {
       name: sliderSelector.name,
       status: sliderSelector.status,
       description: sliderSelector.description,
-      url: sliderSelector.url_button,
+      url: sliderSelector.url,
       image: sliderSelector.image,
     },
   });
@@ -79,20 +79,20 @@ function SliderEdit(props) {
   const onSubmit = async (data) => {
     BlockUI('#root', 'fixed');
 
-    if (data.image_slider.length !== 0) {
-      const image1 = await toBase64(data.image_slider[0]);
+    if (data.image.length !== 0) {
+      const image1 = await toBase64(data.image[0]);
 
       const resultData = {
         name: data.name,
         status: data.status,
         description: data.description,
         url: data.url,
-        image_slider: image1,
+        image: image1,
       };
       console.log('🚀 ~ file: index.jsx ~ line 87 ~ onSubmit ~ resultData', resultData);
 
       const result = await editSlider(sliderSelector.id, resultData);
-      console.log('🚀 ~ file: index.jsx ~ line 90 ~ onSubmit ~ result', result);
+      // console.log('🚀 ~ file: index.jsx ~ line 90 ~ onSubmit ~ result', result);
 
       Notiflix.Block.remove('#root');
       if (result === 200) {
@@ -159,9 +159,9 @@ function SliderEdit(props) {
                 </td>
                 <td width="70%">
                   <Form.Control
-                    id="image_slider"
+                    id="image"
                     type="file"
-                    {...register('image_slider')}
+                    {...register('image')}
                     onChange={(e) => uploadImage(e)}
                   />
                   <div className="image-product-slide">
