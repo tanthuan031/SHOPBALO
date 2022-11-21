@@ -34,7 +34,7 @@ function SliderAdd(props) {
     defaultValues: {
       name: '',
       url: '',
-      image_slider: '',
+      image: '',
       status: '',
       description: '',
     },
@@ -55,8 +55,8 @@ function SliderAdd(props) {
   const onSubmit = async (data) => {
     BlockUI('#root', 'fixed');
 
-    if (data.image_slider.length !== 0) {
-      const image1 = await toBase64(data.image_slider[0]);
+    if (data.image.length !== 0) {
+      const image1 = await toBase64(data.image[0]);
 
       const resultData = {
         name: data.name,
@@ -143,9 +143,9 @@ function SliderAdd(props) {
                 </td>
                 <td width="70%">
                   <Form.Control
-                    id="image_slider"
+                    id="image"
                     type="file"
-                    {...register('image_slider')}
+                    {...register('image')}
                     onChange={(e) => uploadImage(e)}
                   />
                   <div className="image-product-slide">
