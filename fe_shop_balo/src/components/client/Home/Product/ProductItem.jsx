@@ -8,7 +8,7 @@ const ProductItem = (props) => {
   const { item } = props;
   return (
     <div
-      className=""
+      className="border rounded"
       style={{
         width: '20rem',
         height: '27rem',
@@ -16,7 +16,7 @@ const ProductItem = (props) => {
       }}
     >
       <div className="block2">
-        <div className="block2-pic hov-img0">
+        <div className="block2-pic hov-img0" style={{ height: '20rem' }}>
           <img src={item.image} alt="IMG-PRODUCT" style={{ height: '20rem', objectFit: 'cover' }} />
           <Link
             to={`/product/${item.id}`}
@@ -27,9 +27,9 @@ const ProductItem = (props) => {
         </div>
 
         <div className="block2-txt flex-w flex-t p-3">
-          <div className="d-flex flex-column w-100">
+          <div className="d-flex flex-column w-100 justify-content-between" style={{ height: '5rem' }}>
             <a href={`/product/${item.id}`} className="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6">
-              {item.name}
+              {item.name.length < 60 ? item.name : `${item.name.substring(0, 60)} . . .`}
             </a>
 
             <div className="d-flex justify-content-between">
