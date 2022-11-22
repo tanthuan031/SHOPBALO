@@ -107,11 +107,9 @@ const StaffAdd = (props) => {
       deleteCookie('token');
     }
   };
-  console.log(errors);
   return (
     <div className=" edit_form d-flex justify-content-center">
       <Form className="font_add_edit_prduct" onSubmit={handleSubmit(onSubmit)} encType="multipart/form-data">
-        <h5 className="text-danger font-weight-bold mb-3">Add Staff</h5>
         <Row>
           <Col>
             <Form.Group className="mb-3">
@@ -366,7 +364,13 @@ const StaffAdd = (props) => {
         </Form.Group>
         <Form.Group className="mb-3">
           <Form.Label className="label-input">Avatar</Form.Label>
-          <Form.Control id="avatar" type="file" {...register('avatar')} isInvalid={errors.avatar} onChange={(e) => uploadImage(e)} />
+          <Form.Control
+            id="avatar"
+            type="file"
+            {...register('avatar')}
+            isInvalid={errors.avatar}
+            onChange={(e) => uploadImage(e)}
+          />
           {imageAvatarStaffShow && (
             <div className="d-flex container-avatar">
               <img className="img-responsive image-avatar" src={imageAvatarStaffShow} alt={'avatar'} />

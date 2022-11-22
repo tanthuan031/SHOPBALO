@@ -60,7 +60,6 @@ const CustomerAdd = (props) => {
       avatar: image,
       status: 1,
       address: data.address,
-
     };
     const result = await addCustomer(resultData);
     Notiflix.Block.remove('#root');
@@ -103,7 +102,6 @@ const CustomerAdd = (props) => {
   return (
     <div className=" edit_form d-flex justify-content-center">
       <Form className="font_add_edit_prduct" onSubmit={handleSubmit(onSubmit)} encType="multipart/form-data">
-        <h5 className="text-danger font-weight-bold mb-3">Add Customer</h5>
         <Row>
           <Col>
             <Form.Group className="mb-3">
@@ -302,7 +300,6 @@ const CustomerAdd = (props) => {
               </div>
             </Form.Group>
           </Col>
-
         </Row>
 
         <Form.Group className="mb-3">

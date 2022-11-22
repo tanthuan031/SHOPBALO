@@ -12,7 +12,7 @@ import { BlockUI } from '../../../components/commons/Layouts/Notiflix';
 import PaginationUI from '../../../components/commons/Layouts/Pagination';
 import SortValue from '../../../components/admin/Promotion/SortValue';
 import { setExpiredToken } from '../../../redux/reducer/auth/auth.reducer';
-import { setIsAdd } from '../../../redux/reducer/promotion/promotion.reducer';
+import { setIsAdd, setIsEdit } from '../../../redux/reducer/promotion/promotion.reducer';
 import Skeleton from '../../../components/commons/Layouts/Skeleton/index';
 import PromotionAdd from '../../../components/admin/Promotion/Add/index';
 import PromotionEdit from '../../../components/admin/Promotion/Edit/index';
@@ -111,8 +111,34 @@ const PromotionPage = () => {
       <section>
         <div className="container-fluid mt-5">
           {!isAdd && !isEdit && <h5 className="text-danger font-weight-bold mb-3">Promotion List</h5>}
-          {isAdd && !isEdit && <h5 className="text-danger font-weight-bold mb-3">Add promotion</h5>}
-          {isEdit && <h5 className="text-danger font-weight-bold mb-3">Edit promotion</h5>}
+          {isAdd && !isEdit && (
+            <h5 className="text-danger font-weight-bold mb-3">
+              <span
+                className="cursor-pointer"
+                onClick={() => {
+                  dispatch(setIsEdit(false));
+                  dispatch(setIsAdd(false));
+                }}
+              >
+                Promotion List
+              </span>
+              / Add promotion
+            </h5>
+          )}
+          {isEdit && (
+            <h5 className="text-danger font-weight-bold mb-3">
+              <span
+                className="cursor-pointer"
+                onClick={() => {
+                  dispatch(setIsEdit(false));
+                  dispatch(setIsAdd(false));
+                }}
+              >
+                Promotion List
+              </span>{' '}
+              / Edit promotion
+            </h5>
+          )}
 
           {!isAdd && !isEdit ? (
             <div className="row">

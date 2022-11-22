@@ -11,7 +11,7 @@ import PaginationUI from '../../../components/commons/Layouts/Pagination';
 import { getAllSlider } from '../../../api/Admin/Slider/sliderAPI';
 import { ErrorToast } from '../../../components/commons/Layouts/Alerts';
 import { BlockUI } from '../../../components/commons/Layouts/Notiflix';
-import { setIsAdd } from '../../../redux/reducer/slider/slider.reducer';
+import { setIsAdd, setIsEdit } from '../../../redux/reducer/slider/slider.reducer';
 import {
   isAddSelectorSlider,
   isEditSelectorSlider,
@@ -109,8 +109,34 @@ const SliderPage = () => {
       <section>
         <div className="container-fluid mt-5">
           {!isAdd && !isEdit && <h5 className="text-danger font-weight-bold mb-3">Slider List</h5>}
-          {isAdd && !isEdit && <h5 className="text-danger font-weight-bold mb-3">Add slider</h5>}
-          {isEdit && <h5 className="text-danger font-weight-bold mb-3">Edit slider</h5>}
+          {isAdd && !isEdit && (
+            <h5 className="text-danger font-weight-bold mb-3">
+              <span
+                className="cursor-pointer"
+                onClick={() => {
+                  dispatch(setIsEdit(false));
+                  dispatch(setIsAdd(false));
+                }}
+              >
+                Slider List
+              </span>
+              / Add slider
+            </h5>
+          )}
+          {isEdit && (
+            <h5 className="text-danger font-weight-bold mb-3">
+              <span
+                className="cursor-pointer"
+                onClick={() => {
+                  dispatch(setIsEdit(false));
+                  dispatch(setIsAdd(false));
+                }}
+              >
+                Slider List
+              </span>{' '}
+              / Edit slider
+            </h5>
+          )}
 
           {!isAdd && !isEdit ? (
             <div className="row">

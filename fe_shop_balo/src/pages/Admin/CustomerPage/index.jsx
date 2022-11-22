@@ -5,7 +5,7 @@ import Skeleton from '../../../components/commons/Layouts/Skeleton';
 import FilterStatus from '../../../components/admin/Staff/FilterStatus';
 import { Button } from 'react-bootstrap';
 import { BlockUI } from '../../../components/commons/Layouts/Notiflix';
-import { setIsAdd } from '../../../redux/reducer/customer/customer.reducer';
+import { setIsAdd, setIsEdit } from '../../../redux/reducer/customer/customer.reducer';
 import Notiflix from 'notiflix';
 import { isAddCustomerSelector, isEditCustomerSelector, isResetCustomerSelector } from '../../../redux/selectors';
 import SearchWithDropdownOptions from '../../../components/commons/Layouts/SearchWithDropdownOptions/SearchWithDropdownOptions';
@@ -39,7 +39,7 @@ export function CustomerPage(props) {
   //Redux
   const isAddCustomer = useSelector(isAddCustomerSelector);
   const isEditCustomer = useSelector(isEditCustomerSelector);
-  const isReset = useSelector(isResetCustomerSelector)
+  const isReset = useSelector(isResetCustomerSelector);
   const dispatch = useDispatch();
   //Loading
   const [loading, setLoading] = React.useState(true);
@@ -62,7 +62,7 @@ export function CustomerPage(props) {
       setLoading(false);
     };
     handleGetAllCustomers();
-  }, [dispatch, search,isReset, filterStatus]);
+  }, [dispatch, search, isReset, filterStatus]);
 
   const setCustomer = (result, value) => {
     setData(result.data);
@@ -114,9 +114,39 @@ export function CustomerPage(props) {
   return (
     <section>
       <div className="container-fluid mt-5">
+        <>
+          {!isAddCustomer && !isEditCustomer && <h5 className="text-danger font-weight-bold mb-3">Customer List</h5>}
+          {isAddCustomer && (
+            <h5 className="text-danger font-weight-bold mb-3">
+              <span
+                className="cursor-pointer"
+                onClick={() => {
+                  dispatch(setIsEdit(false));
+                  dispatch(setIsAdd(false));
+                }}
+              >
+                Customer List
+              </span>
+              / Customer Add
+            </h5>
+          )}
+          {isEditCustomer && (
+            <h5 className="text-danger font-weight-bold mb-3">
+              <span
+                className="cursor-pointer"
+                onClick={() => {
+                  dispatch(setIsEdit(false));
+                  dispatch(setIsAdd(false));
+                }}
+              >
+                Customer List
+              </span>
+              / Customer Edit
+            </h5>
+          )}
+        </>
         {!isAddCustomer && !isEditCustomer ? (
           <>
-            <h5 className="text-danger font-weight-bold mb-3">Customer List</h5>
             <div className="row">
               <div className="mb-3 d-flex justify-content-between">
                 <div className="d-flex justify-content-between ">

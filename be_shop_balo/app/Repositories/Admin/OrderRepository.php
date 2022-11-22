@@ -98,7 +98,7 @@ class OrderRepository extends BaseRepository
     {
         try {
             $result = Order::query();
-            if (env('DB_CONNECTION') == 'pgsql')
+            if (env('DB_CONNECTION') !== 'pgsql')
                 switch ($request->filter) {
                     case 'Today':
                         $today = date('Y-m-d');
@@ -182,7 +182,6 @@ class OrderRepository extends BaseRepository
             default:
                 break;
         }
-
         if (env('DB_CONNECTION') == 'pgsql') {
             try {
                 $result = Order::query();
@@ -206,7 +205,6 @@ class OrderRepository extends BaseRepository
                     ->get();
             } catch (\Exception $e) {
                 return false;
-
             }
         return response()->json($result)->getData();
     }

@@ -287,11 +287,12 @@ class ProductSeeder extends Seeder
                 'status' => true,
             ]
         ];
-        $colors = ['#2596be','#041014', '#be2596', '#bea925', '#6c25be','#be4d25','#de0994'];
-        $price_key=[10,20,30,34,5,2,8,4,3,1];
-        foreach ($data as $key=> $item) {
-            $id =   DB::table('products')->insertGetId([
-                'category_id' => "1",
+
+        $colors = ['#2596be', '#041014', '#be2596', '#bea925', '#6c25be', '#be4d25', '#de0994'];
+        $price_key = [10, 20, 30, 34, 5, 2, 8, 4, 3, 1];
+        foreach ($data as $key => $item) {
+            $id = DB::table('products')->insertGetId([
+                'category_id' => Category::where('name', 'like', '%' . $item['tag_search'] . '%')->first()->id ?? "1",
                 'name' => $item['name'],
                 'description' => $item['description'],
                 'image' => $item['image'],

@@ -16,7 +16,7 @@ import { BlockUI } from '../../../components/commons/Layouts/Notiflix';
 import PaginationUI from '../../../components/commons/Layouts/Pagination';
 import Skeleton from '../../../components/commons/Layouts/Skeleton';
 import { setExpiredToken, setIsLogin } from '../../../redux/reducer/auth/auth.reducer';
-import { setIsAdd } from '../../../redux/reducer/category/category.reducer';
+import { setIsAdd, setIsEdit } from '../../../redux/reducer/category/category.reducer';
 import {
   isAddCategorySelector,
   isEditCategorySelector,
@@ -85,8 +85,6 @@ export function CategoryPage(props) {
       return false;
     } else {
       setData(result.data);
-      console.log('🚀 ~ file: Order.jsx ~ line 85 ~ handleChangePage ~ data', data);
-
       setTotalRecords(result.meta.total);
 
       setPage(result.meta.current_page);
@@ -107,8 +105,34 @@ export function CategoryPage(props) {
       <section>
         <div className="container-fluid mt-5">
           {!isAdd && <h5 className="text-danger font-weight-bold mb-3">Category List</h5>}
-          {isAdd && !isEdit && <h5 className="text-danger font-weight-bold mb-3">Add Category</h5>}
-          {isEdit && <h5 className="text-danger font-weight-bold mb-3">Update Category</h5>}
+          {isAdd && !isEdit && (
+            <h5 className="text-danger font-weight-bold mb-3">
+              <span
+                className="cursor-pointer"
+                onClick={() => {
+                  dispatch(setIsEdit(false));
+                  dispatch(setIsAdd(false));
+                }}
+              >
+                Category List
+              </span>
+              / Add Category
+            </h5>
+          )}
+          {isEdit && (
+            <h5 className="text-danger font-weight-bold mb-3">
+              <span
+                className="cursor-pointer"
+                onClick={() => {
+                  dispatch(setIsEdit(false));
+                  dispatch(setIsAdd(false));
+                }}
+              >
+                Category List
+              </span>
+              / Update Category
+            </h5>
+          )}
           {!isAdd ? (
             <div className="row">
               <div className="mb-3 d-flex justify-content-between">

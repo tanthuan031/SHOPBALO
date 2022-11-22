@@ -2,6 +2,7 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import {
   isEditSelectorReview,
+  isResetSelectorReview,
   isSortSelectorReview,
   isStatusSelectorReview,
 } from './../../../redux/selectors/review/review.selector';
@@ -21,12 +22,14 @@ import FilterStatus from '../../../components/admin/Review/FilterStatus/index';
 import NotFoundData from '../../../components/commons/Layouts/NotFoundData';
 import { setExpiredToken } from '../../../redux/reducer/auth/auth.reducer';
 import { deleteCookie, getCookies } from '../../../api/Admin/Auth';
+import { setIsAdd, setIsEdit } from '../../../redux/reducer/review/review.reducer';
 
 const ReviewPage = () => {
   const data_review_table_header = [...review_table_header];
   const dispatch = useDispatch();
   const isEdit = useSelector(isEditSelectorReview);
   const status = useSelector(isStatusSelectorReview);
+  const isReset = useSelector(isResetSelectorReview)
   const sort = useSelector(isSortSelectorReview);
   const [data, setData] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -52,7 +55,7 @@ const ReviewPage = () => {
 
   useEffect(() => {
     handleGetAllReview();
-  }, [isEdit, sort, status]);
+  }, [isEdit, sort, status, isReset]);
 
   const handleChangePage = async (page) => {
     setPage(page);
@@ -86,7 +89,20 @@ const ReviewPage = () => {
       <section>
         <div className="container-fluid mt-5">
           {!isEdit && <h5 className="text-danger font-weight-bold mb-3">Review List</h5>}
-          {isEdit && <h5 className="text-danger font-weight-bold mb-3">Detail review</h5>}
+          {isEdit && (
+            <h5 className="text-danger font-weight-bold mb-3">
+              <span
+                className="cursor-pointer"
+                onClick={() => {
+                  dispatch(setIsEdit(false));
+                  dispatch(setIsAdd(false));
+                }}
+              >
+                Review List
+              </span>
+              / Detail review
+            </h5>
+          )}
 
           {!isEdit ? (
             <div className="row">

@@ -7,7 +7,7 @@ export const sliderReducer = createSlice({
     isEdit: false,
     isReset: 'reset-page',
     status: 'All',
-    sort: 'asc',
+    sort: 'desc',
     slider: {},
   },
   reducers: {
