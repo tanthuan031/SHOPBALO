@@ -4,6 +4,8 @@ namespace App\Repositories\Admin\WareHouses;
 
 use App\Models\ExportStorage;
 use App\Models\ImportStorage;
+use App\Models\Product;
+use App\Models\ProductDetail;
 use App\Models\Storage;
 use Illuminate\Support\Facades\DB;
 use Ramsey\Uuid\Type\Integer;
@@ -52,68 +54,71 @@ class StorageRepository
         return $data;
     }
 
-    public function importStorage($request){
+    public function importStorage($request)
+    {
         try {
 
-            $storage=Storage::query()->where('product_id','=',$request['product_id'])->first();
+            $storage = Storage::query()->where('product_id', '=', $request['product_id'])->first();
             $importStorage = ImportStorage::query()->create($request);
-            if( $storage ){
+            if ($storage) {
                 $storage->update([
-                    'amount'=> $storage['amount']+$request['import_amount']
+                    'amount' => $storage['amount'] + $request['import_amount']
                 ]);
-            }else{
+            } else {
                 $storage = Storage::query()->create([
-                    'product_id'=>$request['product_id'],
-                    'provider_id'=>$request['provider_id'],
-                    'amount'=>$request['import_amount']
+                    'product_id' => $request['product_id'],
+                    'provider_id' => $request['provider_id'],
+                    'amount' => $request['import_amount']
                 ]);
             }
-
-
         } catch (\Exception $e) {
             return false;
         }
         return ImportStorage::query()->find($importStorage['id']);
     }
 
-    public function exportStorage($request){
+    public function exportStorage($request)
+    {
 
 
-            $storage=Storage::query()->where('product_id','=',$request['product_id'])->first();
+        $storage = Storage::query()->where('product_id', '=', $request['product_id'])->first();
+        $product = ProductDetail::query()->where('product_id', '=', $request['product_id'])->first();
+        if ($storage) {
+            if ($request['export_amount'] <= $storage['amount'] && $storage['amount'] > 0) {
+                $dataRequest = [
+                    'product_id' => $request['product_id'],
+                    'provider_id' =>  $storage['provider_id'],
+                    'name' => $request['name'],
+                    'export_amount' => $request['export_amount']
+                ];
+                $exportStorage = ExportStorage::query()->create($dataRequest);
 
-            if( $storage ){
-                if($request['export_amount']<=$storage['amount'] && $storage['amount'] > 0 ){
-                    $dataRequest = [
-                        'product_id' => $request['product_id'],
-                        'provider_id' =>  $storage['provider_id'],
-                        'name' => $request['name'],
-                        'export_amount'=>$request['export_amount']
-                    ];
-                    $exportStorage = ExportStorage::query()->create($dataRequest);
+                $storage->update([
+                    'amount' => (int) $storage['amount'] - (int) $request['export_amount']
+                ]);
+                $product->update([
+                    'amount' => (int) $product['amount'] + (int) $request['export_amount']
+                ]);
 
-                    $storage->update([
-                        'amount'=>(int) $storage['amount'] -(int) $request['export_amount']
-                    ]);
-                    $data=[
-                        'status'=>'success',
-                        'data'=>ExportStorage::query()->find($exportStorage['id']),
-                        'message'=>'Export successfully'
-                    ];
-                }else{
-                    $data=[
-                        'status'=>'fail',
-                        'data'=>[],
-                        'message'=>'Export quantity is larger than existing quantity or out of stock'
-                    ];
-                }
-
-            }else{
-                $data=[
-                    'status'=>'fail',
-                    'data'=>[],
-                    'message'=>'The product is not in stock'
+                $data = [
+                    'status' => 'success',
+                    'data' => ExportStorage::query()->find($exportStorage['id']),
+                    'message' => 'Export successfully'
+                ];
+            } else {
+                $data = [
+                    'status' => 'fail',
+                    'data' => [],
+                    'message' => 'Export quantity is larger than existing quantity or out of stock'
                 ];
             }
+        } else {
+            $data = [
+                'status' => 'fail',
+                'data' => [],
+                'message' => 'The product is not in stock'
+            ];
+        }
 
 
 
@@ -121,33 +126,31 @@ class StorageRepository
     }
     public function statisticImportStorage($request)
     {
-//        $start=$request->start;
-//        $end=$request->end;
+        //        $start=$request->start;
+        //        $end=$request->end;
         //SELECT MONTH(created_at) as month, SUM(import_amount) as amount FROM `import_storages` WHERE 1 GROUP BY month;
-        $result =ImportStorage::query();
+        $result = ImportStorage::query();
         try {
-                $result=$result->select(DB::raw('MONTH(created_at) as month'),DB::raw('SUM(import_amount)AS amount') )
-              //  ->whereBetween(DB::raw('MONTH(created_at)'), [$start, $end])
+            $result = $result->select(DB::raw('MONTH(created_at) as month'), DB::raw('SUM(import_amount)AS amount'))
+                //  ->whereBetween(DB::raw('MONTH(created_at)'), [$start, $end])
                 ->groupBy('month')
-               ->get();
-
+                ->get();
         } catch (\Exception $e) {
-         return false;
+            return false;
         }
         return response()->json($result)->getData();
     }
     public function statisticExportStorage($request)
     {
-//        $start=$request->start;
-//        $end=$request->end;
+        //        $start=$request->start;
+        //        $end=$request->end;
         //SELECT MONTH(created_at) as month, SUM(import_amount) as amount FROM `import_storages` WHERE 1 GROUP BY month;
-        $result =ExportStorage::query();
+        $result = ExportStorage::query();
         try {
-            $result=$result->select(DB::raw('MONTH(created_at) as month'),DB::raw('SUM(export_amount)AS amount') )
+            $result = $result->select(DB::raw('MONTH(created_at) as month'), DB::raw('SUM(export_amount)AS amount'))
                 //  ->whereBetween(DB::raw('MONTH(created_at)'), [$start, $end])
                 ->groupBy('month')
                 ->get();
-
         } catch (\Exception $e) {
             return false;
         }

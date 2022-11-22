@@ -42,12 +42,13 @@ export default function AdminRouter() {
     });
   }, [dispatch]);
   const user = useSelector(getUserSelector);
+  console.log('d', user === null);
   return (
     <Routes>
       <Route path="/admin/login" element={<LoginPage />} />
       <Route path="/admin/register" element={<div>Register</div>} />
       <Route element={<ProtectedRoutes isAuthenticate={isAuthenticate} />}>
-        {user.role_id === 1 && (
+        {user && user.role_id === 1 && (
           <>
             <Route path="/admin/" element={<AdminLayout slot={<DashBoardPage key={'a'} />} />} />
             <Route path="/admin/product" element={<AdminLayout slot={<ProductPage key={'1'} />} />} />
@@ -62,9 +63,9 @@ export default function AdminRouter() {
           </>
         )}
         {/* Storage */}
-        {user.role_id === 2 && (
+        {user && user.role_id === 2 && (
           <>
-            <Route path="/admin/warehouse/" element={<AdminLayout slot={<StatisticStorage key={'a'} />} />} />
+            {/* <Route path="/admin/warehouse/" element={<AdminLayout slot={<StatisticStorage key={'a'} />} />} /> */}
             <Route path="/admin/warehouse/storage" element={<AdminLayout slot={<StoragePage key={'a'} />} />} />
             <Route
               path="/admin/warehouse/exportstorage"
@@ -77,7 +78,9 @@ export default function AdminRouter() {
             <Route path="/admin/warehouse/provider" element={<AdminLayout slot={<SliderPage key={'a'} />} />} />
           </>
         )}
-        <Route path="/admin/*" element={<NotFoundData />}></Route>
+        {((user && user.role_id !== 2) || user.role_id !== 1) && (
+          <Route path="/admin/*" element={<NotFoundData />}></Route>
+        )}
       </Route>
     </Routes>
   );

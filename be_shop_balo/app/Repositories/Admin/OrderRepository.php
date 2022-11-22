@@ -29,7 +29,7 @@ class OrderRepository extends BaseRepository
             ->with('staff')
             ->with('discounts')
             ->sort($request)
-            // ->filter($request)
+            ->filter($request)
             ->search($request)
 
             ->paginate($this->paginate);
@@ -71,7 +71,7 @@ class OrderRepository extends BaseRepository
             $result = Order::query()
                 ->select(DB::raw('COUNT(*)AS amount_order'))
                 ->where('created_order_date', $today)
-               ->get();
+                ->get();
         } catch (Exception $e) {
             dd($e);
         }
@@ -152,18 +152,17 @@ class OrderRepository extends BaseRepository
             default:
                 break;
         }
-        try{
+        try {
             $result = Order::query()
                 ->select(DB::raw('DATE(created_order_date) as date'), DB::raw('SUM(total_price) AS revenue'))
                 //  ->where('status',2)
                 ->groupBy('date')
                 ->havingRaw("date BETWEEN  '" . $start . "' AND '" . $end . "'")
                 ->get();
-        }
-        catch (\Exception $e){
+        } catch (\Exception $e) {
             dd($e);
         }
-       // dd($result);
+        // dd($result);
         return response()->json($result)->getData();
     }
 
