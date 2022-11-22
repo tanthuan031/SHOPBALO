@@ -47,7 +47,6 @@ export const addReview = async (data) => {
 export const editReview = async (id, data) => {
   const url = `/api/admin/rating/${id}`;
   const response = await axiosClient.put(url, data, configHeadersAuthenticate());
-  console.log(response);
   if (response.status === 200) return response;
   else if (response.status === 404) return 404;
   else if (response.status === 401) return 401;
