@@ -117,13 +117,7 @@ class StorageRepository
             ];
         }
 
-        } else {
-            $data = [
-                'status' => 'fail',
-                'data' => [],
-                'message' => 'The product is not in stock'
-            ];
-        }
+
 
 
         return $data;
@@ -131,19 +125,6 @@ class StorageRepository
 
     public function statisticImportStorage($request)
     {
-<<<<<<< HEAD
-        //        $start=$request->start;
-        //        $end=$request->end;
-        //SELECT MONTH(created_at) as month, SUM(import_amount) as amount FROM `import_storages` WHERE 1 GROUP BY month;
-        $result = ImportStorage::query();
-        try {
-            $result = $result->select(DB::raw('MONTH(created_at) as month'), DB::raw('SUM(import_amount)AS amount'))
-                //  ->whereBetween(DB::raw('MONTH(created_at)'), [$start, $end])
-                ->groupBy('month')
-                ->get();
-        } catch (\Exception $e) {
-            return false;
-=======
         $result = ImportStorage::query();
         if (env('DB_CONNECTION') == 'pgsql') {
             try {
@@ -156,7 +137,6 @@ class StorageRepository
                     //    ->toSql();
                     //  dd($result);
                     ->get();
-
             } catch (\Exception $e) {
                 //  dd($e);
                 return false;
@@ -166,12 +146,10 @@ class StorageRepository
                 $result = $result->select(DB::raw('MONTH(created_at) as month'), DB::raw('SUM(import_amount)AS amount'))
                     ->groupBy('month')
                     ->get();
-
             } catch (\Exception $e) {
                 dd($e);
                 return false;
             }
->>>>>>> origin/fixBug
         }
 
         return response()->json($result)->getData();
@@ -183,15 +161,6 @@ class StorageRepository
         //        $end=$request->end;
         //SELECT MONTH(created_at) as month, SUM(import_amount) as amount FROM `import_storages` WHERE 1 GROUP BY month;
         $result = ExportStorage::query();
-<<<<<<< HEAD
-        try {
-            $result = $result->select(DB::raw('MONTH(created_at) as month'), DB::raw('SUM(export_amount)AS amount'))
-                //  ->whereBetween(DB::raw('MONTH(created_at)'), [$start, $end])
-                ->groupBy('month')
-                ->get();
-        } catch (\Exception $e) {
-            return false;
-=======
         if (env('DB_CONNECTION') == 'pgsql') {
             try {
                 //select EXTRACT(MONTH  From created_at) AS month,
@@ -203,7 +172,6 @@ class StorageRepository
                     //    ->toSql();
                     //  dd($result);
                     ->get();
-
             } catch (\Exception $e) {
                 //  dd($e);
                 return false;
@@ -213,12 +181,10 @@ class StorageRepository
                 $result = $result->select(DB::raw('MONTH(created_at) as month'), DB::raw('SUM(export_amount)AS amount'))
                     ->groupBy('month')
                     ->get();
-
             } catch (\Exception $e) {
                 dd($e);
                 return false;
             }
->>>>>>> origin/fixBug
         }
 
         return response()->json($result)->getData();
