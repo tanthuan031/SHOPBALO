@@ -42,7 +42,6 @@ export default function AdminRouter() {
     });
   }, [dispatch]);
   const user = useSelector(getUserSelector);
-  console.log('d', user === null);
   return (
     <Routes>
       <Route path="/admin/login" element={<LoginPage />} />
