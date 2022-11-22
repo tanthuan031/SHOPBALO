@@ -98,7 +98,7 @@ class OrderRepository extends BaseRepository
     {
         try {
             $result = Order::query();
-            if (env('DB_CONNECTION') == 'pgsql')
+            if (env('DB_CONNECTION') !== 'pgsql')
                 switch ($request->filter) {
                     case 'Today':
                         $today = date('Y-m-d');

@@ -16,10 +16,10 @@ return new class extends Migration
         Schema::create('sliders', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('description');
+            $table->text('description');
             $table->string('image_slider');
             $table->enum('status', ['Active', 'InActive'])->default('Active');
-            $table->string('url');
+            $table->text('url');
             $table->softDeletes();
             $table->timestamps();
         });
