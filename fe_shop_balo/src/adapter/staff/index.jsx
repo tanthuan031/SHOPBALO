@@ -18,6 +18,21 @@ export const addSchema = yup.object({
   created_date: yup.date().min(today, `Created date must be later than ${today.toLocaleString()}`).required('Please type a date'),
   role_id: yup.object().required('Please! Choose a role'),
   gender: yup.object().required('Please !Choose a gender'),
+  // avatar: yup
+  //   .string()
+  //   .required("You need to provide a file")
+  //   // .test("Fileuploads", "The file is too large", (value) => {
+  //   // //  console.log(value && value[0].size <= 100000);
+  //   //   return value && value[0].size <= 100000;
+  //   //
+  //   // })
+  //   // .test("type", "Only the following formats are accepted: .jpeg, .jpg, .png", (value) => {
+  //   //   return value && (
+  //   //     value[0].type === "image/jpeg" ||
+  //   //     value[0].type === "image/jpg" ||
+  //   //     value[0].type === "image/png"
+  //   //   );
+  //   // }),
 });
 export const editSchema = yup.object({
   first_name: yup.string().required('Please, First name can not blank').max(50).trim(),

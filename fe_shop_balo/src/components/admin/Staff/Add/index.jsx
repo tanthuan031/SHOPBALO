@@ -105,6 +105,7 @@ const StaffAdd = (props) => {
       deleteCookie('token');
     }
   };
+  console.log(errors);
   return (
     <div className=" edit_form d-flex justify-content-center">
       <Form className="font_add_edit_prduct" onSubmit={handleSubmit(onSubmit)} encType="multipart/form-data">
@@ -363,12 +364,31 @@ const StaffAdd = (props) => {
         </Form.Group>
         <Form.Group className="mb-3">
           <Form.Label className="label-input">Avatar</Form.Label>
-          <Form.Control id="avatar" type="file" {...register('avatar')} onChange={(e) => uploadImage(e)} />
+          <Form.Control id="avatar" type="file" {...register('avatar')} isInvalid={errors.avatar} onChange={(e) => uploadImage(e)} />
           {imageAvatarStaffShow && (
             <div className="d-flex container-avatar">
               <img className="img-responsive image-avatar" src={imageAvatarStaffShow} alt={'avatar'} />
             </div>
           )}
+          {/*<Controller*/}
+          {/*  control={control}*/}
+          {/*  name="avatar"*/}
+          {/*  defaultValue=""*/}
+          {/*  render={({ field: { onChange, onBlur, value, ref } }) => (*/}
+          {/*    <Form.Control*/}
+          {/*      onChange={onChange}*/}
+          {/*      value={value}*/}
+          {/*      ref={ref}*/}
+          {/*      type="file"*/}
+          {/*      isInvalid={errors.avatar}*/}
+          {/*      placeholder="Upload avatar"*/}
+          {/*      {...register('avatar', { required: true })}*/}
+          {/*    />*/}
+          {/*  )}*/}
+          {/*/>*/}
+          <div className="d-flex justify-content-between">
+            <small className="text-red font-weight-semi">{errors?.avatar?.message}</small>
+          </div>
         </Form.Group>
 
         <div className="d-flex justify-content-end p-2 mt-3">
