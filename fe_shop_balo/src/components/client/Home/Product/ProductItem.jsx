@@ -1,5 +1,4 @@
 import React from 'react';
-import { BsHeart } from 'react-icons/bs';
 import { Link } from 'react-router-dom';
 import StarRatings from 'react-star-ratings/build/star-ratings';
 import { formatter } from '../../../../utils/formatCurrency';
@@ -32,7 +31,7 @@ const ProductItem = (props) => {
               {item.name.length < 60 ? item.name : `${item.name.substring(0, 60)} . . .`}
             </a>
 
-            <div className="d-flex justify-content-between">
+            <div className="d-flex justify-content-between align-items-end">
               <span className="stext-105 cl3"> {formatter.format(item.price)} </span>
 
               <StarRatings

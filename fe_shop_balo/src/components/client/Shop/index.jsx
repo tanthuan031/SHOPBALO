@@ -34,7 +34,7 @@ const Shop = () => {
   const [dataCategory, setDataCategory] = useState([]);
   const [dataProduct, setDataProduct] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-  const sortById = 'desc';
+  // const sortById = 'desc';
   const per_page = 9;
 
   const categoryId = useSelector(categoryIdSelector);
@@ -61,7 +61,7 @@ const Shop = () => {
 
   const handleGetAllProduct = async () => {
     const result = await getAllProducts({
-      sortById,
+      // sortById,
       page,
       filter,
       per_page,

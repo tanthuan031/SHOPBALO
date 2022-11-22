@@ -9,7 +9,6 @@ export function HomePage(props) {
   const [slider, setSlider] = useState([]);
   const [banner, setBanner] = useState([]);
   const [dataBestSale, setDataBestSale] = useState([]);
-  console.log("🚀 ~ file: index.jsx ~ line 12 ~ HomePage ~ dataBestSale", dataBestSale)
   const [dataNewArrive, setDataNewArrive] = useState([]);
   const [dataOverview, setDataOverview] = useState([]);
   const [isLoadingProduct, setIsLoadingProduct] = useState(true);

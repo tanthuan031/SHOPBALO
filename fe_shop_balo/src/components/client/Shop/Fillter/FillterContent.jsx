@@ -7,7 +7,6 @@ import './style.css';
 const FillterContent = ({ item }) => {
   const dispatch = useDispatch();
   const chooseCategory = useSelector(categoryIdSelector);
-  console.log('item', item);
   const handleCategoryId = (id) => {
     dispatch(setCategoryId(id));
   };
