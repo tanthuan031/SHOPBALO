@@ -290,9 +290,9 @@ class ProductSeeder extends Seeder
                 'status' => true,
             ]
         ];
-        foreach ($data as $key=> $item) {
+        foreach ($data as $key => $item) {
             $id =   DB::table('products')->insertGetId([
-                'category_id' => "1",
+                'category_id' => Category::where('name', 'like', '%' . $item['tag_search'] . '%')->first()->id ?? "1",
                 'name' => $item['name'],
                 'description' => $item['description'],
                 'image' => $item['image'],
@@ -304,8 +304,8 @@ class ProductSeeder extends Seeder
             DB::table('product_details')->insert([
                 'product_id' => $id,
                 'code_color' => '#ffe00',
-                'amount' => 30,
-                'price' => 120000 * ($key + 1),
+                'amount' => 10,
+                'price' => 120 * ($key + 1),
                 'created_at' => date('Y-m-d H:i:s'),
                 'updated_at' => date('Y-m-d H:i:s'),
             ]);
