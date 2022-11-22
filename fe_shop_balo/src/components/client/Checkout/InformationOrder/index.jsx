@@ -102,6 +102,11 @@ export default function FormInfomationCheckout(props) {
       label: 'Payment on delivery',
     },
   ];
+  console.log('pross', props);
+  var totalPrice = 0;
+  props.dataListCart.map((item) => {
+    totalPrice += item.price * item.qty;
+  });
   const onSubmit = async (data) => {
     BlockUICLIENT('#root', 'fixed');
     const resultData = {
@@ -110,7 +115,7 @@ export default function FormInfomationCheckout(props) {
       discount_id: discount.id,
       status: 1,
       discount_value: discount.value,
-      total_price: props.totalCart - (props.totalCart * discount.value) / 100,
+      total_price: totalPrice - (totalPrice * discount.value) / 100,
       address_delivery: data.cities + ',' + data.district + ',' + data.ward + ',' + data.address,
       order_detail: props.dataListCart,
     };
@@ -221,7 +226,7 @@ export default function FormInfomationCheckout(props) {
                           isInvalid={errors.phone}
                           placeholder="Enter phone"
                           {...register('phone', { required: true, pattern: /^0[3|7|8|9|5]\d{7,8}$/ })}
-                          disabled={editPhone}
+                          // disabled={editPhone}
                         />
                         {/* <FaEdit onClick={() => setEditPhone(!editPhone)} /> */}
                       </div>
@@ -394,20 +399,19 @@ export default function FormInfomationCheckout(props) {
               <div className="margin-left-100px">
                 <div className="text-summary d-flex">
                   <p className="info-invoice-left"> Total price: </p>
-                  <p className=""> &nbsp; {`${formatter.format(props.totalCart)}`}</p>
+                  <p className=""> &nbsp; {`${formatter.format(totalPrice)}`}</p>
                 </div>
                 <div className="text-summary d-flex">
                   <p className="info-invoice-left">Discount:</p>
                   <p className="">
                     {' '}
-                    - {discount ? formatter.format((discount.value * props.totalCart) / 100) : 0}{' '}
-                    {`( ${discount.value}% )`}
+                    - {discount ? formatter.format((discount.value * totalPrice) / 100) : 0} {`( ${discount.value}% )`}
                   </p>
                 </div>
                 <div className="text-summary d-flex">
                   <p className="info-invoice-left">Total Bill:</p>
                   <p className="">
-                    &nbsp; {discount ? formatter.format(props.totalCart - (discount.value * props.totalCart) / 100) : 0}
+                    &nbsp; {discount ? formatter.format(totalPrice - (discount.value * totalPrice) / 100) : 0}
                   </p>
                 </div>
                 <div className="text-summary">

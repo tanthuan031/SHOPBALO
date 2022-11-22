@@ -9,17 +9,18 @@ import ListTableProductCheckOut from '../../../components/client/Checkout/ListTa
 import NotFoundData from '../../../components/commons/Layouts/NotFoundData';
 import Skeleton from '../../../components/commons/Layouts/Skeleton';
 import { cartSelector } from '../../../redux/selectors';
+import { profileSelector } from '../../../redux/selectors/profile/profile.selector';
 import { formatter } from '../../../utils/formatCurrency';
 
 export function CheckOutPage() {
   const [total, setTotal] = useState([]);
   // const dataCartList = useSelector(cartSelector);
-  const [listCartProduct, setListCartProduct] = useState([]);
+  // const [listCartProduct, setListCartProduct] = useState([]);
   const [dataProfile, setDataProfile] = useState('');
-  const [loading, setLoading] = useState(true);
-  const listCartProduct1 = JSON.parse(localStorage.getItem('cart'));
-  listCartProduct1 !== null && setListCartProduct(listCartProduct1.cart.cartData);
-  console.log('fre', listCartProduct);
+  const [loading, setLoading] = useState(false);
+  const listCartProduct = JSON.parse(localStorage.getItem('cart'));
+
+  // listCartProduct1 !== null && setListCartProduct(listCartProduct1.cart.cartData);
   // const getInfoProductWithID = async (id) => {
   //   const result = await getDetailProductById(id);
   //   if (result === 401) {
@@ -42,7 +43,7 @@ export function CheckOutPage() {
   // };
 
   const dispatch = useDispatch();
-
+  // const dataProfile = useSelector(profileSelector);
   useEffect(() => {
     // (async () => await handleGetDataProduct(dataCartList, setListCartProduct, setTotal))();
     const handleGetInformationCL = async () => {
@@ -74,14 +75,14 @@ export function CheckOutPage() {
           <div className="row">
             <h3 className="mb-5">Checkout</h3>
           </div>
-          {listCartProduct.length > 0 ? (
+          {listCartProduct !== null && listCartProduct.cart.cartData ? (
             <>
               <div className="row">
                 <div className="col-md-7 ">
                   {loading ? (
                     <Skeleton column={6} />
                   ) : (
-                    <ListTableProductCheckOut dataListCart={listCartProduct} totalCart={total} />
+                    <ListTableProductCheckOut dataListCart={listCartProduct.cart.cartData} totalCart={total} />
                   )}
                 </div>
                 <div className="col-md-5">
@@ -97,9 +98,9 @@ export function CheckOutPage() {
                   <h4 className=" mt-5 text-center font-weight-bold mb-3 mt-1 text-black">Order Infomation</h4>
                   {dataProfile != '' ? (
                     <FormInfomationCheckout
-                      dataListCart={listCartProduct}
+                      dataListCart={listCartProduct.cart.cartData}
                       dataProfile={dataProfile}
-                      totalCart={total}
+                      totalCart="0"
                     />
                   ) : (
                     <Skeleton column={6} />

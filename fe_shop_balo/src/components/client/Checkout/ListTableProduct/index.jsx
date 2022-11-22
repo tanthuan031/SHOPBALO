@@ -27,8 +27,8 @@ export default function ListTableProductCheckOut(props) {
                 </td>
                 <td className="column-2">{item.name}</td>
                 <td className="column-3">{formatter.format(item.price)}</td>
-                <td className="column-4">{item.quantity_cart}</td>
-                <td className="column-5">{formatter.format(item.price * item.quantity_cart)}</td>
+                <td className="column-4">{item.qty}</td>
+                <td className="column-5">{formatter.format(item.price * item.qty)}</td>
               </tr>
             );
           })}

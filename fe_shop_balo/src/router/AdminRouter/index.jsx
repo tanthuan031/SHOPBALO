@@ -49,7 +49,7 @@ export default function AdminRouter() {
       <Route element={<ProtectedRoutes isAuthenticate={isAuthenticate} />}>
         {user && user.role_id === 1 && (
           <>
-            <Route path="/admin/" element={<AdminLayout slot={<DashBoardPage key={'a'} />} />} />
+            <Route path="/admin" element={<AdminLayout slot={<DashBoardPage key={'a'} />} />} />
             <Route path="/admin/product" element={<AdminLayout slot={<ProductPage key={'1'} />} />} />
             <Route path="/admin/category" element={<AdminLayout slot={<CategoryPage key={'a'} />} />} />
             <Route path="/admin/promotion" element={<AdminLayout slot={<PromotionPage key={'a'} />} />} />

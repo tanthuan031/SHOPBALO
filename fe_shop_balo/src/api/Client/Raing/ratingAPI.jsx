@@ -19,7 +19,7 @@ export const addRattingProduct = async (body) => {
   //console.log(url)
   const response = await axiosClient.post(url, body);
   if (response.status === 200) {
-    return response.data;
+    return response;
   } else if (response.status === 500) {
     return 500;
   } else {

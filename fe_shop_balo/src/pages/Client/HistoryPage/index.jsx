@@ -7,6 +7,7 @@ import { order_table_header_client } from '../../../asset/data/order_table_heade
 import OrderHistoryDetail from '../../../components/client/History/DetailOrder';
 import { OrderTableClient } from '../../../components/client/History/ListOrder';
 import NotFoundData from '../../../components/commons/Layouts/NotFoundData';
+import PaginationUI from '../../../components/commons/Layouts/Pagination';
 import Skeleton from '../../../components/commons/Layouts/Skeleton';
 import { isHistoryDetailSelector } from '../../../redux/selectors/history/history.selector';
 import { profileSelector } from '../../../redux/selectors/profile/profile.selector';
