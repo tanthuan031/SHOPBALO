@@ -9,6 +9,7 @@ import AutoSendMail from '../../commons/Layouts/AutoSendMail';
 import './style.css';
 export default function ProfileClient(props) {
   const dispatch = useDispatch();
+  console.log('djf', props.dataProfile.avatar.split('://')[0]);
   return (
     <>
       <div className="row info-account-header">

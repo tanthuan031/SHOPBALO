@@ -32,7 +32,8 @@ class DiscountService
         (is_null($request->q) || (empty($request->q))) ? $search['key'] = null : $search['key'] = $request->q;
         (is_null($request->status) || (empty($request->status))) ? $search['status'] = 'all' : $search['status'] = $request->status;
         (is_null($request->per_page) || (empty($request->per_page))) ? $search['per_page'] = $this->limit : $search['per_page'] = $request->per_page;
-        (is_null($request->sortValue) || (empty($request->sortValue))) ? $search['sortValue'] = 'asc' : $search['sortValue'] = $request->sortValue;
+        (is_null($request->sortValue) || (empty($request->sortValue))) ? $search['sortValue'] = null : $search['sortValue'] = $request->sortValue;
+        (is_null($request->sortId) || (empty($request->sortId))) ? $search['sortId'] = 'desc' : $search['sortId'] = $request->sortId;
 
 
         $discounts = $this->discountRepo->getAll($search);

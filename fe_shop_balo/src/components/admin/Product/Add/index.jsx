@@ -38,7 +38,7 @@ function ProductAdd(props) {
       amount: '',
       price: '',
       description: '',
-      status: '',
+      status: 0,
     },
   });
   const [fileImageSlide, setFileImageSlide] = useState({
@@ -71,8 +71,8 @@ function ProductAdd(props) {
     { value: '2', label: 'Blue' },
   ];
   const typeOptionsSatus = [
-    { value: '1', label: 'Active' },
-    { value: '0', label: 'Out of stock' },
+    { value: 0, label: 'Active' },
+    { value: 1, label: 'Out of stock' },
   ];
   const editorDescription = (value) => {
     setValue('description', value);
@@ -257,7 +257,7 @@ function ProductAdd(props) {
                         options={typeOptionsSatus}
                         onChange={(options) => {
                           onChange(options?.value);
-                          if (options?.value === 1) {
+                          if (options?.value === 0) {
                             setValue('status', options.value);
                           }
                         }}

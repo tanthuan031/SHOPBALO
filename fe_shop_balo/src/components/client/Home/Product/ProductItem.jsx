@@ -36,7 +36,7 @@ const ProductItem = (props) => {
               <span className="stext-105 cl3"> {formatter.format(item.price)} </span>
 
               <StarRatings
-                rating={item.ratings.point}
+                rating={parseInt(item.ratings.point)}
                 starRatedColor="rgb(252,202,25)"
                 starDimension="20px"
                 starSpacing="3px"

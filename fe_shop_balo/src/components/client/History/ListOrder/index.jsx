@@ -83,11 +83,28 @@ export function OrderTableClient(props) {
 
   return (
     <>
-      <div className="container-fluid ">
-        <div className="row justify-content-center">
-          <TableLayout tableHeader={props.tableHeader} tableBody={renderTableBody()} />
+      <div className="container-fluid mb-5">
+        {/* <div className="row justify-content-center"> */}
+        {/* <TableLayout tableHeader={props.tableHeader} tableBody={renderTableBody()} />
+         */}
+        <div className="wrap-table-checkout-cart">
+          <table className="table-checkout-cart text-center">
+            <thead>
+              <tr className="table_head">
+                {props.tableHeader.map((item, index) => {
+                  return (
+                    <>
+                      <th className={`column-${index + 1}`}>{item.name}</th>
+                    </>
+                  );
+                })}
+              </tr>
+            </thead>
+            <tbody>{renderTableBody()}</tbody>
+          </table>
         </div>
       </div>
+      {/* </div> */}
     </>
   );
 }

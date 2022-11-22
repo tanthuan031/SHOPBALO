@@ -15,6 +15,8 @@ import OrderDetail from '../../../components/admin/Order/OrderDetail';
 import UpdateStatusOrder from '../../../components/admin/Order/UpdateStatusOrder';
 import { setExpiredToken } from '../../../redux/reducer/auth/auth.reducer';
 import { isEditStatusOrderSelector, isOrderDetailSelector } from '../../../redux/selectors/order/order.selector';
+import FilterOrder from '../../../components/admin/Order/FilterOrder';
+import Notiflix from 'notiflix';
 
 function OrderPage(props) {
   const data_order_table_header = [...order_table_header];
@@ -99,6 +101,29 @@ function OrderPage(props) {
       deleteCookie('token');
     }
   };
+  const dataStatus = [
+    { id: 1, value: 'Wait for confirmation...' },
+    { id: 2, value: 'Confirm !' },
+    { id: 3, value: 'Delivery' },
+    { id: 4, value: 'Successfully delivery' },
+    { id: 5, value: 'Delivery failed' },
+    { id: 6, value: 'Successfully' },
+    { id: 7, value: 'Failed' },
+  ];
+  const handleCurrentFilter = async (value) => {
+    setLoading(true);
+    const result = await getAllOrder({
+      filterStatus: value === 'All' ? undefined : value,
+    });
+    if (result === 500 || result === 401) {
+      ErrorToast('Something went wrong. Please try again', 3000);
+    } else {
+      setOrder(result, 'page');
+    }
+    Notiflix.Block.remove('#root');
+    setLoading(false);
+    return;
+  };
   return (
     <>
       <section>
@@ -110,27 +135,34 @@ function OrderPage(props) {
           ) : (
             <h5 className="text-danger font-weight-bold mb-3">Update Status</h5>
           )}
-          {!isUpdateStatus && !isOrderDetail ? (
-            <div className="row">
-              <div className="d-flex justify-content-end">
-                <Form onSubmit={(e) => handleSearchOrder(e)}>
-                  <InputGroup>
-                    <Form.Control
-                      id="search-order"
-                      placeholder="Code order or customer"
-                      onChange={(e) => setSearch(e.target.value)}
-                    />
 
-                    <Button id="search-user" variant="danger" type="submit">
-                      <FaSearch />
-                    </Button>
-                  </InputGroup>
-                </Form>
+          {!isUpdateStatus && !isOrderDetail ? (
+            <div className="row ">
+              <div className="d-flex justify-content-between">
+                <div className="d-flex  ">
+                  <FilterOrder currentFilter="" setCurrentFilter={handleCurrentFilter} data={dataStatus} />
+                </div>
+                <div className="d-flex ">
+                  <Form onSubmit={(e) => handleSearchOrder(e)}>
+                    <InputGroup>
+                      <Form.Control
+                        id="search-order"
+                        placeholder="Code order or customer"
+                        onChange={(e) => setSearch(e.target.value)}
+                      />
+
+                      <Button id="search-user" variant="danger" type="submit">
+                        <FaSearch />
+                      </Button>
+                    </InputGroup>
+                  </Form>
+                </div>
               </div>
             </div>
           ) : (
             ''
           )}
+
           {!isUpdateStatus && !isOrderDetail ? (
             <div className="row justify-content-center">
               <>

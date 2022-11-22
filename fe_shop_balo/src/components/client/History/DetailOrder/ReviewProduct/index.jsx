@@ -45,7 +45,7 @@ function ReviewProductItem(props) {
     };
     const result = await addRattingProduct(resultData);
     Notiflix.Block.remove('#root');
-    if (result === 200) {
+    if (result.status === 200) {
       SuccessToast('Review product successfully', 5000);
     } else if (result === 404) {
       ErrorToast('Review product unsuccessfully', 3000);
@@ -77,7 +77,7 @@ function ReviewProductItem(props) {
                   <div className="flex-w flex-m p-t-50 p-b-23">
                     <span className="stext-102 cl3 m-r-16">Your Rating</span>
                     <StarRatings
-                      rating={pointRatings}
+                      rating={parseInt(pointRatings)}
                       changeRating={setPointRatings}
                       starRatedColor="rgb(252,202,25)"
                       starDimension="20px"

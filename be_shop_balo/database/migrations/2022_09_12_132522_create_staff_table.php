@@ -23,7 +23,7 @@ return new class extends Migration
             $table->string('email');
             $table->string('password');
             $table->string('avatar');
-            $table->boolean('status');
+            $table->integer('status');
             $table->string('address');
             $table->date('created_date');
             $table->softDeletes();

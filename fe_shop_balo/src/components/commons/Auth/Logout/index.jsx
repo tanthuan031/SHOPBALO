@@ -4,7 +4,7 @@ import { useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
 import Modal from '../../Layouts/Modal';
 import { deleteCookie, getCookies, logout } from '../../../../api/Admin/Auth';
-import { setExpiredToken, setIsLogin } from '../../../../redux/reducer/auth/auth.reducer';
+import { setExpiredToken, setIsLogin, setUser } from '../../../../redux/reducer/auth/auth.reducer';
 
 export default function Logout(props) {
   const [backdrop, setBackdrop] = React.useState('static');
@@ -24,6 +24,7 @@ export default function Logout(props) {
     if (response === 200) {
       const token = getCookies('token');
       dispatch(setIsLogin(false));
+      dispatch(setUser({}));
       if (token) {
         deleteCookie('token');
       }

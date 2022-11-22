@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Facades\DB;
 
 class Discount extends Model
 {
@@ -64,8 +65,9 @@ class Discount extends Model
      * @param  mixed $filter
      * @return \Illuminate\Database\Eloquent\Builder
      */
-    public function scopeSort($query, $value, $filter = 'asc')
+    public function scopeSort($query, $value='id', $filter)
     {
+        if($filter == null) return $query->orderBy('updated_at','desc')->orderBy('created_at','desc');
         return $query->orderBy($value, $filter);
     }
 

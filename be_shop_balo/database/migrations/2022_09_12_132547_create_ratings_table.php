@@ -20,7 +20,6 @@ return new class extends Migration
             $table->float('point');
             $table->enum('status', ['pending', 'pushlished'])->default('pending');
             $table->text('content');
-            // $table->enum('status', ['pending', 'pushlished'])->default('pending');
             $table->string('image');
             $table->softDeletes();
             $table->timestamps();

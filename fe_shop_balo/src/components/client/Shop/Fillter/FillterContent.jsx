@@ -7,7 +7,7 @@ import './style.css';
 const FillterContent = ({ item }) => {
   const dispatch = useDispatch();
   const chooseCategory = useSelector(categoryIdSelector);
-
+  console.log('item', item);
   const handleCategoryId = (id) => {
     dispatch(setCategoryId(id));
   };
@@ -18,15 +18,16 @@ const FillterContent = ({ item }) => {
         <div className="pb-6">
           <div className="gap-3">
             <div className="d-flex flex-wrap gap-3 cursor-pointer">
-              {item.map((cate, i) => (
-                <span
-                  className={`t-collapse__label ${cate.id === chooseCategory && 't-collapse__label-active'}`}
-                  key={cate.id}
-                  onClick={() => handleCategoryId(cate.id)}
-                >
-                  {cate.name}
-                </span>
-              ))}
+              {item !== undefined &&
+                item.map((cate, i) => (
+                  <span
+                    className={`t-collapse__label ${cate.id === chooseCategory && 't-collapse__label-active'}`}
+                    key={cate.id}
+                    onClick={() => handleCategoryId(cate.id)}
+                  >
+                    {cate.name}
+                  </span>
+                ))}
             </div>
           </div>
         </div>

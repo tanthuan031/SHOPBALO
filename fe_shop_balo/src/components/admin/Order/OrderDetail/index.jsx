@@ -1,7 +1,7 @@
 import React from 'react';
 import { Button } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
-import { setIsDetail } from '../../../../redux/reducer/order/order.reducer';
+import { setIsDetail, setIsEdit } from '../../../../redux/reducer/order/order.reducer';
 import { orderByIdSelector, orderDetailByIdSelector } from '../../../../redux/selectors/order/order.selector';
 import { formatter } from '../../../../utils/formatCurrency';
 import './style.css';
@@ -65,6 +65,14 @@ const OrderDetail = () => {
                           }
                         })()}
                       </span>
+                      <button
+                        className="margin-left-12px text-primary"
+                        onClick={() => {
+                          dispatch(setIsEdit(true), dispatch(setIsDetail(false)));
+                        }}
+                      >
+                        Update Status
+                      </button>
                     </h4>
                   </div>
                   <div className="col-7 total_order_detail">

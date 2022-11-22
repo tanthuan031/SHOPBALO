@@ -14,10 +14,12 @@ import ExpiredToken from '../../components/commons/Auth/ExpiredToken';
 import { exPiredTokenSelector, getUserSelector } from '../../redux/selectors';
 import Logout from '../../components/commons/Auth/Logout';
 import { useState } from 'react';
+import { menu_admin_item_storage } from '../../asset/data/menu_admin_storage_item';
 
 export function AdminLayout(props) {
   const { slot } = props;
   const menu_admin_item_data = [...menu_admin_item];
+  const menu_admin_item_storage_data = [...menu_admin_item_storage];
   const expiredToken = useSelector(exPiredTokenSelector);
   const [showLogout, setStateModalLogout] = useState(false);
   const user = useSelector(getUserSelector);
@@ -33,9 +35,8 @@ export function AdminLayout(props) {
               <FaUsers /> Admin: {user != undefined && user.first_name + ' ' + user.last_name}
             </h5>
             <div className="py-5">
-              {/* {user?.type === "admin" && <ListGroup data={menu_item_admin} />} */}
-              {/* {user?.type === "Staff" && <ListGroup data={menu_item_staff} />} */}
-              <ListGroup data={menu_admin_item_data} />
+              {user?.role_id === 1 && <ListGroup data={menu_admin_item_data} />}
+              {user?.role_id === 2 && <ListGroup data={menu_admin_item_storage_data} />}
             </div>
             <div className="d-flex justify-content-center ">
               <Button className="btn-danger" onClick={() => setStateModalLogout(true)}>

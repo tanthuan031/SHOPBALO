@@ -79,13 +79,15 @@ class SliderService
     public function update($request, $id)
     {
         if (is_null($id) || is_null($request)) return $this->errorResponse();
-        if (!is_null($request->image_slider)) {
-            $fileName = Helper::saveImgBase64v1($request->image, 'Slider');
+        
+        if (!is_null($request->input('image'))) {
+            $fileName = Helper::saveImgBase64v1($request->input('image'), 'Slider');
+           
             if ($fileName == false) return $this->apiResponse([], 422, 'Image is invalid.Try againt');
             $request['image_slider'] = $fileName;
+            unset($request['image']);
         }
         if (!is_null($request->status)) $request['status'] = $request->status === 'Active' ? 'Active' : 'InActive';
-
         $result = $this->sliderRepo->update(intval($id), $request->toArray());
         return $result ? $this->apiResponse([], 200, 'Update slider successfully') : $this->apiResponse([], 401, 'Update slider failed');
     }
