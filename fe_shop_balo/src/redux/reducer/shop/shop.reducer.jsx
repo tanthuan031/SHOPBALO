@@ -7,6 +7,7 @@ export const shopClientReducer = createSlice({
     fillterPriceStart: undefined,
     fillterPriceEnd: undefined,
     search: undefined,
+    sortPrice: 'desc',
   },
   reducers: {
     setCategoryId: (state, action) => {
@@ -20,10 +21,13 @@ export const shopClientReducer = createSlice({
     },
     setSearch: (state, action) => {
       state.search = action.payload;
+    },
+    setSort: (state, action) => {
+      state.sortPrice = action.payload;
     }
   },
 });
 
-export const { setCategoryId, setFillterPriceStart, setFillterPriceEnd, setSearch } = shopClientReducer.actions;
+export const { setCategoryId, setFillterPriceStart, setFillterPriceEnd, setSearch, setSort } = shopClientReducer.actions;
 
 export default shopClientReducer.reducer;

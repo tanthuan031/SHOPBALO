@@ -10,7 +10,15 @@ const ContentHome = ({ isLoadingProduct, dataNewArrive, dataBestSale, dataOvervi
       ) : (
         <SkeletonProductList quantity={4} />
       )}
-      {!isLoadingProduct ? <Product title={'Best Seller'} item={dataBestSale} /> : <SkeletonProductList quantity={4} />}
+      {!isLoadingProduct ? (
+        dataBestSale.length > 0 ? (
+          <Product title={'Best Seller'} item={dataBestSale} />
+        ) : (
+          <Product title={'Best Seller'} item={dataNewArrive} />
+        )
+      ) : (
+        <SkeletonProductList quantity={4} />
+      )}
       {!isLoadingProduct ? (
         <Product title={'Product Overview'} item={dataOverview} />
       ) : (

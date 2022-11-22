@@ -14,6 +14,7 @@ import {
   fillterPriceEnd,
   fillterPriceStart,
   search,
+  sortPrice,
 } from '../../../redux/selectors/shop/shop.selector';
 import { ErrorToast } from '../../commons/Layouts/Alerts';
 import NotFoundData from '../../commons/Layouts/NotFoundData';
@@ -21,6 +22,7 @@ import PaginationUI from '../../commons/Layouts/Pagination';
 import Skeleton from '../../commons/Layouts/Skeleton';
 import ProductItem from '../Home/Product/ProductItem';
 import Fillter from './Fillter';
+import SortPrice from './SortPrice';
 import './style.css';
 
 const Shop = () => {
@@ -32,16 +34,16 @@ const Shop = () => {
   const [dataCategory, setDataCategory] = useState([]);
   const [dataProduct, setDataProduct] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-  const sort = 'desc';
+  // const sortById = 'desc';
   const per_page = 9;
 
   const categoryId = useSelector(categoryIdSelector);
   const start_price = useSelector(fillterPriceStart);
   const end_price = useSelector(fillterPriceEnd);
+  const sortByPrice = useSelector(sortPrice);
   const [isClear, setIsClear] = useState(false);
 
   const dataSearch = useSelector(search);
-  // console.log('🚀 ~ file: index.jsx ~ line 34 ~ Header ~ getDataFromSearch', dataSearch);
 
   const filter = categoryId;
   const dispatch = useDispatch();
@@ -58,7 +60,16 @@ const Shop = () => {
   };
 
   const handleGetAllProduct = async () => {
-    const result = await getAllProducts({ sort, page, filter, per_page, start_price, end_price, dataSearch });
+    const result = await getAllProducts({
+      // sortById,
+      page,
+      filter,
+      per_page,
+      start_price,
+      end_price,
+      dataSearch,
+      sortByPrice,
+    });
     if (result === 401) {
       ErrorToast('Something went wrong. Please try again', 3000);
       return false;
@@ -94,14 +105,17 @@ const Shop = () => {
     } else {
       setIsClear(false);
     }
-  }, [page, filter, start_price, end_price, dataSearch]);
+  }, [page, filter, start_price, end_price, dataSearch, sortByPrice]);
 
   return (
     <>
       <section className="container ">
-        <section id="shop__title-main">
-          <h1 className="fw-bold fs-2 my-4">ALL PRODUCT</h1>
-        </section>
+        <div className="d-flex justify-content-between py-3">
+          <section id="shop__title-main">
+            <span className="fw-bold fs-2 my-4">ALL PRODUCT</span>
+          </section>
+          <SortPrice />
+        </div>
         <div className="d-flex gap-3">
           <div className="filter-homepage me-4 overflow-auto bg-light" style={{ width: '25%' }}>
             <div>
@@ -117,7 +131,7 @@ const Shop = () => {
                 </div>
                 <div className="p-3">
                   <Fillter item={dataCategory} title={title_fillter[0].title} isContent={true} />
-                  <Fillter item={dataCategory} title={title_fillter[1].title} isClear={isClear} />
+                  <Fillter title={title_fillter[1].title} isClear={isClear} />
                 </div>
               </div>
             </div>

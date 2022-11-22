@@ -18,7 +18,6 @@ const Fillter = ({ item, title, isContent, isClear }) => {
 
   const start_price = useSelector(fillterPriceStart);
   const end_price = useSelector(fillterPriceEnd);
-  // console.log('isClear', isClear);
 
   const handleSubmit = (event) => {
     event.preventDefault();

@@ -1,12 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import Home from '../../../components/client/Home';
 import { getAllCategory, getAllProducts, getAllSlider } from '../../../api/Client/Home/homeAPI';
-import { ErrorToast } from '../../../components/commons/Layouts/Alerts';
-import Slider from '../../../components/client/Home/Slider';
-import Banner from '../../../components/client/Home/Banner';
-import Skeleton from '../../../components/commons/Layouts/Skeleton';
-import ProductList from '../../../components/client/Home/Product/ProductList';
 import ContentHome from '../../../components/client/Home';
+import Banner from '../../../components/client/Home/Banner';
+import Slider from '../../../components/client/Home/Slider';
+import { ErrorToast } from '../../../components/commons/Layouts/Alerts';
 
 export function HomePage(props) {
   const [slider, setSlider] = useState([]);
