@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { FaRegEye, FaStar, FaTimesCircle } from 'react-icons/fa';
 import { TiTick } from 'react-icons/ti';
 import { useDispatch } from 'react-redux';
-import { deleteReview, getReviewById } from '../../../api/Admin/Review/reviewAPI';
+import { deleteReview, editReview, getReviewById } from '../../../api/Admin/Review/reviewAPI';
 import { setIsEdit, setIsReset, setReview } from '../../../redux/reducer/review/review.reducer';
 import ImageCustom from '../../commons/Layouts/Image';
 import { URL_SERVER } from '../../../utils/urlPath';
@@ -50,6 +50,21 @@ const ReviewTable = (props) => {
     setShowDelete(false);
     setIsCheck(null);
   };
+  const handleOnclickSetStatus = async (id, payload) => {
+    const status = payload === 'pending' ? 'pushlished' : 'pending';
+    const result = await editReview(id, { status });
+
+    if (result.status === 200) {
+      SuccessToast('Update review successfully.', 3000);
+    } else {
+      ErrorToast('Update review failed.', 3000);
+    }
+    const timeClear = setTimeout(() => {
+      dispatch(setIsReset(Math.random()));
+    }, 500);
+    return () => clearTimeout(timeClear)
+
+  }
 
   // const handlePublish = async () => {
   //   BlockUI('#root', 'fixed');
@@ -78,13 +93,15 @@ const ReviewTable = (props) => {
         ErrorToast('Delete review failed.', 3000);
       }
       handleSetStateDelete();
-      dispatch(setIsReset(''));
+      dispatch(setIsReset(Math.random()));
     }
   };
 
   const renderTableBody = (body) => {
+
     return body.length > 0 ? (
       body.map((item, index) => (
+
         <tr key={item.id} className={`font-weight-bold row-data ${isCheck === item.id ? 'choose-row-data' : ''}`}>
           <td>{++index}</td>
           <td>
@@ -104,7 +121,7 @@ const ReviewTable = (props) => {
             <div className="d-flex gap-2">
               {/* <img className="img-avatar " src={` ${URL_SERVER}/storage/customer/${item.customers.image} `} /> */}
               <div className="img-avatar ">
-                <ImageCustom src={item.customers.image} className="w-100 " />
+                <ImageCustom src={item.customers.avatar} type='avatar' className="w-100 " />
               </div>
               <div className="d-flex flex-column">
                 <p>{`${item.customers.last_name} ${item.customers.first_name}`}</p>
@@ -135,11 +152,11 @@ const ReviewTable = (props) => {
 
           <td>
             <p
-              className={`text-center border-radius-2px ${
-                item.status === 'pending' ? 'bg-warning-100 text-warning p-2' : 'bg-success-100 text-success p-2'
-              }`}
+              onClick={() => handleOnclickSetStatus(item.id, item.status)}
+              className={`cursor-pointer status-review text-center border-radius-2px ${item.status === 'pending' ? 'bg-warning-100 text-warning p-2' : 'bg-success-100 text-success p-2'
+                }`}
             >
-              {item.status === 'pending' ? 'pending' : 'pushlised'}
+              {item.status === 'pending' ? 'pending' : 'pushlished'}
             </p>
           </td>
 
@@ -195,7 +212,7 @@ const ReviewTable = (props) => {
           <button
             type="button"
             className="btn btn-danger"
-            // onClick={() => handlePublish()}
+          // onClick={() => handlePublish()}
           >
             Publish
           </button>
