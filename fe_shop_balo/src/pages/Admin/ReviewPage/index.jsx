@@ -2,6 +2,7 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import {
   isEditSelectorReview,
+  isResetSelectorReview,
   isSortSelectorReview,
   isStatusSelectorReview,
 } from './../../../redux/selectors/review/review.selector';
@@ -28,6 +29,7 @@ const ReviewPage = () => {
   const dispatch = useDispatch();
   const isEdit = useSelector(isEditSelectorReview);
   const status = useSelector(isStatusSelectorReview);
+  const isReset = useSelector(isResetSelectorReview)
   const sort = useSelector(isSortSelectorReview);
   const [data, setData] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -53,7 +55,7 @@ const ReviewPage = () => {
 
   useEffect(() => {
     handleGetAllReview();
-  }, [isEdit, sort, status]);
+  }, [isEdit, sort, status, isReset]);
 
   const handleChangePage = async (page) => {
     setPage(page);

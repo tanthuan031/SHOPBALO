@@ -22,15 +22,14 @@ const ReviewDetail = () => {
         <div className="d-flex gap-3 justify-content-between">
           <div className="d-flex gap-3 align-items-center">
             <div className="img-avatar ">
-              <ImageCustom src={`${URL_SERVER}/storage/customer/${reviewData.customers.image} `} className="w-100 " />
+              <ImageCustom src={reviewData.customers.avatar} type='avatar' className="w-100 " />
             </div>
             <h1 className="fs-5 fw-bold">{`${reviewData.customers.last_name} ${reviewData.customers.first_name}`}</h1>
           </div>
           <span className="d-flex justify-self-end">
             <p
-              className={`text-center border-radius-2px ${
-                reviewData.status === 'pending' ? 'bg-warning-100 text-warning p-2' : 'bg-success-100 text-success p-2'
-              }`}
+              className={`text-center border-radius-2px ${reviewData.status === 'pending' ? 'bg-warning-100 text-warning p-2' : 'bg-success-100 text-success p-2'
+                }`}
             >
               {reviewData.status === 'pending' ? 'pending' : 'pushlised'}
             </p>
@@ -77,7 +76,7 @@ const ReviewDetail = () => {
           {/* <img style={{ width: '150px', height: '150px' }} src={`${reviewData.image} `} /> */}
           {/* <div className="image-review"> */}
           <ImageCustom
-            src={`${URL_SERVER}/storage/Rating/${reviewData.image} `}
+            src={reviewData.image}
             className="image-review"
             style={{ width: '150px', height: '150px' }}
           />
