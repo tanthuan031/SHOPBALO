@@ -17,6 +17,7 @@ import { setExpiredToken } from '../../../redux/reducer/auth/auth.reducer';
 import { isEditStatusOrderSelector, isOrderDetailSelector } from '../../../redux/selectors/order/order.selector';
 import FilterOrder from '../../../components/admin/Order/FilterOrder';
 import Notiflix from 'notiflix';
+import { setIsDetail, setIsEdit } from '../../../redux/reducer/order/order.reducer';
 
 function OrderPage(props) {
   const data_order_table_header = [...order_table_header];
@@ -131,9 +132,31 @@ function OrderPage(props) {
           {!isUpdateStatus && !isOrderDetail ? (
             <h5 className="text-danger font-weight-bold mb-3">Order List</h5>
           ) : isOrderDetail ? (
-            <h5 className="text-danger font-weight-bold mb-3">Order List / Order Detail</h5>
+            <h5 className="text-danger font-weight-bold mb-3">
+              <span
+                className="cursor-pointer"
+                onClick={() => {
+                  dispatch(setIsEdit(false));
+                  dispatch(setIsDetail(false));
+                }}
+              >
+                Order List
+              </span>
+              / Order Detail
+            </h5>
           ) : (
-            <h5 className="text-danger font-weight-bold mb-3">Order List / Update Status</h5>
+            <h5 className="text-danger font-weight-bold mb-3">
+              <span
+                className="cursor-pointer"
+                onClick={() => {
+                  dispatch(setIsEdit(false));
+                  dispatch(setIsDetail(false));
+                }}
+              >
+                Order List
+              </span>
+              / Update Status
+            </h5>
           )}
 
           {!isUpdateStatus && !isOrderDetail ? (

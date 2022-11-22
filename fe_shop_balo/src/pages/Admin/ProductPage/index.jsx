@@ -18,7 +18,7 @@ import ProductEdit from '../../../components/admin/Product/Edit';
 import FilterCategory from '../../../components/admin/Product/FilterCategory';
 import FilterStatus from '../../../components/admin/Product/FilterStatus';
 import { setExpiredToken } from '../../../redux/reducer/auth/auth.reducer';
-import { setIsAdd } from '../../../redux/reducer/product/product.reducer';
+import { setIsAdd, setIsEdit } from '../../../redux/reducer/product/product.reducer';
 import { isAddSelector, isEditSelector } from '../../../redux/selectors';
 
 export function ProductPage(props) {
@@ -219,8 +219,34 @@ export function ProductPage(props) {
       <section>
         <div className="container-fluid mt-5">
           {!isAdd && !isEdit && <h5 className="text-danger font-weight-bold mb-3">Product List</h5>}
-          {isAdd && <h5 className="text-danger font-weight-bold mb-3">Product List / Add product</h5>}
-          {isEdit && <h5 className="text-danger font-weight-bold mb-3">Product List / Edit product</h5>}
+          {isAdd && (
+            <h5 className="text-danger font-weight-bold mb-3">
+              <span
+                className="cursor-pointer"
+                onClick={() => {
+                  dispatch(setIsEdit(false));
+                  dispatch(setIsAdd(false));
+                }}
+              >
+                Product List
+              </span>
+              / Add product
+            </h5>
+          )}
+          {isEdit && (
+            <h5 className="text-danger font-weight-bold mb-3">
+              <span
+                className="cursor-pointer"
+                onClick={() => {
+                  dispatch(setIsEdit(false));
+                  dispatch(setIsAdd(false));
+                }}
+              >
+                Product List
+              </span>{' '}
+              / Edit product
+            </h5>
+          )}
           {!isAdd && !isEdit ? (
             <div className="row">
               <div className="mb-3 d-flex justify-content-between">

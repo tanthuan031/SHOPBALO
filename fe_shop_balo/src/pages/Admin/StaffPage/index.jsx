@@ -15,7 +15,7 @@ import StaffAdd from '../../../components/admin/Staff/Add';
 import StaffEdit from '../../../components/admin/Staff/Edit';
 import FilterStatus from '../../../components/admin/Staff/FilterStatus';
 import { setExpiredToken } from '../../../redux/reducer/auth/auth.reducer';
-import { setIsAdd } from '../../../redux/reducer/staff/staff.reducer';
+import { setIsAdd, setIsEdit } from '../../../redux/reducer/staff/staff.reducer';
 import { isAddStaffSelector, isEditStaffSelector, isResetStaffSelector } from '../../../redux/selectors';
 import './style.css';
 
@@ -122,8 +122,34 @@ export function StaffPage(props) {
         <h5 className="text-danger font-weight-bold mb-3">Staff List</h5>
         <>
           {!isAddStaff && !isEditStaff && <h5 className="text-danger font-weight-bold mb-3">Staff List</h5>}
-          {isAddStaff && <h5 className="text-danger font-weight-bold mb-3">Staff List / Staff Add</h5>}
-          {isEditStaff && <h5 className="text-danger font-weight-bold mb-3">Staff List / Staff Edit</h5>}
+          {isAddStaff && (
+            <h5 className="text-danger font-weight-bold mb-3">
+              <span
+                className="cursor-pointer"
+                onClick={() => {
+                  dispatch(setIsEdit(false));
+                  dispatch(setIsAdd(false));
+                }}
+              >
+                Staff List
+              </span>
+              / Staff Add
+            </h5>
+          )}
+          {isEditStaff && (
+            <h5 className="text-danger font-weight-bold mb-3">
+              <span
+                className="cursor-pointer"
+                onClick={() => {
+                  dispatch(setIsEdit(false));
+                  dispatch(setIsAdd(false));
+                }}
+              >
+                Staff List
+              </span>{' '}
+              / Staff Edit
+            </h5>
+          )}
         </>
         {!isAddStaff && !isEditStaff ? (
           <>
