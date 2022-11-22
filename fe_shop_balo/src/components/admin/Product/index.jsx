@@ -21,9 +21,9 @@ export function ProductTable(props) {
 
   const handleShowDetail = async (id, image) => {
     BlockUI('#root', 'fixed');
-    const urlArrayImageSlide = 'ProductSlide?cat=' + image;
+    const urlArrayImageSlide = image.split(',');
     const result = await getProductById(id);
-    const imageProductSlice = await getStorageImage(urlArrayImageSlide);
+    // const imageProductSlice = await getStorageImage(urlArrayImageSlide);
     Notiflix.Block.remove('#root');
     setShowDetail(true);
     if (result === 401) {
@@ -33,7 +33,7 @@ export function ProductTable(props) {
     } else {
       setProductDetail({ ...result });
     }
-    setDataImage(imageProductSlice);
+    setDataImage(urlArrayImageSlide);
   };
   const handleEditProduct = async (e, id) => {
     BlockUI('#root', 'fixed');
@@ -72,10 +72,10 @@ export function ProductTable(props) {
           <td>
             <p
               className={`text-center border-radius-2px ${
-                item.status === '1' ? 'bg-success-100 text-success' : 'bg-red-100 text-red '
+                item.status === 0 ? 'bg-success-100 text-success' : 'bg-red-100 text-red '
               }`}
             >
-              {item.status === '1' ? 'Active' : 'Out of stock'}
+              {item.status === 0 ? 'Active' : 'Out of stock'}
             </p>
           </td>
           <td>

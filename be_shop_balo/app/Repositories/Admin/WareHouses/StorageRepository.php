@@ -4,6 +4,8 @@ namespace App\Repositories\Admin\WareHouses;
 
 use App\Models\ExportStorage;
 use App\Models\ImportStorage;
+use App\Models\Product;
+use App\Models\ProductDetail;
 use App\Models\Storage;
 use Illuminate\Support\Facades\DB;
 use Ramsey\Uuid\Type\Integer;
@@ -70,8 +72,6 @@ class StorageRepository
                     'amount' => $request['import_amount']
                 ]);
             }
-
-
         } catch (\Exception $e) {
             return false;
         }
@@ -80,22 +80,24 @@ class StorageRepository
 
     public function exportStorage($request)
     {
-
-
         $storage = Storage::query()->where('product_id', '=', $request['product_id'])->first();
-
+        $product = ProductDetail::query()->where('product_id', '=', $request['product_id'])->first();
         if ($storage) {
             if ($request['export_amount'] <= $storage['amount'] && $storage['amount'] > 0) {
                 $dataRequest = [
                     'product_id' => $request['product_id'],
-                    'provider_id' => $storage['provider_id'],
+
+                    'provider_id' =>  $storage['provider_id'],
                     'name' => $request['name'],
                     'export_amount' => $request['export_amount']
                 ];
                 $exportStorage = ExportStorage::query()->create($dataRequest);
 
                 $storage->update([
-                    'amount' => (int)$storage['amount'] - (int)$request['export_amount']
+                'amount' => (int) $storage['amount'] - (int) $request['export_amount']
+                ]);
+                $product->update([
+                    'amount' => (int) $product['amount'] + (int) $request['export_amount']
                 ]);
                 $data = [
                     'status' => 'success',
@@ -109,16 +111,14 @@ class StorageRepository
                     'message' => 'Export quantity is larger than existing quantity or out of stock'
                 ];
             }
-
-        } else {
+        }
+         else {
             $data = [
                 'status' => 'fail',
                 'data' => [],
                 'message' => 'The product is not in stock'
             ];
         }
-
-
         return $data;
     }
 

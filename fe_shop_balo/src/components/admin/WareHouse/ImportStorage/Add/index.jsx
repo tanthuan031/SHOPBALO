@@ -50,15 +50,18 @@ function ImportStorageAdd(props) {
   // }, [register, fileImageSlide]);
 
   const typeOptionsProduct = [];
-  props.listProduct != null &&
+  if (props.listProduct !== null || props.listProduct !== undefined) {
     props.listProduct.data.map((item) => {
       typeOptionsProduct.push({ value: item.id, label: item.name });
     });
+  }
+
   const typeOptionsProvider = [];
-  props.listProvider != null &&
+  if (props.listProvider !== null || props.listProvider !== undefined) {
     props.listProvider.data.map((item) => {
       typeOptionsProvider.push({ value: item.id, label: item.name });
     });
+  }
 
   const onSubmit = async (data) => {
     // console.log('r', data);
@@ -200,7 +203,7 @@ function ImportStorageAdd(props) {
               className="font-weight-bold me-3"
               disabled={!isValid}
             >
-              Save
+              Import
             </Button>
             <Button
               id="product-save-cancel"

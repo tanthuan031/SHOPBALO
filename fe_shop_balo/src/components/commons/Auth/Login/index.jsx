@@ -4,7 +4,7 @@ import { useForm } from 'react-hook-form';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { schemaLogin } from '../../../../adapter/auth';
-import { handleLogin, setCookies } from '../../../../api/Admin/Auth';
+import { handleGetInformation, handleLogin, setCookies } from '../../../../api/Admin/Auth';
 import { BlockUI } from '../../Layouts/Notiflix';
 import { ErrorToast, SuccessToast } from '../../Layouts/Alerts';
 import Notiflix from 'notiflix';
@@ -15,7 +15,8 @@ import { getUserSelector } from '../../../../redux/selectors';
 export default function FormLogin() {
   const [typePassword, setShowPassword] = useState('password');
   const dispatch = useDispatch();
-  const user = useSelector(getUserSelector);
+  const user1 = useSelector(getUserSelector);
+  const user = Object.keys(user1).length > 0 && user1;
   const {
     register,
     handleSubmit,
@@ -43,17 +44,19 @@ export default function FormLogin() {
     if (result.data.status === 200) {
       SuccessToast('Logged in successfully', 2000);
       setCookies('token', result.data.token, 1);
-      // Notiflix.Block.remove('.sl-box');
-      console.log(user, 'user ');
-      user.role_id === 1 &&
-        setTimeout(() => {
+      const response = await handleGetInformation();
+      if (response === 401) {
+        SuccessToast('Error server ... ', 2000);
+        Notiflix.Block.remove('.sl-box');
+      } else {
+        if (response.role_id === 1) {
           window.location.href = '/admin/';
-        }, 1000);
-      user.role_id === 2 &&
-        setTimeout(() => {
+        }
+        if (response.role_id === 2) {
           window.location.href = '/admin/warehouse';
-        }, 1000);
-      return;
+        }
+        return;
+      }
     }
   };
   const handleForgorPW = () => {

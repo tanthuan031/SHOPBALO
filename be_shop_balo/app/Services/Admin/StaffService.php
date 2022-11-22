@@ -42,7 +42,8 @@ class StaffService
 
     public function storeStaff($request): \Illuminate\Http\JsonResponse
     {
-        $avatar = Helper::saveImgBase64($request->avatar, 'Staff');
+        $fileImg=is_array($request->avatar);
+        $avatar = ($fileImg )? Helper::saveImgBase64($request->avatar, 'Staff'):$request->avatar;
         $dataRequest = [
             'role_id' => $request->role_id,
             'first_name' => $request->first_name,

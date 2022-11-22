@@ -6,6 +6,7 @@ use App\Models\Category;
 use App\Models\Product;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\DB;
 
 class ProductSeeder extends Seeder
@@ -23,7 +24,7 @@ class ProductSeeder extends Seeder
                 'id' => 1,
                 'tag_search' => 'Backpacker',
                 'name' => 'William Polo Locust Men\'s Travel Backpack',
-                'description' => 'With an address in Ho Chi Minh City, Giao Long is known as the place to distribute and trade genuine products of the William Polo brand. With many attractive warranty and product return policies, Giao Long confidently always gives customers the best service. Currently, Giao Long is having many "terrible" sale off programs with many products, come to Giao Long to bring home a high-class backpack for you.',
+                'description' => 'With an address in Ho Chi Minh City, Giao Long is known as the place to distribute and trade genuine products of the William Polo brand. With many attractive warranty and product return policies, Giao Long confidently always gives customers the best service to bring home a high-class backpack for you.',
                 'image' => 'https://baloxinh.vn/wp-content/uploads/2022/10/balo-nam-hang-hieu-william-polo-locust-giaolong-.jpg',
                 'image_slider' => 'https://baloxinh.vn/wp-content/uploads/2022/10/balo-nam-da-nang-william-polo-giaolong-1-100x100.jpg,https://baloxinh.vn/wp-content/uploads/2022/10/balo-nam-william-polo-locust-giaolong-100x100.jpg',
                 'status' => true,
@@ -50,7 +51,7 @@ class ProductSeeder extends Seeder
                 'id' => 4,
                 'tag_search' => 'Premium Backpack',
                 'name' => 'Tigernu Obese Premium Anti-Theft Backpack',
-                'description' => 'Giao Long always carries a sincere heart in each order. We always want our customers to have the best experience with every purchase. Therefore, products in Giao Long are always 100% genuine. Any product defect issues are resolved by our staff as quickly as possible and completely free of charge. Our shipping support policies are always evident, all orders are free shipping and support fast delivery.',
+                'description' => 'Giao Long always carries a sincere heart in each order. We always want our customers to have the best experience with every purchase. Therefore, products in Giao Long are always 100% genuine. Any product defect issues are resolved by our staff as quickly as possible and completely free of charge. ',
                 'image' => 'https://baloxinh.vn/wp-content/uploads/2022/10/balo-laptop-nam-hcm-tigernu-obese-giaolong-.jpg',
                 'image_slider' => 'https://baloxinh.vn/wp-content/uploads/2022/10/balo-laptop-chong-nuoc-tigernu-obese-giaolong--100x100.jpg,https://baloxinh.vn/wp-content/uploads/2022/10/balo-nam-ben-dep-tigernu-obese-giaolong-100x100.jpg,https://baloxinh.vn/wp-content/uploads/2022/10/balo-nam-chong-trom-tigernu-obese-giaolong-100x100.jpg',
                 'status' => true,
@@ -78,10 +79,6 @@ class ProductSeeder extends Seeder
                 'tag_search' => 'Travel Backpack',
                 'name' => 'Parsonker Racoon Laptop Leather Backpack',
                 'description' => 'We are a distributor of fashion backpacks that are loved by many shoppers and have the most positive reviews.
-                All products at Giao Long are guaranteed the following policies:
-                
-                Guaranteed 100% genuine imported goods.
-                1 for 1 exchange if the product has a manufacturer defect.
                 Fast delivery in Ho Chi Minh City within 24 hours.
                 Receive nationwide delivery with preferential ship code.',
                 'image' => 'https://baloxinh.vn/wp-content/uploads/2022/10/balo-cao-cap-hang-hieu-parsonker-racoon-giaolong.jpg',
@@ -102,7 +99,7 @@ class ProductSeeder extends Seeder
                 'id' => 9,
                 'tag_search' => 'Travel Backpack',
                 'name' => 'Kaka Hin Trekking Backpack',
-                'description' => 'Proud to be one of the leading units in providing 100% genuine imported backpack models, Giao Long will be the perfect choice for those who love to travel. We always have many preferential policies for customers such as: 1 - 1 refund if there is a manufacturing error, 24h super fast delivery, ... you will surely be extremely satisfied when you experience our products. Accompanied by the professionalism from Giao Long\'s consulting team, you will be fully supported both offline and online anytime, anywhere on technical issues, how to preserve or return products.',
+                'description' => 'Proud to be one of the leading units in providing 100% genuine imported backpack models, Giao Long will be the perfect choice for those who love to travel. We always have many preferential policies for customers such as: 1 - 1 refund if there is a manufacturing error, 24h super fast delivery, ... you will surely be extremely satisfied when you experience our products.',
                 'image' => 'https://baloxinh.vn/wp-content/uploads/2022/10/balo-kaka-hin-giaolong.jpg',
                 'image_slider' => 'https://baloxinh.vn/wp-content/uploads/2022/10/balo-di-phuot-chat-luong-kaka-hin-giaolong-100x100.jpg,https://baloxinh.vn/wp-content/uploads/2022/10/balo-du-lich-cao-cap-chinh-hang-kaka-hin-giaolong-100x100.jpg',
                 'status' => true,
@@ -128,7 +125,7 @@ class ProductSeeder extends Seeder
                 'id' => 12,
                 'tag_search' => 'School Backpack',
                 'name' => 'Fedom Kinck Backpack – Stylish Waterproof Backpack',
-                'description' => 'Backpacks are a fashion field that is focused and invested in. In addition to the stylish eye-catching design, the function of a backpack is extremely important. Of the 100 customers recently surveyed by Balo Xinh, the waterproof and anti-hunchback function are the two functions that customers care about and respond to the most with Balo Xinh. Finding a backpack that can protect the valuables inside and the most important thing to protect the health of your back is not too difficult. Fedom Kinck Backpack will help you overcome those things.',
+                'description' => 'Backpacks are a fashion field that is focused and invested in. In addition to the stylish eye-catching design, the function of a backpack is extremely important. Of the 100 customers recently surveyed by Balo Xinh, the waterproof and anti-hunchback function are the two functions that customers care about and respond to the most with Balo Xinh. Fedom Kinck Backpack will help you overcome those things.',
                 'image' => 'https://baloxinh.vn/wp-content/uploads/2021/05/balo-fedom-kinck-balo-chong-nuoc-phong-cach-nam-tinh-7.jpg',
                 'image_slider' => 'https://baloxinh.vn/wp-content/uploads/2021/05/balo-fedom-kinck-1-1-100x100.jpg,https://baloxinh.vn/wp-content/uploads/2021/05/balo-fedom-kinck-1-100x100.jpg',
                 'status' => true,
@@ -145,7 +142,7 @@ class ProductSeeder extends Seeder
                 'id' => 14,
                 'tag_search' => 'Laptop bag',
                 'name' => 'The Louie Red BLX10 Laptop Backpack – Genuine Product',
-                'description' => 'Are you a follower of Mikkor? Do you want to own a genuine Mikkor backpack just go to school, go out, protect your laptop? Don\'t wait any longer to pick up a pretty backpack from MIKKOR\'s THE LOUIE collection! Mikkor The Louie Red Laptop Backpack with dynamic red color is suitable for students and working people. Worthy of being a companion on your journey.',
+                'description' => 'Are you a follower of Mikkor? Do you want to own a genuine Mikkor backpack just go to school, go out, protect your laptop? Don\'t wait any longer to pick up a pretty backpack from MIKKOR\'s THE LOUIE collection!. Worthy of being a companion on your journey.',
                 'image' => 'https://baloxinh.vn/wp-content/uploads/2020/08/balo-mikkor-the-louie-red-hang-cao-cap-1.jpg',
                 'image_slider' => 'https://baloxinh.vn/wp-content/uploads/2020/08/balo-mikkor-the-louie-red-hang-chinh-hang-1-100x100.jpg,https://baloxinh.vn/wp-content/uploads/2020/08/balo-mikkor-the-louie-red-hong-100x100.jpg,https://baloxinh.vn/wp-content/uploads/2020/08/balo-mikkor-the-louie-red-hang-mat-truoc-100x100.jpg',
                 'status' => true,
@@ -161,7 +158,7 @@ class ProductSeeder extends Seeder
                 'id' => 16,
                 'tag_search' => 'Men backpack',
                 'name' => 'Fedom Nitro Backpack – European American Brand Travel Backpack',
-                'description' => 'Oumantu O6118S Travel Business Backpack Simple The travel backpack is an indispensable item for you in your travels with family and friends. In addition to the stylish and trendy shape, the interior design is also an important part of creating a top-notch backpack. Understanding the need for backpacks today, beautiful backpacks send you a product that will certainly not disappoint you. Fedom Nitro backpack of European and American brand is a product worth your choice.',
+                'description' => 'Oumantu O6118S Travel Business Backpack Simple The travel backpack is an indispensable item for you in your travels with family and friends. In addition to the stylish and trendy shape, the interior design is also an important part of creating a top-notch backpack. Understanding the need for backpacks today,. Fedom Nitro backpack of European and American brand is a product worth your choice.',
                 'image' => 'https://baloxinh.vn/wp-content/uploads/2021/05/balo-mau-xanh-balo-dep-1.jpg',
                 'image_slider' => 'https://baloxinh.vn/wp-content/uploads/2021/05/balo-fedom-nitro-thuong-hieu-au-my-3-100x100.jpg,https://baloxinh.vn/wp-content/uploads/2021/05/balo-fedom-nitro-thuong-hieu-au-my-4-100x100.jpg,https://baloxinh.vn/wp-content/uploads/2021/05/balo-fedom-nitro-thuong-hieu-au-my-10-100x100.jpg',
                 'status' => true,
@@ -170,8 +167,8 @@ class ProductSeeder extends Seeder
                 'id' => 17,
                 'tag_search' => 'Men backpack',
                 'name' => 'Oumantu O6118S Travel Business Backpack Simple',
-                'description' => 'A super product only available at Balo Xinh. If you are looking for a suitable backpack for business people or a travel backpack. Then this high-end backpack model from the Oumantu O6118S brand is the perfect choice for you. Simple, delicate colors are super suitable for people with simple style but still exude an elegant and luxurious beauty for users.
-                A handy backpack that can protect the items inside is indispensable for each of us. Very convenient for every long trip or short business trip. Oumantu O6118S backpack is manufactured with super durable Polyester fabric, does not fade over time, is highly waterproof… With an external USB charging port design, you can charge it anytime, anywhere. Contact the website: BaloXinh.vn to see the consultants and order now?',
+                'description' => 'A super product only available at Balo Xinh. If you are looking for a suitable backpack for business people or a travel backpack. Then this high-end backpack model from the Oumantu O6118S brand is the perfect choice for you and luxurious beauty for users.
+                A handy backpack that can protect the items inside is indispensable for each of us. Very convenient for every long trip or short business trip. ',
                 'image' => 'https://baloxinh.vn/wp-content/uploads/2021/03/balo-thoi-trang-du-lich-don-gian.jpg',
                 'image_slider' => 'https://baloxinh.vn/wp-content/uploads/2021/03/4-mau-cua-balo-oumatu-cao-cap-100x100.jpg,https://baloxinh.vn/wp-content/uploads/2021/03/balo-oumantu-cao-cap-xam-xanh-100x100.jpg',
                 'status' => true,
@@ -189,7 +186,7 @@ class ProductSeeder extends Seeder
                 'id' => 19,
                 'tag_search' => 'Women\'s Backpack',
                 'name' => 'Korean Women\'s Backpack Danbaoly Hint',
-                'description' => 'So far, Giao Long has always put prestige on top, taking customer satisfaction and product quality as the criteria for development. Therefore, each product is taken care of by Giao Long shop very carefully, warranty little by little. The warranty period here can be up to 5 years, free shipping nationwide or 1 to 1 within 90 days if the product has an error. There are also countless other preferential policies for new and loyal customers.',
+                'description' => 'So far, Giao Long has always put prestige on top, taking customer satisfaction and product quality as the criteria for development. Therefore, each product is taken care of by Giao Long shop very carefully, warranty little by little. The warranty period here can be up to 5 years,  new and loyal customers.',
                 'image' => 'https://baloxinh.vn/wp-content/uploads/2022/10/balo-danbaoly-hint-giaolong-13.webp',
                 'image_slider' => 'https://baloxinh.vn/wp-content/uploads/2022/10/balo-nho-cho-nu-danbaoly-hint-giaolong-100x100.jpg,https://baloxinh.vn/wp-content/uploads/2022/10/balo-dung-laptop-nu-dep-danbaoly-hint-giaolong-100x100.jpg',
                 'status' => true,
@@ -198,7 +195,7 @@ class ProductSeeder extends Seeder
                 'id' => 20,
                 'tag_search' => 'Women\'s Backpack',
                 'name' => 'Danbaoly Mesi Fashion Women\'s Leather Backpack',
-                'description' => 'Danbaoly Mesi leather backpack is a very personal cowhide backpack that is suitable for many different combinations and colors. You can use it to travel, go to school or go to work, it\'s great, it will help enhance your natural beauty, elegance, nobility. Contact now via Giao Long\'s hotline to buy goods at extremely preferential prices and many extremely attractive promotions.',
+                'description' => 'Danbaoly Mesi leather backpack is a very personal cowhide backpack that is suitable for many different combinations and colors. You can use it to travel, go to school or go to work, it\'s great, it will help enhance your natural beauty, elegance, nobility.',
                 'image' => 'https://baloxinh.vn/wp-content/uploads/2022/10/Balo-Da-Nu-Thoi-Trang-Cao-Cap-Danbaoly-Mesi-giaolong.jpg',
                 'image_slider' => 'https://baloxinh.vn/wp-content/uploads/2022/10/balo-da-dep-cho-nu-Danbaoly-Mesi-giaolong-1-100x100.jpg,https://baloxinh.vn/wp-content/uploads/2022/10/balo-nu-da-mem-Danbaoly-Mesi-giaolong-1-100x100.jpg',
                 'status' => true,
@@ -224,7 +221,7 @@ class ProductSeeder extends Seeder
                 'id' => 23,
                 'tag_search' => 'One Strap Backpack',
                 'name' => 'Backpack BLX22 The Arnold Delux Dark Mouse Gray – Single Handle Laptop Backpack',
-                'description' => 'The Arnold Delux Dark Mouse Gray 1 Strap Backpack BLX22 - Mouse Gray is the latest line of single-strap laptop backpacks from the Mikkor brand. Designed in the style of a dynamic, single-shoulder laptop backpack with a chest strap to help balance and fix the backpack when you wear it. to pick up. Here is some information about this product.',
+                'description' => 'The Arnold Delux Dark Mouse Gray 1 Strap Backpack BLX22 - Mouse Gray is the latest line of single-strap laptop backpacks from the Mikkor brand. Designed in the style of a dynamic, single-shoulder laptop backpack with a chest strap to help balance and fix the backpack when you wear it. to pick up.',
                 'image' => 'https://baloxinh.vn/wp-content/uploads/2020/08/balo-mikkor-the-arnold-delux-dark-mouse-grey-1.jpg',
                 'image_slider' => 'https://baloxinh.vn/wp-content/uploads/2020/08/balo-mikkor-the-arnold-delux-dark-mouse-grey-4-100x100.jpg,https://baloxinh.vn/wp-content/uploads/2020/08/balo-mikkor-the-arnold-delux-dark-mouse-grey-5-100x100.jpg',
                 'status' => true,
@@ -241,7 +238,7 @@ class ProductSeeder extends Seeder
                 'id' => 25,
                 'tag_search' => 'Branded Backpacks',
                 'name' => 'Tigernu Shy Premium Men\'s Crossbody Bag',
-                'description' => 'Tigernu Shy brings strength, masculinity and elegance to users. This product is going to create a big fever so hurry up and order a Tigernu Shy bag before it\'s sold out on all fronts. Giao Long, dedicated customer care, dedicated customer service, always listens to all comments about service quality and product quality to bring excellent, high-class experiences and services. best for you.',
+                'description' => 'Tigernu Shy brings strength, masculinity and elegance to users. This product is going to create a big fever so hurry up and order a Tigernu Shy bag before it\'s sold out on all fronts. Giao Long, dedicated customer care, and product quality to bring excellent, high-class experiences and services. best for you.',
                 'image' => 'https://baloxinh.vn/wp-content/uploads/2022/10/tui-deo-cheo-nam-gia-re-tigernu-shy-giaolong-900x900.jpg',
                 'image_slider' => 'https://baloxinh.vn/wp-content/uploads/2022/10/tui-deo-cheo-tigernu-shy-giaolong--100x100.jpg,https://baloxinh.vn/wp-content/uploads/2022/10/tui-hcm-tigernu-shy-giaolong--100x100.jpg',
                 'status' => true,
@@ -284,12 +281,14 @@ class ProductSeeder extends Seeder
                 'id' => 30,
                 'tag_search' => 'Gift Backpacks',
                 'name' => 'William Polo Lux Men\'s Leather Handbag',
-                'description' => 'With long experience and professionalism in consulting and serving, Giao Long will be a prestigious choice for all customers wishing to buy William polo Lux handbags. We always sell 100% genuine products, uphold the quality and say no to imitations and fake goods. With a team of elite, dedicated and enthusiastic professionals, every customer who comes to Giao Long is guided and selected the most satisfactory bag model without worrying too much about the price. Because the price that we set is always the most competitive in the market today.',
+                'description' => 'With long experience and professionalism in consulting and serving, Giao Long will be a prestigious choice for all customers wishing to buy William polo Lux handbags. We always sell 100% genuine products, uphold the quality and say no to imitations and fake goods. With a team of elite, dedicated and enthusiastic professionals, every customer who comes to Giao Long is guided and selected the most satisfactory bag model without worrying too much about the price.',
                 'image' => 'https://baloxinh.vn/wp-content/uploads/2022/10/tui-xach-da-cao-cap-william-polo-lux-giaolong.jpg',
                 'image_slider' => 'https://baloxinh.vn/wp-content/uploads/2022/10/tui-xach-cao-cap-william-polo-lux-giaolong-100x100.jpg,https://baloxinh.vn/wp-content/uploads/2022/10/tui-xach-hang-hieu-william-polo-lux-giaolong--100x100.jpg',
                 'status' => true,
             ]
         ];
+        $colors = ['#2596be','#041014', '#be2596', '#bea925', '#6c25be','#be4d25','#de0994'];
+        $price_key=[10,20,30,34,5,2,8,4,3,1];
         foreach ($data as $key=> $item) {
             $id =   DB::table('products')->insertGetId([
                 'category_id' => "1",
@@ -303,9 +302,9 @@ class ProductSeeder extends Seeder
             ]);
             DB::table('product_details')->insert([
                 'product_id' => $id,
-                'code_color' => '#ffe00',
-                'amount' => 30,
-                'price' => 120000 * ($key + 1),
+                'code_color' => Arr::random($colors),
+                'amount' => 50,
+                'price' => 50 * (Arr::random($price_key) + 1),
                 'created_at' => date('Y-m-d H:i:s'),
                 'updated_at' => date('Y-m-d H:i:s'),
             ]);

@@ -29,7 +29,7 @@ class OrderRepository extends BaseRepository
             ->with('staff')
             ->with('discounts')
             ->sort($request)
-            // ->filter($request)
+            ->filter($request)
             ->search($request)
             ->paginate($this->paginate);
         return OrderResource::collection($data)->response()->getData();
@@ -182,6 +182,7 @@ class OrderRepository extends BaseRepository
             default:
                 break;
         }
+
         if (env('DB_CONNECTION') == 'pgsql') {
             try {
                 $result = Order::query();

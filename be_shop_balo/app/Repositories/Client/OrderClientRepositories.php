@@ -51,6 +51,7 @@ class OrderClientRepositories extends BaseRepository
             'total_price' => $request->total_price,
             'created_order_date' => date('Y-m-d')
         ];
+        // dd($dataRequest);
         $arrayDetail = $request->order_detail;
         try {
             $order = Order::query()->create($dataRequest);
@@ -58,7 +59,7 @@ class OrderClientRepositories extends BaseRepository
                 OrderDetail::query()->create([
                     'order_id' => $order['id'],
                     'product_id' => $item['id'],
-                    'amount' => $item['quantity_cart'],
+                    'amount' => $item['qty'],
                     'price' => $item['price'],
                 ]);
             }

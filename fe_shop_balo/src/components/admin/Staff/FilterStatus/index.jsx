@@ -30,7 +30,7 @@ export default function FilterStatus(props) {
             data_options.map((item) =>
               <Dropdown.Item key={item.id} onClick={() => handleFilter(item) }>
                 <Form.Check
-                  type="checkbox"
+                  type="radio"
                   id="checkbox-all"
                   className="mx-4 my-2 font-weight-bold"
                   label={item.name}

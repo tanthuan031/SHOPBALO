@@ -92,11 +92,6 @@ const Header = () => {
                 <div className="left-top-bar">Free shipping for standa rd order over $100</div>
 
                 <div className="right-top-bar flex-w h-full main-menu">
-                  {data_menu_top.map((item, index) => (
-                    <Link to={item.links} className="flex-c-m trans-04 p-lr-25" key={index}>
-                      {item.name}
-                    </Link>
-                  ))}
                   <div className="right-top-bar flex-w h-full">
                     {isLoginClient ? (
                       <>

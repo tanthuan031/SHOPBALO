@@ -45,7 +45,7 @@ function ReviewProductItem(props) {
     };
     const result = await addRattingProduct(resultData);
     Notiflix.Block.remove('#root');
-    if (result === 200) {
+    if (result.status === 200) {
       SuccessToast('Review product successfully', 5000);
     } else if (result === 404) {
       ErrorToast('Review product unsuccessfully', 3000);

@@ -90,6 +90,9 @@ a {
   padding-right: 4rem;
   font-size: 1.8rem;
 }
+.padding-right-1x {
+  padding-right: 2px;
+}
 .margin-left-12px {
   margin-left: var(--12px);
 }
