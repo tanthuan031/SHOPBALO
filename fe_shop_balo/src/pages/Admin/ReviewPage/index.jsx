@@ -86,7 +86,7 @@ const ReviewPage = () => {
       <section>
         <div className="container-fluid mt-5">
           {!isEdit && <h5 className="text-danger font-weight-bold mb-3">Review List</h5>}
-          {isEdit && <h5 className="text-danger font-weight-bold mb-3">Detail review</h5>}
+          {isEdit && <h5 className="text-danger font-weight-bold mb-3">Review List / Detail review</h5>}
 
           {!isEdit ? (
             <div className="row">

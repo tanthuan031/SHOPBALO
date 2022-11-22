@@ -108,7 +108,6 @@ const StaffAdd = (props) => {
   return (
     <div className=" edit_form d-flex justify-content-center">
       <Form className="font_add_edit_prduct" onSubmit={handleSubmit(onSubmit)} encType="multipart/form-data">
-        <h5 className="text-danger font-weight-bold mb-3">Add Staff</h5>
         <Row>
           <Col>
             <Form.Group className="mb-3">

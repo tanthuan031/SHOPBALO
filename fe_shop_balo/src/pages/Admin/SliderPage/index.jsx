@@ -109,8 +109,8 @@ const SliderPage = () => {
       <section>
         <div className="container-fluid mt-5">
           {!isAdd && !isEdit && <h5 className="text-danger font-weight-bold mb-3">Slider List</h5>}
-          {isAdd && !isEdit && <h5 className="text-danger font-weight-bold mb-3">Add slider</h5>}
-          {isEdit && <h5 className="text-danger font-weight-bold mb-3">Edit slider</h5>}
+          {isAdd && !isEdit && <h5 className="text-danger font-weight-bold mb-3">Slider List / Add slider</h5>}
+          {isEdit && <h5 className="text-danger font-weight-bold mb-3">Slider List / Edit slider</h5>}
 
           {!isAdd && !isEdit ? (
             <div className="row">

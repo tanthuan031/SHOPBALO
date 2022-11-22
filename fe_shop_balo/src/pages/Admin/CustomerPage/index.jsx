@@ -39,7 +39,7 @@ export function CustomerPage(props) {
   //Redux
   const isAddCustomer = useSelector(isAddCustomerSelector);
   const isEditCustomer = useSelector(isEditCustomerSelector);
-  const isReset = useSelector(isResetCustomerSelector)
+  const isReset = useSelector(isResetCustomerSelector);
   const dispatch = useDispatch();
   //Loading
   const [loading, setLoading] = React.useState(true);
@@ -62,7 +62,7 @@ export function CustomerPage(props) {
       setLoading(false);
     };
     handleGetAllCustomers();
-  }, [dispatch, search,isReset, filterStatus]);
+  }, [dispatch, search, isReset, filterStatus]);
 
   const setCustomer = (result, value) => {
     setData(result.data);
@@ -114,9 +114,13 @@ export function CustomerPage(props) {
   return (
     <section>
       <div className="container-fluid mt-5">
+        <>
+          {!isAddCustomer && !isEditCustomer && <h5 className="text-danger font-weight-bold mb-3">Customer List</h5>}
+          {isAddCustomer && <h5 className="text-danger font-weight-bold mb-3">Customer List / Customer Add</h5>}
+          {isEditCustomer && <h5 className="text-danger font-weight-bold mb-3">Customer List / Customer Edit</h5>}
+        </>
         {!isAddCustomer && !isEditCustomer ? (
           <>
-            <h5 className="text-danger font-weight-bold mb-3">Customer List</h5>
             <div className="row">
               <div className="mb-3 d-flex justify-content-between">
                 <div className="d-flex justify-content-between ">

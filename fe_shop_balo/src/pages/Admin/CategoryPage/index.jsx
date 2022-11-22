@@ -85,8 +85,6 @@ export function CategoryPage(props) {
       return false;
     } else {
       setData(result.data);
-      console.log('🚀 ~ file: Order.jsx ~ line 85 ~ handleChangePage ~ data', data);
-
       setTotalRecords(result.meta.total);
 
       setPage(result.meta.current_page);
@@ -107,8 +105,8 @@ export function CategoryPage(props) {
       <section>
         <div className="container-fluid mt-5">
           {!isAdd && <h5 className="text-danger font-weight-bold mb-3">Category List</h5>}
-          {isAdd && !isEdit && <h5 className="text-danger font-weight-bold mb-3">Add Category</h5>}
-          {isEdit && <h5 className="text-danger font-weight-bold mb-3">Update Category</h5>}
+          {isAdd && !isEdit && <h5 className="text-danger font-weight-bold mb-3">Category List / Add Category</h5>}
+          {isEdit && <h5 className="text-danger font-weight-bold mb-3">Category List / Update Category</h5>}
           {!isAdd ? (
             <div className="row">
               <div className="mb-3 d-flex justify-content-between">

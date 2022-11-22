@@ -219,8 +219,8 @@ export function ProductPage(props) {
       <section>
         <div className="container-fluid mt-5">
           {!isAdd && !isEdit && <h5 className="text-danger font-weight-bold mb-3">Product List</h5>}
-          {isAdd && <h5 className="text-danger font-weight-bold mb-3">Add product</h5>}
-          {isEdit && <h5 className="text-danger font-weight-bold mb-3">Edit product</h5>}
+          {isAdd && <h5 className="text-danger font-weight-bold mb-3">Product List / Add product</h5>}
+          {isEdit && <h5 className="text-danger font-weight-bold mb-3">Product List / Edit product</h5>}
           {!isAdd && !isEdit ? (
             <div className="row">
               <div className="mb-3 d-flex justify-content-between">

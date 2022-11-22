@@ -131,9 +131,9 @@ function OrderPage(props) {
           {!isUpdateStatus && !isOrderDetail ? (
             <h5 className="text-danger font-weight-bold mb-3">Order List</h5>
           ) : isOrderDetail ? (
-            <h5 className="text-danger font-weight-bold mb-3">Order Detail</h5>
+            <h5 className="text-danger font-weight-bold mb-3">Order List / Order Detail</h5>
           ) : (
-            <h5 className="text-danger font-weight-bold mb-3">Update Status</h5>
+            <h5 className="text-danger font-weight-bold mb-3">Order List / Update Status</h5>
           )}
 
           {!isUpdateStatus && !isOrderDetail ? (

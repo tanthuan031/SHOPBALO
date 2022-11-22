@@ -17,7 +17,7 @@ import FilterStatus from '../../../components/admin/Staff/FilterStatus';
 import { setExpiredToken } from '../../../redux/reducer/auth/auth.reducer';
 import { setIsAdd } from '../../../redux/reducer/staff/staff.reducer';
 import { isAddStaffSelector, isEditStaffSelector, isResetStaffSelector } from '../../../redux/selectors';
-import "./style.css"
+import './style.css';
 
 export function StaffPage(props) {
   const data_staff_table_header = [...staff_table_header];
@@ -47,7 +47,7 @@ export function StaffPage(props) {
   //Loading
   const [loading, setLoading] = React.useState(true);
   //Logic
-  const  isReset = useSelector(isResetStaffSelector)
+  const isReset = useSelector(isResetStaffSelector);
   React.useEffect(() => {
     let params = {};
     if (filterStatus !== 'All') params = { ...params, filterStatus };
@@ -65,7 +65,7 @@ export function StaffPage(props) {
       setLoading(false);
     };
     handleGetAllStaffs();
-  }, [dispatch, search,isReset, filterStatus]);
+  }, [dispatch, search, isReset, filterStatus]);
 
   const setStaff = (result, value) => {
     setData(result.data);
@@ -119,9 +119,14 @@ export function StaffPage(props) {
   return (
     <section>
       <div className="container-fluid mt-5">
+        <h5 className="text-danger font-weight-bold mb-3">Staff List</h5>
+        <>
+          {!isAddStaff && !isEditStaff && <h5 className="text-danger font-weight-bold mb-3">Staff List</h5>}
+          {isAddStaff && <h5 className="text-danger font-weight-bold mb-3">Staff List / Staff Add</h5>}
+          {isEditStaff && <h5 className="text-danger font-weight-bold mb-3">Staff List / Staff Edit</h5>}
+        </>
         {!isAddStaff && !isEditStaff ? (
           <>
-            <h5 className="text-danger font-weight-bold mb-3">Staff List</h5>
             <div className="row">
               <div className="mb-3 d-flex justify-content-between">
                 <div className="d-flex justify-content-between ">

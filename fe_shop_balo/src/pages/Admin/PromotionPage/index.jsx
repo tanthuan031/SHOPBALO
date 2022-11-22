@@ -111,8 +111,8 @@ const PromotionPage = () => {
       <section>
         <div className="container-fluid mt-5">
           {!isAdd && !isEdit && <h5 className="text-danger font-weight-bold mb-3">Promotion List</h5>}
-          {isAdd && !isEdit && <h5 className="text-danger font-weight-bold mb-3">Add promotion</h5>}
-          {isEdit && <h5 className="text-danger font-weight-bold mb-3">Edit promotion</h5>}
+          {isAdd && !isEdit && <h5 className="text-danger font-weight-bold mb-3"> Promotion List / Add promotion</h5>}
+          {isEdit && <h5 className="text-danger font-weight-bold mb-3">Promotion List / Edit promotion</h5>}
 
           {!isAdd && !isEdit ? (
             <div className="row">
