@@ -85,9 +85,8 @@ class OrderService
     {
 
         $result = $this->orderRepository->getFigureOrders($request);
-        if(isEmpty($result)) $result=[];
+        if(!$result) $result=[];
         $data=[
-
             'data'=>$result
         ];
 
