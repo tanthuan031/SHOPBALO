@@ -34,3 +34,7 @@ button.filter-button ~ .dropdown-item.show .dropdown-item:active {
   background-color: transparent !important;
   color: inherit;
 }
+
+.btn-primary-custom{
+  background-color: #6C7AE0 !important;
+}

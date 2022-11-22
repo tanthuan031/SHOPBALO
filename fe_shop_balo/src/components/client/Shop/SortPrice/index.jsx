@@ -20,7 +20,7 @@ export default function SortPrice(props) {
     <Dropdown>
       <Dropdown.Toggle
         id="user-type-filter-btn"
-        className="btn-danger filter-button d-flex align-items-center justity-content-center mr-2"
+        className="btn-primary-custom filter-button d-flex align-items-center justity-content-center mr-2"
       >
         <p className="flex-grow-1 font-weight-bold">Sort Price </p>
         <div className="fb-icon">
