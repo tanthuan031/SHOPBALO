@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('import_storages', function (Blueprint $table) {
             $table->id();
             $table->string("name");
-            $table->string("import_amount");
+            $table->integer("import_amount");
             $table->foreignId("product_id")->constrained("products");
             $table->foreignId("provider_id")->constrained("providers");
             $table->timestamps();

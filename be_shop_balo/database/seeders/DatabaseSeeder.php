@@ -31,6 +31,7 @@ class DatabaseSeeder extends Seeder
             SliderSeeder::class,
             RatingSeeder::class,
             OrderSeeder::class,
+            ProviderSeeder::class
         ]);
     }
 }
