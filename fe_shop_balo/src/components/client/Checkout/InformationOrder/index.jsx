@@ -102,7 +102,6 @@ export default function FormInfomationCheckout(props) {
       label: 'Payment on delivery',
     },
   ];
-  console.log('pross', props);
   var totalPrice = 0;
   props.dataListCart.map((item) => {
     totalPrice += item.price * item.qty;
@@ -122,7 +121,7 @@ export default function FormInfomationCheckout(props) {
     const result = await addOrder(resultData);
     Notiflix.Block.remove('#root');
     if (result === 200) {
-      SuccessToast('Order payment successfully', 5000);
+      SuccessToast('Order payment successfully', 8000);
       localStorage.removeItem('cart');
       window.location.href = '/history';
     } else if (result === 404) {

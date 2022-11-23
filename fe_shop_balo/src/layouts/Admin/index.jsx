@@ -15,6 +15,7 @@ import { exPiredTokenSelector, getUserSelector } from '../../redux/selectors';
 import Logout from '../../components/commons/Auth/Logout';
 import { useState } from 'react';
 import { menu_admin_item_storage } from '../../asset/data/menu_admin_storage_item';
+import Skeleton from '../../components/commons/Layouts/Skeleton';
 
 export function AdminLayout(props) {
   const { slot } = props;
@@ -32,7 +33,13 @@ export function AdminLayout(props) {
             {/* <img src={Logo} alt="Logo" width="80" height="80" /> */}
 
             <h5 className="font-weight-black text-center text-white mt-4">
-              <FaUsers /> Admin: {user != undefined && user.first_name + ' ' + user.last_name}
+              {user === undefined ? (
+                <Skeleton colomn="1" />
+              ) : (
+                <>
+                  <FaUsers /> Admin: {user != undefined && user.first_name + ' ' + user.last_name}
+                </>
+              )}
             </h5>
             <div className="py-5">
               {user?.role_id === 1 && <ListGroup data={menu_admin_item_data} />}

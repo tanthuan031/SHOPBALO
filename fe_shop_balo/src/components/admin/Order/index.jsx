@@ -47,7 +47,7 @@ export function OrderTable(props) {
       return (
         <tr
           key={item.order_id}
-          className="cursor-pointer font-weight-bold "
+          className="cursor-pointer font-weight-bold row-data"
           //   onClick={() => handleShowDetail(item.order_id, item.image_slorder_ide)}
         >
           <td>{item.order_id} </td>

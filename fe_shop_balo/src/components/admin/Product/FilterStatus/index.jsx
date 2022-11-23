@@ -6,7 +6,7 @@ import './style.css';
 
 export default function FilterStatus(props) {
   const handleFilter = (value) => {
-    if(value ==='All') props.setCurrentFilter()
+    if (value === 'All') props.setCurrentFilter();
     else props.setCurrentFilter(value);
   };
   return (
@@ -24,7 +24,7 @@ export default function FilterStatus(props) {
         <Form>
           <Dropdown.Item onClick={() => handleFilter('All')}>
             <Form.Check
-              type="checkbox"
+              type="radio"
               id="All"
               className="mx-4 my-2 font-weight-bold"
               label="All"
@@ -34,7 +34,7 @@ export default function FilterStatus(props) {
           </Dropdown.Item>
           <Dropdown.Item onClick={() => handleFilter('Active')}>
             <Form.Check
-              type="checkbox"
+              type="radio"
               id="Active"
               className="mx-4 my-2 font-weight-bold"
               label="Active"
@@ -44,7 +44,7 @@ export default function FilterStatus(props) {
           </Dropdown.Item>
           <Dropdown.Item onClick={() => handleFilter('Out_of_stock')}>
             <Form.Check
-              type="checkbox"
+              type="radio"
               id="Out of stock"
               className="mx-4 my-2 font-weight-bold"
               label="Out of stock"

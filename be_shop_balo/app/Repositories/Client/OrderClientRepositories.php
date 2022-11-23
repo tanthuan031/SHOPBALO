@@ -4,6 +4,8 @@ namespace App\Repositories\Client;
 
 use App\Models\Order;
 use App\Models\OrderDetail;
+use App\Models\Product;
+use App\Models\ProductDetail;
 use App\Repositories\BaseRepository;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
@@ -56,11 +58,15 @@ class OrderClientRepositories extends BaseRepository
         try {
             $order = Order::query()->create($dataRequest);
             foreach ($arrayDetail as $item) {
+                $productId = ProductDetail::query()->where('product_id', '=', $item['id'])->first();
                 OrderDetail::query()->create([
                     'order_id' => $order['id'],
                     'product_id' => $item['id'],
                     'amount' => $item['qty'],
                     'price' => $item['price'],
+                ]);
+                $productId->update([
+                    'amount' => (int) $productId['amount'] - (int) $item['qty']
                 ]);
             }
         } catch (\Exception $e) {

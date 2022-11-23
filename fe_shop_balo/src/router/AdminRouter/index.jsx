@@ -46,40 +46,40 @@ export default function AdminRouter() {
     <Routes>
       <Route path="/admin/login" element={<LoginPage />} />
       <Route path="/admin/register" element={<div>Register</div>} />
-      <Route element={<ProtectedRoutes isAuthenticate={isAuthenticate} />}>
-        {user && user.role_id === 1 && (
-          <>
-            <Route path="/admin" element={<AdminLayout slot={<DashBoardPage key={'a'} />} />} />
-            <Route path="/admin/product" element={<AdminLayout slot={<ProductPage key={'1'} />} />} />
-            <Route path="/admin/category" element={<AdminLayout slot={<CategoryPage key={'a'} />} />} />
-            <Route path="/admin/promotion" element={<AdminLayout slot={<PromotionPage key={'a'} />} />} />
-            <Route path="/admin/order" element={<AdminLayout slot={<OrderPage key={'a'} />} />} />
-            <Route path="/admin/staff" element={<AdminLayout slot={<StaffPage key={'a'} />} />} />
-            <Route path="/admin/customer" element={<AdminLayout slot={<CustomerPage key={'a'} />} />} />
-            <Route path="/admin/review" element={<AdminLayout slot={<ReviewPage key={'a'} />} />} />
-            <Route path="/admin/decentralization" element={<AdminLayout slot={<DashBoardPage key={'a'} />} />} />
-            <Route path="/admin/slider" element={<AdminLayout slot={<SliderPage key={'a'} />} />} />
-          </>
-        )}
-        {/* Storage */}
-        {user && user.role_id === 2 && (
-          <>
-            <Route path="/admin/warehouse/" element={<AdminLayout slot={<StatisticStorage key={'a'} />} />} />
-            <Route path="/admin/warehouse/storage" element={<AdminLayout slot={<StoragePage key={'a'} />} />} />
-            <Route
-              path="/admin/warehouse/exportstorage"
-              element={<AdminLayout slot={<ExportStoragePage key={'a'} />} />}
-            />
-            <Route
-              path="/admin/warehouse/importstorage"
-              element={<AdminLayout slot={<ImportStoragePage key={'a'} />} />}
-            />
-            <Route path="/admin/warehouse/provider" element={<AdminLayout slot={<SliderPage key={'a'} />} />} />
-          </>
-        )}
+      <Route element={<ProtectedRoutes isAuthenticate={isAuthenticate} userRole={user} />}>
+        {/* {user && user.role_id === 1 && ( */}
+        <>
+          <Route path="/admin" element={<AdminLayout slot={<DashBoardPage key={'a'} />} />} />
+          <Route path="/admin/product" element={<AdminLayout slot={<ProductPage key={'1'} />} />} />
+          <Route path="/admin/category" element={<AdminLayout slot={<CategoryPage key={'a'} />} />} />
+          <Route path="/admin/promotion" element={<AdminLayout slot={<PromotionPage key={'a'} />} />} />
+          <Route path="/admin/order" element={<AdminLayout slot={<OrderPage key={'a'} />} />} />
+          <Route path="/admin/staff" element={<AdminLayout slot={<StaffPage key={'a'} />} />} />
+          <Route path="/admin/customer" element={<AdminLayout slot={<CustomerPage key={'a'} />} />} />
+          <Route path="/admin/review" element={<AdminLayout slot={<ReviewPage key={'a'} />} />} />
+          <Route path="/admin/decentralization" element={<AdminLayout slot={<DashBoardPage key={'a'} />} />} />
+          <Route path="/admin/slider" element={<AdminLayout slot={<SliderPage key={'a'} />} />} />
+          {/* </> */}
+          {/* )} */}
+          {/* Storage */}
+          {/* {user && user.role_id === 2 && (
+          <> */}
+          <Route path="/admin/warehouse/" element={<AdminLayout slot={<StatisticStorage key={'a'} />} />} />
+          <Route path="/admin/warehouse/storage" element={<AdminLayout slot={<StoragePage key={'a'} />} />} />
+          <Route
+            path="/admin/warehouse/exportstorage"
+            element={<AdminLayout slot={<ExportStoragePage key={'a'} />} />}
+          />
+          <Route
+            path="/admin/warehouse/importstorage"
+            element={<AdminLayout slot={<ImportStoragePage key={'a'} />} />}
+          />
+          <Route path="/admin/warehouse/provider" element={<AdminLayout slot={<SliderPage key={'a'} />} />} />
+        </>
+        {/* )}
         {((user && user.role_id !== 2) || user.role_id !== 1) && (
           <Route path="/admin/*" element={<NotFoundData />}></Route>
-        )}
+        )} */}
       </Route>
     </Routes>
   );
