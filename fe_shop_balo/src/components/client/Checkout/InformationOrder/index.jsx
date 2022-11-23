@@ -23,6 +23,7 @@ import { addOrder } from '../../../../api/Client/Order';
 import { ErrorToast, SuccessToast } from '../../../commons/Layouts/Alerts';
 import Notiflix from 'notiflix';
 import { Navigate } from 'react-router-dom';
+import { setIsDetailHistory } from '../../../../redux/reducer/history/history.reducer';
 export default function FormInfomationCheckout(props) {
   const [cities, setCities] = useState([]);
   const [distrists, setDistricts] = useState();
@@ -124,6 +125,7 @@ export default function FormInfomationCheckout(props) {
       SuccessToast('Order payment successfully', 8000);
       localStorage.removeItem('cart');
       window.location.href = '/history';
+      // dispatch(setIsDetailHistory(true));
     } else if (result === 404) {
       ErrorToast('Order payment unsuccessfully', 3000);
       Notiflix.Block.remove('#root');
