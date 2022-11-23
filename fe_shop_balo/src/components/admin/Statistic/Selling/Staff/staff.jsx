@@ -3,7 +3,6 @@ import { Chart } from 'primereact';
 import "./index.css"
 import {  getStatisticStaff } from '../../../../../api/Admin/Statistic/statisticAPI';
 function BarChartStaff({data,label}) {
-  console.log('render staff')
 
   const basicData ={
     labels:label,

@@ -23,13 +23,13 @@ function LineChartRevenue({ type,options,data,onFilter }) {
           >
             Weekly
           </Button>
-          <Button
-            variant="outline-dark"
-            className="font-weight-bold ms-2"
-            onClick={()=>onFilter('Today')}
-          >
-            Today
-          </Button>
+          {/*<Button*/}
+          {/*  variant="outline-dark"*/}
+          {/*  className="font-weight-bold ms-2"*/}
+          {/*  onClick={()=>onFilter('Today')}*/}
+          {/*>*/}
+          {/*  Today*/}
+          {/*</Button>*/}
         </div>
       </div>
       {
