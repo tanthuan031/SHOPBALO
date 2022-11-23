@@ -66,21 +66,22 @@ const ReviewTable = (props) => {
 
   }
 
-  // const handlePublish = async () => {
-  //   BlockUI('#root', 'fixed');
+  const handlePublish = async () => {
+    BlockUI('#root', 'fixed');
 
-  //   if (isCheck !== null) {
-  //     const result = await editReview(isCheck, {});
-  //     Notiflix.Block.remove('#root');
-  //     if (result === 200) {
-  //       SuccessToast('Published review successfully.', 3000);
-  //     } else {
-  //       ErrorToast('Published review failed.', 3000);
-  //     }
-  //     handleSetStatePublished();
-  //     dispatch(setIsReset(''));
-  //   }
-  // };
+    if (isCheck !== null) {
+      const result = await editReview(isCheck, {status:'pushlished'});
+      Notiflix.Block.remove('#root');
+     
+      if (result.status === 200) {
+        SuccessToast('Published review successfully.', 3000);
+      } else {
+        ErrorToast('Published review failed.', 3000);
+      }
+      handleSetStatePublished();
+      dispatch(setIsReset(Math.random()));
+    }
+  };
 
   const handleDelete = async () => {
     BlockUI('#root', 'fixed');
@@ -204,7 +205,7 @@ const ReviewTable = (props) => {
       <div className="modal-content">
         <div className="modal-body">
           <h5>
-            Are you sure pushlish this comment id{' '}
+            Are you sure pushlish this comment 
             {/* {props.tableBody.filter((item) => item.id === isCheck).customers.first_name} ? */}
           </h5>
         </div>
@@ -212,7 +213,7 @@ const ReviewTable = (props) => {
           <button
             type="button"
             className="btn btn-danger"
-          // onClick={() => handlePublish()}
+          onClick={() => handlePublish()}
           >
             Publish
           </button>
