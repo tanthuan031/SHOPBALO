@@ -64,7 +64,7 @@ export default function AdminRouter() {
         {/* Storage */}
         {user && user.role_id === 2 && (
           <>
-            {/* <Route path="/admin/warehouse/" element={<AdminLayout slot={<StatisticStorage key={'a'} />} />} /> */}
+            <Route path="/admin/warehouse/" element={<AdminLayout slot={<StatisticStorage key={'a'} />} />} />
             <Route path="/admin/warehouse/storage" element={<AdminLayout slot={<StoragePage key={'a'} />} />} />
             <Route
               path="/admin/warehouse/exportstorage"
