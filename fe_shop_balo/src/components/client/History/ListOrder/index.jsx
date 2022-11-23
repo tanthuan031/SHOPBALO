@@ -65,7 +65,7 @@ export function OrderTableClient(props) {
           {/* <td>{item.image}</td> */}
           <td>{item.created_order_date}</td>
           <td>
-            <div className="d-flex">
+            <div className="d-flex justify-content-center">
               <button className="br-6px p-2 bg-gray-100 w-48px h-48px d-flex align-items-center justify-content-center border-none">
                 <FaRegEye
                   className=" font-20px"

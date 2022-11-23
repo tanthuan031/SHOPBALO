@@ -28,7 +28,7 @@ export default function FilterOrder(props) {
         <Form>
           <Dropdown.Item onClick={() => handleFilter('All')} className="category-type-filter-menu-item">
             <Form.Check
-              type="checkbox"
+              type="radio"
               id="checkbox-all"
               className="mx-4 my-2 font-weight-bold"
               label="All"
@@ -45,7 +45,7 @@ export default function FilterOrder(props) {
                   className="category-type-filter-menu-item"
                 >
                   <Form.Check
-                    type="checkbox"
+                    type="radio"
                     id={`checkbox-${item.id}`}
                     className="mx-4 my-2 font-weight-bold"
                     label={item.value}

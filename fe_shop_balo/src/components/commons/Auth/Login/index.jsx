@@ -30,7 +30,6 @@ export default function FormLogin() {
     // handleLogin(data);
     BlockUI('.sl-box');
     const result = await handleLogin(data);
-
     if (result.status === 403 || result.status === 422) {
       ErrorToast('Email or password is incorrect. Please try again', 3500);
       Notiflix.Block.remove('.sl-box');

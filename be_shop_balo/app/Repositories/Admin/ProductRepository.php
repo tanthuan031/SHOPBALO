@@ -18,14 +18,19 @@ class ProductRepository extends BaseRepository
     }
     public function getAllProduct($request)
     {
-        $data = Product::query()
-            ->with('categories')
-            ->with('product_details')
-            ->sort($request)
-            ->search($request)
-            ->filter($request)
-            ->paginate($this->paginate);
-        return ProductResource::collection($data)->response()->getData();
+        if ($request->has('get-all')) {
+            $data = Product::query()->get();
+            return ProductResource::collection($data)->response()->getData();
+        } else {
+            $data = Product::query()
+                ->with('categories')
+                ->with('product_details')
+                ->sort($request)
+                ->search($request)
+                ->filter($request)
+                ->paginate($this->paginate);
+            return ProductResource::collection($data)->response()->getData();
+        }
     }
     public function showProduct($id)
     {

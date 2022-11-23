@@ -12,7 +12,7 @@ export const configHeadersAuthenticate = () => {
   };
 };
 
-export const getAllProducts = async ({ sort, filterStatus, filterCategory, search, page } = {}) => {
+export const getAllProducts = async ({ sort, filterStatus, filterCategory, search, page, getAll } = {}) => {
   const url = '/api/admin/product';
   const queryString = [];
   if (sort && sort.length > 0) {
@@ -31,6 +31,9 @@ export const getAllProducts = async ({ sort, filterStatus, filterCategory, searc
   }
   if (filterCategory) {
     queryString.push(`filter[category_id]=${filterCategory}`);
+  }
+  if (getAll) {
+    queryString.push(`get-all`);
   }
   const final_url = concatQueryString(queryString, url);
 

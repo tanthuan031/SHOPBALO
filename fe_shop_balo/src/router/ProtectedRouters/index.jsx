@@ -7,5 +7,6 @@ import { checkLogin } from '../../adapter/auth';
 
 export function ProtectedRoutes(props) {
   const isAuthenticate = checkLogin();
+  console.log('use', props.userRole.role_id);
   return isAuthenticate ? <Outlet /> : <Navigate to="admin/login" />;
 }

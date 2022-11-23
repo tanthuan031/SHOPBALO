@@ -66,7 +66,7 @@ export function ExportStoragePage(props) {
     };
 
     const handleGetAllProducts = async () => {
-      const result = await getAllProducts({ sort });
+      const result = await getAllProducts({ sort, getAll: 'get-all' });
       if (result === 401) {
         handleSetUnthorization();
         return false;

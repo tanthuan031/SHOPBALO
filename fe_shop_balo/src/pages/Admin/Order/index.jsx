@@ -71,6 +71,16 @@ function OrderPage(props) {
   const handlePageChange = async (page) => {
     setPage(page);
     setLoading(true);
+    const result = await getAllOrder({
+      page,
+    });
+    if (result === 401) {
+    } else if (result === 500) {
+      return false;
+    } else {
+      setOrder(result, 'page');
+    }
+    setLoading(false);
   };
   const handleSearchOrder = async (e) => {
     e.preventDefault();

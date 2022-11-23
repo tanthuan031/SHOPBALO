@@ -89,7 +89,7 @@ export function ProductTable(props) {
               >
                 <FaPen className="font-20px" />
               </button>
-              <button
+              {/* <button
                 id="delete-product"
                 // onClick={(e) => {
                 //   handleCheckDisabledUser(e, item.id);
@@ -97,7 +97,7 @@ export function ProductTable(props) {
                 className="br-6px p-2 ms-3 text-danger bg-gray-100 w-48px h-48px d-flex align-items-center justify-content-center border-none"
               >
                 <FaTimesCircle className="text-danger font-20px" />
-              </button>
+              </button> */}
             </div>
           </td>
         </tr>
