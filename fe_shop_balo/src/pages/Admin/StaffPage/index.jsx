@@ -30,7 +30,7 @@ export function StaffPage(props) {
   const [page, setPage] = React.useState(1);
 
   //Filter & Search
-  const [filter, setFilter] = React.useState('fullname');
+  const [filter, setFilter] = React.useState('email');
   const [sort, setSort] = React.useState([]);
   const [search, setSearch] = React.useState([]);
   // const [searchValue, setSearchValue] = React.useState('');

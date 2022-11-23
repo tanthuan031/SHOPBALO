@@ -21,6 +21,7 @@ class ProviderSeeder extends Seeder
             ['id' => 3, 'name' => 'Dolo Fashin Company', 'address' => 'HaNoi,VN', 'phone' => '0988666674', 'deleted_at' => null, 'created_at' => date('Y-m-d H:i:s'), 'updated_at' => null],
             ['id' => 4, 'name' => 'MomoShop corp', 'address' => 'ToHienThanh,Q10,HCM,VN', 'phone' => '0988001040', 'deleted_at' => null, 'created_at' => date('Y-m-d H:i:s'), 'updated_at' => null],
 
+
         ]);
     }
 }

@@ -56,7 +56,8 @@ class CustomerService
     public function storeCustomer($request): JsonResponse
     {
         // return $this->apiResponse('','testing',$request->all());
-        $avatar = Helper::saveImgBase64($request->avatar, 'Customer');
+        $fileImg=is_array($request->avatar);
+        $avatar = ($fileImg )? Helper::saveImgBase64($request->avatar, 'Customer'):$request->avatar;
         $dataRequest = [
             'first_name' => $request->first_name,
             'last_name' => $request->last_name,

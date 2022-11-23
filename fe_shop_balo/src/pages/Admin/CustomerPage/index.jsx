@@ -28,7 +28,7 @@ export function CustomerPage(props) {
   const [page, setPage] = React.useState(1);
 
   //Filter & Search
-  const [filter, setFilter] = React.useState('fullname');
+  const [filter, setFilter] = React.useState('email');
   const [search, setSearch] = React.useState([]);
   const [filterStatus, setFilterStatus] = React.useState('All');
   const data_options_filter = [

@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Support\Facades\DB;
 use Laravel\Sanctum\HasApiTokens;
 
 class Customer extends Model
@@ -73,8 +74,7 @@ class Customer extends Model
             ->when($request->has('fullname'), function ($query) use ($request) {
                 $search = $request->query('fullname');
                 $query
-                    ->where("first_name", "LIKE", "%{$search}%")
-                    ->orWhere("last_name", "LIKE", "%{$search}%");
+                    ->whereLike([DB::raw("CONCAT(first_name,' ',last_name)")], $search);
             })
             ->when($request->has('email'), function ($query) use ($request) {
                 $search = $request->query('email');

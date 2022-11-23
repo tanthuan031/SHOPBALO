@@ -9,6 +9,7 @@ use App\Models\Role;
 use App\Notifications\ForgotPasswordNotification;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\DB;
 use Laravel\Sanctum\HasApiTokens;
 
 class Staff extends Model
@@ -74,23 +75,26 @@ class Staff extends Model
     }
     public function scopeSearch($query, $request)
     {
-        return $query
-            ->when($request->has('fullname'), function ($query) use ($request) {
-                $search = $request->query('fullname');
-                $query
-                    ->where("first_name", "LIKE", "%{$search}%")
-                    ->orWhere("last_name", "LIKE", "%{$search}%");
-            })
-            ->when($request->has('email'), function ($query) use ($request) {
-                $search = $request->query('email');
-                $query
-                    ->where("email", "LIKE", "%{$search}%");
-            })
-            ->when($request->has('phone'), function ($query) use ($request) {
-                $search = $request->query('phone');
-                $query
-                    ->orWhere("phone", "LIKE", "%{$search}%");
-            });
+
+                return $query
+                ->when($request->has('fullname'), function ($query) use ($request) {
+                    $search = $request->query('fullname');
+                    $query
+                        ->whereLike([DB::raw("CONCAT(first_name,' ',last_name)")], $search);
+//                        ->where("first_name", "LIKE", "%{$search}%")
+//                    ->orWhere("last_name", "LIKE", "%{$search}%");
+                })
+                    ->when($request->has('email'), function ($query) use ($request) {
+                        $search = $request->query('email');
+                        $query
+                            ->where("email", "LIKE", "%{$search}%");
+                    })
+                    ->when($request->has('phone'), function ($query) use ($request) {
+                        $search = $request->query('phone');
+                        $query
+                            ->orWhere("phone", "LIKE", "%{$search}%");
+                    });
+
     }
     public function scopeExistance($query, $request)
     {

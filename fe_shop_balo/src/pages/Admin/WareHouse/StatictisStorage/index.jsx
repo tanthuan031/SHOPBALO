@@ -39,7 +39,7 @@ function StatisticStorage(props) {
     };
     getInfoImports();
     getInfoExports();
-    //console.log(arrayMonth.slice(beginMonth-1, endMonth));
+
 
   }, []);
   const buildMonthChart = (start, end) => {
@@ -50,7 +50,7 @@ function StatisticStorage(props) {
     const month = [];
     for (let i = +start; i <= end; i++) month.push(i);
     return month.map((value) => {
-      var ele = input.find((item) => item.month === value);
+      var ele = input.find((item) => +item.month === value);
       return !!ele ? ele.amount : 0;
     });
   };
@@ -75,6 +75,7 @@ function StatisticStorage(props) {
       },
     ],
   };
+  console.log(basicData);
   let basicOptions = {
     maintainAspectRatio: false,
     aspectRatio: .8,

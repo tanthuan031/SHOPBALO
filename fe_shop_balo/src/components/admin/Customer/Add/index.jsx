@@ -48,7 +48,7 @@ const CustomerAdd = (props) => {
   const onSubmit = async (data) => {
     BlockUI('#root', 'fixed');
 
-    const image = await toBase64(data.avatar[0]);
+    const image = !!data.avatar[0]?[await toBase64(data.avatar[0])]:`avatarGR-${data.last_name.slice(0,1)}`
     const resultData = {
       first_name: data.first_name,
       last_name: data.last_name,
@@ -57,7 +57,7 @@ const CustomerAdd = (props) => {
       email: data.email,
       password: data.password,
       point: 0,
-      avatar: [image],
+      avatar: image,
       status: 1,
       address: data.address,
     };

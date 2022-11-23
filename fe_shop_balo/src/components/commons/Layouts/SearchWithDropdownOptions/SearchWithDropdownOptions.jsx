@@ -30,7 +30,7 @@ const SearchWithDropdownOptions = props => {
 
                <Dropdown.Item onClick={() => setFilter('phone')}>
                  <Form.Check
-                   type="checkbox"
+                   type="radio"
                    id="checkbox-all"
                    className="mx-4 my-2 font-weight-bold"
                    label="Phone"
@@ -43,7 +43,7 @@ const SearchWithDropdownOptions = props => {
                </Dropdown.Item>
                <Dropdown.Item onClick={() => setFilter('email')}>
                  <Form.Check
-                   type="checkbox"
+                   type="radio"
                    id="checkbox-admin"
                    className="mx-4 my-2 font-weight-bold"
                    label="Email"
@@ -56,7 +56,7 @@ const SearchWithDropdownOptions = props => {
                </Dropdown.Item>
                <Dropdown.Item onClick={() => setFilter('fullname')}>
                  <Form.Check
-                   type="checkbox"
+                   type="radio"
                    id="checkbox-admin"
                    className="mx-4 my-2 font-weight-bold"
                    label="Fullname"

@@ -53,7 +53,8 @@ const StaffAdd = (props) => {
   const onSubmit = async (data) => {
     BlockUI('#root', 'fixed');
     if (data.created_date) data.created_date = formatDate(data.created_date, 'YYYY-MM-DD');
-    const image = await toBase64(data.avatar[0]);
+
+    const image = !!data.avatar[0]?[await toBase64(data.avatar[0])]:`avatarGR-${data.last_name.slice(0,1)}`
     const resultData = {
       first_name: data.first_name,
       last_name: data.last_name,
@@ -62,11 +63,12 @@ const StaffAdd = (props) => {
       phone: data.phone,
       email: data.email,
       password: data.password,
-      avatar: [image],
+      avatar: image,
       status: 1,
       address: data.address,
       created_date: data.created_date,
     };
+    console.log(resultData);
     const result = await addStaff(resultData);
     Notiflix.Block.remove('#root');
     if (result === 200) {

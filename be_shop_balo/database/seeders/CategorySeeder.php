@@ -19,9 +19,10 @@ class CategorySeeder extends Seeder
         $data = [
             [
                 'id' => 1,
-                'name' => 'Backpacker',
+                'name' => 'Backpack',
                 'parent_id' => 0,
                 'image' => 'https://baloxinh.vn/wp-content/uploads/2021/02/balo-du-lich-quechua-n-hiking-30l-1-1-247x296.jpg',
+
             ],
             [
                 'id' => 2,
@@ -29,66 +30,52 @@ class CategorySeeder extends Seeder
                 'parent_id' => 0,
                 'image' => 'https://baloxinh.vn/wp-content/uploads/2022/10/cap-dung-laptop-cao-cap-tigernu-sore-giaolong--247x296.jpg',
             ],
+
             [
+
                 'id' => 3,
-                'name' => 'Premium Backpack',
-                'parent_id' => 0,
-                'image' => 'https://baloxinh.vn/wp-content/uploads/2021/08/balo-bange-dream-BG-G61-balo-xinh-2-247x296.jpg',
-            ],
-            [
-                'id' => 4,
                 'name' => 'Laptop bag',
                 'parent_id' => 0,
                 'image' => 'https://baloxinh.vn/wp-content/uploads/2021/08/Balo-cao-cap-hang-hieu-mark-ryden-star-247x296.jpg',
             ],
             [
-                'id' => 5,
+                'id' => 4,
                 'name' => 'Men backpack',
-                'parent_id' => 0,
+                'parent_id' => 1,
                 'image' => 'https://baloxinh.vn/wp-content/uploads/2021/05/balo-fedom-kinck-balo-chong-nuoc-phong-cach-nam-tinh-7-247x296.jpg',
             ],
             [
-                'id' => 6,
+                'id' => 5,
                 'name' => 'Women\'s Backpack',
-                'parent_id' => 0,
+                'parent_id' => 1,
                 'image' => 'https://baloxinh.vn/wp-content/uploads/2020/08/balo-laptop-mikkor-royce-delux-red-1-247x296.jpg',
             ],
+
             [
-                'id' => 7,
-                'name' => 'Branded Backpacks',
-                'parent_id' => 0,
-                'image' => 'https://baloxinh.vn/wp-content/uploads/2021/08/Balo-cao-cap-hang-hieu-mark-ryden-polo-247x296.jpg',
-            ],
-            [
-                'id' => 8,
-                'name' => 'One Strap Backpack',
-                'parent_id' => 0,
-                'image' => 'https://baloxinh.vn/wp-content/uploads/2020/08/balo-mikkor-the-arnold-delux-dark-mouse-grey-1-247x296.jpg',
-            ],
-            [
-                'id' => 9,
+                'id' => 6,
                 'name' => 'Gift Backpacks',
-                'parent_id' => 0,
+                'parent_id' => 1,
                 'image' => 'https://baloxinh.vn/wp-content/uploads/2022/10/tui-xach-thoi-trang-gia-re-william-polo-ox-giaolong-247x296.jpg',
             ],
             [
-                'id' => 10,
+                'id' => 7,
                 'name' => 'Travel Backpack',
-                'parent_id' => 0,
+                'parent_id' => 1,
                 'image' => 'https://baloxinh.vn/wp-content/uploads/2022/10/balo-kaka-hin-giaolong-247x296.jpg',
             ],
 
         ];
 
-        foreach ($data as $item) {
 
+        foreach ($data as $item) {
             DB::table('categories')->insert([
                 'name' => $item['name'],
-                'parent_id' =>  $item['parent_id'],
-                'image' =>  $item['image'],
+                'parent_id' => $item['parent_id'],
+                'image' => $item['image'],
                 'created_at' => date('Y-m-d H:i:s'),
                 'updated_at' => date('Y-m-d H:i:s'),
             ]);
         }
+
     }
 }

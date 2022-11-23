@@ -157,8 +157,8 @@ class StorageRepository
 
     public function statisticExportStorage($request)
     {
-        //        $start=$request->start;
-        //        $end=$request->end;
+//        $start=$request->start;
+//        $end=$request->end;
         //SELECT MONTH(created_at) as month, SUM(import_amount) as amount FROM `import_storages` WHERE 1 GROUP BY month;
         $result = ExportStorage::query();
         if (env('DB_CONNECTION') == 'pgsql') {
