@@ -18,11 +18,12 @@ class SliderSeeder extends Seeder
         $data = [
             [
                 'id' => 1,
-                'name' => 'Tresor Backpack',
-                'description' => 'Welcome to the store bag',
-                'image_slider' => 'https://balotuixachviet.vn/wp-content/uploads/2022/05/banner-newata-3.jpg',
+                'name' => 'Black Friday',
+                'description' => 'Sale off 70%',
+                'image_slider' => 'https://i.ibb.co/ZVWZjVs/pin-12v3.png',
                 'status' => 'Active',
                 'url' => 'google.com'
+
             ],
             [
                 'id' => 2,
@@ -36,17 +37,18 @@ class SliderSeeder extends Seeder
                 'id' => 3,
                 'name' => 'Young',
                 'description' => 'Nature',
-                'image_slider' => 'https://facebook.com/backtobasic.vn/photos/a.760081820760480/1352592541509402',
+                'image_slider' => 'https://i.ibb.co/R3YZMQJ/Bags-Backpacks-Banner.jpg',
                 'status' => 'Active',
                 'url' => 'google.com'
             ],
             [
                 'id' => 4,
-                'name' => 'Black Friday',
-                'description' => 'Sale off 70%',
-                'image_slider' => 'https://facebook.com/backtobasic.vn/photos/a.760081820760480/1352592541509402',
+                'name' => 'Tresor Backpack',
+                'description' => 'Welcome to the store bag',
+                'image_slider' => 'https://i.ibb.co/6YrCYrX/b9cebc56206093-59a527509701d.jpg',
                 'status' => 'Active',
                 'url' => 'google.com'
+
             ]
         ];
 
