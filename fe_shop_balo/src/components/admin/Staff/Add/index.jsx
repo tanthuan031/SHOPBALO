@@ -19,8 +19,8 @@ import './style.css';
 
 const StaffAdd = (props) => {
   const data_roles = [
-    { value: 1, label: 'admin' },
-    { value: 2, label: 'CTO' },
+    { value: 1, label: 'Admin' },
+    { value: 2, label: 'Admin_Warehouse' },
   ];
   const data_gender = [
     { value: 1, label: 'male' },

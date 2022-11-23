@@ -53,6 +53,9 @@ function PieChartCategory(props) {
 
   return (
     <div className='card container_chart_md'>
+      <h4 className="chart-header">
+        The proportion of different product types sold
+      </h4>
       <Chart type='pie' data={chartData} options={lightOptions} />
     </div>
   );

@@ -3,7 +3,7 @@ import { Chart } from 'primereact';
 
 import { getStatisticCstomer, getStatisticCustomer } from '../../../../../api/Admin/Statistic/statisticAPI';
 function BarChartCustomer({ data,label }) {
-  console.log('render customer')
+
   const basicData ={
     labels:label,
     datasets: [

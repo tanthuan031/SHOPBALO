@@ -7,7 +7,7 @@ import NotFoundData from '../../../commons/Layouts/NotFoundData';
 
 
 function ChartLineOrders({ type,label,data,onFilter }) {
-  console.log('chartline orders rerendered');
+
 
   const [dataRemake, setDataRemake] = useState([]);
   const [labelRemake, setLabelRemake] = useState([]);
@@ -15,7 +15,7 @@ function ChartLineOrders({ type,label,data,onFilter }) {
   const optionFilter=[
     {id:1,name:'Monthly'},
     {id:2,name:'Weekly'},
-    {id:3,name:'Today'},
+    //{id:3,name:'Today'},
   ]
   const [filter,setFilter]= useState('Weekly')
 

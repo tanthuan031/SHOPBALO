@@ -1,7 +1,7 @@
 import React, { memo } from 'react';
 import "./index.css"
 import { Col, Row } from 'react-bootstrap';
-import { FaCoins, FaPeopleArrows, FaShoppingCart } from 'react-icons/fa';
+import { FaArchive, FaCoins, FaPeopleArrows, FaShoppingCart } from 'react-icons/fa';
 import { formatter } from '../../../../utils/formatCurrency';
 function SummaryStatisTic(props) {
   console.log('render SummaryStatisTic')
@@ -39,12 +39,12 @@ function SummaryStatisTic(props) {
       </Col>
       <Col  className=" small-box  st-customers">
         <div className="inner">
-          <h3 className='title-main'>150</h3>
+          <h3 className='title-main'>2</h3>
 
-          <p className='title'>New Customers</p>
+          <p className='title'>New Products</p>
         </div>
         <div className="icon">
-          <FaPeopleArrows />
+          <FaArchive className='icon-product m-l-2'/>
         </div>
       </Col>
 

@@ -22,6 +22,8 @@ import { useDispatch } from 'react-redux';
 import SkeletonDashboard from '../../../components/commons/Layouts/Skeleton/SkeletonDashboard';
 
 export function DashBoardPage(props) {
+  const month=new Date().getMonth();
+  console.log(month);
   const [loading, setLoading] = useState(true);
   const [summaryData, setSummaryData] = useState({});
   const [chartOrder, setChartOrder] = useState([]);
@@ -53,7 +55,7 @@ export function DashBoardPage(props) {
       return false;
     } else {
       setChartOrder({
-        label: result.data.map((item) => item.date),
+        label: result.data.map((item) => `${item.date}-${month+1}-2022`),
         data: result.data.map((item) => item.amount_order),
       });
     }
@@ -67,7 +69,7 @@ export function DashBoardPage(props) {
       return false;
     } else {
       setChartRevenue({
-        label: result.data.map((item) => item.date),
+        label: result.data.map((item) =>`${item.date}-${month+1}-2022`),
         data: result.data.map((item) => item.revenue),
       });
     }
@@ -119,7 +121,7 @@ export function DashBoardPage(props) {
       const resultRevenue = checkResultAPI(await getFigureRevenueToday());
       const resultCustomer = checkResultAPI(await getFigureNewCustomer());
       setSummaryData({
-        order:  !!resultOrder && resultOrder.reduce((acc, order) => order).amount_order,
+        order: !!resultOrder && resultOrder.reduce((acc, order) => order).amount_order,
         revenue: !!resultRevenue && resultRevenue.reduce((acc, revenue) => revenue).revenue,
         customer: !!resultCustomer && resultCustomer.reduce((acc, customer) => customer).amount_customer,
       });
@@ -130,7 +132,7 @@ export function DashBoardPage(props) {
 
     handleGetStatistisStaff();
     handleGetStatistisCustomer();
-      setLoading(false)
+    setLoading(false);
 
   }, []);
   /* handle Func */
@@ -181,35 +183,36 @@ export function DashBoardPage(props) {
   return (
     <>
       {
-        !loading?( <div className="container-fluid mt-5">
-        <SummaryStatisTic order={summaryData.order} revenue={summaryData.revenue} customer={summaryData.customer} />
-        <div className=" justify-content-center">
-        <ChartLineOrders type="line" data={chartOrder.data} label={chartOrder.label} onFilter={handleFilterOrder} />
-        <LineChartRevenue type="line" data={dataRevenue} options={optionsRevenue} onFilter={handleFilterRevenue} />
-        <Row>
-        <Col>
-      {' '}
-        <PieChartCategory />
-        </Col>
-        <Col>
-      {' '}
-        <PieChartCategory />
-        </Col>
-        </Row>
-        <Row>
-        <Col>
-        <BarChartStaff data={chartStaff.data} label={chartStaff.label} />
-        </Col>
-        <Col>
-        <BarChartCustomer data={chartCustomer.data} label={chartCustomer.label} />
-        </Col>
-        </Row>
-      {/**/}
-        </div>
-        </div>)
-        :(
-        <SkeletonDashboard />
-        )
+        !loading ? (<div className='container-fluid mt-5'>
+            <SummaryStatisTic order={summaryData.order} revenue={summaryData.revenue} customer={summaryData.customer} />
+            <div className=' justify-content-center'>
+              <ChartLineOrders type='line' data={chartOrder.data} label={chartOrder.label} onFilter={handleFilterOrder} />
+              <LineChartRevenue type='line' data={dataRevenue} options={optionsRevenue} onFilter={handleFilterRevenue} />
+              <Row>
+                <Col>
+                  <BarChartStaff data={chartStaff.data} label={chartStaff.label} />
+                </Col>
+                <Col>
+                  <BarChartCustomer data={chartCustomer.data} label={chartCustomer.label} />
+                </Col>
+              </Row>
+              <Row>
+                <Col>
+                  {' '}
+                  <PieChartCategory />
+                </Col>
+                <Col>
+                  {' '}
+                  {/*<PieChartCategory />*/}
+                </Col>
+              </Row>
+
+              {/**/}
+            </div>
+          </div>)
+          : (
+            <SkeletonDashboard />
+          )
       }
     </>
   );
