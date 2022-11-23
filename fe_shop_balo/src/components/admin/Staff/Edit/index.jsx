@@ -25,8 +25,8 @@ const StaffEdit = (props) => {
   const [imageAvatarStaffShow, setImageAvatarStaffShow] = useState(false);
   const [status, setStatus] = useState(dataStaff.status);
   const data_roles = [
-    { value: 1, label: 'admin' },
-    { value: 2, label: 'CTO' },
+    { value: 1, label: 'Admin' },
+    { value: 2, label: 'Admin_Warehouse' },
   ];
   const data_gender = [
     { value: 1, label: 'male' },

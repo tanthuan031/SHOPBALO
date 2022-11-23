@@ -119,7 +119,7 @@ export function StaffPage(props) {
   return (
     <section>
       <div className="container-fluid mt-5">
-        <h5 className="text-danger font-weight-bold mb-3">Staff List</h5>
+
         <>
           {!isAddStaff && !isEditStaff && <h5 className="text-danger font-weight-bold mb-3">Staff List</h5>}
           {isAddStaff && (
