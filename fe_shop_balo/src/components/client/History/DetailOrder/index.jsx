@@ -122,7 +122,7 @@ const OrderHistoryDetail = (props) => {
                 <div className="mt-4 p-3 detail-order container w-100">
                   <div>
                     <h2 className="mt-2 fs-5 fw-bold  "># {index + 1}</h2>
-                    <h2 className="mt-2 fs-5 fw-bold text-center  ">{item.products.name}</h2>
+                    <h2 className="mt-2 fs-5 fw-bold text-center text-header-history   ">{item.products.name}</h2>
                     <div className="d-flex flex-column">
                       <div className=" row">
                         <div className=" col-3 image_detail_order">
