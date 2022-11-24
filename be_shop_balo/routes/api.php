@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\ProviderController;
 use App\Http\Controllers\Admin\RatingController;
+use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\SliderController;
 use App\Http\Controllers\Admin\StaffController;
 use App\Http\Controllers\Admin\StatisticController;
@@ -42,6 +43,7 @@ Route::group([
     Route::delete('category/{category}/forgot', [CategoryController::class, 'forgot']);
     Route::resource('discount', DiscountController::class);
     Route::resource('rating', RatingController::class);
+    Route::resource('role', RoleController::class);
     Route::post('logout', [AuthController::class, 'logout']);
     // api statistics
     Route::prefix('statistics')->group(function () {
