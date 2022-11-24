@@ -14,6 +14,7 @@ import homeClientReducer from './home/home.reducer';
 import shopClientReducer from './shop/shop.reducer';
 import historyReducer from './history/history.reducer';
 import warehouseReducer from './warehouse/warehouse.reducer';
+import roleReducer  from './role/role.reducer';
 
 const rootReducer = combineReducers({
   product: productReducer,
@@ -31,6 +32,7 @@ const rootReducer = combineReducers({
   shopClient: shopClientReducer,
   history: historyReducer,
   warehouse: warehouseReducer,
+  role: roleReducer,
 });
 
 export default rootReducer;

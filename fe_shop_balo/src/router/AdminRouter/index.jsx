@@ -24,6 +24,7 @@ import NotFoundData from '../../components/commons/Layouts/NotFoundData';
 import { ImportStoragePage } from '../../pages/Admin/WareHouse/ImportStoragePage';
 import { ExportStoragePage } from '../../pages/Admin/WareHouse/ExportStoragePage';
 import StatisticStorage from '../../pages/Admin/WareHouse/StatictisStorage';
+import PermissionManagerPage from '../../pages/Admin/PermissionManagerPage';
 export default function AdminRouter() {
   const dispatch = useDispatch();
   const isAuthenticate = useSelector(isLoginSelector);
@@ -57,7 +58,7 @@ export default function AdminRouter() {
           <Route path="/admin/staff" element={<AdminLayout slot={<StaffPage key={'a'} />} />} />
           <Route path="/admin/customer" element={<AdminLayout slot={<CustomerPage key={'a'} />} />} />
           <Route path="/admin/review" element={<AdminLayout slot={<ReviewPage key={'a'} />} />} />
-          <Route path="/admin/decentralization" element={<AdminLayout slot={<DashBoardPage key={'a'} />} />} />
+          <Route path="/admin/decentralization" element={<AdminLayout slot={<PermissionManagerPage key={'a'} />} />} />
           <Route path="/admin/slider" element={<AdminLayout slot={<SliderPage key={'a'} />} />} />
           {/* </> */}
           {/* )} */}

@@ -11,3 +11,4 @@ export * from './cart/cart.selector';
 export * from './home/home.selector';
 export * from './shop/shop.selector';
 export * from './warehouse/warehouse.selector';
+export * from './role/role.selector'

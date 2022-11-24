@@ -69,13 +69,13 @@ export const menu_admin_item = [
     link: '/admin/review',
     icon: <FaComments />,
   },
-  // {
-  //   id: 9,
-  //   name: 'Decentralization',
-  //   active: false,
-  //   link: '/admin/decentralization',
-  //   icon: <FaUsersCog />,
-  // },
+  {
+    id: 9,
+    name: 'Decentralization',
+    active: false,
+    link: '/admin/decentralization',
+    icon: <FaUsersCog />,
+  },
   {
     id: 9,
     name: 'Slider',
