@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\CustomerController;
 use App\Http\Controllers\Admin\DiscountController;
 use App\Http\Controllers\Admin\OrderController;
+use App\Http\Controllers\Admin\PermissionController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\ProviderController;
 use App\Http\Controllers\Admin\RatingController;
@@ -44,6 +45,7 @@ Route::group([
     Route::resource('discount', DiscountController::class);
     Route::resource('rating', RatingController::class);
     Route::resource('role', RoleController::class);
+    Route::resource('permission', PermissionController::class);
     Route::post('logout', [AuthController::class, 'logout']);
     // api statistics
     Route::prefix('statistics')->group(function () {

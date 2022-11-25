@@ -18,77 +18,59 @@ class PermissionSeeder extends Seeder
         $data=[
                 [
                     'id'=>1,
-                    'name'=>'',
+                    'name'=>'Manage Product',
                     'status'=>true,
                 ],
                  [
                     'id'=>2,
-                    'name'=>'',
+                    'name'=>'Manage Category',
                     'status'=>true,
                 ],
                 [
                     'id'=>3,
-                    'name'=>'',
+                    'name'=>'Manage Customer',
                     'status'=>true,
                 ],
                 [
                     'id'=>4,
-                    'name'=>'',
+                    'name'=>'Manage Staff',
                     'status'=>true,
                 ],
                 [
                     'id'=>5,
-                    'name'=>'',
+                    'name'=>'Manage Reviews',
                     'status'=>true,
                 ],
                 [
                     'id'=>6,
-                    'name'=>'',
+                    'name'=>'Manage Promotion',
                     'status'=>true,
                 ],
                 [
                     'id'=>7,
-                    'name'=>'',
+                    'name'=>'Manage Order',
                     'status'=>true,
                 ],
                 [
                     'id'=>8,
-                    'name'=>'',
+                    'name'=>'Manage WareHouses',
                     'status'=>true,
                 ]
                 ,[
                     'id'=>9,
-                    'name'=>'',
+                    'name'=>'Statistic Selling',
                     'status'=>true,
                 ]
                 ,[
                     'id'=>10,
-                    'name'=>'',
+                    'name'=>'Statistic Storage',
                     'status'=>true,
                 ],[
                     'id'=>11,
-                    'name'=>'',
+                    'name'=>'Manage UI ',
                     'status'=>true,
                 ]
-                ,[
-                    'id'=>12,
-                    'name'=>'',
-                    'status'=>true,
-                ]
-                ,[
-                    'id'=>13,
-                    'name'=>'',
-                    'status'=>true,
-                ]
-                ,[
-                    'id'=>14,
-                    'name'=>'',
-                    'status'=>true,
-                ],[
-                    'id'=>15,
-                    'name'=>'',
-                    'status'=>true,
-                ]
+
 
         ];
         foreach($data as $item){
