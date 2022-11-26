@@ -1,4 +1,4 @@
-import { default as React, useState } from 'react';
+import { default as React, useEffect, useState } from 'react';
 import { yupResolver } from '@hookform/resolvers/yup';
 import Notiflix from 'notiflix';
 import PropTypes from 'prop-types';
@@ -16,6 +16,7 @@ import { formatDate } from '../../../../utils/formatDate';
 import { ErrorToast, SuccessToast } from '../../../commons/Layouts/Alerts';
 import { BlockUI } from '../../../commons/Layouts/Notiflix';
 import './style.css';
+import { getAllRoles } from '../../../../api/Admin/role/roleAPI';
 
 const StaffAdd = (props) => {
   const data_roles = [
@@ -28,7 +29,7 @@ const StaffAdd = (props) => {
   ];
   const [showPassword, setShowPassword] = useState('password');
   const [imageAvatarStaffShow, setImageAvatarStaffShow] = useState(false);
-
+  const [listRole, setListRole] = useState([])
   const {
     register,
     handleSubmit,
@@ -38,6 +39,16 @@ const StaffAdd = (props) => {
     mode: 'onChange',
     resolver: yupResolver(addSchema),
   });
+  useEffect(() => {
+    let filterStatus='Active'
+    const getListRoles = async ()=> {
+      const result = await getAllRoles({filterStatus});
+      setListRole(result.data.map((item)=>
+        ( { value: item.id, label: item.name })));
+    }
+    getListRoles()
+  },[])
+  console.log(listRole);
   const dispatch = useDispatch();
 
   const backtoManageStaff = () => {
@@ -293,7 +304,7 @@ const StaffAdd = (props) => {
                 render={({ field }) => (
                   <Select
                     {...field}
-                    options={data_roles}
+                    options={listRole}
                     theme={(theme) => ({
                       ...theme,
                       colors: {

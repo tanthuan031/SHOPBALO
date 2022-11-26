@@ -45,6 +45,7 @@ export const getOrderDetailById = async (id) => {
 
 export const addOrder = async (body) => {
   const url = '/api/client/order';
+  console.log(body);
   const response = await axiosClient.post(url, body, configHeadersAuthenticate());
   if (response.status === 401) {
     return 401;

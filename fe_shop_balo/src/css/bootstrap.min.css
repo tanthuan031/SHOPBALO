@@ -7000,6 +7000,9 @@ fieldset:disabled .btn {
 .min-vw-100 {
   min-width: 100vw !important;
 }
+.h50x{
+  height: 50px !important;
+}
 .h-25 {
   height: 25% !important;
 }

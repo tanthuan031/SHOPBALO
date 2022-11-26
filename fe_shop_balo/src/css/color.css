@@ -27,6 +27,9 @@
 .bg-red-100 {
   background-color: var(--bs-red-100);
 }
+.bg-red-500 {
+  background-color: var(--bs-red);
+}
 
 .bg-gray-100 {
   background-color: var(--bs-gray-100);
@@ -38,6 +41,9 @@
 
 .bg-success-100 {
   background-color: var(--bs-success-100);
+}
+.bg-success-500 {
+  background-color: var(--bs-success-500);
 }
 
 .bg-warning-100 {

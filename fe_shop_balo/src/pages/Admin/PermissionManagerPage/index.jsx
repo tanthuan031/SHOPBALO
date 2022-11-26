@@ -1,5 +1,5 @@
 import React from 'react';
-import { setIsAdd, setIsEdit } from '../../../redux/reducer/staff/staff.reducer';
+import { setIsAdd, setIsEdit } from '../../../redux/reducer/role/role.reducer';
 import SearchWithDropdownOptions
   from '../../../components/commons/Layouts/SearchWithDropdownOptions/SearchWithDropdownOptions';
 import { Button } from 'react-bootstrap';
@@ -17,6 +17,8 @@ import FilterStatus from '../../../components/admin/Staff/FilterStatus';
 import { getAllRoles } from '../../../api/Admin/role/roleAPI';
 import { RoleTable } from '../../../components/admin/Role';
 import { isAddRoleSelector, isEditRoleSelector, isResetRoleSelector } from '../../../redux/selectors';
+import RoleAdd from '../../../components/admin/Role/Add';
+import RoleEdit from '../../../components/admin/Role/Edit';
 
 function PermissionManagerPage(props) {
   const data_staff_table_header = [...role_table_header];
@@ -36,13 +38,14 @@ function PermissionManagerPage(props) {
   const [filterStatus, setFilterStatus] = React.useState('All');
   const data_options_filter = [
     { id: 1, name: 'All', value: 'All' },
-    { id: 2, name: 'Active', value: 1 },
-    { id: 3, name: 'Disable', value: 0 },
+    { id: 2, name: 'Active', value: 'Active' },
+    { id: 3, name: 'Disable', value: 'InActive'},
   ];
   //Redux
   const isAddRole = useSelector(isAddRoleSelector);
   const isEditRole = useSelector(isEditRoleSelector);
   const dispatch = useDispatch();
+
   //Loading
   const [loading, setLoading] = React.useState(true);
   //Logic
@@ -157,14 +160,14 @@ function PermissionManagerPage(props) {
                   <FilterStatus data_options={data_options_filter} setFilterStatus={setFilterStatus} />
                 </div>
                 <div className="d-flex justify-content-between ">
-                  <SearchWithDropdownOptions currentFilter={filter} setSearch={setSearch} setFilter={setFilter} />
+
                   <Button
                     id="create-new-product"
                     variant="danger"
                     className="font-weight-bold ms-3"
                     onClick={goToPageAddRole}
                   >
-                    Create new staff
+                    Create new role
                   </Button>
                 </div>
               </div>
@@ -187,14 +190,14 @@ function PermissionManagerPage(props) {
                   )}
                 </>
               ) : (
-                <Skeleton column={7} />
+                <Skeleton column={4} />
               )}
             </div>
           </>
         ) : (
           <>
-            {/*{isAddRole && <RoleAdd backToRoleList={backToRoleList} />}*/}
-            {/*{isEditRole && <RoleEdit backToRoleList={backToRoleList} />}*/}
+            {isAddRole && <RoleAdd backToRoleList={backToRoleList} />}
+            {isEditRole && <RoleEdit backToRoleList={backToRoleList} />}
           </>
         )}
       </div>

@@ -1,4 +1,4 @@
-import { default as React, useState } from 'react';
+import { default as React, useEffect, useState } from 'react';
 import { yupResolver } from '@hookform/resolvers/yup';
 import Notiflix from 'notiflix';
 import PropTypes from 'prop-types';
@@ -11,10 +11,30 @@ import { addSchemaRole } from '../../../../adapter/role';
 import { setIsAdd } from '../../../../redux/reducer/role/role.reducer';
 import ToggleButton from '../../../commons/Layouts/ToggleButton';
 import "./style.css"
+import { addRole, getAllPermissions } from '../../../../api/Admin/role/roleAPI';
+import { ErrorToast, SuccessToast } from '../../../commons/Layouts/Alerts';
+import { BlockUI } from '../../../commons/Layouts/Notiflix';
 
 const RoleAdd = (props) => {
-  const Checked = () => <>🤪</>;
-  const UnChecked = () => <>🙂</>;
+  const [listPermissions,setListPermissions] = useState([])
+  const data_permission = [
+    {id:1,name: 'Manage Staff'},
+    {id:2,name: 'Manage Products'},
+    {id:3,name: 'Manage Types'},
+    {id:4,name: 'Manage Customer'},
+    {id:5,name: 'Manage Order'}
+  ]
+  useEffect(() => {
+    const getPermissions = async ()=>{
+      const result = await getAllPermissions()
+      if (result!==401 && result!==500){
+        setListPermissions(result.data)
+      }
+
+    }
+    getPermissions()
+  },[])
+  //console.log(listPermissions);
   const {
     register,
     handleSubmit,
@@ -31,47 +51,38 @@ const RoleAdd = (props) => {
   };
 
   const onSubmit = async (data) => {
-    console.log(data);
-  //   BlockUI('#root', 'fixed');
-  //   if (data.created_date) data.created_date = formatDate(data.created_date, 'YYYY-MM-DD');
-  //
-  //   const image = !!data.avatar[0]?[await toBase64(data.avatar[0])]:`avatarGR-${data.last_name.slice(0,1)}`
-  //   const resultData = {
-  //     first_name: data.first_name,
-  //     last_name: data.last_name,
-  //     role_id: data.role_id.value,
-  //     gender: data.gender.label,
-  //     phone: data.phone,
-  //     email: data.email,
-  //     password: data.password,
-  //     avatar: image,
-  //     status: 1,
-  //     address: data.address,
-  //     created_date: data.created_date,
-  //   };
-  //   console.log(resultData);
-  //   const result = await addRole(resultData);
-  //   Notiflix.Block.remove('#root');
-  //   if (result === 200) {
-  //     SuccessToast('Create staff successfully', 3000);
-  //     props.backToRoleList([
-  //       {
-  //         key: 'created_at',
-  //         value: 'desc',
-  //       },
-  //     ]);
-  //     backtoManageRole();
-  //   } else if (result === 404) {
-  //     ErrorToast('Create staff unsuccessfully', 3000);
-  //     Notiflix.Block.remove('#root');
-  //   } else if (result === 401) {
-  //     Notiflix.Block.remove('#root');
-  //     handleSetUnthorization();
-  //   } else if (result === 402) ErrorToast('Email or phone numbers have existed!', 3000);
-  //   else {
-  //     Notiflix.Block.remove('#root');
-  //     ErrorToast('Something went wrong. Please try again', 4000);
-  //   }
+    BlockUI('#root', 'fixed');
+    var listPermissions = [];
+    Object.keys(data).forEach(key=>{
+      (data[key]===true) && listPermissions.push({permission_id:key.split('-')[1]})
+    })
+    const roleData = {
+      name: data.name,
+      listPermissions:listPermissions,
+      status: 'Active',
+    };
+    const result= await addRole(roleData);
+    Notiflix.Block.remove('#root');
+    if (result === 200) {
+      SuccessToast('Create role successfully', 3000);
+      props.backToRoleList([
+        {
+          key: 'created_at',
+          value: 'desc',
+        },
+      ]);
+      backtoManageRole();
+    } else if (result === 404) {
+      ErrorToast('Create role unsuccessfully', 3000);
+      Notiflix.Block.remove('#root');
+    } else if (result === 401) {
+      Notiflix.Block.remove('#root');
+      handleSetUnthorization();
+    }
+    else {
+      Notiflix.Block.remove('#root');
+      ErrorToast('Something went wrong. Please try again', 4000);
+    }
    };
 
   const handleSetUnthorization = () => {
@@ -83,7 +94,6 @@ const RoleAdd = (props) => {
       deleteCookie('token');
     }
   };
-
   return (
     <div className=" edit_form d-flex justify-content-center">
       <Form className="font_add_edit_prduct" onSubmit={handleSubmit(onSubmit)} encType="multipart/form-data">
@@ -92,55 +102,46 @@ const RoleAdd = (props) => {
               <Form.Label className="label-input">Name Role </Form.Label>
               <Controller
                 control={control}
-                name="fisrt_name"
+                name="name"
                 defaultValue=""
-                {...register('first_name', { required: true })}
+                {...register('name', { required: true })}
                 ref={null}
                 render={({ field: { onChange, onBlur, value, ref } }) => (
                   <Form.Control
                     onChange={onChange}
                     value={value}
                     ref={ref}
-                    isInvalid={errors.fisrt_name}
+                    isInvalid={errors.name}
                     placeholder="Enter role name"
                   />
                 )}
               />
               <div className="d-flex justify-content-between">
-                <small className="text-red font-weight-semi">{errors?.first_name?.message}</small>
+                <small className="text-red font-weight-semi">{errors?.name?.message}</small>
               </div>
             </Form.Group>
-            <Form.Group>
-              <Controller
+            <Form.Label className="label-input mt-3 mb-4">List Permissions :</Form.Label>
+
+
+
+              {listPermissions.map((item)=>(
+                <Form.Group  >
+                <Form.Check
+                  key={item.id}
                 control={control}
-                name="check_box-1"
+                name={`permission-${item.id}`}
+                defaultValue=''
+                type='switch'
+                {...register(`permission-${item.id}`, { required: true })}
+                id={`permission-${item.id}`}
+                label={item.name}
 
-                defaultValue=""
-                {...register('check-box-1', { required: true })}
-                ref={null}
-                render={({ field: { onChange, onBlur, value, ref } }) => (
-                  <Form.Control
-                    onChange={onChange}
-                    value={value}
-                    type="checkbox"
-                    ref={ref}
-                //    isInvalid={errors.fisrt_name}
-                    placeholder="Enter role name"
-                    className="slider round"
-                  />
-                )}
+
+
               />
-              <label className="switch">
-                <input  name='check-1'/>
-                  <span ></span>
-              </label>
-            </Form.Group>
 
-
-
-
-
-
+                </Form.Group>
+              ))}
 
         <div className="d-flex justify-content-end p-2 mt-3">
           <Button
@@ -148,7 +149,7 @@ const RoleAdd = (props) => {
             variant="danger"
             type="submit"
             className="font-weight-bold me-3"
-
+             disabled={!isValid}
           >
             Save
           </Button>

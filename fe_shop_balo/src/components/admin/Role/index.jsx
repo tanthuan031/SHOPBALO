@@ -1,21 +1,14 @@
 import React, { useState, useRef } from 'react';
-import { FaFemale, FaMale, FaPen, FaTimes, FaTimesCircle } from 'react-icons/fa';
+import { FaChessKing, FaPen, FaTimes, FaTimesCircle } from 'react-icons/fa';
 import Modal from '../../commons/Layouts/Modal';
 import TableLayout from '../../commons/Layouts/Table';
-import AutoSendMail from '../../commons/Layouts/AutoSendMail';
-import { BsFillTelephoneFill } from 'react-icons/bs';
-import { HiMail } from 'react-icons/hi';
-import { MdOutlineManageAccounts } from 'react-icons/md';
-import { FiMapPin } from 'react-icons/fi';
-import { GrStatusUnknown } from 'react-icons/gr';
-import AutoCallPhone from '../../commons/Layouts/AutoCallPhone';
-import { setIsEdit, setIsReset } from '../../../redux/reducer/staff/staff.reducer';
+import { setIsEdit, setIsReset } from '../../../redux/reducer/role/role.reducer';
 import Notiflix from 'notiflix';
 import { ErrorToast, SuccessToast } from '../../commons/Layouts/Alerts';
-
 import { useDispatch } from 'react-redux';
-import ImageCustom from '../../commons/Layouts/Image';
 import { setRole } from '../../../redux/reducer/role/role.reducer';
+import "./style.css"
+import { deleteRole, getRoleById } from '../../../api/Admin/role/roleAPI';
 
 export function RoleTable(props) {
   const [show, setShowDetail] = useState(false);
@@ -33,7 +26,7 @@ export function RoleTable(props) {
   };
   const handleEditRole = async (e, id) => {
     e.stopPropagation();
-    const data=[] //= await getRoleById(id);
+    const data=await getRoleById(id);
     if (Object.keys(data).length > 0) {
       dispatch(setRole(data));
       dispatch(setIsEdit(true));
@@ -50,12 +43,12 @@ export function RoleTable(props) {
   };
   const handleRemoveRole = async (id) => {
     //e.stopPropagation();
-    const result =[] //await deleteRole(id);
-    console.log('result', result);
+    const result =await deleteRole(id);
+    // console.log('result', result);
     if (result === 200) {
-      SuccessToast('Remove staff successfully', 3000);
+      SuccessToast('Remove role successfully', 3000);
     } else if (result === 404) {
-      ErrorToast('Remove staffs unsuccessfully', 3000);
+      ErrorToast('Remove role unsuccessfully', 3000);
       Notiflix.Block.remove('#root');
     } else if (result === 401) {
       Notiflix.Block.remove('#root');
@@ -71,20 +64,16 @@ export function RoleTable(props) {
     return props.tableBody.map((item) => {
       return (
         <tr key={item.id} className="row-data cursor-pointer" onClick={() => showDetail({ item })}>
-
-          <td className="col-txt">
-            {`${item.first_name} ${item.last_name}`}
-            <small className="sub-txt">Gender: {item.gender}</small>
-          </td>
+          <td>{item.id}</td>
           <td>{item.name}</td>
 
           <td>
             <p
               className={`text-center border-radius-2px ${
-                item.status === 1 ? 'bg-success-100 text-success' : 'bg-red-100 text-red '
+                item.status === 'Active' ? 'bg-success-100 text-success' : 'bg-red-100 text-red '
               }`}
             >
-              {item.status === 1 ? 'Active' : 'Disabled'}
+              {item.status ==='Active' ? 'Active' : 'Disabled'}
             </p>
           </td>
           <td>
@@ -113,42 +102,29 @@ export function RoleTable(props) {
   };
   const renderDetailRole = (item) => {
     return (
-      <div className="card-overlay">
-        <div className="card-image-overlay">
-          {/* <img className="avatar-detail" src={`${URL_SERVER}/storage/staff/${item.avatar}`} /> */}
-          <ImageCustom type="avatar-overlay" src={item.avatar} />
-          <p className="card-txt card-txt-title">{`${item.first_name} ${item.last_name}`}</p>
-          <p className="card-txt">
-            <BsFillTelephoneFill className="icon" />
-            {item.phone && <AutoCallPhone phoneNumber={item.phone} />}
-          </p>
-          <p className="card-txt">
-            {' '}
-            <HiMail className="cursor-pointer spinner icon" />
-            {item.email && <AutoSendMail email={item.email} className="spinner" />}
+      <div className="card-overlay box-overlay-role">
+        <div className="card-image-overlay bg-img-role ">
+          <div className='w-100 d-flex justify-content-center align-items-center mt-4 mb-2'>
+            <FaChessKing className='cursor-pointer  icon-role '/>
+          </div>
+          <p className="card-txt txt-white ">
+            <h3 className='mb-2 text-justify'>{item.name}</h3>
+            <p
+              className={`  border-radius-2px h50x d-flex justify-content-center align-items-center ${
+                item.status === 'Active' ? 'bg-success-500 text-white' : 'bg-red-500 text-white '
+              }`}
+            >
+              {item.status ==='Active' ? 'Active' : 'Disabled'}
+            </p>
+
           </p>
         </div>
-        <div className="card-content-overlay">
-          <p className="card-txt-content">
-            <MdOutlineManageAccounts className="icon" />
-            {item.role_name}
-          </p>
-          <p className="card-txt-content">
-            {item.gender === 'female' ? <FaFemale className="icon" /> : <FaMale className="icon" />}
-            {item.gender}
-          </p>
-          <p className="card-txt-content">
-            {' '}
-            <FiMapPin className="icon" /> {item.address}
-          </p>
-          <p className="card-txt-content">
-            {' '}
-            <GrStatusUnknown className="icon" /> {item.status === 1 ? 'Active' : 'Disabled'}
-          </p>
-          <p className="card-txt-content">
-            {' '}
-            <strong>Enrollment date:</strong> {item.created_date}
-          </p>
+        <div className="card-content-overlay bg-content-role">
+          <ul className="card-txt-content txt-white">
+                       {!!item && item.list_permissions.map((item, i) =>
+                         (<li key={item.id} className="mb-1 text-center">{item.name}</li>))}
+          </ul>
+
         </div>
       </div>
     );

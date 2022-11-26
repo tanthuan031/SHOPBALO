@@ -18,12 +18,14 @@ import { formatDate } from '../../../../utils/formatDate';
 import { setExpiredToken } from '../../../../redux/reducer/auth/auth.reducer';
 import { deleteCookie, getCookies } from '../../../../api/Admin/Auth';
 import ImageCustom from '../../../commons/Layouts/Image';
+import { getAllRoles } from '../../../../api/Admin/role/roleAPI';
 
 const StaffEdit = (props) => {
   const staffSelector = useSelector(staffByIdSelector);
   const dataStaff = staffSelector.data;
   const [imageAvatarStaffShow, setImageAvatarStaffShow] = useState(false);
   const [status, setStatus] = useState(dataStaff.status);
+  const [listRole, setListRole] = useState([])
   const data_roles = [
     { value: 1, label: 'Admin' },
     { value: 2, label: 'Admin_Warehouse' },
@@ -61,7 +63,15 @@ const StaffEdit = (props) => {
   });
 
   const dispatch = useDispatch();
-
+  useEffect(() => {
+    let filterStatus='Active'
+    const getListRoles = async ()=> {
+      const result = await getAllRoles({filterStatus});
+      setListRole(result.data.map((item)=>
+        ( { value: item.id, label: item.name })));
+    }
+    getListRoles()
+  },[])
   const backtoManageStaff = () => {
     dispatch(setIsEdit(false));
   };
@@ -243,7 +253,7 @@ const StaffEdit = (props) => {
                 render={({ field }) => (
                   <Select
                     {...field}
-                    options={data_roles}
+                    options={listRole}
                     theme={(theme) => ({
                       ...theme,
                       colors: {
