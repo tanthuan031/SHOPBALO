@@ -47,12 +47,13 @@ class RoleController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param int $id
+     * @return \Illuminate\Http\JsonResponse
      */
-    public function show($id)
+    public function show(int $id): \Illuminate\Http\JsonResponse
     {
-        //
+
+        return $this->roleService->getRoleById($id);
     }
 
     /**
@@ -73,7 +74,7 @@ class RoleController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\JsonResponse
      */
-    public function update(Request $request, $id)
+    public function update(Request $request,int $id): \Illuminate\Http\JsonResponse
     {
         return $this->roleService->updateRole($request, $id);
     }

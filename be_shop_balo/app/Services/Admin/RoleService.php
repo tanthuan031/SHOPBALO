@@ -30,13 +30,23 @@ class RoleService
         }
     }
 
+    public function getRoleById($id): \Illuminate\Http\JsonResponse
+    {
+
+        $result = $this->RoleRepository->getRoleById($id);
+
+        if ($result) {
+            return $this->apiResponse($result, 'success', 'Get  Role success');
+        } else {
+            return $this->apiResponse([], 'fail', 'Get Role unsuccessful');
+        }
+    }
+
 
     public function storeRole($request): \Illuminate\Http\JsonResponse
     {
 
         $result = $this->RoleRepository->storeRole($request);
-
-
         if ($result) {
             return $this->apiResponse($result, 'success', 'Create Role successful');
         } else {

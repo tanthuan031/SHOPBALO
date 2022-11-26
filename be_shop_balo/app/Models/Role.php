@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Facades\DB;
 
 class Role extends Model
 {
@@ -15,20 +16,35 @@ class Role extends Model
         'name',
         'status'
     ];
-    public function scopeStatus($query, $status)
+    public function scopeSort($query, $request)
     {
+        return $query
+            ->when($request->has("sort"), function ($query) use ($request) {
+                $sortBy = '';
+                $sortValue = '';
 
-        switch ($status) {
-            case 'Active':
-                return $query->where('status', $status);
-                break;
-            case 'InActive':
-                return $query->where('status', $status);
-                break;
-            default:
+                foreach ($request->query("sort") as $key => $value) {
+                    $sortBy = $key;
+                    $sortValue = $value;
+                }
 
-                return $query;
-        }
+                $query->orderBy($sortBy, $sortValue);
+            });
+    }
+    public function scopeFilter($query, $request)
+    {
+        return $query->when($request->has('filter.status'), function ($query) use ($request) {
+            $list = explode(",", $request->query("filter")["status"]);
+            $query->whereIn("status", $list);
+        });
+    }
+    public function scopeSearch($query, $request)
+    {
+        return $query
+            ->when($request->has('name'), function ($query) use ($request) {
+                $search = $request->query('name');
+                $query->where("name", "LIKE", "%{$search}%");
+            });
     }
     public function  role_permissions(): HasMany
     {

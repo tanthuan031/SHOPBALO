@@ -6,6 +6,8 @@ use App\Http\Resources\Admin\Permission\PermissionResource;
 use App\Models\RolePermission;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
+use PhpParser\Node\Expr\Cast\Object_;
+use stdClass;
 
 
 class RoleResource extends JsonResource
@@ -22,7 +24,10 @@ class RoleResource extends JsonResource
         $listPermissions =@$this->role_permissions->toArray();
         $arrayPermissionID=array();
         foreach($listPermissions as $item) {
-                array_push($arrayPermissionID,$item['permissions']['name']);
+            $obj = new stdClass();
+            $obj->{"id"} = $item['permissions']['id'];
+            $obj->{"name"} = $item['permissions']['name'];
+                array_push($arrayPermissionID,(object)$obj);
         }
         $arrayData = [
             'id' => $this->id,
