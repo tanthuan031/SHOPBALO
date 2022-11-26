@@ -19,11 +19,17 @@ class CustomerRepository extends BaseRepository
     }
     public function getAllCustomer($request)
     {
-        $data = Customer::query()
-            ->sort($request)
-            ->search($request)
-            ->filter($request)
-            ->paginate($this->paginate);
+
+        if ($request->has('get-all')) {
+            $data = Customer::query()->get();
+        } else {
+            $data = Customer::query()
+                ->sort($request)
+                ->search($request)
+                ->filter($request)
+                ->paginate($this->paginate);
+        }
+
         return CustomerResource::collection($data)->response()->getData();
     }
     public  function getNewCustomerToday()

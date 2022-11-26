@@ -73,10 +73,10 @@ export function OrderTable(props) {
               }
             })()}
           </td>
-          <td>{item.discount}</td>
+          <td>{item.discount_value}%</td>
           {/* <td>{item.description}</td> */}
           <td>{item.total_price}</td>
-          <td>{item.discount_value}</td>
+
           {/* <td>{item.image}</td> */}
           <td>{item.created_order_date}</td>
           <td>

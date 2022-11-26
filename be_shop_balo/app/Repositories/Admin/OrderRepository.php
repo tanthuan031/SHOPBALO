@@ -6,6 +6,7 @@ use App\Http\Resources\Admin\Order\OrderDetailResource;
 use App\Http\Resources\Admin\Order\OrderResource;
 use App\Models\Order;
 use App\Models\OrderDetail;
+use App\Models\ProductDetail;
 use App\Repositories\BaseRepository;
 use Exception;
 use Illuminate\Support\Facades\DB;
@@ -187,7 +188,7 @@ class OrderRepository extends BaseRepository
                 $result = Order::query();
 
                 $result = $result->select(DB::raw('EXTRACT(DAY from created_order_date) as date'), DB::raw('SUM(cast(total_price  AS FLOAT)) AS revenue'))
-                    ->where('status',6)
+                    ->where('status', 6)
                     ->groupBy('date', 'created_order_date')
                     ->having(Order::raw('DATE("created_order_date") '), '>=', "'$start'")
                     ->having(Order::raw('DATE("created_order_date") '), '<=', "'$end'")
@@ -199,7 +200,7 @@ class OrderRepository extends BaseRepository
             try {
                 $result = Order::query()
                     ->select(DB::raw('DATE(created_order_date) as date'), DB::raw('SUM(total_price) AS revenue'))
-                    ->where('status',6)
+                    ->where('status', 6)
                     ->groupBy('date')
                     ->havingRaw("date BETWEEN  '" . $start . "' AND '" . $end . "'")
                     ->get();
@@ -219,7 +220,7 @@ class OrderRepository extends BaseRepository
             $result = Order::query()
                 ->join('staff', 'staff.id', '=', 'orders.staff_id')
                 ->select('orders.staff_id', 'staff.first_name', 'staff.last_name', DB::raw('COUNT(orders.staff_id) as amount_order'))
-                ->where('orders.status',6)
+                ->where('orders.status', 6)
                 ->groupBy('orders.staff_id', 'staff.first_name', 'staff.last_name')
                 ->skip(0)->take(5)
                 ->get();
@@ -242,7 +243,7 @@ class OrderRepository extends BaseRepository
             $result = Order::query()
                 ->join('customers', 'customers.id', '=', 'orders.customer_id')
                 ->select('orders.customer_id', 'customers.first_name', 'customers.last_name', DB::raw('COUNT(orders.customer_id) as amount_order'))
-                ->where('orders.status',6)
+                ->where('orders.status', 6)
                 ->groupBy('orders.customer_id', 'customers.first_name', 'customers.last_name')
                 ->skip(0)->take(5)
                 ->get();
@@ -264,12 +265,47 @@ class OrderRepository extends BaseRepository
                 ->join('products', 'products.id', '=', 'order_details.product_id')
                 ->join('categories', 'categories.id', '=', 'products.category_id')
                 ->select('categories.id', 'categories.name', DB::raw('COUNT(categories.id) as amount_categories'))
-                ->where('orders.status',6)
+                ->where('orders.status', 6)
                 ->groupBy('categories.id', 'categories.name')
                 ->get();
         } catch (\Exception $e) {
             return false;
         }
         return response()->json($result)->getData();
+    }
+
+    public function storeOrder($request): \Illuminate\Database\Eloquent\Model|bool|\Illuminate\Database\Eloquent\Builder
+    {
+
+        $dataRequest = [
+            'address_delivery' => $request->address_delivery,
+            'customer_id' => $request->customer_id,
+            'discount_id' => $request->discount_id,
+            'discount_value' => $request->discount_value,
+            'staff_id' => $request->staff_id,
+            'status' => $request->status,
+            'total_price' => $request->total_price,
+            'created_order_date' => date('Y-m-d')
+        ];
+        // dd($dataRequest);
+        $arrayDetail = $request->order_detail;
+        try {
+            $order = Order::query()->create($dataRequest);
+            foreach ($arrayDetail as $item) {
+                $productId = ProductDetail::query()->where('product_id', '=', $item['id'])->first();
+                OrderDetail::query()->create([
+                    'order_id' => $order['id'],
+                    'product_id' => $item['id'],
+                    'amount' => $item['qty'],
+                    'price' => $item['price'],
+                ]);
+                $productId->update([
+                    'amount' => (int) $productId['amount'] - (int) $item['qty']
+                ]);
+            }
+        } catch (\Exception $e) {
+            return false;
+        }
+        return Order::query()->find($order['id']);
     }
 }

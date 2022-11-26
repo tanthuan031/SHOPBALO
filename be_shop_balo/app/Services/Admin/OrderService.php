@@ -57,26 +57,28 @@ class OrderService
     public function getFigureOrderToday(): \Illuminate\Http\JsonResponse
     {
         $result = $this->orderRepository->getOrderToday();
-        $data=[
+        $data = [
 
-            'data'=>$result
+            'data' => $result
         ];
         if ($result) {
             return $this->apiResponse($data, 'success', 'Figure Order today successfully');
-        }else
-        { return $this->apiResponse([], 'fail', 'Figure Order today unsuccessfully'); }
+        } else {
+            return $this->apiResponse([], 'fail', 'Figure Order today unsuccessfully');
+        }
     }
     public function getFigureRevenueToday(): \Illuminate\Http\JsonResponse
     {
         $result = $this->orderRepository->getRevenueToday();
-        $data=[
+        $data = [
 
-            'data'=>$result
+            'data' => $result
         ];
         if ($result) {
             return $this->apiResponse($data, 'success', 'Figure Order today successfully');
-        }else
-        { return $this->apiResponse([], 'fail', 'Figure Order today unsuccessfully'); }
+        } else {
+            return $this->apiResponse([], 'fail', 'Figure Order today unsuccessfully');
+        }
     }
 
 
@@ -85,64 +87,75 @@ class OrderService
     {
 
         $result = $this->orderRepository->getFigureOrders($request);
-        if(!$result) $result=[];
-        $data=[
-            'data'=>$result
+        if (!$result) $result = [];
+        $data = [
+            'data' => $result
         ];
 
-            return $this->apiResponse($data, 'success', 'Figure Order successfully');
-
+        return $this->apiResponse($data, 'success', 'Figure Order successfully');
     }
     public function getFigureRevenue($request): \Illuminate\Http\JsonResponse
     {
 
         $result = $this->orderRepository->getFigureRevenue($request);
-        $data=[
+        $data = [
 
-            'data'=>$result
+            'data' => $result
         ];
 
-            return $this->apiResponse($data, 'success', 'Figure Order successfully');
-
+        return $this->apiResponse($data, 'success', 'Figure Order successfully');
     }
     public function getTopStaffSelling($request): \Illuminate\Http\JsonResponse
     {
 
         $result = $this->orderRepository->getFigureStaffSelling($request);
-        $data=[
+        $data = [
 
-            'data'=>$result
+            'data' => $result
         ];
         if ($result) {
             return $this->apiResponse($data, 'success', 'Figure Order successfully');
-        }else
-        { return $this->apiResponse([], 'fail', 'Figure Order unsuccessfully'); }
+        } else {
+            return $this->apiResponse([], 'fail', 'Figure Order unsuccessfully');
+        }
     }
     public function getTopCustomerBuying($request): \Illuminate\Http\JsonResponse
     {
 
         $result = $this->orderRepository->getFigureCustomerBuying($request);
-        $data=[
+        $data = [
 
-            'data'=>$result
+            'data' => $result
         ];
         if ($result) {
             return $this->apiResponse($data, 'success', 'Figure Order successfully');
-        }else
-        { return $this->apiResponse([], 'fail', 'Figure Order unsuccessfully'); }
+        } else {
+            return $this->apiResponse([], 'fail', 'Figure Order unsuccessfully');
+        }
     }
     public function getFigureCategorySelling($request): \Illuminate\Http\JsonResponse
     {
 
         $result = $this->orderRepository->getFigureCategorySelling($request);
-        $data=[
+        $data = [
 
-            'data'=>$result
+            'data' => $result
         ];
         if ($result) {
             return $this->apiResponse($data, 'success', 'Figure Order successfully');
-        }else
-        { return $this->apiResponse([], 'fail', 'Figure Order unsuccessfully'); }
+        } else {
+            return $this->apiResponse([], 'fail', 'Figure Order unsuccessfully');
+        }
     }
 
+    public function store($request)
+    {
+        // dd($request);
+        $result = $this->orderRepository->storeOrder($request);
+        if ($result) {
+            return $this->apiResponse($result, 'success', 'Create order successfully');
+        } else {
+            return $this->apiResponse([], 'fail', 'Create order unsuccessful');
+        }
+    }
 }

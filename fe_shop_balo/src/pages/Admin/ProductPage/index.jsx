@@ -34,7 +34,6 @@ export function ProductPage(props) {
   const [perPage] = useState(10);
   const isAdd = useSelector(isAddSelector);
   const isEdit = useSelector(isEditSelector);
-  console.log(isEdit);
   const [sort, setCurrentSort] = useState([
     {
       key: 'id',

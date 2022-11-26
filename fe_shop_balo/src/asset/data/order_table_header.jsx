@@ -49,14 +49,6 @@ export const order_table_header = [
   },
   {
     id: 6,
-    name: 'Price not discount',
-    isSortAsc: false,
-    isSortDesc: false,
-    isSort: true,
-    cursor: true,
-  },
-  {
-    id: 7,
     name: 'Price discount',
     isSortAsc: false,
     isSortDesc: false,
@@ -64,7 +56,7 @@ export const order_table_header = [
     cursor: true,
   },
   {
-    id: 8,
+    id: 7,
     name: 'Date order',
     isSortAsc: false,
     isSortDesc: false,
@@ -72,7 +64,7 @@ export const order_table_header = [
     cursor: true,
   },
   {
-    id: 9,
+    id: 8,
     name: 'Action',
     isSortAsc: false,
     isSortDesc: false,

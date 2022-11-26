@@ -4,6 +4,7 @@ export const orderReducer = createSlice({
   name: 'order',
   initialState: {
     key: 0,
+    isAdd: false,
     isEdit: false,
     isDetail: false,
     orderById: {},
@@ -12,6 +13,9 @@ export const orderReducer = createSlice({
   reducers: {
     setKey: (state, action) => {
       state.key = action.payload;
+    },
+    setIsAdd: (state, action) => {
+      state.isAdd = action.payload;
     },
     setIsEdit: (state, action) => {
       state.isEdit = action.payload;
@@ -27,5 +31,5 @@ export const orderReducer = createSlice({
     },
   },
 });
-export const { setIsEdit, setOrder, setIsDetail, setOrderDetail } = orderReducer.actions;
+export const { setIsEdit, setOrder, setIsDetail, setOrderDetail, setIsAdd } = orderReducer.actions;
 export default orderReducer.reducer;
