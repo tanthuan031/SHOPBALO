@@ -19,6 +19,7 @@ export const menu_admin_item = [
     active: true,
     link: '/admin/',
     icon: <FaHome />,
+    role: 1,
   },
   {
     id: 2,
@@ -26,6 +27,7 @@ export const menu_admin_item = [
     active: false,
     link: '/admin/category',
     icon: <FaThLarge />,
+    role: 2,
   },
   {
     id: 3,
@@ -33,6 +35,7 @@ export const menu_admin_item = [
     active: false,
     link: '/admin/product',
     icon: <FaTasks />,
+    role: 3,
   },
   {
     id: 4,
@@ -40,6 +43,7 @@ export const menu_admin_item = [
     active: false,
     link: '/admin/promotion',
     icon: <FaBullhorn />,
+    role: 4,
   },
   {
     id: 5,
@@ -47,6 +51,7 @@ export const menu_admin_item = [
     active: false,
     link: '/admin/Order',
     icon: <FaFirstOrderAlt />,
+    role: 5,
   },
   {
     id: 6,
@@ -54,6 +59,7 @@ export const menu_admin_item = [
     active: false,
     link: '/admin/staff',
     icon: <FaUserTie />,
+    role: 6,
   },
   {
     id: 7,
@@ -61,6 +67,7 @@ export const menu_admin_item = [
     active: false,
     link: '/admin/customer',
     icon: <FaUsers />,
+    role: 7,
   },
   {
     id: 8,
@@ -68,6 +75,7 @@ export const menu_admin_item = [
     active: false,
     link: '/admin/review',
     icon: <FaComments />,
+    role: 8,
   },
   {
     id: 9,
@@ -75,13 +83,15 @@ export const menu_admin_item = [
     active: false,
     link: '/admin/decentralization',
     icon: <FaUsersCog />,
+    role: 9,
   },
   {
-    id: 9,
+    id: 10,
     name: 'Slider',
     active: false,
     link: '/admin/slider',
     icon: <FaImages />,
+    role: 10,
   },
   // {
   //   id: 11,

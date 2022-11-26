@@ -31,6 +31,7 @@ class AuthService
     public function getMe()
     {
         $result = $this->authRepository->getMe();
+        $role = $this->authRepository->getRole();
         $arrayData = [
             'id' =>  $result->id,
             'first_name' =>  $result->first_name,
@@ -39,6 +40,7 @@ class AuthService
             'phone' =>  $result->phone,
             'email' =>  $result->email,
             'role_id' =>  $result->role_id,
+            'role_permissions' => $role,
             'password' =>  $result->password,
             'point' =>  $result->point,
             'avatar' => (explode("://", $result->avatar))[0] === "https" ?  $result->avatar : env('APP_URL') . '/storage/staff/'  .  $result->avatar,

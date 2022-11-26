@@ -4,6 +4,7 @@ namespace App\Repositories\Admin\Auth;
 
 use App\Mail\SendMail;
 use App\Models\EmailOtp;
+use App\Models\RolePermission;
 use App\Models\Staff;
 use App\Repositories\BaseRepository;
 use Exception;
@@ -57,6 +58,13 @@ class AuthRepository extends BaseRepository
     {
         // dd(Auth::user()->fullname);
         return Auth::user();
+    }
+    public function getRole()
+    {
+        $user = Auth::user();
+        // dd(Auth::user()->fullname);
+        $result = RolePermission::query()->where('role_id', '=', $user->role_id)->get();
+        return $result;
     }
     public function logout($request)
     {
