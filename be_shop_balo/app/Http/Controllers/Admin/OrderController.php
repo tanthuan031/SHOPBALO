@@ -43,7 +43,7 @@ class OrderController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        return $this->orderService->store($request);
     }
 
     /**

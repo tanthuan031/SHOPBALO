@@ -12,7 +12,7 @@ export const configHeadersAuthenticate = () => {
   };
 };
 
-export const getAllCustomers = async ({ sort, filterStatus, filterRole, filter, search, page } = {}) => {
+export const getAllCustomers = async ({ sort, filterStatus, filterRole, filter, search, page, getAll } = {}) => {
   const url = '/api/admin/customer';
   const queryString = [];
   if (sort && sort.length > 0) {
@@ -33,8 +33,8 @@ export const getAllCustomers = async ({ sort, filterStatus, filterRole, filter, 
   if (filterRole) {
     queryString.push(`filter[category_id]=${filterRole}`);
   }
-  if (page) {
-    queryString.push(`page=${page}`);
+  if (getAll) {
+    queryString.push(`get-all`);
   }
   const final_url = concatQueryString(queryString, url);
   //console.log(final_url)

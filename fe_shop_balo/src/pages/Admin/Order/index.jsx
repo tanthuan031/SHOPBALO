@@ -14,24 +14,31 @@ import { OrderTable } from '../../../components/admin/Order';
 import OrderDetail from '../../../components/admin/Order/OrderDetail';
 import UpdateStatusOrder from '../../../components/admin/Order/UpdateStatusOrder';
 import { setExpiredToken } from '../../../redux/reducer/auth/auth.reducer';
-import { isEditStatusOrderSelector, isOrderDetailSelector } from '../../../redux/selectors/order/order.selector';
+import {
+  isAddOrderSelector,
+  isEditStatusOrderSelector,
+  isOrderDetailSelector,
+} from '../../../redux/selectors/order/order.selector';
 import FilterOrder from '../../../components/admin/Order/FilterOrder';
 import Notiflix from 'notiflix';
-import { setIsDetail, setIsEdit } from '../../../redux/reducer/order/order.reducer';
+import { setIsAdd, setIsDetail, setIsEdit } from '../../../redux/reducer/order/order.reducer';
+import OrderAdd from '../../../components/admin/Order/Add';
+import { getAllProducts } from '../../../api/Admin/Product/productAPI';
 
 function OrderPage(props) {
   const data_order_table_header = [...order_table_header];
 
   const [data, setData] = useState([]);
+  const [listProduct, setProduct] = useState([]);
   const [page, setPage] = useState(1);
   const [totalRecord, setTotalRecord] = useState(0);
   const [loading, setLoading] = useState(true);
   const [perPage] = useState(10);
+  const isAddOrder = useSelector(isAddOrderSelector);
   const isUpdateStatus = useSelector(isEditStatusOrderSelector);
   const isOrderDetail = useSelector(isOrderDetailSelector);
   const [search, setSearch] = useState('');
   const dispatch = useDispatch();
-  console.log('fr', isOrderDetail);
   useEffect(() => {
     const handleGetAllOrder = async () => {
       const result = await getAllOrder({});
@@ -45,6 +52,7 @@ function OrderPage(props) {
       }
       setLoading(false);
     };
+
     handleGetAllOrder();
   }, [dispatch]);
 
@@ -139,43 +147,64 @@ function OrderPage(props) {
     <>
       <section>
         <div className="container-fluid mt-5">
-          {!isUpdateStatus && !isOrderDetail ? (
+          {!isUpdateStatus && !isOrderDetail && !isAddOrder && (
             <h5 className="text-danger font-weight-bold mb-3">Order List</h5>
-          ) : isOrderDetail ? (
-            <h5 className="text-danger font-weight-bold mb-3">
-              <span
-                className="cursor-pointer"
-                onClick={() => {
-                  dispatch(setIsEdit(false));
-                  dispatch(setIsDetail(false));
-                }}
-              >
-                Order List
-              </span>
-              / Order Detail
-            </h5>
-          ) : (
-            <h5 className="text-danger font-weight-bold mb-3">
-              <span
-                className="cursor-pointer"
-                onClick={() => {
-                  dispatch(setIsEdit(false));
-                  dispatch(setIsDetail(false));
-                }}
-              >
-                Order List
-              </span>
-              / Update Status
-            </h5>
           )}
 
-          {!isUpdateStatus && !isOrderDetail ? (
+          {isAddOrder && !isOrderDetail && !isUpdateStatus && (
+            <>
+              <h5 className="text-danger font-weight-bold mb-3">
+                <span
+                  className="cursor-pointer"
+                  onClick={() => {
+                    dispatch(setIsAdd(false));
+                  }}
+                >
+                  Order List
+                </span>
+                / Order Add
+              </h5>
+            </>
+          )}
+          {!isAddOrder && isOrderDetail && !isUpdateStatus && (
+            <>
+              <h5 className="text-danger font-weight-bold mb-3">
+                <span
+                  className="cursor-pointer"
+                  onClick={() => {
+                    dispatch(setIsEdit(false));
+                    dispatch(setIsDetail(false));
+                  }}
+                >
+                  Order List
+                </span>
+                / Order Detail
+              </h5>
+            </>
+          )}
+          {!isAddOrder && !isOrderDetail && isUpdateStatus && (
+            <>
+              <h5 className="text-danger font-weight-bold mb-3">
+                <span
+                  className="cursor-pointer"
+                  onClick={() => {
+                    dispatch(setIsEdit(false));
+                    dispatch(setIsDetail(false));
+                  }}
+                >
+                  Order List
+                </span>
+                / Update Status
+              </h5>
+            </>
+          )}
+          {!isUpdateStatus && !isOrderDetail && !isAddOrder ? (
             <div className="row ">
               <div className="d-flex justify-content-between">
                 <div className="d-flex  ">
                   <FilterOrder currentFilter="" setCurrentFilter={handleCurrentFilter} data={dataStatus} />
                 </div>
-                <div className="d-flex ">
+                <div className="d-flex justify-content-between ">
                   <Form onSubmit={(e) => handleSearchOrder(e)}>
                     <InputGroup>
                       <Form.Control
@@ -189,6 +218,14 @@ function OrderPage(props) {
                       </Button>
                     </InputGroup>
                   </Form>
+                  <Button
+                    id="create-new-product"
+                    variant="danger"
+                    className="font-weight-bold ms-3"
+                    onClick={() => dispatch(setIsAdd(true))}
+                  >
+                    Create order
+                  </Button>
                 </div>
               </div>
             </div>
@@ -196,7 +233,7 @@ function OrderPage(props) {
             ''
           )}
 
-          {!isUpdateStatus && !isOrderDetail ? (
+          {!isUpdateStatus && !isOrderDetail && !isAddOrder ? (
             <div className="row justify-content-center">
               <>
                 {!loading ? (
@@ -225,6 +262,7 @@ function OrderPage(props) {
             <>
               {isUpdateStatus && <UpdateStatusOrder backToOrderList={backToOrderList} />}
               {isOrderDetail && <OrderDetail dataOrder={data} />}
+              {isAddOrder && <OrderAdd backToOrderList={backToOrderList} />}
             </>
           )}
         </div>

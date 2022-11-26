@@ -18,6 +18,7 @@ class OrderResource extends JsonResource
             'order_id' => $this->id,
             'customer_id' => $this->customer_id,
             'customer_firstname' => $this->customers->first_name,
+            'address_delivery' => $this->address_delivery,
             'customer_lastname' => $this->customers->last_name,
             'customer_address' => $this->customers->address,
             'customer_phone' => $this->customers->phone,
@@ -32,5 +33,4 @@ class OrderResource extends JsonResource
         ];
         return $arrayOrder;
     }
-
 }

@@ -12,7 +12,6 @@ export default function FilterOrder(props) {
     props.setCurrentFilter(value);
     setCheckedOrder(value);
   };
-  console.log('dh', checkedOrder);
   return (
     <Dropdown>
       <Dropdown.Toggle
