@@ -54,13 +54,14 @@ const RoleAdd = (props) => {
     BlockUI('#root', 'fixed');
     var listPermissions = [];
     Object.keys(data).forEach(key=>{
-      (data[key]===true) && listPermissions.push({permission_id:key.split('-')[1]})
+      (data[key]===true) && listPermissions.push({permission_id:+key.split('-')[1]})
     })
     const roleData = {
       name: data.name,
       listPermissions:listPermissions,
       status: 'Active',
     };
+    console.log(roleData);
     const result= await addRole(roleData);
     Notiflix.Block.remove('#root');
     if (result === 200) {

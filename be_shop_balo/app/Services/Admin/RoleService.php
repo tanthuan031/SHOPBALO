@@ -46,7 +46,8 @@ class RoleService
     public function storeRole($request): \Illuminate\Http\JsonResponse
     {
 
-        $result = $this->RoleRepository->storeRole($request);
+
+       $result= $this->RoleRepository->storeRole($request);
         if ($result) {
             return $this->apiResponse($result, 'success', 'Create Role successful');
         } else {

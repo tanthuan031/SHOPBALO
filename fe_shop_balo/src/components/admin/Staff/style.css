@@ -70,8 +70,16 @@
 .card-txt-content {
   font-size: 18px;
   display: block;
-  margin: 14px;
+ margin:0;
+
   color: var(--bs-sub-txt);
+}
+.card-txt-content:hover {
+  height:100%;
+  overflow:scroll;
+  overflow-x: hidden;
+  margin:0 0.2rem;
+
 }
 .icon {
   font-size: 20px;

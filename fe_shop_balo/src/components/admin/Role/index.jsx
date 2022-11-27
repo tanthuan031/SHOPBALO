@@ -107,8 +107,8 @@ export function RoleTable(props) {
           <div className='w-100 d-flex justify-content-center align-items-center mt-4 mb-2'>
             <FaChessKing className='cursor-pointer  icon-role '/>
           </div>
-          <p className="card-txt txt-white ">
-            <h3 className='mb-2 text-justify'>{item.name}</h3>
+          <p className="card-txt txt-white  ">
+            <h3 className='mb-2 '>{item.name}</h3>
             <p
               className={`  border-radius-2px h50x d-flex justify-content-center align-items-center ${
                 item.status === 'Active' ? 'bg-success-500 text-white' : 'bg-red-500 text-white '
@@ -120,9 +120,9 @@ export function RoleTable(props) {
           </p>
         </div>
         <div className="card-content-overlay bg-content-role">
-          <ul className="card-txt-content txt-white">
+          <ul className="card-txt-content  ">
                        {!!item && item.list_permissions.map((item, i) =>
-                         (<li key={item.id} className="mb-1 text-center">{item.name}</li>))}
+                         (<li key={item.id} className="mb-1 text-center txt-white">{item.name}</li>))}
           </ul>
 
         </div>

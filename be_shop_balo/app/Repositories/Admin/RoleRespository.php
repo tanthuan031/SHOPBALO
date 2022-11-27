@@ -59,30 +59,36 @@ class RoleRespository extends BaseRepository
 
     public function storeRole($request): \Illuminate\Database\Eloquent\Builder|string
     {
+        DB::beginTransaction();
         try {
             $listPermissions =$request->listPermissions;
             $data = Role::query()->create([
                 'name'=>$request->input('name'),
                 'status'=>'Active',
             ]);
-            foreach ($listPermissions as $item) {
+            sleep(1);
+            foreach ($request->listPermissions as $item) {
                 $result=RolePermission::query()->create([
-                    'role_id' =>$data['id'],
-                    'permission_id' => $item['permission_id']
+                    'role_id' =>(int) $data['id'],
+                    'permission_id' => (int) $item['permission_id']
                 ]);
             }
-         return $result;
+            DB::commit();
+
 
         } catch (\Exception $e) {
+            DB::rollBack();
           return false;
         }
+        return  $result;
     }
     public function updateRole($request, $id)
     {
+        DB::beginTransaction();
        try {
             $Role = Role::query()->where('id', '=', $id)->first();
             $Role->update($request->all());
-
+            
            $listPermissions =$request->listPermissions;
            //xoa
            $list = RolePermission::query()->where('role_id', '=', $id)->delete();
@@ -93,20 +99,25 @@ class RoleRespository extends BaseRepository
                    'permission_id' => $item['permission_id']
                ]);
            }
+           DB::commit();
         }
         catch (\Exception $e){
-           dd($e);
+          // dd($e);
+            DB::rollBack();
            return false;
         }
         return $Role;
     }
     public function deleteRole($id)
     {
+        DB::beginTransaction();
         try {
             $Role =  Role::query()->where('id', '=', $id)->first();
             $list = RolePermission::query()->where('role_id', $id)->delete();
             $Role->delete();
+            DB::commit();
         } catch (\Exception $e) {
+            DB::rollBack();
             return false;
         }
         return $Role;
