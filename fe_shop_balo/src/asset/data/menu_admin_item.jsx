@@ -10,6 +10,8 @@ import {
   FaUsersCog,
   FaUserTie,
   FaImages,
+  FaFileExport,
+  FaFileImport,
 } from 'react-icons/fa';
 
 export const menu_admin_item = [
@@ -93,11 +95,45 @@ export const menu_admin_item = [
     icon: <FaImages />,
     role: 10,
   },
-  // {
-  //   id: 11,
-  //   name: "Report",
-  //   active: false,
-  //   link: "/report",
-  //   icon: <FaChartBar />,
-  // },
+  // Storage
+  {
+    id: 11,
+    name: 'DashBoard',
+    active: true,
+    link: '/admin/warehouse/',
+    icon: <FaHome />,
+    role: 11,
+  },
+  {
+    id: 12,
+    name: 'Storage',
+    active: false,
+    link: '/admin/warehouse/storage',
+    icon: <FaThLarge />,
+    role: 12,
+  },
+  {
+    id: 13,
+    name: 'Export Storage',
+    active: false,
+    link: '/admin/warehouse/exportstorage',
+    icon: <FaFileExport />,
+    role: 13,
+  },
+  {
+    id: 14,
+    name: 'Import Storage',
+    active: false,
+    link: '/admin/warehouse/importstorage',
+    icon: <FaFileImport />,
+    role: 14,
+  },
+  {
+    id: 15,
+    name: 'Provider',
+    active: false,
+    link: '/admin/warehouse/provider',
+    icon: <FaBullhorn />,
+    role: 15,
+  },
 ];

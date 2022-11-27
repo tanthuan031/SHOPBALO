@@ -8,7 +8,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { deleteCookie, getCookies } from '../../../../api/Admin/Auth';
 import { setExpiredToken } from '../../../../redux/reducer/auth/auth.reducer';
 import { editSchemaRole } from '../../../../adapter/role';
-import {  setIsEdit } from '../../../../redux/reducer/role/role.reducer';
+import { setIsEdit } from '../../../../redux/reducer/role/role.reducer';
 import ToggleButton from '../../../commons/Layouts/ToggleButton';
 
 import { addRole, editRole, getAllPermissions } from '../../../../api/Admin/role/roleAPI';
@@ -17,8 +17,8 @@ import { BlockUI } from '../../../commons/Layouts/Notiflix';
 import { roleSelector } from '../../../../redux/selectors';
 
 const RoleEdit = (props) => {
-  const [listPermissions,setListPermissions] = useState([])
-  const role=useSelector(roleSelector)
+  const [listPermissions, setListPermissions] = useState([]);
+  const role = useSelector(roleSelector);
   console.log(role);
   const [status, setStatus] = useState(role.data.status);
   const data_status = [
@@ -27,15 +27,14 @@ const RoleEdit = (props) => {
   ];
 
   useEffect(() => {
-    const getPermissions = async ()=>{
-      const result = await getAllPermissions()
-      if (result!==401 && result!==500){
-        setListPermissions(result.data)
+    const getPermissions = async () => {
+      const result = await getAllPermissions();
+      if (result !== 401 && result !== 500) {
+        setListPermissions(result.data);
       }
-
-    }
-    getPermissions()
-  },[])
+    };
+    getPermissions();
+  }, []);
   //console.log(listPermissions);
   const {
     register,
@@ -61,16 +60,16 @@ const RoleEdit = (props) => {
     console.log(data);
     //BlockUI('#root', 'fixed');
     var listPermissions = [];
-    Object.keys(data).forEach(key=>{
-      (data[key]===true) && listPermissions.push({permission_id:key.split('-')[1]})
-    })
+    Object.keys(data).forEach((key) => {
+      data[key] === true && listPermissions.push({ permission_id: key.split('-')[1] });
+    });
     const roleData = {
       name: data.name,
-      listPermissions:listPermissions,
+      listPermissions: listPermissions,
       status: data.status,
     };
-    console.log('datasend  ',roleData);
-    const result= await editRole(role.data.id,roleData);
+    console.log('datasend  ', roleData);
+    const result = await editRole(role.data.id, roleData);
     Notiflix.Block.remove('#root');
     if (result === 200) {
       SuccessToast('Update role successfully', 3000);
@@ -87,8 +86,7 @@ const RoleEdit = (props) => {
     } else if (result === 401) {
       Notiflix.Block.remove('#root');
       handleSetUnthorization();
-    }
-    else {
+    } else {
       Notiflix.Block.remove('#root');
       ErrorToast('Something went wrong. Please try again', 4000);
     }
@@ -106,7 +104,6 @@ const RoleEdit = (props) => {
   return (
     <div className=" edit_form d-flex justify-content-center">
       <Form className="font_add_edit_prduct" onSubmit={handleSubmit(onSubmit)} encType="multipart/form-data">
-
         <Form.Group className="mb-3">
           <Form.Label className="label-input">Name Role </Form.Label>
           <Controller
@@ -131,29 +128,22 @@ const RoleEdit = (props) => {
         </Form.Group>
         <Form.Label className="label-input mt-3 mb-4">List Permissions :</Form.Label>
 
-
-
-        {listPermissions.map((item)=>(
-          <Form.Group  >
+        {listPermissions.map((item) => (
+          <Form.Group>
             <Form.Check
               key={item.id}
               control={control}
               name={`permission-${item.id}`}
-              defaultValue=''
-              type='switch'
-           //  checked={!!role.data && !!role.data.list_permissions.find((pr)=>pr.id===item.id)}
+              defaultValue=""
+              type="switch"
+              //  checked={!!role.data && !!role.data.list_permissions.find((pr)=>pr.id===item.id)}
 
               {...register(`permission-${item.id}`, { required: true })}
               id={`permission-${item.id}`}
               label={item.name}
-
-
-
             />
-
           </Form.Group>
         ))}
-
 
         <Form.Group className="mb-3">
           <Form.Label className="label-input">Status</Form.Label>
@@ -177,9 +167,6 @@ const RoleEdit = (props) => {
             <small className="text-red font-weight-semi">{errors?.password?.message}</small>
           </div>
         </Form.Group>
-
-
-
 
         <div className="d-flex justify-content-end p-2 mt-3">
           <Button

@@ -42,8 +42,9 @@ export function AdminLayout(props) {
               )}
             </h5>
             <div className="py-5">
-              {user?.role_id === 1 && <ListGroup data={menu_admin_item_data} />}
-              {user?.role_id === 2 && <ListGroup data={menu_admin_item_storage_data} />}
+              {/* {user?.role_id === 1 && <ListGroup data={menu_admin_item_data} />} */}
+              {/* {user?.role_id === 2 && <ListGroup data={menu_admin_item_storage_data} />} */}
+              {<ListGroup data={menu_admin_item_data} />}
             </div>
             <div className="d-flex justify-content-center ">
               <Button className="btn-danger" onClick={() => setStateModalLogout(true)}>
