@@ -13,8 +13,8 @@ class Permission extends Model
     protected $fillable = [
         'name',
     ];
-    public function  role_permissions(): \Illuminate\Database\Eloquent\Relations\HasMany
-    {
-        return $this->hasMany(RolePermission::class);
-    }
+    // public function  role_permissions(): \Illuminate\Database\Eloquent\Relations\HasMany
+    // {
+    //     return $this->hasMany(RolePermission::class);
+    // }
 }

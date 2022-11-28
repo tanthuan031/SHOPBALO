@@ -22,17 +22,16 @@ class RoleRespository extends BaseRepository
     {
         try {
             $data = Role::query()
-            ->with('role_permissions',function($query) {
-                $query->with('permissions');
-            })
+                ->with('role_permissions', function ($query) {
+                    $query->with('permissions');
+                })
                 ->sort($request)
                 ->search($request)
                 ->filter($request)
-           ->paginate($this->paginate);
-          //  dd($data);
+                ->paginate($this->paginate);
+            //  dd($data);
 
-        }
-        catch (\Exception $e) {
+        } catch (\Exception $e) {
             dd($e);
         }
         return RoleResource::collection($data)->response()->getData();
@@ -42,69 +41,63 @@ class RoleRespository extends BaseRepository
 
         try {
             $data = Role::query()
-                ->with('role_permissions',function($query) {
+                ->with('role_permissions', function ($query) {
                     $query->with('permissions');
                 })
                 ->find($id);
             return RoleResource::make($data)->response()->getData();
-
-        }
-        catch (\Exception $e) {
+        } catch (\Exception $e) {
             dd($e);
             return false;
         }
-
     }
 
 
     public function storeRole($request): \Illuminate\Database\Eloquent\Builder|string
     {
-        DB::beginTransaction();
+
         try {
-            $listPermissions =$request->listPermissions;
+            $listPermissions = $request->listPermissions;
             $data = Role::query()->create([
-                'name'=>$request->input('name'),
-                'status'=>'Active',
+                'name' => $request->input('name'),
+                'status' => 'Active',
             ]);
-            sleep(1);
-            foreach ($request->listPermissions as $item) {
-                $result=RolePermission::query()->create([
-                    'role_id' =>(int) $data['id'],
-                    'permission_id' => (int) $item['permission_id']
+            // dd($data['id']);
+            foreach ($listPermissions as $item) {
+                // dd($item);
+                $result =  RolePermission::query()->create([
+                    'role_id' => $data['id'],
+                    'permission_id' =>  $item['permission_id']
                 ]);
             }
-            DB::commit();
-
-
         } catch (\Exception $e) {
-            DB::rollBack();
-          return false;
+
+            return false;
         }
         return  $result;
     }
     public function updateRole($request, $id)
     {
         DB::beginTransaction();
-       try {
+        try {
             $Role = Role::query()->where('id', '=', $id)->first();
             $Role->update($request->all());
-            
-           $listPermissions =$request->listPermissions;
-           //xoa
-           $list = RolePermission::query()->where('role_id', '=', $id)->delete();
-           //insert
-           foreach ($listPermissions as $item) {
-               $result=RolePermission::query()->create([
-                   'role_id' =>$id,
-                   'permission_id' => $item['permission_id']
-               ]);
-           }
-           DB::commit();
-        }
-        catch (\Exception $e){
-          // dd($e);
+
+            $listPermissions = $request->listPermissions;
+            //xoa
+            $list = RolePermission::query()->where('role_id', '=', $id)->delete();
+            //insert
+            foreach ($listPermissions as $item) {
+                $result = RolePermission::query()->create([
+                    'role_id' => $id,
+                    'permission_id' => $item['permission_id']
+                ]);
+            }
+            DB::commit();
+        } catch (\Exception $e) {
+            // dd($e);
             DB::rollBack();
-           return false;
+            return false;
         }
         return $Role;
     }

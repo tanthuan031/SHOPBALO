@@ -51,34 +51,34 @@ export default function AdminRouter() {
       <Route element={<ProtectedRoutes isAuthenticate={isAuthenticate} userRole={user} />}>
         {/* {user && user.role_id === 1 && ( */}
         <>
-          <Route element={<RoleAdminRoutes userRole={1} />}>
-            <Route path="/admin" element={<AdminLayout slot={<DashBoardPage key={'a'} role={1} />} />} />
-            <Route path="/admin/product" element={<AdminLayout slot={<ProductPage key={'1'} role={2} />} />} />
-            <Route path="/admin/category" element={<AdminLayout slot={<CategoryPage key={'a'} role={3} />} />} />
-            <Route path="/admin/promotion" element={<AdminLayout slot={<PromotionPage key={'a'} role={4} />} />} />
-            <Route path="/admin/order" element={<AdminLayout slot={<OrderPage key={'a'} />} role={5} />} />
-            <Route path="/admin/staff" element={<AdminLayout slot={<StaffPage key={'a'} />} role={6} />} />
-            <Route path="/admin/customer" element={<AdminLayout slot={<CustomerPage key={'a'} role={7} />} />} />
-            <Route path="/admin/review" element={<AdminLayout slot={<ReviewPage key={'a'} />} role={8} />} />
-            <Route
-              path="/admin/decentralization"
-              element={<AdminLayout slot={<PermissionManagerPage key={'a'} />} role={9} />}
-            />
-            <Route path="/admin/slider" element={<AdminLayout slot={<SliderPage key={'a'} />} role={10} />} />
-          </Route>
-          <Route element={<RoleAdminRoutes userRole={2} />}>
-            <Route path="/admin/warehouse/" element={<AdminLayout slot={<StatisticStorage key={'a'} />} />} />
-            <Route path="/admin/warehouse/storage" element={<AdminLayout slot={<StoragePage key={'a'} />} />} />
-            <Route
-              path="/admin/warehouse/exportstorage"
-              element={<AdminLayout slot={<ExportStoragePage key={'a'} />} />}
-            />
-            <Route
-              path="/admin/warehouse/importstorage"
-              element={<AdminLayout slot={<ImportStoragePage key={'a'} />} />}
-            />
-            <Route path="/admin/warehouse/provider" element={<AdminLayout slot={<SliderPage key={'a'} />} />} />
-          </Route>
+          {/* <Route element={<RoleAdminRoutes userRole={1} />}> */}
+          <Route path="/admin" element={<AdminLayout slot={<DashBoardPage key={'a'} role={1} />} />} />
+          <Route path="/admin/product" element={<AdminLayout slot={<ProductPage key={'1'} role={2} />} />} />
+          <Route path="/admin/category" element={<AdminLayout slot={<CategoryPage key={'a'} role={3} />} />} />
+          <Route path="/admin/promotion" element={<AdminLayout slot={<PromotionPage key={'a'} role={4} />} />} />
+          <Route path="/admin/order" element={<AdminLayout slot={<OrderPage key={'a'} />} role={5} />} />
+          <Route path="/admin/staff" element={<AdminLayout slot={<StaffPage key={'a'} />} role={6} />} />
+          <Route path="/admin/customer" element={<AdminLayout slot={<CustomerPage key={'a'} role={7} />} />} />
+          <Route path="/admin/review" element={<AdminLayout slot={<ReviewPage key={'a'} />} role={8} />} />
+          <Route
+            path="/admin/decentralization"
+            element={<AdminLayout slot={<PermissionManagerPage key={'a'} />} role={9} />}
+          />
+          <Route path="/admin/slider" element={<AdminLayout slot={<SliderPage key={'a'} />} role={10} />} />
+          {/* </Route> */}
+          {/* <Route element={<RoleAdminRoutes userRole={2} />}> */}
+          <Route path="/admin/warehouse/" element={<AdminLayout slot={<StatisticStorage key={'a'} />} />} />
+          <Route path="/admin/warehouse/storage" element={<AdminLayout slot={<StoragePage key={'a'} />} />} />
+          <Route
+            path="/admin/warehouse/exportstorage"
+            element={<AdminLayout slot={<ExportStoragePage key={'a'} />} />}
+          />
+          <Route
+            path="/admin/warehouse/importstorage"
+            element={<AdminLayout slot={<ImportStoragePage key={'a'} />} />}
+          />
+          <Route path="/admin/warehouse/provider" element={<AdminLayout slot={<SliderPage key={'a'} />} />} />
+          {/* </Route> */}
         </>
       </Route>
     </Routes>
