@@ -202,7 +202,7 @@ export default function FormRegister() {
                 <Button
                   variant="secondary"
                   className="font-weight-bold btn-login-client "
-                  onClick={() => backToPage(-1)}
+                  onClick={() => (backToPage(-1) ? backToPage(-1) : (window.location.href = '/'))}
                 >
                   Cancel
                 </Button>
