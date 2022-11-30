@@ -88,7 +88,7 @@ class RoleRespository extends BaseRepository
        try {
             $Role = Role::query()->where('id', '=', $id)->first();
             $Role->update($request->all());
-            
+
            $listPermissions =$request->listPermissions;
            //xoa
            $list = RolePermission::query()->where('role_id', '=', $id)->delete();
