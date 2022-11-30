@@ -43,6 +43,10 @@ h2:first-child {
   margin-left: 10%;
   margin-bottom: 20px;
 }
-.print_int {
-  /* display: none; */
+.print-style {
+
+  border:1px solid #333;
+  height:500px;
+  width:80%;
+  margin:3% 10%;
 }

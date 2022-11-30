@@ -9,6 +9,8 @@ export const warehouseReducer = createSlice({
     warehouse: {},
     importPrint: false,
     importPrintContent: {},
+    exportPrint: false,
+    exportPrintContent: {},
   },
   reducers: {
     setKey: (state, action) => {
@@ -29,10 +31,16 @@ export const warehouseReducer = createSlice({
     setImportPrintContent: (state, action) => {
       state.importPrintContent = action.payload;
     },
+    setExportPrint: (state, action) => {
+      state.exportPrint = action.payload;
+    },
+    setExportPrintContent: (state, action) => {
+      state.exportPrintContent = action.payload;
+    },
   },
 });
 
-export const { setIsImportStorage, setWareHouse, setIsExportStorage, setImportPrint, setImportPrintContent } =
+export const { setIsImportStorage, setWareHouse, setIsExportStorage, setImportPrint, setImportPrintContent,setExportPrintContent,setExportPrint } =
   warehouseReducer.actions;
 
 export default warehouseReducer.reducer;

@@ -1,14 +1,15 @@
 import React, { useRef } from 'react';
 import { FaFileExport, FaFileImport, FaPen, FaTimesCircle } from 'react-icons/fa';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useReactToPrint } from 'react-to-print';
 import { importPrintSelector } from '../../../../redux/selectors';
 import { formatDate } from '../../../../utils/formatDate';
 import TableLayout from '../../../commons/Layouts/Table';
 import './style.css';
+import { setImportPrint } from '../../../../redux/reducer/warehouse/warehouse.reducer';
 export function PrintImport(props) {
   const contentPrint = useSelector(importPrintSelector);
-  console.log(contentPrint, 'rfh');
+  const dispatch=useDispatch();
   const components = useRef();
 
   const handlePrint = useReactToPrint({
@@ -22,7 +23,14 @@ export function PrintImport(props) {
       <div className="container" ref={props.current}>
         <div className="row justify-content-center">
           <div className="mt-1 p-3  container w-100">
-            <div>
+            <div className="d-flex justify-content-end">
+              <button className="btn btn-secondary d-flex justify-content-end margin-right-10px " onClick={()=>{
+                dispatch(setImportPrint(false))
+              }}>Cancel</button>
+              <button className="btn btn-primary d-flex justify-content-end" onClick={handlePrint}>Print</button>
+            </div>
+
+            <div ref={components} className="print-style">
               <h1 className="mt-2 mb-4 font-30px fw-bold text-center ">Receipt</h1>
               <div className="d-flex flex-column">
                 <div className=" row container">
@@ -54,6 +62,7 @@ export function PrintImport(props) {
                   </div>
                   <div className="col-md-2"></div>
                 </div>
+                <h3 className="text-center margin-top-10px">TRESOR</h3>
               </div>
             </div>
           </div>

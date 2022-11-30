@@ -87,12 +87,12 @@ export const export_storage_table_header = [
     isSort: true,
     cursor: true,
   },
-  //   {
-  //     id: 7,
-  //     name: 'Action',
-  //     isSortAsc: false,
-  //     isSortDesc: false,
-  //     isSort: true,
-  //     cursor: true,
-  //   },
+    {
+      id: 8,
+      name: 'Action',
+      isSortAsc: false,
+      isSortDesc: false,
+      isSort: true,
+      cursor: true,
+    },
 ];

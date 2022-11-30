@@ -29,10 +29,11 @@ import { setIsAdd } from '../../../../redux/reducer/product/product.reducer';
 import { setIsExportStorage, setIsImportStorage } from '../../../../redux/reducer/warehouse/warehouse.reducer';
 import {
   isAddSelector,
-  isEditSelector,
-  isExportStorageSelector,
+  isEditSelector, isExportPrintSelector,
+  isExportStorageSelector, isImportPrintSelector,
   isImportStorageSelector,
 } from '../../../../redux/selectors';
+import { PrintExport } from '../../../../components/admin/WareHouse/ImportStorage/printExport';
 
 export function ExportStoragePage(props) {
   const data_storage_table_header = [...export_storage_table_header];
@@ -54,6 +55,7 @@ export function ExportStoragePage(props) {
   const [search, setSearch] = useState('');
   const [filter, setFilter] = React.useState('provider');
   const dispatch = useDispatch();
+  const isExportPrint = useSelector(isExportPrintSelector);
   React.useEffect(() => {
     const handleGetAllStorages = async () => {
       let param = { sort };
@@ -191,7 +193,7 @@ export function ExportStoragePage(props) {
 
           <div className="row">
             <div className="mb-3 d-flex justify-content-between">
-              {!isExportAdd ? (
+              {!isExportAdd && !isExportPrint ? (
                 <>
                   <div className="d-flex justify-content-between ">
                     <Dropdown>
@@ -264,6 +266,9 @@ export function ExportStoragePage(props) {
 
           <div className="row justify-content-center">
             {!isExportAdd ? (
+                isExportPrint ?
+              <PrintExport/>
+              :
               !loading ? (
                 <>
                   {data.length > 0 ? (

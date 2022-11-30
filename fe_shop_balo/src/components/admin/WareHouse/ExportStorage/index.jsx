@@ -1,9 +1,20 @@
 import React from 'react';
-import { FaFileExport, FaFileImport, FaPen, FaTimesCircle } from 'react-icons/fa';
+import { FaFileExport, FaFileImport, FaPen, FaPrint, FaTimesCircle } from 'react-icons/fa';
 import { formatDate } from '../../../../utils/formatDate';
 import TableLayout from '../../../commons/Layouts/Table';
 import './style.css';
+import { useDispatch } from 'react-redux';
+import {
+  setExportPrint, setExportPrintContent,
+  setImportPrint,
+  setImportPrintContent,
+} from '../../../../redux/reducer/warehouse/warehouse.reducer';
 export function ExportTable(props) {
+  const dispatch = useDispatch();
+  const handlePrint = (data) => {
+    dispatch(setExportPrint(true));
+    dispatch(setExportPrintContent(data));
+  };
   const renderTableBody = () => {
     return props.tableBody.map((item, index) => {
       return (
@@ -15,28 +26,17 @@ export function ExportTable(props) {
           <td>{item.export_amount}</td>
           <td>{item.providers.name}</td>
           <td>{formatDate(item.created_at, 'YYYY-MM-DD')}</td>
-          {/* <td>
+          <td>
             <div className="d-flex">
               <button
                 id="improt_product"
-                onClick={(e) => {
-                  // handleEditProduct(e, item.id);
-                }}
+                onClick={() => handlePrint(item)}
                 className="br-6px p-2 bg-gray-100 text-black w-48px h-48px d-flex align-items-center justify-content-center border-none"
               >
-                <FaFileImport className="font-20px" />
-              </button>
-              <button
-                id="delete-product"
-                // onClick={(e) => {
-                //   handleCheckDisabledUser(e, item.id);
-                // }}
-                className="br-6px p-2 ms-3 text-danger bg-gray-100 w-48px h-48px d-flex align-items-center justify-content-center border-none"
-              >
-                <FaFileExport className="font-20px" />
+                <FaPrint className="font-20px" />
               </button>
             </div>
-          </td> */}
+          </td>
         </tr>
       );
     });

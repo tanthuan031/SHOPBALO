@@ -13,7 +13,7 @@ import { storage_table_header } from '../../../../asset/data/storage_table_heade
 import FilterCategory from '../../../../components/admin/Product/FilterCategory';
 import { ImportTable } from '../../../../components/admin/WareHouse/ImportStorage';
 import ImportStorageAdd from '../../../../components/admin/WareHouse/ImportStorage/Add';
-import { PrintImport } from '../../../../components/admin/WareHouse/ImportStorage/print';
+import { PrintImport } from '../../../../components/admin/WareHouse/ImportStorage/printImport';
 import { StorageTable } from '../../../../components/admin/WareHouse/Storage';
 import { ErrorToast } from '../../../../components/commons/Layouts/Alerts';
 import NotFoundData from '../../../../components/commons/Layouts/NotFoundData';
