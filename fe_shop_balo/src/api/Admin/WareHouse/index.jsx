@@ -12,13 +12,19 @@ export const configHeadersAuthenticate = () => {
   };
 };
 
-export const getAllStorage = async ({ sort, search, page } = {}) => {
+export const getAllStorage = async ({ sort, search, page, filterProvider, filterProduct } = {}) => {
   const url = '/api/admin/warehouse/storage';
   const queryString = [];
   if (sort && sort.length > 0) {
     sort.forEach((item) => {
       queryString.push(`sort[${titleToSlug(item.key)}]=${item.value}`);
     });
+  }
+  if (filterProvider) {
+    queryString.push(`filter[provider_id]=${filterProvider}`);
+  }
+  if (filterProduct) {
+    queryString.push(`filter[product_id]=${filterProduct}`);
   }
   if (search) {
     queryString.push(`search=${search}`);
@@ -38,7 +44,7 @@ export const getAllStorage = async ({ sort, search, page } = {}) => {
     return 500;
   }
 };
-export const getAllImportHistory = async ({ sort, search, page } = {}) => {
+export const getAllImportHistory = async ({ sort, search, page, filterProvider, filterProduct } = {}) => {
   const url = '/api/admin/warehouse/storage';
   const queryString = [];
   if (sort && sort.length > 0) {
@@ -48,6 +54,12 @@ export const getAllImportHistory = async ({ sort, search, page } = {}) => {
   }
   if (search) {
     queryString.push(`search=${search}`);
+  }
+  if (filterProvider) {
+    queryString.push(`filter[provider_id]=${filterProvider}`);
+  }
+  if (filterProduct) {
+    queryString.push(`filter[product_id]=${filterProduct}`);
   }
   if (page) {
     queryString.push(`page=${page}`);
@@ -65,7 +77,7 @@ export const getAllImportHistory = async ({ sort, search, page } = {}) => {
   }
 };
 
-export const getAllExportHistory = async ({ sort, search, page } = {}) => {
+export const getAllExportHistory = async ({ sort, search, page, filterProvider, filterProduct } = {}) => {
   const url = '/api/admin/warehouse/storage';
   const queryString = [];
   if (sort && sort.length > 0) {
@@ -75,6 +87,12 @@ export const getAllExportHistory = async ({ sort, search, page } = {}) => {
   }
   if (search) {
     queryString.push(`search=${search}`);
+  }
+  if (filterProvider) {
+    queryString.push(`filter[provider_id]=${filterProvider}`);
+  }
+  if (filterProduct) {
+    queryString.push(`filter[product_id]=${filterProduct}`);
   }
   if (page) {
     queryString.push(`page=${page}`);
@@ -149,7 +167,7 @@ export const exportStorage = async (body) => {
   return response;
 };
 
-export const getAmountImport = async ({ start,end } = {}) => {
+export const getAmountImport = async ({ start, end } = {}) => {
   const url = '/api/admin/warehouse/amount-import';
   const queryString = [];
   if (start && end) {
@@ -157,7 +175,7 @@ export const getAmountImport = async ({ start,end } = {}) => {
     queryString.push(`end=${end}`);
   }
   const final_url = concatQueryString(queryString, url);
- // console.log(final_url);
+  // console.log(final_url);
   const reponse = await axiosClient.get(final_url, configHeadersAuthenticate());
   if (reponse.status === 401) {
     return 401;
@@ -167,7 +185,7 @@ export const getAmountImport = async ({ start,end } = {}) => {
     return 500;
   }
 };
-export const getAmountExport = async ({ start,end } = {}) => {
+export const getAmountExport = async ({ start, end } = {}) => {
   const url = '/api/admin/warehouse/amount-export';
   const queryString = [];
   if (start && end) {
@@ -175,7 +193,7 @@ export const getAmountExport = async ({ start,end } = {}) => {
     queryString.push(`end=${end}`);
   }
   const final_url = concatQueryString(queryString, url);
- // console.log(final_url);
+  // console.log(final_url);
   const reponse = await axiosClient.get(final_url, configHeadersAuthenticate());
   if (reponse.status === 401) {
     return 401;

@@ -17,6 +17,14 @@ export const export_storage_table_header = [
   },
   {
     id: 3,
+    name: 'Code Provider',
+    isSortAsc: false,
+    isSortDesc: false,
+    isSort: false,
+    cursor: false,
+  },
+  {
+    id: 4,
     name: 'Product Name',
     isSortAsc: false,
     isSortDesc: false,
@@ -32,7 +40,7 @@ export const export_storage_table_header = [
   //   cursor: true,
   // },
   {
-    id: 4,
+    id: 5,
     name: 'Export quantity',
     isSortAsc: false,
     isSortDesc: false,
@@ -64,7 +72,7 @@ export const export_storage_table_header = [
   //   cursor: true,
   // },
   {
-    id: 5,
+    id: 6,
     name: 'Provider',
     isSortAsc: false,
     isSortDesc: false,
@@ -72,7 +80,7 @@ export const export_storage_table_header = [
     cursor: true,
   },
   {
-    id: 6,
+    id: 7,
     name: 'Created_date',
     isSortAsc: false,
     isSortDesc: false,

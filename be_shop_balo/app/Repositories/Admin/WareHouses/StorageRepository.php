@@ -23,7 +23,7 @@ class StorageRepository
             ->with('providers')
             ->sort($request)
             ->search($request)
-            //            ->filter($request)
+            ->filter($request)
             ->paginate($this->paginate);
         return $data;
         //        dd($data);
@@ -37,7 +37,7 @@ class StorageRepository
             ->with('providers')
             ->sort($request)
             ->search($request)
-            //            ->filter($request)
+            ->filter($request)
             ->paginate($this->paginate);
         return $data;
     }
@@ -50,7 +50,7 @@ class StorageRepository
             ->with('providers')
             ->sort($request)
             ->search($request)
-            //            ->filter($request)
+            ->filter($request)
             ->paginate($this->paginate);
         return $data;
     }
@@ -157,8 +157,8 @@ class StorageRepository
 
     public function statisticExportStorage($request)
     {
-//        $start=$request->start;
-//        $end=$request->end;
+        //        $start=$request->start;
+        //        $end=$request->end;
         //SELECT MONTH(created_at) as month, SUM(import_amount) as amount FROM `import_storages` WHERE 1 GROUP BY month;
         $result = ExportStorage::query();
         if (env('DB_CONNECTION') == 'pgsql') {

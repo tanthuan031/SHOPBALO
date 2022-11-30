@@ -21,6 +21,8 @@ import { ErrorToast } from '../../../../components/commons/Layouts/Alerts';
 import NotFoundData from '../../../../components/commons/Layouts/NotFoundData';
 import { BlockUI } from '../../../../components/commons/Layouts/Notiflix';
 import PaginationUI from '../../../../components/commons/Layouts/Pagination';
+import SearchOptions from '../../../../components/commons/Layouts/SearchWithDropdownOptions/SearchOption';
+import SearchWithDropdownOptions from '../../../../components/commons/Layouts/SearchWithDropdownOptions/SearchWithDropdownOptions';
 import Skeleton from '../../../../components/commons/Layouts/Skeleton';
 import { setExpiredToken } from '../../../../redux/reducer/auth/auth.reducer';
 import { setIsAdd } from '../../../../redux/reducer/product/product.reducer';
@@ -50,10 +52,14 @@ export function ExportStoragePage(props) {
     },
   ]);
   const [search, setSearch] = useState('');
+  const [filter, setFilter] = React.useState('provider');
   const dispatch = useDispatch();
   React.useEffect(() => {
     const handleGetAllStorages = async () => {
-      const result = await getAllExportHistory({ sort });
+      let param = { sort };
+      if (search !== '' && filter === 'provider') param = { ...param, filterProvider: search };
+      if (search !== '' && filter === 'product') param = { ...param, filterProduct: search };
+      const result = await getAllExportHistory(param);
       if (result === 401) {
         handleSetUnthorization();
         return false;
@@ -92,7 +98,7 @@ export function ExportStoragePage(props) {
     handleGetAllStorages();
     handleGetAllProducts();
     handleGetAllProvider();
-  }, [dispatch]);
+  }, [dispatch, search]);
   const handlePageChange = async (page) => {
     setPage(page);
     setLoading(true);
@@ -154,7 +160,6 @@ export function ExportStoragePage(props) {
     return;
     // }
   };
-  console.log('ehj', checkSort);
   const setStorage = (result, value) => {
     setData(result.data);
     if (value !== 'page') {
@@ -177,6 +182,7 @@ export function ExportStoragePage(props) {
       Notiflix.Block.remove('#root');
     }, 500);
   };
+  console.log('hfj', filter);
   return (
     <>
       <section>
@@ -225,7 +231,7 @@ export function ExportStoragePage(props) {
                     </Dropdown>
                   </div>
                   <div className="d-flex justify-content-between ">
-                    <Form onSubmit={(e) => handleSearch(e)}>
+                    {/* <Form onSubmit={(e) => handleSearch(e)}>
                       <InputGroup>
                         <Form.Control
                           id="search-product"
@@ -236,7 +242,10 @@ export function ExportStoragePage(props) {
                           <FaSearch />
                         </Button>
                       </InputGroup>
-                    </Form>
+                    </Form> */}
+                    <div className="d-flex justify-content-between ">
+                      <SearchOptions currentFilter={filter} setSearch={setSearch} setFilter={setFilter} />
+                    </div>
                     <Button
                       id="create-new-product"
                       variant="danger"

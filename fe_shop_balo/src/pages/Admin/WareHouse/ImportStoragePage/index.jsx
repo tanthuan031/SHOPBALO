@@ -13,28 +13,37 @@ import { storage_table_header } from '../../../../asset/data/storage_table_heade
 import FilterCategory from '../../../../components/admin/Product/FilterCategory';
 import { ImportTable } from '../../../../components/admin/WareHouse/ImportStorage';
 import ImportStorageAdd from '../../../../components/admin/WareHouse/ImportStorage/Add';
+import { PrintImport } from '../../../../components/admin/WareHouse/ImportStorage/print';
 import { StorageTable } from '../../../../components/admin/WareHouse/Storage';
 import { ErrorToast } from '../../../../components/commons/Layouts/Alerts';
 import NotFoundData from '../../../../components/commons/Layouts/NotFoundData';
 import { BlockUI } from '../../../../components/commons/Layouts/Notiflix';
 import PaginationUI from '../../../../components/commons/Layouts/Pagination';
+import SearchOptions from '../../../../components/commons/Layouts/SearchWithDropdownOptions/SearchOption';
 import Skeleton from '../../../../components/commons/Layouts/Skeleton';
 import { setExpiredToken } from '../../../../redux/reducer/auth/auth.reducer';
 import { setIsAdd } from '../../../../redux/reducer/product/product.reducer';
 import { setIsImportStorage } from '../../../../redux/reducer/warehouse/warehouse.reducer';
-import { isAddSelector, isEditSelector, isImportStorageSelector } from '../../../../redux/selectors';
+import {
+  isAddSelector,
+  isEditSelector,
+  isImportPrintSelector,
+  isImportStorageSelector,
+} from '../../../../redux/selectors';
 
 export function ImportStoragePage(props) {
   const data_storage_table_header = [...import_storage_table_header];
   const [data, setData] = useState([]);
   const [listProduct, setListProduct] = useState([]);
   const [listProvider, setListProvider] = useState([]);
+  const [filter, setFilter] = React.useState('provider');
   const [page, setPage] = useState(1);
   const [checkSort, setCheckSort] = useState('desc');
   const [totalRecord, setTotalRecords] = useState(0);
   const [loading, setLoading] = useState(true);
   const [perPage] = useState(10);
   const isImportAdd = useSelector(isImportStorageSelector);
+  const isImportPrint = useSelector(isImportPrintSelector);
   const [sort, setCurrentSort] = useState([
     {
       key: 'id',
@@ -45,7 +54,11 @@ export function ImportStoragePage(props) {
   const dispatch = useDispatch();
   React.useEffect(() => {
     const handleGetAllStorages = async () => {
-      const result = await getAllImportHistory({ sort });
+      let param = { sort };
+      if (search !== '' && filter === 'provider') param = { ...param, filterProvider: search };
+      if (search !== '' && filter === 'product') param = { ...param, filterProduct: search };
+      const result = await getAllImportHistory(param);
+
       if (result === 401) {
         handleSetUnthorization();
         return false;
@@ -84,7 +97,7 @@ export function ImportStoragePage(props) {
     handleGetAllStorages();
     handleGetAllProducts();
     handleGetAllProvider();
-  }, [dispatch]);
+  }, [dispatch, search]);
   const handlePageChange = async (page) => {
     setPage(page);
     setLoading(true);
@@ -177,7 +190,7 @@ export function ImportStoragePage(props) {
 
           <div className="row">
             <div className="mb-3 d-flex justify-content-between">
-              {!isImportAdd ? (
+              {!isImportAdd && !isImportPrint ? (
                 <>
                   <div className="d-flex justify-content-between ">
                     <Dropdown>
@@ -217,7 +230,7 @@ export function ImportStoragePage(props) {
                     </Dropdown>
                   </div>
                   <div className="d-flex justify-content-between ">
-                    <Form onSubmit={(e) => handleSearch(e)}>
+                    {/* <Form onSubmit={(e) => handleSearch(e)}>
                       <InputGroup>
                         <Form.Control
                           id="search-product"
@@ -229,6 +242,10 @@ export function ImportStoragePage(props) {
                         </Button>
                       </InputGroup>
                     </Form>
+                     */}
+                    <div className="d-flex justify-content-between ">
+                      <SearchOptions currentFilter={filter} setSearch={setSearch} setFilter={setFilter} />
+                    </div>
                     <Button
                       id="create-new-product"
                       variant="danger"
@@ -247,7 +264,9 @@ export function ImportStoragePage(props) {
 
           <div className="row justify-content-center">
             {!isImportAdd ? (
-              !loading ? (
+              isImportPrint ? (
+                <PrintImport />
+              ) : !loading ? (
                 <>
                   {data.length > 0 ? (
                     <ImportTable tableHeader={data_storage_table_header} tableBody={data} />

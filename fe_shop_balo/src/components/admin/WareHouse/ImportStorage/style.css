@@ -43,3 +43,6 @@ h2:first-child {
   margin-left: 10%;
   margin-bottom: 20px;
 }
+.print_int {
+  /* display: none; */
+}

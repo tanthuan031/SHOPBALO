@@ -15,6 +15,7 @@ import { ErrorToast } from '../../../../components/commons/Layouts/Alerts';
 import NotFoundData from '../../../../components/commons/Layouts/NotFoundData';
 import { BlockUI } from '../../../../components/commons/Layouts/Notiflix';
 import PaginationUI from '../../../../components/commons/Layouts/Pagination';
+import SearchOptions from '../../../../components/commons/Layouts/SearchWithDropdownOptions/SearchOption';
 import Skeleton from '../../../../components/commons/Layouts/Skeleton';
 import { setExpiredToken } from '../../../../redux/reducer/auth/auth.reducer';
 import { setIsAdd } from '../../../../redux/reducer/product/product.reducer';
@@ -24,6 +25,7 @@ export function StoragePage(props) {
   const data_storage_table_header = [...storage_table_header];
   const [data, setData] = useState([]);
   const [page, setPage] = useState(1);
+  const [filter, setFilter] = React.useState('provider');
   const [checkSort, setCheckSort] = useState('desc');
   const [totalRecord, setTotalRecords] = useState(0);
   const [loading, setLoading] = useState(true);
@@ -38,7 +40,10 @@ export function StoragePage(props) {
   const dispatch = useDispatch();
   React.useEffect(() => {
     const handleGetAllStorages = async () => {
-      const result = await getAllStorage({ sort });
+      let param = { sort };
+      if (search !== '' && filter === 'provider') param = { ...param, filterProvider: search };
+      if (search !== '' && filter === 'product') param = { ...param, filterProduct: search };
+      const result = await getAllStorage(param);
       if (result === 401) {
         handleSetUnthorization();
         return false;
@@ -50,7 +55,7 @@ export function StoragePage(props) {
       setLoading(false);
     };
     handleGetAllStorages();
-  }, [dispatch]);
+  }, [dispatch, search]);
   const handlePageChange = async (page) => {
     setPage(page);
     setLoading(true);
@@ -174,7 +179,7 @@ export function StoragePage(props) {
                 </Dropdown>
               </div>
               <div className="d-flex justify-content-between ">
-                <Form onSubmit={(e) => handleSearch(e)}>
+                {/* <Form onSubmit={(e) => handleSearch(e)}>
                   <InputGroup>
                     <Form.Control
                       id="search-product"
@@ -185,7 +190,10 @@ export function StoragePage(props) {
                       <FaSearch />
                     </Button>
                   </InputGroup>
-                </Form>
+                </Form> */}
+                <div className="d-flex justify-content-between ">
+                  <SearchOptions currentFilter={filter} setSearch={setSearch} setFilter={setFilter} />
+                </div>
               </div>
             </div>
           </div>

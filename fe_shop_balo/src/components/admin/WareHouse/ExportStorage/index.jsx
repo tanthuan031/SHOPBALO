@@ -10,6 +10,7 @@ export function ExportTable(props) {
         <tr key={item.id} className="cursor-pointer font-weight-bold row-data">
           <td>{index + 1}</td>
           <td>{item.products.id}</td>
+          <td>{item.provider_id}</td>
           <td>{item.products.name}</td>
           <td>{item.export_amount}</td>
           <td>{item.providers.name}</td>

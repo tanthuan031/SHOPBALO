@@ -50,4 +50,16 @@ class Storage extends Model
                     ->orWhere("provider_id", "LIKE", "%{$search}%");
             });
     }
+    public function scopeFilter($query, $request)
+    {
+        // dd($request->query("filter")["type"]);
+        return $query->when($request->has('filter.provider_id'), function ($query) use ($request) {
+            $list = explode(",", $request->query("filter")["provider_id"]);
+            $query->whereIn("provider_id", $list);
+        })
+            ->when($request->has('filter.product_id'), function ($query) use ($request) {
+                $list = explode(",", $request->query("filter")["product_id"]);
+                $query->whereIn("product_id", $list);
+            });
+    }
 }
