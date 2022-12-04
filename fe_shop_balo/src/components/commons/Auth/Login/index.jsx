@@ -48,11 +48,13 @@ export default function FormLogin() {
         SuccessToast('Error server ... ', 2000);
         Notiflix.Block.remove('.sl-box');
       } else {
-        if (response.role_id === 1) {
-          window.location.href = '/admin/';
-        }
+        // if (response.role_id === 2) {
+        //
+        // }
         if (response.role_id === 2) {
           window.location.href = '/admin/warehouse';
+        }else{
+          window.location.href = '/admin/';
         }
         return;
       }

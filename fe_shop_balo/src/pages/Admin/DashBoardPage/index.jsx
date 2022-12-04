@@ -55,7 +55,7 @@ export function DashBoardPage(props) {
       return false;
     } else {
       setChartOrder({
-        label: result.data.map((item) => `${item.date}-${month+1}-2022`),
+        label: result.data.map((item) => `${item.date}`),
         data: result.data.map((item) => item.amount_order),
       });
     }
@@ -69,7 +69,7 @@ export function DashBoardPage(props) {
       return false;
     } else {
       setChartRevenue({
-        label: result.data.map((item) =>`${item.date}-${month+1}-2022`),
+        label: result.data.map((item) =>`${item.date}`),
         data: result.data.map((item) => item.revenue),
       });
     }

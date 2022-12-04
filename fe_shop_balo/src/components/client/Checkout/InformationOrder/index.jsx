@@ -122,9 +122,10 @@ export default function FormInfomationCheckout(props) {
     const result = await addOrder(resultData);
     Notiflix.Block.remove('#root');
     if (result === 200) {
-      SuccessToast('Order payment successfully', 8000);
       localStorage.removeItem('cart');
-    //  window.location.href = '/history';
+      SuccessToast('Order payment successfully', 8000);
+
+    window.location.href = '/history';
       // dispatch(setIsDetailHistory(true));
     } else if (result === 404) {
       ErrorToast('Order payment unsuccessfully', 3000);
