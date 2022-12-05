@@ -72,10 +72,10 @@ export function ProductTable(props) {
           <td>
             <p
               className={`text-center border-radius-2px ${
-                item.status === 0 ? 'bg-success-100 text-success' : 'bg-red-100 text-red '
+                item.amount > 0 ? 'bg-success-100 text-success' : 'bg-red-100 text-red '
               }`}
             >
-              {item.status === 0 ? 'Active' : 'Out of stock'}
+              {item.amount > 0 ? 'Active' : 'Out of stock'}
             </p>
           </td>
           <td>
@@ -141,8 +141,8 @@ export function ProductTable(props) {
               <p className="text-product-detail">Price : {formatter.format(detailProduct.price)}</p>
               <p className="text-product-detail">
                 Status :
-                <span className={`${detailProduct.status === '0' ? 'text-success' : 'text-danger'}`}>
-                  {detailProduct.status === '1' ? ' Active' : ' Out of stock'}
+                <span className={`${detailProduct.amount > '0' ? 'text-success' : 'text-danger'}`}>
+                  {detailProduct.amount > '1' ? ' Active' : ' Out of stock'}
                 </span>
               </p>
             </div>
