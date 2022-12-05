@@ -41,87 +41,87 @@ class OrderSeeder extends Seeder
                 'id' => 3,
                 'status' => 6,
                 'total_price' => 3400,
-                'created_order_date' => date('Y-m-09'),
+                'created_order_date' => date('Y-m-01'),
                 'order_detail' => []
             ], [
                 'id' => 4,
                 'status' => 6,
                 'total_price' => 1200,
-                'created_order_date' => date('Y-m-12'),
+                'created_order_date' => date('Y-m-02'),
                 'order_detail' => []
             ], [
                 'id' => 5,
                 'status' => 6,
                 'total_price' => 5600,
-                'created_order_date' => date('Y-m-16'),
+                'created_order_date' => date('Y-m-03'),
                 'order_detail' => []
             ], [
                 'id' => 6,
                 'status' => 6,
                 'total_price' => 3800,
-                'created_order_date' => date('Y-m-21'),
+                'created_order_date' => date('Y-m-02'),
                 'order_detail' => []
             ]
             , [
                 'id' => 7,
                 'status' => 6,
                 'total_price' => 4300,
-                'created_order_date' => date('Y-m-22'),
+                'created_order_date' => date('Y-m-02'),
                 'order_detail' => []
             ], [
                 'id' => 8,
                 'status' => 6,
                 'total_price' => 4500,
-                'created_order_date' => date('Y-m-16'),
+                'created_order_date' => date('Y-m-03'),
                 'order_detail' => []
             ]
             , [
                 'id' => 9,
                 'status' => 6,
                 'total_price' => 5200,
-                'created_order_date' => date('Y-m-19'),
+                'created_order_date' => date('Y-m-05'),
                 'order_detail' => []
             ], [
                 'id' => 10,
                 'status' => 6,
                 'total_price' => 2500,
-                'created_order_date' => date('Y-m-19'),
+                'created_order_date' => date('Y-m-01'),
                 'order_detail' => []
             ], [
                 'id' => 11,
                 'status' => 6,
                 'total_price' => 3100,
-                'created_order_date' => date('Y-m-05'),
+                'created_order_date' => date('Y-m-04'),
                 'order_detail' => []
             ], [
                 'id' => 12,
                 'status' => 6,
                 'total_price' => 1500,
-                'created_order_date' => date('Y-m-12'),
+                'created_order_date' => date('Y-m-04'),
                 'order_detail' => []
             ], [
                 'id' => 13,
                 'status' => 6,
                 'total_price' => 2100,
-                'created_order_date' => date('Y-m-12'),
+                'created_order_date' => date('Y-11-22'),
                 'order_detail' => []
             ], [
                 'id' => 14,
                 'status' => 6,
                 'total_price' => 1900,
-                'created_order_date' => date('Y-m-19'),
+                'created_order_date' => date('Y-11-29'),
                 'order_detail' => []
             ], [
                 'id' => 15,
                 'status' => 6,
                 'total_price' => 5000,
-                'created_order_date' => date('Y-m-18'),
+                'created_order_date' => date('Y-11-28'),
                 'order_detail' => []
             ], [
                 'id' => 16,
                 'status' => 6,
                 'total_price' => 1200,
-                'created_order_date' => date('Y-m-27'),
+                'created_order_date' => date('Y-11-27'),
                 'order_detail' => []
             ]
         ];

@@ -83,6 +83,7 @@ class StorageRepository
 
 
         $storage = Storage::query()->where('product_id', '=', $request['product_id'])->first();
+        $productDetail = ProductDetail::query()->where('product_id', '=', $request['product_id'])->first();
 
         if ($storage) {
             if ($request['export_amount'] <= $storage['amount'] && $storage['amount'] > 0) {
@@ -96,6 +97,9 @@ class StorageRepository
 
                 $storage->update([
                     'amount' => (int)$storage['amount'] - (int)$request['export_amount']
+                ]);
+                $productDetail->update([
+                    'amount'=>(int)$productDetail['amount'] + (int)$request['export_amount']
                 ]);
                 $data = [
                     'status' => 'success',
