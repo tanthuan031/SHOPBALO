@@ -40,7 +40,7 @@ export function ImportStoragePage(props) {
   const data_storage_table_header_require_import = [...data_storage_table_header_import];
   const [data, setData] = useState([]);
   const [listProduct, setListProduct] = useState(undefined);
-  const [listProvider, setListProvider] = useState([]);
+  const [listProvider, setListProvider] = useState(undefined);
   const [filter, setFilter] = React.useState('provider');
   const [page, setPage] = useState(1);
   const [checkSort, setCheckSort] = useState('desc');
