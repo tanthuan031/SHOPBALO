@@ -19,7 +19,9 @@ import FilterCategory from '../../../components/admin/Product/FilterCategory';
 import FilterStatus from '../../../components/admin/Product/FilterStatus';
 import { setExpiredToken } from '../../../redux/reducer/auth/auth.reducer';
 import { setIsAdd, setIsEdit } from '../../../redux/reducer/product/product.reducer';
-import { isAddSelector, isEditSelector } from '../../../redux/selectors';
+import { isAddSelector, isEditSelector, isRequireImportSelector } from '../../../redux/selectors';
+import RequireImport from '../../../components/admin/Product/Require_Import';
+import { getAllProvider } from '../../../api/Admin/WareHouse';
 
 export function ProductPage(props) {
   const data_product_table_header = [...product_table_header];
@@ -30,10 +32,12 @@ export function ProductPage(props) {
   const [filterCategory, setFilterCategory] = useState('All');
   const [totalRecord, setTotalRecords] = useState(0);
   const [loading, setLoading] = useState(true);
+  const [listProvider, setListProvider] = useState([]);
   // const [totalPage, setTotalPage] = useState(0);
   const [perPage] = useState(10);
   const isAdd = useSelector(isAddSelector);
   const isEdit = useSelector(isEditSelector);
+  const isRequireIport = useSelector(isRequireImportSelector);
   const [sort, setCurrentSort] = useState([
     {
       key: 'id',
@@ -63,8 +67,24 @@ export function ProductPage(props) {
         setDataCategory(result.data);
       }
     };
+    const handleGetAllProvider = async () => {
+      const result = await getAllProvider({
+        key: 'id',
+        value: 'desc',
+      });
+      if (result === 401) {
+        handleSetUnthorization();
+        return false;
+      } else if (result === 500) {
+        return false;
+      } else {
+        setListProvider(result);
+      }
+      setLoading(false);
+    };
     handleGetAllProducts();
     handleGetListCategory();
+    handleGetAllProvider();
   }, [dispatch]);
 
   const handlePageChange = async (page) => {
@@ -246,7 +266,7 @@ export function ProductPage(props) {
               / Edit product
             </h5>
           )}
-          {!isAdd && !isEdit ? (
+          {!isAdd && !isEdit && !isRequireIport ? (
             <div className="row">
               <div className="mb-3 d-flex justify-content-between">
                 <div className="d-flex justify-content-between ">
@@ -285,7 +305,7 @@ export function ProductPage(props) {
           ) : (
             ''
           )}
-          {!isAdd && !isEdit ? (
+          {!isAdd && !isEdit && !isRequireIport ? (
             <div className="row justify-content-center">
               {!loading ? (
                 <>
@@ -311,6 +331,13 @@ export function ProductPage(props) {
             <>
               {isAdd && <ProductAdd backToProductList={backToProductList} dataCategory={listCategory} />}
               {isEdit && <ProductEdit backToProductList={backToProductList} dataCategory={listCategory} />}
+              {isRequireIport && (
+                <RequireImport
+                  backToProductList={backToProductList}
+                  listProvider={listProvider}
+                  dataCategory={listCategory}
+                />
+              )}
             </>
           )}
         </div>

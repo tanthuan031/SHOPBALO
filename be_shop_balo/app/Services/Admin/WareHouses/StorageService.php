@@ -18,14 +18,14 @@ class StorageService
 
     public function getAllStorage($request)
     {
-        if($request->has('listimport')){
+        if ($request->has('listimport')) {
             $result = $this->storageRepository->getAllImportHistory($request);
             if ($result) {
                 return $this->apiResponse($result, 'success', 'Get all import history successfully');
             } else {
                 return $this->apiResponse([], 'fail', 'Get all import history unsuccessfuly');
             }
-        }elseif($request->has('listexport')){
+        } elseif ($request->has('listexport')) {
 
             $result = $this->storageRepository->getAllExportHistory($request);
             if ($result) {
@@ -33,9 +33,7 @@ class StorageService
             } else {
                 return $this->apiResponse([], 'fail', 'Get all export history unsuccessfuly');
             }
-        }
-
-        else{
+        } else {
             $result = $this->storageRepository->getAllStorage($request);
             if ($result) {
                 return $this->apiResponse($result, 'success', 'Get all storage successfully');
@@ -43,14 +41,12 @@ class StorageService
                 return $this->apiResponse([], 'fail', 'Get all storage unsuccessfuly');
             }
         }
-
-
     }
     public function getAmountImport($request)
     {
         $result = $this->storageRepository->statisticImportStorage($request);
-        $data=[
-            'data'=>$result
+        $data = [
+            'data' => $result
         ];
 
         return $this->apiResponse($data, 'success', 'Figure ImportStorage successfully');
@@ -58,21 +54,23 @@ class StorageService
     public function getAmountExport($request)
     {
         $result = $this->storageRepository->statisticExportStorage($request);
-        $data=[
-            'data'=>$result
+        $data = [
+            'data' => $result
         ];
 
         return $this->apiResponse($data, 'success', 'Figure ExportStorage successfully');
     }
 
-    public function importStorage($request){
+    public function importStorage($request)
+    {
         $dataRequest = [
             'product_id' => $request->product_id,
             'provider_id' => $request->provider_id,
             'name' => $request->name,
-            'import_amount'=>$request->import_amount
+            'import_amount' => $request->import_amount,
+            'requirement_import' => false
         ];
-//        dd($dataRequest);
+        //        dd($dataRequest);
         $result = $this->storageRepository->importStorage($dataRequest);
         if ($result) {
             return $this->apiResponse($result, 'success', 'Import storage successfully');
@@ -81,11 +79,30 @@ class StorageService
         }
     }
 
-    public function exportStorage($request){
+    public function updateStorage($request, $id)
+    {
+        $dataRequest = [
+            'product_id' => $request->product_id,
+            'provider_id' => $request->provider_id,
+            'name' => $request->name,
+            'import_amount' => $request->import_amount,
+            'requirement_import' => false
+        ];
+        //        dd($dataRequest);
+        $result = $this->storageRepository->updateStorage($dataRequest, $id);
+        if ($result) {
+            return $this->apiResponse($result, 'success', 'Import storage successfully');
+        } else {
+            return $this->apiResponse([], 'fail', 'Import storage unsuccessful');
+        }
+    }
+
+    public function exportStorage($request)
+    {
         $dataRequest = [
             'product_id' => $request->product_id,
             'name' => $request->name,
-            'export_amount'=>$request->export_amount
+            'export_amount' => $request->export_amount
         ];
 
         $result = $this->storageRepository->exportStorage($dataRequest);

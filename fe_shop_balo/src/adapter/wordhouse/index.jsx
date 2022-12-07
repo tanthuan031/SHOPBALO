@@ -1,3 +1,4 @@
+import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 
 export const importSchema = yup.object({
@@ -19,6 +20,21 @@ export const importSchema = yup.object({
   // image_slide: yup.string().required('Image Slide can not blank'),
   // description: yup.string().required('Image Slide can not blank'),
 });
+
+export const importSchemaRequire = yup.object({
+  name: yup
+    .string()
+    .required('Please,Name can not blank')
+    .matches(/^[0-9a-zA-Z\s]+$/, 'Invalid  name format')
+    .max(50)
+    .trim(),
+  import_amount: yup
+    .string()
+    .required(' Amount can not blank')
+    .matches(/^[0-9]+$/, 'Amount can not number'),
+  // provider_id: yup.number().required('Please enter provider'),
+});
+
 export const exportSchema = yup.object({
   name: yup
     .string()

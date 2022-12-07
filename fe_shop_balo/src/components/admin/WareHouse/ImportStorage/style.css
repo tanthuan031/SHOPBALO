@@ -44,9 +44,26 @@ h2:first-child {
   margin-bottom: 20px;
 }
 .print-style {
+  border: 1px solid #333;
+  height: 500px;
+  width: 80%;
+  margin: 3% 10%;
+}
 
-  border:1px solid #333;
-  height:500px;
-  width:80%;
-  margin:3% 10%;
+.table-headerrequire-import .table-responsive table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+.table-headerrequire-import .table-responsive {
+  max-height: 400px;
+  overflow-y: scroll;
+  border-left: 1px solid #e6e6e6;
+  border-right: 1px solid #e6e6e6;
+}
+.table-headerrequire-import .table-responsive table thead th {
+  background: #d6d6d6;
+  position: sticky;
+  top: 0;
+  z-index: 1;
 }

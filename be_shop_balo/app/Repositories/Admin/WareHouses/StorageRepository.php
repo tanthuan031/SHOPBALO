@@ -38,7 +38,7 @@ class StorageRepository
             ->sort($request)
             ->search($request)
             ->filter($request)
-            ->paginate($this->paginate);
+            ->get();
         return $data;
     }
 
@@ -78,6 +78,36 @@ class StorageRepository
         return ImportStorage::query()->find($importStorage['id']);
     }
 
+    public function updateStorage($request, $id)
+    {
+        try {
+
+
+            $storage = Storage::query()->where('product_id', '=', $request['product_id'])->first();
+            $importStorage = ImportStorage::query()->where('id', '=', $id)->first();
+            // $importStorage = ImportStorage::query()->create($request);
+            if ($importStorage) {
+                // dd($importStorage);
+                $importStorage->update($request);
+                if ($storage) {
+                    $storage->update([
+                        'amount' => $storage['amount'] + $request['import_amount']
+                    ]);
+                } else {
+                    $storage = Storage::query()->create([
+                        'product_id' => $request['product_id'],
+                        'provider_id' => $request['provider_id'],
+                        'amount' => $request['import_amount']
+                    ]);
+                }
+            }
+        } catch (\Exception $e) {
+            return false;
+        }
+        return $importStorage;
+    }
+
+
     public function exportStorage($request)
     {
 
@@ -99,7 +129,7 @@ class StorageRepository
                     'amount' => (int)$storage['amount'] - (int)$request['export_amount']
                 ]);
                 $productDetail->update([
-                    'amount'=>(int)$productDetail['amount'] + (int)$request['export_amount']
+                    'amount' => (int)$productDetail['amount'] + (int)$request['export_amount']
                 ]);
                 $data = [
                     'status' => 'success',

@@ -36,6 +36,7 @@ Route::group([
 ], function () {
     Route::get('me', [AuthController::class, 'getMe']);
     Route::resource('product', ProductController::class);
+    Route::post('product_import', [ProductController::class, 'requireImport']);
     Route::resource('staff', StaffController::class);
     Route::resource('customer', CustomerController::class);
     // api resource category
@@ -64,8 +65,8 @@ Route::group([
     Route::prefix('warehouse')->group(function () {
         Route::resource('storage', WareHouseController::class);
         Route::resource('provider', ProviderController::class);
-        Route::get('amount-import',[WareHouseController::class,'getAmountImport']);
-        Route::get('amount-export',[WareHouseController::class,'getAmountExport']);
+        Route::get('amount-import', [WareHouseController::class, 'getAmountImport']);
+        Route::get('amount-export', [WareHouseController::class, 'getAmountExport']);
     });
 });
 Route::get('/storage/{filename}', [StorageImageController::class, 'index']);

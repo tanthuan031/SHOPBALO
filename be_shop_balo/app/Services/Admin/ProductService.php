@@ -84,4 +84,22 @@ class ProductService
     {
         return $this->productRepository->delete($id);
     }
+
+    public function requireImport($request)
+    {
+        $dataRequest = [
+            'product_id' => $request->product_id,
+            'name' => $request->name,
+            'provider_id' => 0,
+            'import_amount' => $request->import_amount,
+            'requirement_import' => $request->requirement_import
+        ];
+        //        dd($dataRequest);
+        $result = $this->productRepository->requireImport($dataRequest);
+        if ($result) {
+            return $this->apiResponse($result, 'success', 'Import storage successfully');
+        } else {
+            return $this->apiResponse([], 'fail', 'Import storage unsuccessful');
+        }
+    }
 }

@@ -1,11 +1,16 @@
 import Notiflix from 'notiflix';
 import React, { useState } from 'react';
 import { Carousel, Form } from 'react-bootstrap';
-import { FaPen, FaTimesCircle } from 'react-icons/fa';
+import { FaFileImport, FaPen, FaPrint, FaTimesCircle } from 'react-icons/fa';
 import { useDispatch } from 'react-redux';
 import { getProductById } from '../../../api/Admin/Product/productAPI';
 import { getStorageImage } from '../../../api/StorageImage';
-import { setIsEdit, setProduct } from '../../../redux/reducer/product/product.reducer';
+import {
+  setIsEdit,
+  setIsRequireImport,
+  setIsRequireIport,
+  setProduct,
+} from '../../../redux/reducer/product/product.reducer';
 import { formatter } from '../../../utils/formatCurrency';
 import { ErrorToast } from '../../commons/Layouts/Alerts';
 import ImageCustom from '../../commons/Layouts/Image';
@@ -51,6 +56,23 @@ export function ProductTable(props) {
       ErrorToast('Something went wrong. Please try again', 3000);
     }
   };
+
+  const handleRequireImport = async (e, id) => {
+    BlockUI('#root', 'fixed');
+    e.stopPropagation();
+    // console.log('f', id);
+    const data = await getProductById(id);
+    Notiflix.Block.remove('#root');
+    if (Object.keys(data).length > 0) {
+      dispatch(setProduct(data));
+      dispatch(setIsRequireImport(true));
+    } else if (data === 401) {
+      Notiflix.Block.remove('#root');
+    } else {
+      Notiflix.Block.remove('#root');
+      ErrorToast('Something went wrong. Please try again', 3000);
+    }
+  };
   // const img = checkImage('http://127.0.0.1:8000/storage/ProductSlide/img2022091909564118842500.jpeg');
   // console.log('s',img);
 
@@ -89,15 +111,15 @@ export function ProductTable(props) {
               >
                 <FaPen className="font-20px" />
               </button>
-              {/* <button
+              <button
                 id="delete-product"
-                // onClick={(e) => {
-                //   handleCheckDisabledUser(e, item.id);
-                // }}
+                onClick={(e) => {
+                  handleRequireImport(e, item.id);
+                }}
                 className="br-6px p-2 ms-3 text-danger bg-gray-100 w-48px h-48px d-flex align-items-center justify-content-center border-none"
               >
-                <FaTimesCircle className="text-danger font-20px" />
-              </button> */}
+                <FaFileImport className="text-danger font-20px" />
+              </button>
             </div>
           </td>
         </tr>

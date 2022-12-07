@@ -3,8 +3,10 @@
 namespace App\Repositories\Admin;
 
 use App\Http\Resources\Admin\Product\ProductResource;
+use App\Models\ImportStorage;
 use App\Models\Product;
 use App\Models\ProductDetail;
+use App\Models\Storage;
 use App\Repositories\BaseRepository;
 
 class ProductRepository extends BaseRepository
@@ -79,5 +81,15 @@ class ProductRepository extends BaseRepository
     public function findByIdCategory($id)
     {
         return $this->product->where('category_id', $id)->first();
+    }
+
+    public function requireImport($request)
+    {
+        try {
+            $importStorage = ImportStorage::query()->create($request);
+        } catch (\Exception $e) {
+            return false;
+        }
+        return ImportStorage::query()->find($importStorage['id']);
     }
 }

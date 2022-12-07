@@ -50,6 +50,19 @@ class ProductController extends Controller
     }
 
     /**
+     * Import a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function requireImport(Request $request)
+    {
+        //        $validated=$request->validated();
+        return $this->productService->requireImport($request);
+    }
+
+
+    /**
      * Display the specified resource.
      *
      * @param  int  $id

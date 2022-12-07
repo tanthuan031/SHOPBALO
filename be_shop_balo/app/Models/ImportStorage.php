@@ -14,7 +14,8 @@ class ImportStorage extends Model
         'name',
         'import_amount',
         'product_id',
-        'provider_id'
+        'provider_id',
+        'requirement_import'
     ];
 
     public function products(): BelongsTo

@@ -85,3 +85,17 @@ export const editProduct = async (id, body) => {
     return 404;
   }
 };
+
+export const requireProduct = async (body) => {
+  const url = '/api/admin/product_import';
+  const response = await axiosClient.post(url, body, configHeadersAuthenticate());
+  if (response.status === 401) {
+    return 401;
+  } else if (response.status === 'success') {
+    return 200;
+  } else if (response.status === 500) {
+    return 500;
+  } else {
+    return 404;
+  }
+};

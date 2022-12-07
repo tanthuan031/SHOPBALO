@@ -9,10 +9,13 @@ import { getAllNotPage } from '../../../../api/Admin/Category/categoryAPI';
 import { getAllProducts } from '../../../../api/Admin/Product/productAPI';
 import { getAllImportHistory, getAllProvider, getAllStorage } from '../../../../api/Admin/WareHouse';
 import { import_storage_table_header } from '../../../../asset/data/importStorage_table_header';
+import { data_storage_table_header_import } from '../../../../asset/data/importStorage_table_header_require_import';
 import { storage_table_header } from '../../../../asset/data/storage_table_header';
 import FilterCategory from '../../../../components/admin/Product/FilterCategory';
 import { ImportTable } from '../../../../components/admin/WareHouse/ImportStorage';
 import ImportStorageAdd from '../../../../components/admin/WareHouse/ImportStorage/Add';
+import ImportRequire from '../../../../components/admin/WareHouse/ImportStorage/ImportRequire';
+
 import { PrintImport } from '../../../../components/admin/WareHouse/ImportStorage/printImport';
 import { StorageTable } from '../../../../components/admin/WareHouse/Storage';
 import { ErrorToast } from '../../../../components/commons/Layouts/Alerts';
@@ -28,11 +31,13 @@ import {
   isAddSelector,
   isEditSelector,
   isImportPrintSelector,
+  isImportRequireStorageSelector,
   isImportStorageSelector,
 } from '../../../../redux/selectors';
 
 export function ImportStoragePage(props) {
   const data_storage_table_header = [...import_storage_table_header];
+  const data_storage_table_header_require_import = [...data_storage_table_header_import];
   const [data, setData] = useState([]);
   const [listProduct, setListProduct] = useState([]);
   const [listProvider, setListProvider] = useState([]);
@@ -44,6 +49,7 @@ export function ImportStoragePage(props) {
   const [perPage] = useState(10);
   const isImportAdd = useSelector(isImportStorageSelector);
   const isImportPrint = useSelector(isImportPrintSelector);
+  const isImportRequireStorage = useSelector(isImportRequireStorageSelector);
   const [sort, setCurrentSort] = useState([
     {
       key: 'id',
@@ -98,20 +104,20 @@ export function ImportStoragePage(props) {
     handleGetAllProducts();
     handleGetAllProvider();
   }, [dispatch, search]);
-  const handlePageChange = async (page) => {
-    setPage(page);
-    setLoading(true);
-    const result = await getAllImportHistory({
-      page,
-    });
-    if (result === 401) {
-    } else if (result === 500) {
-      return false;
-    } else {
-      setStorage(result, 'page');
-    }
-    setLoading(false);
-  };
+  // const handlePageChange = async (page) => {
+  //   setPage(page);
+  //   setLoading(true);
+  //   const result = await getAllImportHistory({
+  //     page,
+  //   });
+  //   if (result === 401) {
+  //   } else if (result === 500) {
+  //     return false;
+  //   } else {
+  //     setStorage(result);
+  //   }
+  //   setLoading(false);
+  // };
   const handleSearch = async (e) => {
     e.preventDefault();
     let tempSort;
@@ -125,7 +131,7 @@ export function ImportStoragePage(props) {
       if (result === 500 || result === 401) {
         ErrorToast('Something went wrong. Please try again', 3000);
       } else {
-        setStorage(result, 'page');
+        setStorage(result);
       }
       return;
     }
@@ -136,9 +142,23 @@ export function ImportStoragePage(props) {
     if (result === 500 || result === 401) {
       ErrorToast('Something went wrong. Please try again', 3000);
     } else {
-      setStorage(result, 'page');
+      setStorage(result);
     }
   };
+
+  const backtoTableImportList = async (value, action) => {
+    setLoading(true);
+    if (action === 'edit') {
+      console.log('Back to Edit');
+    }
+    const result = await getAllImportHistory({
+      sort: value,
+    });
+
+    setStorage(result);
+    setLoading(false);
+  };
+
   const handleSort = async (value) => {
     // if (value) {
     setCheckSort(value);
@@ -154,14 +174,14 @@ export function ImportStoragePage(props) {
     if (result === 500 || result === 401) {
       ErrorToast('Something went wrong. Please try again', 3000);
     } else {
-      setStorage(result, 'page');
+      setStorage(result);
     }
     return;
     // }
   };
-  console.log('ehj', checkSort);
+
   const setStorage = (result, value) => {
-    setData(result.data);
+    setData(result);
     if (value !== 'page') {
       setPage(1);
     }
@@ -182,6 +202,7 @@ export function ImportStoragePage(props) {
       Notiflix.Block.remove('#root');
     }, 500);
   };
+
   return (
     <>
       <section>
@@ -190,7 +211,7 @@ export function ImportStoragePage(props) {
 
           <div className="row">
             <div className="mb-3 d-flex justify-content-between">
-              {!isImportAdd && !isImportPrint ? (
+              {!isImportAdd && !isImportPrint && !isImportRequireStorage ? (
                 <>
                   <div className="d-flex justify-content-between ">
                     <Dropdown>
@@ -263,30 +284,40 @@ export function ImportStoragePage(props) {
           </div>
 
           <div className="row justify-content-center">
-            {!isImportAdd ? (
+            {!isImportAdd && !isImportRequireStorage ? (
               isImportPrint ? (
                 <PrintImport />
               ) : !loading ? (
                 <>
                   {data.length > 0 ? (
-                    <ImportTable tableHeader={data_storage_table_header} tableBody={data} />
+                    <ImportTable
+                      tableHeaderRequirementImport={data_storage_table_header_require_import}
+                      tableHeader={data_storage_table_header}
+                      tableBody={data}
+                    />
                   ) : (
                     <NotFoundData />
                   )}
-                  {totalRecord > 10 && (
+                  {/* {totalRecord > 10 && (
                     <PaginationUI
                       handlePageChange={handlePageChange}
                       perPage={perPage}
                       totalRecord={totalRecord}
                       currentPage={page}
                     />
-                  )}
+                  )} */}
                 </>
               ) : (
                 <Skeleton column={6} />
               )
             ) : (
-              <ImportStorageAdd listProduct={listProduct} listProvider={listProvider} handleSort={handleSort} />
+              !isImportRequireStorage && (
+                <ImportStorageAdd listProduct={listProduct} listProvider={listProvider} handleSort={handleSort} />
+              )
+            )}
+
+            {isImportRequireStorage && (
+              <ImportRequire backtoTableImportList={backtoTableImportList} listProvider={listProvider} />
             )}
           </div>
         </div>

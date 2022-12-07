@@ -22,7 +22,7 @@ class WareHouseController extends Controller
     }
     public function index(Request $request)
     {
-            return  $this->storageService->getAllStorage($request);
+        return  $this->storageService->getAllStorage($request);
     }
 
     /**
@@ -44,13 +44,12 @@ class WareHouseController extends Controller
     public function store(Request $request)
     {
         //
-        if($request->has('exportstorage')){
+        if ($request->has('exportstorage')) {
 
             return  $this->storageService->exportStorage($request);
-        }else{
+        } else {
             return  $this->storageService->importStorage($request);
         }
-
     }
     /**
      * Display the specified resource.
@@ -60,8 +59,7 @@ class WareHouseController extends Controller
      */
     public function getAmountImport(Request $request)
     {
-      return $this->storageService->getAmountImport($request);
-
+        return $this->storageService->getAmountImport($request);
     }
 
     /**
@@ -73,7 +71,6 @@ class WareHouseController extends Controller
     public function getAmountExport(Request $request)
     {
         return $this->storageService->getAmountExport($request);
-
     }
     /**
      * Display the specified resource.
@@ -107,6 +104,7 @@ class WareHouseController extends Controller
     public function update(Request $request, $id)
     {
         //
+        return $this->storageService->updateStorage($request, $id);
     }
 
     /**

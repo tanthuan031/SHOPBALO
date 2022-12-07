@@ -18,7 +18,8 @@ return new class extends Migration
             $table->string("name");
             $table->integer("import_amount");
             $table->foreignId("product_id")->constrained("products");
-            $table->foreignId("provider_id")->constrained("providers");
+            $table->integer("provider_id");
+            $table->boolean("requirement_import");
             $table->timestamps();
         });
     }
