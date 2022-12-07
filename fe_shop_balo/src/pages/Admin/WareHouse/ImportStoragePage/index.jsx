@@ -39,7 +39,7 @@ export function ImportStoragePage(props) {
   const data_storage_table_header = [...import_storage_table_header];
   const data_storage_table_header_require_import = [...data_storage_table_header_import];
   const [data, setData] = useState([]);
-  const [listProduct, setListProduct] = useState([]);
+  const [listProduct, setListProduct] = useState(undefined);
   const [listProvider, setListProvider] = useState([]);
   const [filter, setFilter] = React.useState('provider');
   const [page, setPage] = useState(1);
@@ -103,7 +103,7 @@ export function ImportStoragePage(props) {
     handleGetAllStorages();
     handleGetAllProducts();
     handleGetAllProvider();
-  }, [dispatch, search]);
+  }, [dispatch, search, listProduct]);
   // const handlePageChange = async (page) => {
   //   setPage(page);
   //   setLoading(true);

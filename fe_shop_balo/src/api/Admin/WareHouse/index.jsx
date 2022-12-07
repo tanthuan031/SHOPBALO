@@ -165,15 +165,7 @@ export const importStorage = async (body) => {
 export const updateStorage = async (id, body) => {
   const url = `/api/admin/warehouse/storage/${id}`;
   const response = await axiosClient.put(url, body, configHeadersAuthenticate());
-  if (response.status === 401) {
-    return 401;
-  } else if (response.status === 'success') {
-    return 200;
-  } else if (response.status === 500) {
-    return 500;
-  } else {
-    return 404;
-  }
+  return response;
 };
 
 export const exportStorage = async (body) => {

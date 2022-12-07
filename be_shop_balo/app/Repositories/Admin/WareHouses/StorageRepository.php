@@ -88,18 +88,52 @@ class StorageRepository
             // $importStorage = ImportStorage::query()->create($request);
             if ($importStorage) {
                 // dd($importStorage);
-                $importStorage->update($request);
+
+                $productDetail = ProductDetail::query()->where('product_id', '=', $request['product_id'])->first();
+
                 if ($storage) {
-                    $storage->update([
-                        'amount' => $storage['amount'] + $request['import_amount']
-                    ]);
+                    if ($request['import_amount'] <= $storage['amount'] && $storage['amount'] > 0) {
+                        $dataRequest = [
+                            'product_id' => $request['product_id'],
+                            'provider_id' => $storage['provider_id'],
+                            'name' => $request['name'],
+                            'export_amount' => $request['import_amount']
+                        ];
+                        $exportStorage = ExportStorage::query()->create($dataRequest);
+
+                        $storage->update([
+                            'amount' => (int)$storage['amount'] - (int)$request['import_amount']
+                        ]);
+                        $productDetail->update([
+                            'amount' => (int)$productDetail['amount'] + (int)$request['import_amount']
+                        ]);
+                        $importStorage->update([
+                            'requirement_import' => 0
+                        ]);
+                        $data = [
+                            'status' => 'success',
+                            'data' => ExportStorage::query()->find($exportStorage['id']),
+                            'message' => 'Export successfully'
+                        ];
+                    } else {
+                        $data = [
+                            'status' => 'fail',
+                            'data' => [],
+                            'message' => 'Export quantity is larger than existing quantity or out of stock'
+                        ];
+                    }
                 } else {
-                    $storage = Storage::query()->create([
-                        'product_id' => $request['product_id'],
-                        'provider_id' => $request['provider_id'],
-                        'amount' => $request['import_amount']
-                    ]);
+                    $data = [
+                        'status' => 'fail',
+                        'data' => [],
+                        'message' => 'The product is not in stock'
+                    ];
                 }
+
+
+
+
+                return $data;
             }
         } catch (\Exception $e) {
             return false;

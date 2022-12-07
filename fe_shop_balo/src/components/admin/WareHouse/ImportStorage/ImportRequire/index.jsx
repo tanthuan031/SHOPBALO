@@ -45,7 +45,7 @@ function ImportRequire(props) {
 
   const dispatch = useDispatch();
   const typeOptionsProvider = [];
-  if (props.listProvider !== null || props.listProvider !== undefined) {
+  if (props.listProvider !== null && props.listProvider !== undefined) {
     props.listProvider.data.map((item) => {
       typeOptionsProvider.push({ value: item.id, label: item.name });
     });

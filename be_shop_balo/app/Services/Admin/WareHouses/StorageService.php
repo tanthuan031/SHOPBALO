@@ -91,9 +91,9 @@ class StorageService
         //        dd($dataRequest);
         $result = $this->storageRepository->updateStorage($dataRequest, $id);
         if ($result) {
-            return $this->apiResponse($result, 'success', 'Import storage successfully');
+            return $this->apiResponse($result['data'], $result['status'], $result['message']);
         } else {
-            return $this->apiResponse([], 'fail', 'Import storage unsuccessful');
+            return $this->apiResponse([], 'fail', 'export storage unsuccessful');
         }
     }
 

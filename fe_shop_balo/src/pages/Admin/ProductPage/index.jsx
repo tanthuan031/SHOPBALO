@@ -48,14 +48,17 @@ export function ProductPage(props) {
   const dispatch = useDispatch();
   React.useEffect(() => {
     const handleGetAllProducts = async () => {
-      const result = await getAllProducts({ sort });
+      const result = await getAllProducts({
+        key: 'id',
+        value: 'desc',
+      });
       if (result === 401) {
         handleSetUnthorization();
         return false;
       } else if (result === 500) {
         return false;
       } else {
-        setProduct(result, 'reset-page');
+        setProduct(result);
       }
       setLoading(false);
     };

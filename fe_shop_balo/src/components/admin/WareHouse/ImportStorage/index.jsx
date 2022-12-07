@@ -23,15 +23,17 @@ export function ImportTable(props) {
     dispatch(setImportRequireData(data));
   };
   const renderTableBody = () => {
+    var i = 1;
     return props.tableBody.map((item, index) => {
       if (item.providers === null) {
         return;
       } else {
         return (
-          <tr key={item.id} className="cursor-pointer font-weight-bold row-data">
-            <td>{index + 1}</td>
+          <tr key={item.id} className="cursor-pointer font-weight-bold ">
+            <td>{i++}</td>
             <td>{item.products.id}</td>
             <td>{item.provider_id}</td>
+            <td>{item.name}</td>
             <td>{item.products.name}</td>
             <td>{item.import_amount}</td>
             <td>{item.providers.name}</td>
@@ -53,12 +55,13 @@ export function ImportTable(props) {
     });
   };
   const renderTableBodyRequired = () => {
+    var i = 1;
     return props.tableBody.map((item, index) => {
       if (item.providers === null) {
         if (item.requirement_import === 1) {
           return (
-            <tr key={item.id} className="cursor-pointer font-weight-bold row-data">
-              <td>{index + 1}</td>
+            <tr key={item.id} className="cursor-pointer font-weight-bold">
+              <td>{i++}</td>
               <td>{item.products.id}</td>
               <td>{item.name}</td>
               <td>{item.products.name}</td>
@@ -90,15 +93,15 @@ export function ImportTable(props) {
     <>
       <div className="container-fluid ">
         <div className="row justify-content-center">
-          <h1 className="text-center">Requirement to import goods</h1>
-          <div className="table-headerrequire-import">
-            <TableLayout tableHeader={props.tableHeaderRequirementImport} tableBody={renderTableBodyRequired()} />
-          </div>
+          {/* <h1 className="text-center">Requirement to import goods</h1>
+          <div className="table-headerrequire-import"> */}
+          {/* <TableLayout tableHeader={props.tableHeaderRequirementImport} tableBody={renderTableBodyRequired()} /> */}
+          {/* </div>
 
           <h1 className="text-center">Import history</h1>
-          <div className="table-headerrequire-import">
-            <TableLayout tableHeader={props.tableHeader} tableBody={renderTableBody()} />
-          </div>
+          <div className="table-headerrequire-import"> */}
+          <TableLayout tableHeader={props.tableHeader} tableBody={renderTableBody()} />
+          {/* </div> */}
         </div>
       </div>
     </>

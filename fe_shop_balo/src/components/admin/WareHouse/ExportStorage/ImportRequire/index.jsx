@@ -4,69 +4,75 @@ import React, { useEffect, useState } from 'react';
 import { Button, Form } from 'react-bootstrap';
 import { Controller, useForm, useWatch } from 'react-hook-form';
 import { FaTimesCircle } from 'react-icons/fa';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import Select from 'react-select';
-import { exportSchema, importSchema } from '../../../../../adapter/wordhouse';
+import { importSchema, importSchemaRequire } from '../../../../../adapter/wordhouse';
 // import { addSchema } from '../../../../adapter/product';
 import { deleteCookie, getCookies } from '../../../../../api/Admin/Auth';
 import { addProduct } from '../../../../../api/Admin/Product/productAPI';
-import { exportStorage, importStorage } from '../../../../../api/Admin/WareHouse';
+import { importStorage, updateStorage } from '../../../../../api/Admin/WareHouse';
 import { setExpiredToken } from '../../../../../redux/reducer/auth/auth.reducer';
 import { setIsAdd } from '../../../../../redux/reducer/product/product.reducer';
-import { setIsExportStorage, setIsImportStorage } from '../../../../../redux/reducer/warehouse/warehouse.reducer';
+import {
+  setImportRequire,
+  setImportRequireData,
+  setIsImportStorage,
+} from '../../../../../redux/reducer/warehouse/warehouse.reducer';
+import { importRequireDataSelector } from '../../../../../redux/selectors';
 import { ErrorToast, SuccessToast } from '../../../../commons/Layouts/Alerts';
 import CustomEditor from '../../../../commons/Layouts/Edittor';
 import ImageCustom from '../../../../commons/Layouts/Image';
 import { BlockUI } from '../../../../commons/Layouts/Notiflix';
 import './style.css';
-function ExportStorageAdd(props) {
-  const [errorImage, setErrorImage] = useState('');
-  const [errorDescription, setErrorDescription] = useState('');
-  const [imageOne, setImageOne] = useState('');
+function ImportRequirev1(props) {
+  const productDetailById = useSelector(importRequireDataSelector);
   const {
     register,
     setValue,
     handleSubmit,
     control,
-    formState: { isValid, errors },
+    formState: { isValid, errors, isDirty },
   } = useForm({
     mode: 'onChange',
-    resolver: yupResolver(exportSchema),
+    resolver: yupResolver(importSchemaRequire),
+    defaultValues: {
+      name: productDetailById.name,
+      product_code: productDetailById.product_id,
+      product_name: productDetailById.products.name,
+      import_amount: productDetailById.import_amount,
+    },
   });
-  const dispatch = useDispatch();
-  // useEffect(() => {
-  //   register('description', { required: true });
-  //   register('image_slide');
-  //   setValue('image_slide', fileImageSlide);
-  //   // register('category_id');
-  //   // register('color');
-  //   register('status');
-  // }, [register, fileImageSlide]);
 
-  const typeOptionsProduct = [];
-  if (props.listProduct !== null && props.listProduct !== undefined) {
-    props.listProduct.data.map((item) => {
-      typeOptionsProduct.push({ value: item.id, label: item.name });
+  const dispatch = useDispatch();
+  const typeOptionsProvider = [];
+  if (props.listProvider !== null && props.listProvider !== undefined) {
+    props.listProvider.data.map((item) => {
+      typeOptionsProvider.push({ value: item.id, label: item.name });
     });
   }
 
-  // const typeOptionsProvider = [];
-  // if (props.listProvider !== null || props.listProvider !== undefined) {
-  //   props.listProvider.data.map((item) => {
-  //     typeOptionsProvider.push({ value: item.id, label: item.name });
-  //   });
-  // }
   const onSubmit = async (data) => {
-    // console.log('r', data);
-    // BlockUI('#root', 'fixed');
-    console.log('rgetr', data);
-    const result = await exportStorage(data);
-    console.log('rget', result);
+    // console.log('r', productDetailById);
+    BlockUI('#root', 'fixed');
+    const dataResult = {
+      product_id: data.product_code,
+      provider_id: data.provider_id,
+      name: data.name,
+      import_amount: data.import_amount,
+      requirement_import: 0,
+    };
+    const result = await updateStorage(productDetailById.id, dataResult);
     Notiflix.Block.remove('#root');
+
     if (result.status === 'success') {
-      SuccessToast('Export successfully', 3000);
-      props.handleSort('desc');
-      backtoTableExport();
+      SuccessToast('Import successfully', 3000);
+      backtoTableImport();
+      props.backtoTableImportList([
+        {
+          key: 'updated_at',
+          value: 'desc',
+        },
+      ]);
     } else if (result.status === 'fail') {
       ErrorToast(result.message, 3000);
       Notiflix.Block.remove('#root');
@@ -78,8 +84,8 @@ function ExportStorageAdd(props) {
       ErrorToast('Something went wrong. Please try again', 3000);
     }
   };
-  const backtoTableExport = () => {
-    dispatch(setIsExportStorage(false));
+  const backtoTableImport = () => {
+    dispatch(setImportRequire(false));
   };
 
   const handleSetUnthorization = () => {
@@ -111,38 +117,28 @@ function ExportStorageAdd(props) {
 
               <tr>
                 <td with="30%">
+                  <p className="font-weight-bold">Product Code</p>
+                </td>
+                <td width="85%">
+                  <Form.Control id="name" type="text" maxLength="128" {...register('product_code')} disabled />
+                  <div className="d-flex justify-content-between">
+                    <small className="text-red font-weight-semi">{errors?.name?.message}</small>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td with="30%">
                   <p className="font-weight-bold">Product Name</p>
                 </td>
-                <td width="70%">
-                  <Controller
-                    control={control}
-                    name="product_id"
-                    {...register('product_id')}
-                    ref={null}
-                    render={({ field: { value, onChange } }) => (
-                      <Select
-                        options={typeOptionsProduct}
-                        onChange={(options) => {
-                          onChange(options?.value);
-                        }}
-                        value={typeOptionsProduct.filter((option) => value === option?.value)}
-                        placeholder=""
-                        theme={(theme) => ({
-                          ...theme,
-                          colors: {
-                            ...theme.colors,
-                            primary25: '#f9d2e4',
-                            primary50: '#f9d2e4',
-                            primary: '#d6001c',
-                          },
-                        })}
-                      />
-                    )}
-                  />
+                <td width="85%">
+                  <Form.Control id="name" type="text" maxLength="128" {...register('product_name')} disabled />
+                  <div className="d-flex justify-content-between">
+                    <small className="text-red font-weight-semi">{errors?.product_name?.message}</small>
+                  </div>
                 </td>
               </tr>
 
-              {/* <tr>
+              <tr>
                 <td with="30%">
                   <p className="font-weight-bold">Provider</p>
                 </td>
@@ -174,14 +170,14 @@ function ExportStorageAdd(props) {
                     )}
                   />
                 </td>
-              </tr> */}
+              </tr>
 
               <tr>
                 <td with="30%">
-                  <p className="font-weight-bold">Export quantity</p>
+                  <p className="font-weight-bold">Import quantity</p>
                 </td>
                 <td width="70%">
-                  <Form.Control id="amount" type="number" maxLength="128" {...register('export_amount')} />
+                  <Form.Control id="amount" type="number" maxLength="128" {...register('import_amount')} />
                   <div className="d-flex justify-content-between">
                     <small className="text-red font-weight-semi">{errors.amount?.message}</small>
                   </div>
@@ -195,13 +191,13 @@ function ExportStorageAdd(props) {
               variant="danger"
               type="submit"
               className="font-weight-bold me-3"
-              disabled={!isValid}
+              disabled={!isDirty}
             >
-              Export
+              Import
             </Button>
             <Button
               id="product-save-cancel"
-              onClick={() => backtoTableExport()}
+              onClick={() => backtoTableImport()}
               variant="outline-secondary"
               className="font-weight-bold"
             >
@@ -214,4 +210,4 @@ function ExportStorageAdd(props) {
   );
 }
 
-export default ExportStorageAdd;
+export default ImportRequirev1;

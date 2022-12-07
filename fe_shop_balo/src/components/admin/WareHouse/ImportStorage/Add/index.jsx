@@ -48,16 +48,16 @@ function ImportStorageAdd(props) {
   //   // register('color');
   //   register('status');
   // }, [register, fileImageSlide]);
-
+  console.log('g', props.listProduct);
   const typeOptionsProduct = [];
-  if (props.listProduct !== null || props.listProduct !== undefined) {
+  if (props.listProduct !== null && props.listProduct !== undefined) {
     props.listProduct.data.map((item) => {
       typeOptionsProduct.push({ value: item.id, label: item.name });
     });
   }
 
   const typeOptionsProvider = [];
-  if (props.listProvider !== null || props.listProvider !== undefined) {
+  if (props.listProvider !== null && props.listProvider !== undefined) {
     props.listProvider.data.map((item) => {
       typeOptionsProvider.push({ value: item.id, label: item.name });
     });

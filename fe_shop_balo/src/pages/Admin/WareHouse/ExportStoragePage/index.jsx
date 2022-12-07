@@ -7,7 +7,12 @@ import { useDispatch, useSelector } from 'react-redux';
 import { deleteCookie, getCookies } from '../../../../api/Admin/Auth';
 import { getAllNotPage } from '../../../../api/Admin/Category/categoryAPI';
 import { getAllProducts } from '../../../../api/Admin/Product/productAPI';
-import { getAllExportHistory, getAllProvider, getAllStorage } from '../../../../api/Admin/WareHouse';
+import {
+  getAllExportHistory,
+  getAllImportHistory,
+  getAllProvider,
+  getAllStorage,
+} from '../../../../api/Admin/WareHouse';
 import { export_storage_table_header } from '../../../../asset/data/export_storage_table_header';
 import { import_storage_table_header } from '../../../../asset/data/importStorage_table_header';
 import { storage_table_header } from '../../../../asset/data/storage_table_header';
@@ -29,23 +34,31 @@ import { setIsAdd } from '../../../../redux/reducer/product/product.reducer';
 import { setIsExportStorage, setIsImportStorage } from '../../../../redux/reducer/warehouse/warehouse.reducer';
 import {
   isAddSelector,
-  isEditSelector, isExportPrintSelector,
-  isExportStorageSelector, isImportPrintSelector,
+  isEditSelector,
+  isExportPrintSelector,
+  isExportStorageSelector,
+  isImportPrintSelector,
+  isImportRequireStorageSelector,
   isImportStorageSelector,
 } from '../../../../redux/selectors';
 import { PrintExport } from '../../../../components/admin/WareHouse/ImportStorage/printExport';
+import { data_storage_table_header_import } from '../../../../asset/data/importStorage_table_header_require_import';
+import ImportRequirev1 from '../../../../components/admin/WareHouse/ExportStorage/ImportRequire';
 
 export function ExportStoragePage(props) {
   const data_storage_table_header = [...export_storage_table_header];
+  const data_storage_table_header_require_import = [...data_storage_table_header_import];
   const [data, setData] = useState([]);
-  const [listProduct, setListProduct] = useState([]);
-  const [listProvider, setListProvider] = useState([]);
+  const [listProduct, setListProduct] = useState(undefined);
+  const [listProvider, setListProvider] = useState(undefined);
+  const [importRequire, setImportRequire] = useState([]);
   const [page, setPage] = useState(1);
   const [checkSort, setCheckSort] = useState('desc');
   const [totalRecord, setTotalRecords] = useState(0);
   const [loading, setLoading] = useState(true);
   const [perPage] = useState(10);
   const isExportAdd = useSelector(isExportStorageSelector);
+  const isImportRequireStorage = useSelector(isImportRequireStorageSelector);
   const [sort, setCurrentSort] = useState([
     {
       key: 'id',
@@ -97,9 +110,25 @@ export function ExportStoragePage(props) {
       }
       setLoading(false);
     };
+    const handleGetAllStoragesImport = async () => {
+      let param = { sort };
+
+      const result = await getAllImportHistory(param);
+
+      if (result === 401) {
+        handleSetUnthorization();
+        return false;
+      } else if (result === 500) {
+        return false;
+      } else {
+        setImportRequire(result);
+      }
+      setLoading(false);
+    };
     handleGetAllStorages();
     handleGetAllProducts();
     handleGetAllProvider();
+    handleGetAllStoragesImport();
   }, [dispatch, search]);
   const handlePageChange = async (page) => {
     setPage(page);
@@ -141,6 +170,21 @@ export function ExportStoragePage(props) {
     } else {
       setStorage(result, 'page');
     }
+  };
+
+  const backtoTableImportList = async (value, action) => {
+    setLoading(true);
+    if (action === 'edit') {
+      console.log('Back to Edit');
+    }
+    const result = await getAllExportHistory({
+      sort: value,
+    });
+
+    const resultv1 = await getAllImportHistory({ sort: value });
+    setImportRequire(resultv1);
+    setStorage(result);
+    setLoading(false);
   };
   const handleSort = async (value) => {
     // if (value) {
@@ -193,7 +237,7 @@ export function ExportStoragePage(props) {
 
           <div className="row">
             <div className="mb-3 d-flex justify-content-between">
-              {!isExportAdd && !isExportPrint ? (
+              {!isExportAdd && !isExportPrint && !isImportRequireStorage ? (
                 <>
                   <div className="d-flex justify-content-between ">
                     <Dropdown>
@@ -265,14 +309,18 @@ export function ExportStoragePage(props) {
           </div>
 
           <div className="row justify-content-center">
-            {!isExportAdd ? (
-                isExportPrint ?
-              <PrintExport/>
-              :
-              !loading ? (
+            {!isExportAdd && !isImportRequireStorage ? (
+              isExportPrint ? (
+                <PrintExport />
+              ) : !loading ? (
                 <>
-                  {data.length > 0 ? (
-                    <ExportTable tableHeader={data_storage_table_header} tableBody={data} />
+                  {data.length > 0 || importRequire.length > 0 ? (
+                    <ExportTable
+                      tableHeaderRequirementImport={data_storage_table_header_require_import}
+                      tableHeader={data_storage_table_header}
+                      tableBody={data}
+                      tableBodyRequire={importRequire}
+                    />
                   ) : (
                     <NotFoundData />
                   )}
@@ -289,7 +337,13 @@ export function ExportStoragePage(props) {
                 <Skeleton column={6} />
               )
             ) : (
-              <ExportStorageAdd listProduct={listProduct} listProvider={listProvider} handleSort={handleSort} />
+              !isImportRequireStorage && (
+                <ExportStorageAdd listProduct={listProduct} listProvider={listProvider} handleSort={handleSort} />
+              )
+            )}
+
+            {isImportRequireStorage && (
+              <ImportRequirev1 backtoTableImportList={backtoTableImportList} listProvider={listProvider} />
             )}
           </div>
         </div>

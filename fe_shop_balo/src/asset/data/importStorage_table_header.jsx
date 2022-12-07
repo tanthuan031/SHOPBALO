@@ -25,6 +25,14 @@ export const import_storage_table_header = [
   },
   {
     id: 4,
+    name: 'Name',
+    isSortAsc: false,
+    isSortDesc: false,
+    isSort: false,
+    cursor: false,
+  },
+  {
+    id: 5,
     name: 'Product Name',
     isSortAsc: false,
     isSortDesc: false,
@@ -40,7 +48,7 @@ export const import_storage_table_header = [
   //   cursor: true,
   // },
   {
-    id: 5,
+    id: 6,
     name: 'Import quantity',
     isSortAsc: false,
     isSortDesc: false,
@@ -72,7 +80,7 @@ export const import_storage_table_header = [
   //   cursor: true,
   // },
   {
-    id: 6,
+    id: 7,
     name: 'Provider',
     isSortAsc: false,
     isSortDesc: false,
@@ -80,7 +88,7 @@ export const import_storage_table_header = [
     cursor: true,
   },
   {
-    id: 7,
+    id: 8,
     name: 'Created_date',
     isSortAsc: false,
     isSortDesc: false,

@@ -55,6 +55,7 @@ function RequireImport(props) {
     Notiflix.Block.remove('#root');
     if (result === 200) {
       SuccessToast('Require Import successfully', 3000);
+      backtoTableImport();
     } else if (result === 404) {
       ErrorToast('Require Import unsuccessfully', 3000);
       Notiflix.Block.remove('#root');
