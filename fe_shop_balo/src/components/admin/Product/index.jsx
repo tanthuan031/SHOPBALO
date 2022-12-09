@@ -154,12 +154,14 @@ export function ProductTable(props) {
             <h3 className="title-name-product-detail">{detailProduct.name}</h3>
             <div>
               <div
-                className="description-product-detail"
+                className="description-product-detail text-align-justify"
                 dangerouslySetInnerHTML={{ __html: detailProduct.description }}
               ></div>
 
-              <p className="text-product-detail">Color </p>
-              <Form.Control type="color" value={detailProduct.code_color} disabled className="margin-left-12px " />
+             <span className='d-flex justify-content-between align-items-center'>
+                <p className="text-product-detail">Color : </p>
+              <Form.Control type="color" value={detailProduct.code_color} disabled className=" " />
+             </span>
               <p className="text-product-detail">Price : {formatter.format(detailProduct.price)}</p>
               <p className="text-product-detail">
                 Status :
@@ -185,7 +187,7 @@ export function ProductTable(props) {
       <Modal
         show={show}
         setStateModal={() => setShowDetail(false)}
-        elementModalTitle="Detail product"
+        elementModalTitle="DETAIL PRODUCT"
         elementModalBody={renderDetailProduct()}
         className="model-xl modal-product-detail"
       />

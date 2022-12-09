@@ -60,7 +60,7 @@ const ReviewDetail = () => {
           </div>
         </div>
         <h2 className="mt-5 fs-5 fw-bold mb-4">
-          Comment about #{reviewData.products.id} - {reviewData.products.name}
+          Review about #{reviewData.products.id} - {reviewData.products.name}
         </h2>
         <div className="d-flex flex-column gap-3">
           <span className="d-flex">
@@ -89,7 +89,7 @@ const ReviewDetail = () => {
             variant="outline-secondary"
             className="font-weight-bold"
           >
-            Cancel
+            Back
           </Button>
         </div>
       </div>

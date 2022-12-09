@@ -75,7 +75,7 @@
   color: var(--bs-sub-txt);
 }
 .card-txt-content:hover {
-  height:100%;
+
   overflow:scroll;
   overflow-x: hidden;
   margin:0 0.2rem;

@@ -137,7 +137,7 @@ export function StaffTable(props) {
             {item.email && <AutoSendMail email={item.email} className="spinner" />}
           </p>
         </div>
-        <div className="card-content-overlay">
+        <div className="card-content-overlay p-3">
           <p className="card-txt-content">
             <MdOutlineManageAccounts className="icon" />
             {item.role_name}

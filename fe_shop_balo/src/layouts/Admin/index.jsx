@@ -7,7 +7,7 @@ import { menu_admin_item } from '../../asset/data/menu_admin_item';
 import Drawer from '../../components/commons/Layouts/Drawer';
 import { FaUsers } from 'react-icons/fa';
 import './style.css';
-import { Button } from 'react-bootstrap';
+import { Button, Image } from 'react-bootstrap';
 import { useSelector } from 'react-redux';
 
 import ExpiredToken from '../../components/commons/Auth/ExpiredToken';
@@ -36,8 +36,12 @@ export function AdminLayout(props) {
               {user === undefined ? (
                 <Skeleton colomn="1" />
               ) : (
-                <>
-                  <FaUsers /> Admin: {user != undefined && user.first_name + ' ' + user.last_name}
+                <>{user != undefined &&
+                  <span className='d-flex align-items-center justify-content-between p-l-20 p-r-20'>
+                    <Image roundedCircle thumbnail responsive src={user.avatar} className='w-25 '/>
+                    <span><FaUsers />  { user.first_name + ' ' + user.last_name}</span>
+                  </span>
+                }
                 </>
               )}
             </h5>

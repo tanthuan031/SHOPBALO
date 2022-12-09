@@ -18,9 +18,9 @@ export default function Sort(props) {
     <Dropdown>
       <Dropdown.Toggle
         id="user-type-filter-btn"
-        className="btn-danger filter-button d-flex align-items-center justity-content-center mr-2"
+        className="btn-danger w-160 d-flex align-items-center justity-content-center mr-2"
       >
-        <p className="flex-grow-1 font-weight-bold">Sort</p>
+        <p className="flex-grow-1 font-weight-bold">Sort by date</p>
         <div className="fb-icon">
           <HiFilter />
         </div>
@@ -32,7 +32,7 @@ export default function Sort(props) {
               type="radio"
               id="checkbox-last-day"
               className="mx-4 my-2 font-weight-bold"
-              label="Last Day"
+              label="Recently"
               checked={sort === 'DESC'}
               onChange={() => handleFilter('DESC')}
             />
@@ -42,7 +42,7 @@ export default function Sort(props) {
               type="radio"
               id="checkbox-new-day"
               className="mx-4 my-2 font-weight-bold"
-              label="New Day"
+              label="Previously"
               checked={sort === 'ASC'}
               onChange={() => handleFilter('ASC')}
             />

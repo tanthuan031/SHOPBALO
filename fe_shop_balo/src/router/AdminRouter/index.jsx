@@ -40,6 +40,7 @@ export default function AdminRouter() {
       } else {
         dispatch(setIsLogin(true));
         dispatch(setUser(result));
+
       }
     });
   }, [dispatch]);

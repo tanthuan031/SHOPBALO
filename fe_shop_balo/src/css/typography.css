@@ -12,7 +12,9 @@ h6 {
 a {
   text-decoration: none;
 }
-
+.text-align-justify{
+  text-align:justify;
+}
 .font-weight-extra-light {
   font-weight: var(--font-weight-extra-light);
 }

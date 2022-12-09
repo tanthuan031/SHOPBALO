@@ -86,10 +86,10 @@ export function OrderTable(props) {
                 // onClick={(e) => {
                 //   handleCheckDisabledUser(e, item.id);
                 // }}
-                className="br-6px p-2   bg-gray-100 w-48px h-48px d-flex align-items-center justify-content-center border-none"
+                className="br-6px p-2  btn-show-item  bg-gray-100 w-48px h-48px d-flex align-items-center justify-content-center border-none"
               >
                 <FaRegEye
-                  className=" font-20px"
+                  className=" font-20px "
                   onClick={(e) => {
                     handleOrderDetail(e, item.order_id, item);
                   }}

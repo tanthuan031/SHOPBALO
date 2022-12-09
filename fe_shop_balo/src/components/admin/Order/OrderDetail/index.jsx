@@ -1,5 +1,5 @@
 import React, { useRef } from 'react';
-import { Button } from 'react-bootstrap';
+import { Button, Table } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { setIsDetail, setIsEdit } from '../../../../redux/reducer/order/order.reducer';
 import { orderByIdSelector, orderDetailByIdSelector } from '../../../../redux/selectors/order/order.selector';
@@ -7,6 +7,7 @@ import { formatter } from '../../../../utils/formatCurrency';
 import PrintPDF from '../../../commons/Layouts/PrintPDF';
 import { useReactToPrint } from 'react-to-print';
 import './style.css';
+import { FaPrint, FaStepBackward } from 'react-icons/fa';
 
 const OrderDetail = () => {
   const components = useRef();
@@ -25,40 +26,74 @@ const OrderDetail = () => {
     <>
       <div className="row mb-3">
         <div className=" d-flex justify-content-end">
-          <Button id="product-save-cancel" onClick={backToOrder} variant="outline-danger" className="font-weight-bold">
-            Cancel
+          <Button id="product-save-cancel" onClick={backToOrder} variant="outline-danger" className="m-r-12  font-weight-bold ">
+            <FaStepBackward /> Back
           </Button>
+          <Button
+            variant="outline-success"
+            className=""
+            onClick={() => {
+              dispatch(setIsEdit(true), dispatch(setIsDetail(false)));
+            }}
+          >
+            Update Status
+          </Button>
+
           <Button
             id="product-save-cancel"
             onClick={handlePrint}
             variant="secondary"
-            className="font-weight-bold margin-left-12px"
+            className="font-weight-bold margin-left-12px  "
           >
+            <FaPrint className="m-r-8"/>
             Print
           </Button>
         </div>
       </div>
-      <div ref={components}>
-        <div className="row order_detail_info_order">
+      <div ref={components} className='p-l-20 p-r-20'>
+        <div className="row order_detail_info_order ">
           <div className="col-12 col-md-12 col-sm-12">
             <div className="mt-1 p-3  container w-100">
               <div>
-                <h1 className="mt-2 mb-4 font-30px fw-bold text-center ">Information order</h1>
+                <h1 className="mt-2 mb-4 font-30px fw-bold text-center ">Purchase Order</h1>
+                <hr className="border border-1 opacity-50"></hr>
                 <div className="d-flex flex-column">
-                  <h5 className="text-end p0 fw-bold">
-                    #{dataOrder && dataOrder.order_id} - {dataOrder && dataOrder.created_order_date}
-                  </h5>
                   <div className=" row">
-                    <div className="col-5 ml-3">
+                    <div className="col-4 ml-3">
                       <h4 className="fs-6  mt-4 mb-1 font-weight-bold ">
-                        Customer name :
+                        Order ID :
+                        <span>  #{dataOrder && dataOrder.order_id} </span>
+                      </h4>
+                      <h4 className="fs-6  mt-4 mb-1 font-weight-bold ">
+                        Customer Name :
                         <span> {dataOrder && dataOrder.customer_firstname + ' ' + dataOrder.customer_lastname} </span>
                       </h4>
                       <h4 className="fs-6  mt-4 mb-1 font-weight-bold ">
-                        Phone : <span>0{dataOrder && dataOrder.customer_phone}</span>
+                       Customer Phone : <span>0{dataOrder && dataOrder.customer_phone}</span>
                       </h4>
                       <h4 className="fs-6  mt-4 mb-1 font-weight-bold ">
-                        Address : <span>{dataOrder && dataOrder.address_delivery}</span>
+                        Ship to : <span>{dataOrder && dataOrder.address_delivery}</span>
+                      </h4>
+
+                    </div>
+                    <div className="col-4 total_order_detail">
+                      <h4 className="fs-6  mt-4 mb-1 font-weight-bold ">
+                        ID Staff : <span> {dataOrder && dataOrder.staff_id}</span>
+                      </h4>
+                      <h4 className="fs-6  mt-4 mb-1 font-weight-bold ">
+                        Staff name :
+                        <span>{dataOrder && dataOrder.staff_firstname + ' ' + dataOrder.staff_lastname} </span>
+                      </h4>
+                      <h4 className="fs-6  mt-4 mb-1 font-weight-bold ">
+                        Discount : <span> {dataOrder && dataOrder.discount_value}%</span>
+                      </h4>
+                      <h4 className="fs-6  mt-4 mb-1 font-weight-bold ">
+                        Total : <span> {dataOrder && formatter.format(dataOrder.total_price)}</span>
+                      </h4>
+                    </div>
+                    <div className="col-3 total_order_detail">
+                      <h4 className="fs-6  mt-4 mb-1 font-weight-bold ">
+                       Order Date : {dataOrder && dataOrder.created_order_date}
                       </h4>
                       <h4 className="fs-6   mt-4 mb-1 font-weight-bold ">
                         Status:
@@ -81,29 +116,10 @@ const OrderDetail = () => {
                             }
                           })()}
                         </span>
-                        <button
-                          className="margin-left-12px text-primary"
-                          onClick={() => {
-                            dispatch(setIsEdit(true), dispatch(setIsDetail(false)));
-                          }}
-                        >
-                          Update Status
-                        </button>
-                      </h4>
-                    </div>
-                    <div className="col-7 total_order_detail">
-                      <h4 className="fs-6  mt-4 mb-1 font-weight-bold ">
-                        ID staff : <span> {dataOrder && dataOrder.staff_id}</span>
+
                       </h4>
                       <h4 className="fs-6  mt-4 mb-1 font-weight-bold ">
-                        Staff name :
-                        <span>{dataOrder && dataOrder.staff_firstname + ' ' + dataOrder.staff_lastname} </span>
-                      </h4>
-                      <h4 className="fs-6  mt-4 mb-1 font-weight-bold ">
-                        Discount : <span> {dataOrder && dataOrder.discount_value}%</span>
-                      </h4>
-                      <h4 className="fs-6  mt-4 mb-1 font-weight-bold ">
-                        Total : <span> {dataOrder && formatter.format(dataOrder.total_price)}</span>
+                        Payment : <span> COD</span>
                       </h4>
                     </div>
                   </div>
@@ -114,42 +130,48 @@ const OrderDetail = () => {
         </div>
 
         <hr className="border border-1 opacity-50"></hr>
-        <h1 className="mt-2 font-20px fw-bold text-center ">Product detail</h1>
-        <div className="row">
+        <h1 className="mt-2 font-20px fw-bold text-center ">Purchase Order Details</h1>
+        <Table striped bordered hover>
+          <thead>
+          <tr>
+            <th>Serial</th>
+            <th>Product</th>
+            <th>Quantity</th>
+            <th>Price</th>
+            <th>Sum</th>
+          </tr>
+          </thead>
+          <tbody>
           {dataDetailOrderById.data !== undefined &&
-            dataDetailOrderById.data.map((item, index) => {
-              return (
-                <div className="col-12 col-md-6 col-sm-12" key={index}>
-                  <div className="mt-4 p-3 detail-order container w-100">
-                    <div>
-                      <h2 className="mt-2 fs-5 fw-bold  "># {index + 1}</h2>
-                      <h2 className="mt-2 fs-5 fw-bold text-center  ">{item.product_name}</h2>
-                      <div className="d-flex flex-column">
-                        <div className=" row">
-                          <div className=" col-3 image_detail_order">
-                            <img src={item.image} width={100} height={100} alt="image_detail_order" />
-                          </div>
-                          <div className="col-5 ml-3">
-                            <h4 className="fs-6  mt-4 mb-1 font-weight-bold ">
-                              Price : <span>{formatter.format(item.price)} </span>
-                            </h4>
-                            <h4 className="fs-6  mt-4 mb-1 font-weight-bold ">
-                              Amount : <span>{item.amount}</span>
-                            </h4>
-                          </div>
-                          <div className="col-4 total_order_detail">
-                            <h4 className="fs-6 mb-1 font-weight-bold ">
-                              Total : <span>{formatter.format(item.price * item.amount)}</span>
-                            </h4>
-                          </div>
-                        </div>
-                      </div>
+            dataDetailOrderById.data.map((item, index) =>
+              (
+                <tr>
+                  <td>{index+1}</td>
+                  <td>
+                    <span>{item.product_name}</span>
+                    <div className=" col-3 image_detail_order">
+                      <img src={item.image} width={100} height={100} alt="image_detail_order" />
                     </div>
-                  </div>
-                </div>
-              );
-            })}
-        </div>
+                  </td>
+                  <td>{item.amount}</td>
+                  <td>{formatter.format(item.price)}</td>
+                  <td>{formatter.format(item.price * item.amount)}</td>
+                </tr>
+              )
+            )
+          }
+          <tr>
+            <td colSpan={3}></td>
+            <td><b>Tax</b></td>
+            <td>$0</td>
+          </tr>
+          <tr>
+            <td colSpan={3}></td>
+            <td><b>Total</b></td>
+            <td>{dataOrder && formatter.format(dataOrder.total_price)}</td>
+          </tr>
+          </tbody>
+        </Table>
       </div>
     </>
   );

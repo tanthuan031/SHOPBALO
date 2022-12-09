@@ -34,7 +34,7 @@ export default function SortValue(props) {
               type="radio"
               id="checkbox-asc"
               className="mx-4 my-2 font-weight-bold"
-              label="↑ Asc"
+              label="↑ Increase"
               checked={sort === 'asc'}
               onChange={() => handleFilter('asc')}
             />
@@ -44,7 +44,7 @@ export default function SortValue(props) {
               type="radio"
               id="checkbox-desc"
               className="mx-4 my-2 font-weight-bold"
-              label="↓ Desc"
+              label="↓ Decrease"
               checked={sort === 'desc'}
               onChange={() => handleFilter('desc')}
             />

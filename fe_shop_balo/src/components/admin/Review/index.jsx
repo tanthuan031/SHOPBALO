@@ -107,7 +107,7 @@ const ReviewTable = (props) => {
           <td>{++index}</td>
           <td>
             <div className="d-flex gap-2">
-              <div className="img-avatar ">
+              <div className="small-img-product ">
                 <ImageCustom src={item.products.image} className="w-100 " />
               </div>
 
@@ -166,7 +166,7 @@ const ReviewTable = (props) => {
               <button
                 id="edit-product"
                 onClick={(e) => handleDetailReview(e, item.id)}
-                className="cursor-pointer br-6px p-2 bg-gray-100 text-black w-48px h-48px d-flex align-items-center justify-content-center border-none"
+                className=" btn-show-item cursor-pointer br-6px p-2 bg-gray-100 text-black w-48px h-48px d-flex align-items-center justify-content-center border-none"
               >
                 <FaRegEye className="font-20px" />
               </button>

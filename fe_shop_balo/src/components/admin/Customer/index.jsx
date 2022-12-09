@@ -131,8 +131,8 @@ export function CustomerTable(props) {
             {item.email && <AutoSendMail email={item.email} className="spinner" />}
           </p>
         </div>
-        <div className="card-content-overlay">
-          <p className="card-txt-content">
+        <div className="card-content-overlay  p-5">
+          <p className="card-txt-content ">
             {item.gender === 'female' ? <FaFemale className="icon" /> : <FaMale className="icon" />}
             {item.gender}
           </p>

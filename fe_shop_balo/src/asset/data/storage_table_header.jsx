@@ -47,7 +47,7 @@ export const storage_table_header = [
     isSort: true,
     cursor: true,
   },
-  
+
   // {
   //   id: 5,
   //   name: 'Price',

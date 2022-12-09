@@ -120,7 +120,7 @@ export function RoleTable(props) {
           </p>
         </div>
         <div className="card-content-overlay bg-content-role">
-          <ul className="card-txt-content  ">
+          <ul className="card-txt-content h-100 ">
                        {!!item && item.list_permissions.map((item, i) =>
                          (<li key={item.id} className="mb-1 text-center txt-white">{item.name}</li>))}
           </ul>
