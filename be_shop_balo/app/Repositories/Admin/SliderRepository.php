@@ -5,7 +5,7 @@ namespace App\Repositories\Admin;
 use App\Models\Slider;
 use App\Repositories\BaseRepository;
 
-class liderRepository extends BaseRepository
+class SliderRepository extends BaseRepository
 {
 
     public function __construct(Slider $slider)
