@@ -40,9 +40,9 @@ class RatingController extends Controller
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
-    public function store(CreateRequest $request)
+    public function store(CreateRequest $request): \Illuminate\Http\JsonResponse
     {
         return $this->ratingService->create($request);
     }

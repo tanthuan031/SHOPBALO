@@ -47,9 +47,9 @@ class RatingService
 
     /**
      * create
-     *@author tranvannghia021
-     * @param  mixed $request
-     * @return response
+     *@param  mixed $request
+     * @return \Illuminate\Http\JsonResponse
+     * @author tranvannghia021
      */
     public function create($request)
     {
