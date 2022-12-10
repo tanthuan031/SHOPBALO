@@ -8,7 +8,7 @@ import Notiflix from 'notiflix';
 import { addRattingProduct } from '../../../../../api/Client/Raing/ratingAPI';
 import { ErrorToast, SuccessToast } from '../../../../commons/Layouts/Alerts';
 function ReviewProductItem(props) {
-  // console.log(list_review);
+  console.log('Props',props);
   const [pointRatings, setPointRatings] = useState(5);
   const [imgUploadReview, setImgUploadReview] = useState(false);
   const uploadImage = (e) => {
@@ -37,13 +37,15 @@ function ReviewProductItem(props) {
     BlockUICLIENT('#root', 'fixed');
     const image = await toBase64(data.image[0]);
     const resultData = {
-      customer_id: props.dataDetailRV,
-      product_id: props.dataCustomer,
+      customer_id: props.dataCustomer,
+      product_id: props.dataDetailRV,
       point: pointRatings,
       content: data.review,
       image: image,
     };
-    const result = await addRattingProduct(resultData);
+    console.log(resultData);
+    const result = await addRattingProduct(resultData)
+    console.log(result);
     Notiflix.Block.remove('#root');
     if (result.status === 200) {
       SuccessToast('Review product successfully', 5000);

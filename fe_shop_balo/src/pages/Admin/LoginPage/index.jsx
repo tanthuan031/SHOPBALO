@@ -18,7 +18,7 @@ export function LoginPage(props) {
         <section className="section-login">
           <div className="sl-box">
             <h4 className="mt-2 font-weight-bold text-center">
-              {isForgotPassword ? 'Forgot Password' : 'Welcome back'}
+              {isForgotPassword ? 'Forgot Password' : 'Manage Shop'}
             </h4>
             {!isForgotPassword ? (
               <h6 className="mt-2">

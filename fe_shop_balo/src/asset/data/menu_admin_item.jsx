@@ -17,7 +17,7 @@ import {
 export const menu_admin_item = [
   {
     id: 1,
-    name: 'DashBoard',
+    name: 'Overview',
     active: true,
     link: '/admin/',
     icon: <FaHome />,

@@ -1,5 +1,5 @@
 import React from 'react';
-import { FaPhoneAlt, FaRegEdit, FaRegEnvelope } from 'react-icons/fa';
+import { FaAngleRight, FaPhoneAlt, FaRegEdit, FaRegEnvelope } from 'react-icons/fa';
 import ImageCustom from '../../commons/Layouts/Image';
 
 import { useDispatch } from 'react-redux';
@@ -13,6 +13,14 @@ export default function ProfileClient(props) {
   return (
     <>
       <div className="row info-account-header">
+        <div className="bread-crumb flex-w  p-t-10 p-lr-0-lg mb-5">
+          <a href="./my-account" className="stext-110 cl8 hov-cl1 trans-04">
+            Profile
+            <FaAngleRight/>
+          </a>
+
+
+        </div>
         <div className="col-md-8 info-account-header-item">
           <div className="info-account-top"></div>
           <div className="card-txt avatar-account">
@@ -35,7 +43,7 @@ export default function ProfileClient(props) {
         </div>
         <div className="col-md-3 info-account-header-item ml-3">
           <div>
-            <h3 className="font-weight-black text-center pt-5 ">POIN</h3>
+            <h3 className="font-weight-black text-center pt-5 ">Point</h3>
             <div className="font-weight-black text-center pt-3">{props.dataProfile.point}</div>
           </div>
 
@@ -60,7 +68,7 @@ export default function ProfileClient(props) {
           </div>
           <div className="row info-cusstomer-header">
             <div className="col-md-12">
-              <h3 className="font-weight-black text-center pt-2  ">Information Cusstomer</h3>
+              <h3 className="font-weight-black text-center pt-2  ">Information Customer</h3>
             </div>
           </div>
           <div className="row ">

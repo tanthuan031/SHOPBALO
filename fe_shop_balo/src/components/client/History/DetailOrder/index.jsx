@@ -139,7 +139,7 @@ const OrderHistoryDetail = (props) => {
               <tr>
                 <td>{index+1}</td>
                 <td>
-                  <span>{item.products.name}</span>
+                  <a href={`/product/${item.products.id}`} className="header-cart-item-name m-b-8 hov-cl1 trans-04">{item.products.name}</a>
                   <div className=" col-3 image_detail_order">
                     <ImageCustom
                       src={item.products.image}

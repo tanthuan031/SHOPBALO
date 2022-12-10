@@ -1,10 +1,9 @@
 import { Button } from 'react-bootstrap';
-import { FaStar, FaStepBackward } from 'react-icons/fa';
+import { FaStar} from 'react-icons/fa';
 import { useDispatch, useSelector } from 'react-redux';
 import { setIsEdit } from '../../../../redux/reducer/review/review.reducer';
 import ImageCustom from '../../../commons/Layouts/Image';
 import { isSelectorReview } from '../../../../redux/selectors/review/review.selector';
-import { URL_SERVER } from '../../../../utils/urlPath';
 import './style.css';
 
 const ReviewDetail = () => {
@@ -50,7 +49,7 @@ const ReviewDetail = () => {
             <div className="d-inline-block ">
               <span className="fw-bold">Email : </span>
               <span>{reviewData.customers.email}</span>
-            </div>
+            </div><br/>
             <div className="d-inline-block  m-t-10">
               <span className="fw-bold">Phone :</span>
               <span>{reviewData.customers.phone}</span>
@@ -60,7 +59,7 @@ const ReviewDetail = () => {
             <div className="d-inline">
               <span className="fw-bold">Address :</span>
               <span>{reviewData.customers.address}</span>
-            </div>
+            </div><br/>
             <div className="d-inline-block m-t-10">
               <span className="fw-bold">Gender :</span>
               <span>{reviewData.customers.gender}</span>
