@@ -1,6 +1,6 @@
 import Notiflix from 'notiflix';
 import React, { useEffect, useState } from 'react';
-import { Button, Col, Form, Row } from 'react-bootstrap';
+import { Button, Col, Form, Row, Table } from 'react-bootstrap';
 import { Controller, useForm, useWatch } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 import Select from 'react-select';
@@ -11,13 +11,14 @@ import { getAllProducts } from '../../../../api/Admin/Product/productAPI';
 import { getAllDisount } from '../../../../api/Admin/Promotion/promotionAPI';
 import { getAllCities, getAllDictrists, getAllWards } from '../../../../api/Cities';
 import { setExpiredToken } from '../../../../redux/reducer/auth/auth.reducer';
-import { setIsAdd } from '../../../../redux/reducer/order/order.reducer';
+import { setIsAdd, setIsDetail } from '../../../../redux/reducer/order/order.reducer';
 import { getUserSelector } from '../../../../redux/selectors';
 import { formatter } from '../../../../utils/formatCurrency';
 import { ErrorToast, SuccessToast } from '../../../commons/Layouts/Alerts';
 import ImageCustom from '../../../commons/Layouts/Image';
 import { BlockUI } from '../../../commons/Layouts/Notiflix';
 import './style.css';
+import { FaStepBackward } from 'react-icons/fa';
 function OrderAdd(props) {
   const [listProduct, setListProduct] = useState(null);
   const [listCustomer, setListCustomer] = useState(null);
@@ -273,11 +274,24 @@ function OrderAdd(props) {
     }
     setListAddProduct(lists);
   };
+  const backToOrder = () => {
+    dispatch(setIsAdd(false));
+  };
   return (
     <>
-      <div className="row mb-5">
+      <div className="row mb-5 box-order">
         <Form className=" text-black" encType="multipart/form-data" onSubmit={handleSubmit(onSubmit)}>
-          <div className="d-flex justify-content-end p-2 mt-3">
+          <div className="d-flex justify-content-end p-2 mt-3 mb-3">
+            <Button
+              id="product-save-btn"
+              variant="outline-secondary"
+              type="submit"
+              className="font-weight-bold me-3 d-flex align-items-center"
+              onClick={backToOrder}
+            >
+              <FaStepBackward/>
+              Back
+            </Button>
             <Button
               id="product-save-btn"
               variant="danger"
@@ -374,40 +388,32 @@ function OrderAdd(props) {
                 </div>
               </Row>
               <Row>
-                <div className="col-md-4 ">
+                <div className="col-md-6 ">
                   <Form.Group className="mb-2 font-18px">
-                    <Form.Label className="label-input">
-                      City &nbsp;<span className="text-danger">*</span>
-                    </Form.Label>
+                    <Form.Label className="label-input">Staff</Form.Label>
                     <Controller
-                      name="cities"
                       control={control}
+                      name="staff_id"
+                      defaultValue=""
                       render={({ field: { onChange, onBlur, value, ref } }) => (
-                        <Select
-                          options={cities}
-                          onChange={(options) => {
-                            onChange(options?.value);
-                            handleGetDistrict(options?.value);
-                            setValue('cities', options.label);
-                          }}
-                          theme={(theme) => ({
-                            ...theme,
-                            colors: {
-                              ...theme.colors,
-                              primary25: '#ffffff',
-                              primary50: '##3ca9d5',
-                              primary: '#3ca9d5',
-                            },
-                          })}
-                        />
+                        <div className="d-flex icon-edit-checkout">
+                          <Form.Control
+                            onChange={onChange}
+                            value={user.first_name + ' ' + user.last_name}
+                            ref={ref}
+                            disabled
+                            {...register('staff_id')}
+                          />
+                          {/* <FaEdit onClick={() => setEditPhone(!editPhone)} /> */}
+                        </div>
                       )}
                     />
+                    <div className="d-flex justify-content-between">
+                      <small className="text-red font-weight-semi">{errors?.staff_id?.message}</small>
+                    </div>
                   </Form.Group>
-                  <div className="d-flex justify-content-between">
-                    <small className="text-red font-12px">{errors?.cities?.message}</small>
-                  </div>
                 </div>
-                <div className="col-md-4">
+                <div className="col-md-6">
                   <Form.Group className="mb-2 font-18px">
                     <Form.Label className="label-input">
                       Discount &nbsp;<span className="text-danger">*</span>
@@ -443,35 +449,43 @@ function OrderAdd(props) {
                     <small className="text-red font-12px">{errors?.discount_id?.message}</small>
                   </div>
                 </div>
+
+              </Row>
+              <Row>
                 <div className="col-md-4 ">
                   <Form.Group className="mb-2 font-18px">
-                    <Form.Label className="label-input">Staff</Form.Label>
+                    <Form.Label className="label-input">
+                      City &nbsp;<span className="text-danger">*</span>
+                    </Form.Label>
                     <Controller
+                      name="cities"
                       control={control}
-                      name="staff_id"
-                      defaultValue=""
                       render={({ field: { onChange, onBlur, value, ref } }) => (
-                        <div className="d-flex icon-edit-checkout">
-                          <Form.Control
-                            onChange={onChange}
-                            value={user.first_name + ' ' + user.last_name}
-                            ref={ref}
-                            disabled
-                            {...register('staff_id')}
-                          />
-                          {/* <FaEdit onClick={() => setEditPhone(!editPhone)} /> */}
-                        </div>
+                        <Select
+                          options={cities}
+                          onChange={(options) => {
+                            onChange(options?.value);
+                            handleGetDistrict(options?.value);
+                            setValue('cities', options.label);
+                          }}
+                          theme={(theme) => ({
+                            ...theme,
+                            colors: {
+                              ...theme.colors,
+                              primary25: '#ffffff',
+                              primary50: '##3ca9d5',
+                              primary: '#3ca9d5',
+                            },
+                          })}
+                        />
                       )}
                     />
-                    <div className="d-flex justify-content-between">
-                      <small className="text-red font-weight-semi">{errors?.staff_id?.message}</small>
-                    </div>
                   </Form.Group>
+                  <div className="d-flex justify-content-between">
+                    <small className="text-red font-12px">{errors?.cities?.message}</small>
+                  </div>
                 </div>
-              </Row>
-
-              <Row>
-                <div className="col-md-6 ">
+                <div className="col-md-4 ">
                   <Form.Group className="mb-2 font-18px">
                     <Form.Label className="label-input">
                       District &nbsp;<span className="text-danger">*</span>
@@ -505,7 +519,7 @@ function OrderAdd(props) {
                     <small className="text-red font-12px">{errors?.cities?.message}</small>
                   </div>
                 </div>
-                <div className="col-md-6 ">
+                <div className="col-md-4 ">
                   <Form.Group className="mb-2 font-18px">
                     <Form.Label className="label-input">
                       Ward &nbsp;<span className="text-danger">*</span>
@@ -539,7 +553,6 @@ function OrderAdd(props) {
                   </div>
                 </div>
               </Row>
-
               <Form.Group className="mb-3">
                 <Form.Label className="label-input">Address</Form.Label>
                 <Controller
@@ -566,13 +579,13 @@ function OrderAdd(props) {
           </div>
         </Form>
       </div>
-      <div className="row mb-5">
+      <div className="row mb-5 box-order">
         <div className="col-md-5">
-          <h4 className="text-center mb-2">List product</h4>
+          <h4 className="text-center fw-bold mb-2">List Product</h4>
           <div className="wrap-table-checkout-cart">
-            <table className="table-checkout-cart text-center">
+            <Table className="table-checkout-cart text-center">
               <thead>
-                <tr className="table_head">
+                <tr className="">
                   <th className="column-1">#</th>
                   <th className="column-2">Image</th>
                   <th className="column-3">Name</th>
@@ -596,11 +609,11 @@ function OrderAdd(props) {
                     );
                   })}
               </tbody>
-            </table>
+            </Table>
           </div>
         </div>
         <div className="col-md-7 ">
-          <h4 className="text-center mb-2">Information Order</h4>
+          <h4 className="text-center mb-2 fw-bold">Purchase Order</h4>
           <div className="row">
             <div className="wrap-table-checkout-cart">
               <table className="table-checkout-cart text-center">
@@ -611,7 +624,7 @@ function OrderAdd(props) {
                     <th className="column-2">Name</th>
                     <th className="column-3">Quantity </th>
                     <th className="column-4">Price</th>
-                    <th className="column-5">Remove</th>
+                    <th className="column-5">Action</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -630,7 +643,7 @@ function OrderAdd(props) {
                             <td className="column-3">{item.qty}</td>
                             <td className="column-4">{formatter.format(item.data.price)}</td>
                             <td className="column-4 text-danger" onClick={() => handleRemoveProduct(item.data.id)}>
-                              Remove
+                             <Button variant='danger'>Remove</Button>
                             </td>
                           </tr>
                         );
@@ -643,9 +656,9 @@ function OrderAdd(props) {
           </div>
           <div className="row mt-3">
             <div>
-              <h4 className="text-end">
-                Total price: <span>{formatter.format(totalPrice1)}</span>
-              </h4>
+              <h5 className="text-end fw-bold">
+                Total Price: <span>{formatter.format(totalPrice1)}</span>
+              </h5>
             </div>
           </div>
         </div>

@@ -17,6 +17,8 @@ import CustomerEdit from '../../../components/admin/Customer/Edit';
 import NotFoundData from '../../../components/commons/Layouts/NotFoundData';
 import { setExpiredToken, setIsLogin } from '../../../redux/reducer/auth/auth.reducer';
 import { deleteCookie, getCookies } from '../../../api/Admin/Auth';
+import  * as XLSX  from 'xlsx';
+import { FaFileExcel } from 'react-icons/fa';
 
 export function CustomerPage(props) {
   const data_customer_table_header = [...customer_table_header];
@@ -111,6 +113,12 @@ export function CustomerPage(props) {
       deleteCookie('token');
     }
   };
+  const handleExportExcel = () => {
+    const wb = XLSX.utils.book_new();
+    const ws=XLSX.utils.json_to_sheet(data)
+    XLSX.utils.book_append_sheet(wb, ws,'List Customer Tresor');
+    XLSX.writeFile(wb,'ListCustomer_TreSor.xlsx')
+  }
   return (
     <section>
       <div className="container-fluid mt-5">
@@ -157,10 +165,17 @@ export function CustomerPage(props) {
                   <Button
                     id="create-new-product"
                     variant="danger"
-                    className="font-weight-bold ms-3"
+                    className="font-weight-bold ms-3 m-r-10"
                     onClick={goToPageAddCustomer}
                   >
                     Create new customer
+                  </Button>
+                  <Button    variant="outline-success"
+                             onClick={
+                               ()=>handleExportExcel()
+                             }
+                  >
+                    <FaFileExcel/>
                   </Button>
                 </div>
               </div>

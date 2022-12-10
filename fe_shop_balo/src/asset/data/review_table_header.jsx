@@ -1,7 +1,7 @@
 export const review_table_header = [
   {
     id: 1,
-    name: 'STT',
+    name: 'Serial',
     isSortAsc: false,
     isSortDesc: false,
     isSort: true,

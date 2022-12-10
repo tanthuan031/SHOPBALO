@@ -1,5 +1,5 @@
 import React, { useRef } from 'react';
-import { Button, Table } from 'react-bootstrap';
+import { Button, Image, Table } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { setIsDetail, setIsEdit } from '../../../../redux/reducer/order/order.reducer';
 import { orderByIdSelector, orderDetailByIdSelector } from '../../../../redux/selectors/order/order.selector';
@@ -8,6 +8,7 @@ import PrintPDF from '../../../commons/Layouts/PrintPDF';
 import { useReactToPrint } from 'react-to-print';
 import './style.css';
 import { FaPrint, FaStepBackward } from 'react-icons/fa';
+import { ADDRESS_COMPANY, AVATAR_COMPANY, NAME_COMPANY, PHONE_COMPANY } from '../../../../utils/urlPath';
 
 const OrderDetail = () => {
   const components = useRef();
@@ -51,11 +52,27 @@ const OrderDetail = () => {
         </div>
       </div>
       <div ref={components} className='p-l-20 p-r-20'>
+        <hr className="border-cl-bill mt-10 "></hr>
         <div className="row order_detail_info_order ">
-          <div className="col-12 col-md-12 col-sm-12">
+          <div className=" col-md-12 col-sm-12 mt-3">
+            <div className='row p-lr-20'>
+              <div className="col-md-4 col-sm-12 d-flex w-38 justify-content-between">
+                <Image className='avatar-company' src={AVATAR_COMPANY}></Image>
+                <div className='info-company'>
+                  <h4 className='fw-bold p-b-5'>{NAME_COMPANY}</h4>
+                  <span className='d-inline-block p-b-5'>Contact : {PHONE_COMPANY}</span>
+                  <p className='p-b-5'>Address : {ADDRESS_COMPANY}</p>
+
+                </div>
+              </div>
+              <div className="col-m-4 col-md-12">
+
+              </div>
+            </div>
             <div className="mt-1 p-3  container w-100">
               <div>
-                <h1 className="mt-2 mb-4 font-30px fw-bold text-center ">Purchase Order</h1>
+                <h1 className="mt-2 mb-4 font-30px fw-bold text-center ">INVOICE</h1>
+
                 <hr className="border border-1 opacity-50"></hr>
                 <div className="d-flex flex-column">
                   <div className=" row">
@@ -131,7 +148,7 @@ const OrderDetail = () => {
 
         <hr className="border border-1 opacity-50"></hr>
         <h1 className="mt-2 font-20px fw-bold text-center ">Purchase Order Details</h1>
-        <Table striped bordered hover>
+        <Table striped bordered hover className='mb-5'>
           <thead>
           <tr>
             <th>Serial</th>
@@ -172,6 +189,16 @@ const OrderDetail = () => {
           </tr>
           </tbody>
         </Table>
+
+        <div className="signature d-flex justify-content-between p-lr-50 m-b-200">
+          <div className="customer signature ">
+            <span className='fw-bold'>Customer Signature</span>
+          </div>
+          <div className="customer signature">
+            <span className='fw-bold'>Shop Representative</span>
+          </div>
+        </div>
+        <hr className="border-cl-bill mt-5 "></hr>
       </div>
     </>
   );

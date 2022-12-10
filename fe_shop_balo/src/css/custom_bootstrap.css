@@ -74,3 +74,19 @@ input::-ms-clear {
 .btn-show-item:hover{
   background-color: var(--blue-100)
 }
+.w-40{
+  width:40% !important;
+}
+.w-30{
+  width:30% !important;
+}
+.w-35{
+  width:35% !important;
+}
+.w-38{
+  width:38% !important;
+}
+.w-60{
+  width:60% !important;
+}
+

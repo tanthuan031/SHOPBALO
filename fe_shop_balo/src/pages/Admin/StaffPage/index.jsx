@@ -17,7 +17,9 @@ import FilterStatus from '../../../components/admin/Staff/FilterStatus';
 import { setExpiredToken } from '../../../redux/reducer/auth/auth.reducer';
 import { setIsAdd, setIsEdit } from '../../../redux/reducer/staff/staff.reducer';
 import { isAddStaffSelector, isEditStaffSelector, isResetStaffSelector } from '../../../redux/selectors';
+import * as XLSX from "xlsx";
 import './style.css';
+import { FaFileExcel, FaPrint } from 'react-icons/fa';
 
 export function StaffPage(props) {
   const data_staff_table_header = [...staff_table_header];
@@ -116,6 +118,12 @@ export function StaffPage(props) {
       deleteCookie('token');
     }
   };
+  const handleExportExcel = () => {
+    const wb = XLSX.utils.book_new();
+    const ws=XLSX.utils.json_to_sheet(data)
+    XLSX.utils.book_append_sheet(wb, ws,'List Staff ');
+    XLSX.writeFile(wb,'ListStaff_TreSor.xlsx')
+  }
   return (
     <section>
       <div className="container-fluid mt-5">
@@ -162,10 +170,17 @@ export function StaffPage(props) {
                   <Button
                     id="create-new-product"
                     variant="danger"
-                    className="font-weight-bold ms-3"
+                    className="font-weight-bold ms-3 m-r-10"
                     onClick={goToPageAddStaff}
                   >
                     Create new staff
+                  </Button>
+                  <Button    variant="outline-success"
+                  onClick={
+                    ()=>handleExportExcel()
+                  }
+                  >
+                    <FaFileExcel/>
                   </Button>
                 </div>
               </div>

@@ -17,6 +17,14 @@
   align-items: center;
   margin: auto !important;
 }
+.border-cl-bill{
+  border-top:8px solid #fa4d18 !important;
+  opacity:0.7 !important;
+
+}
+.avatar-company{
+  width: 6rem;
+}
 /* .print_pdf {
   display: none;
 } */

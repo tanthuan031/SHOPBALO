@@ -1,3 +1,10 @@
+.box-order{
+  background-color: #fff;
+  border-radius: 6px;
+  border:1px solid #bdbdbd;
+  box-shadow:2px 1px 2px rgba(0,0,0,.2);
+  padding:20px 35px 40px 35px;
+}
 .edit_form form {
   width: 90%;
   background: var(--bs-white);

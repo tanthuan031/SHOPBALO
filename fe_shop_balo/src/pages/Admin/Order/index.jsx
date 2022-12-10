@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Button, Form, InputGroup } from 'react-bootstrap';
-import { FaSearch } from 'react-icons/fa';
+import { FaFileExcel, FaSearch } from 'react-icons/fa';
 import { useDispatch, useSelector } from 'react-redux';
 import { deleteCookie, getCookies } from '../../../api/Admin/Auth';
 import { getAllOrder } from '../../../api/Admin/Order/indexAPI';
@@ -23,7 +23,7 @@ import FilterOrder from '../../../components/admin/Order/FilterOrder';
 import Notiflix from 'notiflix';
 import { setIsAdd, setIsDetail, setIsEdit } from '../../../redux/reducer/order/order.reducer';
 import OrderAdd from '../../../components/admin/Order/Add';
-import { getAllProducts } from '../../../api/Admin/Product/productAPI';
+import * as XLSX from "xlsx";
 
 function OrderPage(props) {
   const data_order_table_header = [...order_table_header];
@@ -143,6 +143,12 @@ function OrderPage(props) {
     setLoading(false);
     return;
   };
+  const handleExportExcel = () => {
+    const wb = XLSX.utils.book_new();
+    const ws=XLSX.utils.json_to_sheet(data)
+    XLSX.utils.book_append_sheet(wb, ws,'List Purchase Order');
+    XLSX.writeFile(wb,'ListPurchaseOrder.xlsx')
+  }
   return (
     <>
       <section>
@@ -221,10 +227,17 @@ function OrderPage(props) {
                   <Button
                     id="create-new-product"
                     variant="danger"
-                    className="font-weight-bold ms-3"
+                    className="font-weight-bold ms-3 m-r-15"
                     onClick={() => dispatch(setIsAdd(true))}
                   >
                     Create order
+                  </Button>
+                  <Button    variant="outline-success"
+                             onClick={
+                               ()=>handleExportExcel()
+                             }
+                  >
+                    <FaFileExcel/>
                   </Button>
                 </div>
               </div>
