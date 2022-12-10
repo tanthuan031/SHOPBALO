@@ -40,8 +40,8 @@ export default function InfoPromotion(props) {
   };
 
   return (
-    <div className="edit_form d-flex justify-content-center">
-      <Form className=" text-black form-checkout-promotion" encType="multipart/form-data">
+    <div className="edit_form d-flex justify-content-center br-none">
+      <Form className=" text-black form-checkout-promotion br-none" encType="multipart/form-data">
         <div className="mb-3">
           <h4 className="font-weight-bold text-black title-promotion">Promotion</h4>
           <div>

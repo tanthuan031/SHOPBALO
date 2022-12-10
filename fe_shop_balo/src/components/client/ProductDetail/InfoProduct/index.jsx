@@ -3,7 +3,7 @@ import { FaMinus, FaPlus, FaStar, FaStarHalf } from 'react-icons/fa';
 import { formatter } from '../../../../utils/formatCurrency';
 import StarRatings from 'react-star-ratings/build/star-ratings';
 import { useDispatch, useSelector } from 'react-redux';
-import { addProductCart, addProductCartWithQuantity } from '../../../../redux/reducer/cart/cart.reducer';
+import {addProductCartWithQuantity } from '../../../../redux/reducer/cart/cart.reducer';
 import { cartSelector } from '../../../../redux/selectors';
 import { SuccessToast } from '../../../commons/Layouts/Alerts';
 

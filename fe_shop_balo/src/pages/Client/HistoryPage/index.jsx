@@ -1,16 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { handleGetInformationClient } from '../../../api/Client/Auth/authAPI';
 import { getAllOrderByCustomer } from '../../../api/Client/Order';
-import { order_table_header } from '../../../asset/data/order_table_header';
 import { order_table_header_client } from '../../../asset/data/order_table_header_client';
 import OrderHistoryDetail from '../../../components/client/History/DetailOrder';
 import { OrderTableClient } from '../../../components/client/History/ListOrder';
 import NotFoundData from '../../../components/commons/Layouts/NotFoundData';
-import PaginationUI from '../../../components/commons/Layouts/Pagination';
 import Skeleton from '../../../components/commons/Layouts/Skeleton';
 import { isHistoryDetailSelector } from '../../../redux/selectors/history/history.selector';
 import { profileSelector } from '../../../redux/selectors/profile/profile.selector';
+import { FaAngleRight } from 'react-icons/fa';
+import "./style.css"
 
 export function HistoryOrderPage() {
   const data_order_table_header = [...order_table_header_client];
@@ -127,42 +126,68 @@ export function HistoryOrderPage() {
         <div className="container mt-5 mb-5">
           <div className="row"></div>
           {detailHistory ? (
-            <h3 className="mb-5 magin-0px">History Detail</h3>
+            <div className="bread-crumb flex-w  p-t-30 p-lr-0-lg mb-5">
+              <a href="./my-account" className="stext-110 cl8 hov-cl1 trans-04">
+                Profile
+                <FaAngleRight/>
+              </a>
+
+              <a href="./history" className="stext-110 cl8 hov-cl1 trans-04">
+                My Purchase
+                <FaAngleRight/>
+              </a>
+              <a href="./history" className="stext-110 cl8 hov-cl1 trans-04">
+                Detail Invoice
+                <FaAngleRight/>
+              </a>
+
+            </div>
           ) : (
             <>
-              <h3 className="mb-5">History Order</h3>
+              <div className="bread-crumb flex-w  p-t-30 p-lr-0-lg mb-5">
+                <a href="./my-account" className="stext-110 cl8 hov-cl1 trans-04">
+                  Profile
+                  <FaAngleRight/>
+                </a>
+
+                <a href="./history" className="stext-110 cl8 hov-cl1 trans-04">
+                  My Purchase
+                  <FaAngleRight/>
+                </a>
+
+              </div>
               <div className="row">
-                <div className="container d-flex justify-content-around">
-                  <h4
-                    className={`mb-5 cursor-pointer margin-0px ${activeHeader === 1 ? 'text-blue-100' : ''} `}
+                <div className="container d-flex justify-content-around nav-history">
+                  <h5
+                    className={`mb-5 fw-bold cursor-pointer margin-0px  ${activeHeader === 1 ? 'active' : ''} `}
                     onClick={handleToWait}
                   >
                     Waitting ({dataListWait.length})
-                  </h4>
-                  <h4
-                    className={`mb-5 cursor-pointer margin-0px ${activeHeader === 2 ? 'text-blue-100' : ''} `}
+                  </h5>
+                  <h5
+                    className={`mb-5 fw-bold cursor-pointer margin-0px  ${activeHeader === 2 ? 'active' : ''} `}
                     onClick={handleToShip}
                   >
                     To Ship ({dataListToShip.length})
-                  </h4>
-                  <h4
-                    className={`mb-5 cursor-pointer margin-0px ${activeHeader === 3 ? 'text-blue-100' : ''} `}
+                  </h5>
+                  <h5
+                    className={`mb-5 fw-bold cursor-pointer margin-0px  ${activeHeader === 3 ? 'active' : ''} `}
                     onClick={handleReceive}
                   >
                     To Receive ({dataListToReceive.length})
-                  </h4>
-                  <h4
-                    className={`mb-5 cursor-pointer margin-0px ${activeHeader === 4 ? 'text-blue-100' : ''} `}
+                  </h5>
+                  <h5
+                    className={`mb-5 fw-bold cursor-pointer margin-0px  ${activeHeader === 4 ? 'active' : ''} `}
                     onClick={handleComplete}
                   >
                     Completed ({dataListCompleted.length})
-                  </h4>
-                  <h4
-                    className={`mb-5 cursor-pointer margin-0px ${activeHeader === 5 ? 'text-blue-100' : ''} `}
+                  </h5>
+                  <h5
+                    className={`mb-5 fw-bold cursor-pointer margin-   ${activeHeader === 5 ? 'active' : ''} `}
                     onClick={handleCancelled}
                   >
                     Cancelled ({dataListCancelled.length})
-                  </h4>
+                  </h5>
                 </div>
               </div>
             </>

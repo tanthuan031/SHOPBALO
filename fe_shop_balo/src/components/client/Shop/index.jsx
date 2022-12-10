@@ -109,23 +109,23 @@ const Shop = () => {
 
   return (
     <>
-      <section className="container ">
-        <div className="d-flex justify-content-between py-3">
-          <section id="shop__title-main">
-            <span className="fw-bold fs-2 my-4">ALL PRODUCT</span>
+      <section className="container m-t-150  ">
+        <div className="d-flex justify-content-between py-3 ">
+          <section id="shop__title-main  " >
+            <span className="fw-bold fs-2 my-4">LIST PRODUCT</span>
           </section>
-          <SortPrice />
+          <SortPrice  />
         </div>
-        <div className="d-flex gap-3">
+        <div className="d-flex gap-3 mt-2">
           <div className="filter-homepage me-4 overflow-auto bg-light" style={{ width: '25%' }}>
             <div>
               <div className="overflow-auto d-flex flex-column" style={{ height: '50rem' }}>
                 <div className="d-flex justify-content-between align-items-center p-3 bg-light header-fillter">
                   <div className="">
                     <FiFilter />
-                    <span className="fw-bold ms-3 ">Bộ lọc</span>
+                    <span className="fw-bold ms-3 ">Bộ Lọc</span>
                   </div>
-                  <span className="fw-bold ms-3 pointer text-danger" onClick={() => handleClearFilter()}>
+                  <span className="fw-bold ms-3 btn btn-outline-danger" onClick={() => handleClearFilter()}>
                     Clear All
                   </span>
                 </div>

@@ -147,10 +147,10 @@ export default function FormInfomationCheckout(props) {
   };
 
   return (
-    <div className="edit_form d-flex justify-content-center">
+    <div className="d-flex justify-content-center">
       <Form className="font_checkout text-black" encType="multipart/form-data" onSubmit={handleSubmit(onSubmit)}>
         <div className="row">
-          <div className="col-md-7">
+          <div className="col-md-7 order-summary p-l-50 p-r-50">
             <h4 className="text-center font-weight-bold mb-3 text-black">Shipment Details</h4>
             <Row>
               <Col>

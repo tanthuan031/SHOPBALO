@@ -11,6 +11,7 @@ import Skeleton from '../../../components/commons/Layouts/Skeleton';
 import { cartSelector } from '../../../redux/selectors';
 import { profileSelector } from '../../../redux/selectors/profile/profile.selector';
 import { formatter } from '../../../utils/formatCurrency';
+import { FaAngleRight } from 'react-icons/fa';
 
 export function CheckOutPage() {
   const [total, setTotal] = useState([]);
@@ -70,11 +71,19 @@ export function CheckOutPage() {
 
   return (
     <section>
-      <div className="container-fluid  animsition ">
-        <div className="container">
-          <div className="row">
-            <h3 className="mb-5">Checkout</h3>
-          </div>
+      <div className="container animsition  ">
+            <div className="bread-crumb flex-w  p-t-30 p-lr-0-lg mb-5">
+              <a href="./cart" className="stext-110 cl8 hov-cl1 trans-04">
+                Cart
+                <FaAngleRight/>
+              </a>
+
+              <a href="./checkout" className="stext-110 cl8 hov-cl1 trans-04">
+                Checkout
+                <FaAngleRight/>
+              </a>
+
+            </div>
           {listCartProduct !== null && listCartProduct.cart.cartData ? (
             <>
               <div className="row">
@@ -95,7 +104,7 @@ export function CheckOutPage() {
               </div>
               <div className="row mb-5">
                 <div className="col-md-12">
-                  <h4 className=" mt-5 text-center font-weight-bold mb-3 mt-1 text-black">Order Infomation</h4>
+                  <h4 className=" mt-5 text-center font-weight-bold mb-3 mt-1 text-black">Purchase Information</h4>
                   {dataProfile != '' ? (
                     <FormInfomationCheckout
                       dataListCart={listCartProduct.cart.cartData}
@@ -112,7 +121,6 @@ export function CheckOutPage() {
             <NotFoundData btnLink="Purchase" />
           )}
         </div>
-      </div>
     </section>
   );
 }
