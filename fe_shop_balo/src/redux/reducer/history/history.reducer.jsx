@@ -6,6 +6,7 @@ export const historyReducer = createSlice({
     key: 0,
     isDetailHistory: false,
     orderDetailById: {},
+    checkReview:false,
   },
   reducers: {
     setIsDetailHistory: (state, action) => {
@@ -14,7 +15,10 @@ export const historyReducer = createSlice({
     setOrderDetailHistory: (state, action) => {
       state.orderDetailById = action.payload;
     },
+    setCheckReview: (state, action) => {
+      state.checkReview=action.payload;
+    }
   },
 });
-export const { setIsDetailHistory, setOrderDetailHistory } = historyReducer.actions;
+export const { setIsDetailHistory, setOrderDetailHistory,setCheckReview } = historyReducer.actions;
 export default historyReducer.reducer;

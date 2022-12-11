@@ -7,8 +7,11 @@ import { BlockUI, BlockUICLIENT } from '../../../../commons/Layouts/Notiflix';
 import Notiflix from 'notiflix';
 import { addRattingProduct } from '../../../../../api/Client/Raing/ratingAPI';
 import { ErrorToast, SuccessToast } from '../../../../commons/Layouts/Alerts';
+import { useDispatch } from 'react-redux';
+import { setCheckReview } from '../../../../../redux/reducer/history/history.reducer';
 function ReviewProductItem(props) {
   console.log('Props',props);
+  const dispatch=useDispatch();
   const [pointRatings, setPointRatings] = useState(5);
   const [imgUploadReview, setImgUploadReview] = useState(false);
   const uploadImage = (e) => {
@@ -49,6 +52,7 @@ function ReviewProductItem(props) {
     Notiflix.Block.remove('#root');
     if (result.status === 200) {
       SuccessToast('Review product successfully', 5000);
+      dispatch(setCheckReview(false))
     } else if (result === 404) {
       ErrorToast('Review product unsuccessfully', 3000);
       Notiflix.Block.remove('#root');

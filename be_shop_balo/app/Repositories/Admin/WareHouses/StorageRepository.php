@@ -69,7 +69,8 @@ class StorageRepository
                 $storage = Storage::query()->create([
                     'product_id' => $request['product_id'],
                     'provider_id' => $request['provider_id'],
-                    'amount' => $request['import_amount']
+                    'amount' => $request['import_amount'],
+                    'requirement_import' =>1,
                 ]);
             }
         } catch (\Exception $e) {

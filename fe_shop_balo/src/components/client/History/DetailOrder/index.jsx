@@ -1,8 +1,11 @@
 import React, { useState } from 'react';
 import { Button, Table } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
-import { setIsDetailHistory } from '../../../../redux/reducer/history/history.reducer';
-import { orderDetailByIdHistorySelector } from '../../../../redux/selectors/history/history.selector';
+import { setCheckReview, setIsDetailHistory } from '../../../../redux/reducer/history/history.reducer';
+import {
+  checkReviewSelector,
+  orderDetailByIdHistorySelector,
+} from '../../../../redux/selectors/history/history.selector';
 import { formatter } from '../../../../utils/formatCurrency';
 import ImageCustom from '../../../commons/Layouts/Image';
 import ReviewProductItem from './ReviewProduct';
@@ -10,7 +13,8 @@ import './style.css';
 import { FaStepBackward } from 'react-icons/fa';
 
 const OrderHistoryDetail = (props) => {
-  const [review, setShowReview] = useState(false);
+  // const [review, setShowReview] = useState(false);
+  const review =useSelector(checkReviewSelector);
   const dispatch = useDispatch();
   const dataDetailOrderById = useSelector(orderDetailByIdHistorySelector);
   console.log(dataDetailOrderById);
@@ -18,6 +22,10 @@ const OrderHistoryDetail = (props) => {
   const backToOrder = () => {
     dispatch(setIsDetailHistory(false));
   };
+const checkReviewC=()=>{
+  dispatch(setCheckReview(!review));
+}
+console.log("rjh",review);
   return (
     <>
       <div className="row mb-3">
@@ -148,13 +156,17 @@ const OrderHistoryDetail = (props) => {
                   </div>
                   {dataDetailOrderById.dataOrder !== undefined && dataDetailOrderById.dataOrder.status === 6 && (
                     <div className="">
-                      <p onClick={() => setShowReview(!review)} className="text-center btn btn-outline-primary cursor-pointer ">
-                        Review
-                      </p>
+
+                       <p onClick={checkReviewC} className="text-center btn btn-outline-primary cursor-pointer ">
+                          Review
+                        </p>
+
+
                       {review ? (
                         <ReviewProductItem
                           dataDetailRV={item.products.id}
                           dataCustomer={dataDetailOrderById.dataOrder.customer_id}
+                          // checkReview={checkReview}
                         />
                       ) : (
                         ''
