@@ -6,7 +6,7 @@ Github Project: https://github.com/tanthuan031/SHOPBALO.git
 
 - Composer : https://getcomposer.org/download/
 - Laravel:9
-- Php: 8.\*
+- Php: 8.1
 
 ### FrontEnd: Reactjs
 
@@ -147,14 +147,26 @@ Admin
 
 - BE: http://127.0.0.1:8000/api/
 
-## 6. GUI
+## --Cách khác: Cài đặt với docker--
 
-### 6.1 Admin
+```
+docker compose up -d build
+```
 
-#### Dashboard
+```
+docker exec  <ID Container> composer install
+```
 
-#### Manage Product
+```
+docker exec  <ID Container> chown -R www-data:www-data /var/www be_qr_code/storage/
+```
 
-#### Manage Staff
+```
+docker exec  <ID Container> php artisan key:generate
+```
 
-### To be continued
+```
+docker exec  <ID Container> php artisan migrate:fresh --seed
+```
+
+Author: TanThuan
